@@ -38,13 +38,16 @@
   #define PROJECT_SPI_CLOCK   RCU_SPI1    // Clock for above peripheral.
 
 
-  // Trigger counter values
-  //
+// Trigger counter values
 #define TC_LOW_THRESHOLD      120U
 #define TC_HIGH_THRESHOLD     240U
 #define TC_MAX                360U
 #define TRIGGER_SET           1
 #define TRIGGER_CLR           0
+#define TRIG_TIMEOUT_MS       1000U
+
+// Sleep mode control; debug doesn't work well if it's enabled. Comment out for sleep feature.
+//#define NO_SLEEP_MODE
 
   // Includes
   //

@@ -2,6 +2,7 @@
 // main.cpp : Defines entry point for an GD32F30x C/C++ application.
 //
 #include <gd32f30x.h>
+#include <stdbool.h>
 #include "main.h"
 #include "interrupt_utils.h"
 #include "audio_engine.h"
@@ -37,7 +38,7 @@
 #include "handpan.h"
 #include "nylon_guitar.h"
 #include "dalby_tritone16b16k.h"
-
+#include "Lemon_Tree.h"
 
 static        void        SetupClocks               ( void );
               void        spi_config                ( uint32_t speed );
@@ -49,12 +50,15 @@ static        void        GPIO_InitPins             ( void );
               uint8_t     GetTriggerOption          ( void );
 
               void        delay_ms                  ( uint32_t millis );
-              void        ErrorHandler              ( void );
+              void        Error_Handler             ( void );
+              void        Enter_LP_SleepMode        ( void );
 
+// Trigger control variables (hardware-specific)
+volatile  uint16_t        trig_counter                  = 0;              // Counter for trigger input timing
+volatile  uint8_t         trig_timeout_flag             = 0;              // Flag indicating trigger timeout has occurred
+volatile  uint16_t        trig_timeout_counter          = 0;              // Counter for trigger timeout duration
+volatile  uint8_t         trig_status                   = TRIGGER_CLR;    // Current trigger status  (SET or CLR)
 
-/* State variables */
-volatile  uint16_t    trig_counter            = 0;
-volatile  uint8_t     trig_status             = TRIGGER_CLR;
 
 /* SysTick variables */
 volatile uint32_t     systick_counter         = 0,
@@ -63,7 +67,7 @@ volatile uint32_t     systick_counter         = 0,
 // External variables from audio_engine
 extern FilterConfig_TypeDef filter_cfg;
 
-void main( void )
+int main( void )
 {
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -73,13 +77,17 @@ void main( void )
   SetupClocks();
 
   nvic_irq_enable( DMA0_Channel4_IRQn, 0,0 );
+  nvic_irq_enable( EXTI5_9_IRQn, 1,0 );
+
+  exti_init( EXTI_8, EXTI_INTERRUPT, EXTI_TRIG_BOTH );
+  exti_interrupt_enable( EXTI_8 );
 
   /* Initialize all configured peripherals */
   GPIO_InitPins();              
 
   /* Initialize audio engine with hardware interface functions */
   if( AudioEngine_Init( DAC_MasterSwitch, ReadVolume, spi_config ) != PB_Idle ) {
-    ErrorHandler();
+    Error_Handler();
   }
 
   // Configure volume response curve (human perception matched)
@@ -89,9 +97,8 @@ void main( void )
   // Small delay to allow hardware to stabilize
   delay_ms( 150 );
 
-  // Set DAC control to manual and start with it on.
-  DAC_MasterSwitch( DAC_ON );         // Start with DAC off until ready to play
-  SetDAC_Control( 0 );                // 0 = manual control, 1 = auto control by audio engine
+  // Set DAC control to auto..
+  SetDAC_Control( 1 );                // 0 = manual control, 1 = auto control by audio engine
 
   // FilterConfig_TypeDef filter_cfg;
   filter_cfg.enable_noise_gate            = 0;  // Noise gate disabled by default; enable as needed
@@ -108,19 +115,22 @@ void main( void )
 
   // Set initial Air Effect boost in dB (runtime adjustable)
   SetAirEffectPresetDb( 0 );              // default +3 dB preset
+  SetLpf16BitLevel( LPF_Off );
   
   // Set fade times
-  SetFadeInTime(1.8f );                   // 800 ms fade-in
-  SetFadeOutTime( 2.15f );                // 150 ms fade-out
+  SetFadeInTime(0.8f );                   // 800 ms fade-in
+  SetFadeOutTime( 0.8f );                // 150 ms fade-out
   SetPauseFadeTime( 0.15f );              // 150 ms pause fade-out
   SetResumeFadeTime( 1.25f );             // 1250 ms resume fade-in
 
   /* Superloop */
   while( true )
   {
-    PlaySample( ocarina32k, OCARINA32K_SZ, I2S_AUDIOSAMPLE_32K, 16, Mode_mono );
+    WaitForTrigger( TRIGGER_SET );
+
+    PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
+
     WaitForSampleEnd();
-    delay_ms( 1000 );
   }
 }
 
@@ -178,7 +188,22 @@ uint16_t ReadVolume( void )
  */
 inline void WaitForTrigger( uint8_t trig_to_wait_for )
 {
-  while ( trig_status != trig_to_wait_for );
+  while( true ) {
+    trig_timeout_flag = 0;
+    while( trig_status != trig_to_wait_for ) {
+      delay_ms( 1 );
+      trig_timeout_counter++;
+      if( trig_timeout_counter >= TRIG_TIMEOUT_MS ) {
+        trig_timeout_flag = 1;
+        trig_timeout_counter = 0;
+        break;
+      }
+    }
+    if( trig_status == trig_to_wait_for ) return;
+#ifndef NO_SLEEP_MODE
+    Enter_LP_SleepMode();
+#endif
+  }
 }
 
 
@@ -200,6 +225,10 @@ uint8_t GetTriggerOption( void )
 }
 
 
+
+/** Process the System Tick
+  *
+  */
 void SysTick_Handler( void ) {
   uwTick++;
   if( systick_counter )
@@ -221,6 +250,12 @@ void SysTick_Handler( void ) {
 }
 
 
+/** Blocking delay function.
+  *
+  * @param: millis. The number of milliseconds to wait
+  * @retval: none
+  *
+  */
 void delay_ms( uint32_t millis )
 {
   systick_counter = millis;
@@ -242,6 +277,12 @@ void Error_Handler( void )
 }
 
 
+/** Initialize the GPIO Pins for the application
+  *
+  * @param: none
+  * @retval: none
+  *
+  */
 static void GPIO_InitPins( void )
 {
 
@@ -274,10 +315,14 @@ static void GPIO_InitPins( void )
 }
 
 
+/** Configures the SPI peripheral as I2S at a given sample rate
+  *
+  * @param: speed.  The sample rate to which we will play the sound sample.
+  * @retval: none
+  *
+  */
 void spi_config( uint32_t speed )
 {
-  spi_parameter_struct spi_str;
-
     spi_i2s_deinit( PROJECT_SPI );
     i2s_init( PROJECT_SPI, I2S_MODE_MASTERTX, I2S_STD_PHILLIPS, I2S_CKPL_LOW );
     spi_i2s_data_frame_format_config( PROJECT_SPI, SPI_FRAMESIZE_16BIT );
@@ -287,17 +332,25 @@ void spi_config( uint32_t speed )
     spi_dma_enable(PROJECT_SPI, SPI_DMA_TRANSMIT );
 }
 
+
+/** Set up the clocks
+  *
+  * @param: none
+  * @retval: none
+  */
 static void SetupClocks( void )
 {
   rcu_system_clock_source_config( RCU_SCSS_IRC8M );
+  rcu_ahb_clock_config( 1 );
   rcu_osci_off( RCU_PLL_CK );
-  rcu_osci_on ( RCU_HXTAL );
-  
+  //rcu_osci_on ( RCU_HXTAL );
+  fmc_wscnt_set( WS_WSCNT_2 );
+
   rcu_pll_config(RCU_PLLSRC_IRC8M_DIV2, RCU_PLL_MUL27 );
   rcu_osci_on( RCU_PLL_CK );
   if( SUCCESS != rcu_osci_stab_wait( RCU_PLL_CK ) )
   { 
-    ErrorHandler();
+    Error_Handler();
   }
   
   rcu_system_clock_source_config( RCU_CKSYSSRC_PLL );
@@ -323,13 +376,46 @@ static void SetupClocks( void )
 }
 
 
+/** Puts the system into a low-power state asleep
+  *
+  * @note: If you add any further interrrupts, you must disable them and clear any pending IRQ flags
+  * before entering sleep mode or it may never actually sleep.
+  * @param: none
+  * @retval|: none
+  *
+  */
+void Enter_LP_SleepMode( void )
+{
+  //SysClockToSlow();
+
+  SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk; // Disable SysTick interrupt
+  nvic_irq_disable( DMA0_Channel4_IRQn );     // If for some reason DMA is running, stop it's IRQs
+
+  /*  Flush pending interrupts */
+  NVIC_ClearPendingIRQ( EXTI5_9_IRQn );
+  NVIC_ClearPendingIRQ( DMA0_Channel4_IRQn );
+  NVIC_ClearPendingIRQ( SysTick_IRQn );
+
+  /* To sleep, perchance to dream */
+  pmu_to_deepsleepmode( PMU_LDO_LOWPOWER, PMU_LOWDRIVER_ENABLE , WFI_CMD );
+
+  /* Wake from your slumber, mighty microcontroller! */
+  nvic_irq_enable( DMA0_Channel4_IRQn, 1, 0 );
+  SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;  // Re-enable after wakeup
+  SetupClocks();
+}
+
+
+/* If you end up here, you are in a bad place, go git yer bug blaster! */
 void HardFault_Handler( void )
 {
   __disable_irq();
   while(1);
 }
 
-void ErrorHandler( void )
+
+/* Just clears up the IRQ flag for the trigger, we are using the IRQ to wake the mcu on triggering. */
+void EXTI5_9_IRQHandler( void )
 {
-  while(1);
+  exti_interrupt_flag_clear( EXTI_8 );
 }

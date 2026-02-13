@@ -1605,7 +1605,7 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
   if( which_half == FIRST ) {
     dma_interrupt_flag_clear( DMA0, DMA_CH4, DMA_INT_FLAG_HTF );
   } else {
-      dma_interrupt_flag_clear( DMA0, DMA_CH4, DMA_INT_FLAG_FTF );
+    dma_interrupt_flag_clear( DMA0, DMA_CH4, DMA_INT_FLAG_FTF );
   }
   
   /* Handle pending stop request at the beginning of DMA callback (safest place to modify state) */
@@ -1673,6 +1673,11 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
 }
 
 
+/** DMA Interrupt entry point
+  *
+  * Separates the half full from the full and calls ProcessDMACallback to updte the buffer.
+  *
+  */
 void DMA0_Channel4_IRQHandler( void )
 {
   FlagStatus dma_done, dma_half_done;
