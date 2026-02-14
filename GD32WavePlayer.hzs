@@ -2,9 +2,7 @@
 <session>
  <Bookmarks/>
  <Breakpoints groups="Breakpoints" active_group="Breakpoints">
-  <Exceptions>
-   <Group group="V7M Exceptions" set="BusFault;ExceptionEntryReturnFault;HardFault;MemManage;UsageFault_CheckingError;UsageFault_Coprocessor;UsageFault_StateError"/>
-  </Exceptions>
+  <Exceptions/>
  </Breakpoints>
  <ExecutionProfileWindow/>
  <FrameBuffer>
@@ -43,6 +41,7 @@
   <MemoryWindow addressSpace="" dataSize="1" autoEvaluate="0" viewMode="0" viewType="4" addressOrder="0" columnsText="" refreshPeriod="0" name="GD32WavePlayer_THUMB Release" sizeText="" addressText=""/>
  </Memory4>
  <Project>
+  <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
@@ -99,9 +98,9 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="22" y="132" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="110" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="22" y="132" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="132" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="23" y="2128" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="2128" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="75" useTextEdit="1" path="main.c" left="0" selected="1" top="55" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="1" y="553" useTextEdit="1" path="main.c" left="0" selected="1" top="535" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="2" y="64" useTextEdit="1" path="main.h" left="0" top="46" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="interrupt_utils.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="15" y="8" useTextEdit="1" path="sound_headers/ocarina_melody32k.h" left="0" top="0" codecName="Default"/>
@@ -109,8 +108,8 @@
   <SessionOpenFile windowGroup="DockEditLeft" x="16" y="191" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Include/gd32f30x.h" left="0" top="171" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="300" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_fmc.h" left="0" top="283" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="5" y="236" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_timer.c" left="0" top="224" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="58" y="50" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_timer.h" left="0" top="81" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="48" y="512" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_adc.c" left="0" top="503" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="58" y="50" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_timer.h" left="0" top="50" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="101" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_adc.c" left="0" top="75" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="31" y="246" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_rcu.c" left="0" top="226" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="39" y="201" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_adc.h" left="0" top="190" codecName="Default"/>
  </Files>
