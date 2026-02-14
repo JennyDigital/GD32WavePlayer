@@ -129,6 +129,9 @@ extern "C" {
 /* Fill half buffer macro */
 #define MIDPOINT_FILL_BUFFER() memset( pb_buffer, SAMPLE16_MIDPOINT, sizeof( pb_buffer ) );
 
+/* Attribute to put code into fast memory */
+#define PUT_IN_FASTMEM __attribute__((section(".fast")))
+
 /* Playback status type */
 typedef enum {
   PB_Idle,

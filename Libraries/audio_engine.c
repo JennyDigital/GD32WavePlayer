@@ -998,7 +998,7 @@ static int16_t Apply8BitDithering( uint8_t sample8 )
   * @param: y2 - Pointer to previous output samples
   * @retval: int16_t - Filtered signed 16-bit audio sample
   */
-static int16_t ApplyLowPassFilter8Bit( int16_t sample, volatile int32_t *y1 )
+static int16_t PUT_IN_FASTMEM ApplyLowPassFilter8Bit( int16_t sample, volatile int32_t *y1 )
 {
   int32_t alpha = lpf_8bit_alpha;
   int32_t one_minus_alpha = (int32_t)( Q16_SCALE - alpha );
@@ -1018,7 +1018,7 @@ static int16_t ApplyLowPassFilter8Bit( int16_t sample, volatile int32_t *y1 )
   * @param: sample - Signed 16-bit audio sample
   * @retval: int16_t - Faded-in signed 16-bit audio sample
   */
-static int16_t ApplyFadeIn( int16_t sample ) 
+static int16_t PUT_IN_FASTMEM ApplyFadeIn( int16_t sample ) 
 {
   if( fadein_samples_remaining > 0 ) {
     /* Calculate progress as a ratio of how much fade time has elapsed.
@@ -1050,7 +1050,7 @@ static int16_t ApplyFadeIn( int16_t sample )
   * @param: sample - Signed 16-bit audio sample
   * @retval: int16_t - Faded-out signed 16-bit audio sample
   */
-static int16_t ApplyFadeOut( int16_t sample )
+static int16_t PUT_IN_FASTMEM ApplyFadeOut( int16_t sample )
 {
   uint8_t should_apply_fade = 0;
   uint32_t fade_total       = 0;
@@ -1116,7 +1116,7 @@ static int16_t ApplyNoiseGate( int16_t sample )
   * 
   * @param: samples_processed - Number of samples processed (1 for mono, 2 for stereo)
   */
-static inline void UpdateFadeCounters( uint32_t samples_processed )
+static inline void PUT_IN_FASTMEM UpdateFadeCounters( uint32_t samples_processed )
 {
   /* Track how many samples remain in the file */
   if( samples_remaining > 0 ) {
@@ -1181,7 +1181,7 @@ static inline int32_t ComputeSoftClipCurve( int32_t excess, int32_t range )
   * @param: sample - Signed 16-bit audio sample
   * @retval: int16_t - Soft-clipped signed 16-bit audio sample
   */
-static int16_t ApplySoftClipping( int16_t sample )
+static int16_t PUT_IN_FASTMEM ApplySoftClipping( int16_t sample )
 {
   const int32_t threshold = SOFT_CLIP_THRESHOLD;
   const int32_t max_val   = AUDIO_INT16_MAX;
@@ -1277,7 +1277,8 @@ static int16_t ApplySoftDCFilter16Bit (
   * @param: y1, y2 - Pointers to previous output samples
   * @retval: int16_t - Filtered signed 16-bit audio sample
   */
-static int16_t ApplyLowPassFilter16Bit(
+static int16_t PUT_IN_FASTMEM 
+                ApplyLowPassFilter16Bit(
                                         int16_t input,
                                         volatile int32_t *x1,
                                         volatile int32_t *x2,
@@ -1324,7 +1325,7 @@ static int16_t ApplyLowPassFilter16Bit(
   * @retval: int16_t - Filtered signed 16-bit audio sample
   */
 #if AUDIO_ENGINE_ENABLE_AIR_EFFECT
-static int16_t ApplyAirEffect( int16_t input, volatile int32_t *x1, volatile int32_t *y1 )
+static int16_t PUT_IN_FASTMEM ApplyAirEffect( int16_t input, volatile int32_t *x1, volatile int32_t *y1 )
 {
   // Air effect uses high-shelf filter to brighten treble
   int32_t alpha               = AIR_EFFECT_CUTOFF;              // ~0.75
@@ -1361,7 +1362,7 @@ static int16_t ApplyAirEffect( int16_t input, volatile int32_t *x1, volatile int
   * @param: channel_id - CHANNEL_LEFT or CHANNEL_RIGHT
   * @retval: int16_t - Processed signed 16-bit audio sample
   */
-static int16_t ApplyFilterChain16Bit( int16_t sample, AudioChannelId channel_id )
+static int16_t PUT_IN_FASTMEM ApplyFilterChain16Bit( int16_t sample, AudioChannelId channel_id )
 {
   AudioFilterChannelState *channel = GetChannelState( channel_id );
   if( filter_cfg.enable_16bit_biquad_lpf ) {
@@ -1379,7 +1380,7 @@ static int16_t ApplyFilterChain16Bit( int16_t sample, AudioChannelId channel_id 
   * @param: channel_id - CHANNEL_LEFT or CHANNEL_RIGHT
   * @retval: int16_t - Processed signed 16-bit audio sample
   */
-static int16_t ApplyFilterChain8Bit( int16_t sample, AudioChannelId channel_id )
+static int16_t PUT_IN_FASTMEM ApplyFilterChain8Bit( int16_t sample, AudioChannelId channel_id )
 {
   AudioFilterChannelState *channel = GetChannelState( channel_id );
   if( filter_cfg.enable_8bit_lpf ) {
@@ -1396,7 +1397,7 @@ static int16_t ApplyFilterChain8Bit( int16_t sample, AudioChannelId channel_id )
   * @param: channel_id - CHANNEL_LEFT or CHANNEL_RIGHT
   * @retval: int16_t - Processed signed 16-bit audio sample
   */
-static inline int16_t ApplyPostFilters( int16_t sample, AudioChannelId channel_id )
+static inline int16_t PUT_IN_FASTMEM ApplyPostFilters( int16_t sample, AudioChannelId channel_id )
 {
   AudioFilterChannelState *channel = GetChannelState( channel_id );
   volatile int32_t *dc_prev_input  = &channel->dc_prev_input;
@@ -1733,7 +1734,7 @@ void AdvanceSamplePointer( void )
   * @retval: none.
   *
   */
-PB_StatusTypeDef ProcessNextWaveChunk( int16_t * chunk_p )
+PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk( int16_t * chunk_p )
 {
   int16_t *input, *output;
   int16_t leftsample, rightsample;
@@ -1797,7 +1798,7 @@ PB_StatusTypeDef ProcessNextWaveChunk( int16_t * chunk_p )
   * @retval: none.
   *
   */
-PB_StatusTypeDef ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
+PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
 {
   uint8_t *input;
   int16_t *output;
