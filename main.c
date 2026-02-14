@@ -67,7 +67,7 @@ volatile  uint32_t        systick_counter               = 0,
                           uwTick                        = 0;
 
 /* The ADC Value */
-volatile  uint16_t        adc_raw                       = 0;
+volatile  uint16_t        adc_out                       = 0;
 
 // External variables from audio_engine
 extern FilterConfig_TypeDef filter_cfg;
@@ -215,11 +215,11 @@ uint16_t ReadVolume( void )
     // Scale 12-bit ADC directly to match 16-bit volume range with 16x scaling factor
     // (4095 * 16 = 65520, close to full 65535 range)
     #ifndef VOLUME_ADC_INVERTED
-    uint32_t lin = (uint32_t)adc_raw * MASTER_VOLUME_SCALE;               // Scale 12-bit to acceptable range
+    uint32_t lin = (uint32_t)adc_out * MASTER_VOLUME_SCALE;                   // Scale 12-bit to acceptable range
     #else
-    uint32_t lin = ( (4095U - (uint32_t)adc_raw) * MASTER_VOLUME_SCALE ); // Invert ADC reading so 0 = max volume, 4095 = min volume
+    uint32_t lin = ( ( 4095U - (uint32_t) adc_out ) * MASTER_VOLUME_SCALE );  // Invert ADC reading so 0 = max volume, 4095 = min volume
     #endif
-    if( lin > VOLUME_ADC_MAX_SCALED ) lin = VOLUME_ADC_MAX_SCALED;        // Cap at maximum ADC * 16
+    if( lin > VOLUME_ADC_MAX_SCALED ) lin = VOLUME_ADC_MAX_SCALED;            // Cap at maximum ADC * 16
     volume = (uint16_t)lin;
   #endif
 
@@ -370,23 +370,6 @@ static void GPIO_InitPins( void )
 
 void SetupADC( void )
 {
-  //adc_deinit( ADC1 );
-  //adc_resolution_config( ADC1, ADC_RESOLUTION_12B );
-  //adc_discontinuous_mode_config( ADC1, ADC_REGULAR_CHANNEL, 1 );
-  //adc_data_alignment_config( ADC1, ADC_DATAALIGN_RIGHT );
-  //adc_mode_config( ADC_MODE_FREE );
-
-  //adc_special_function_config(ADC1, ADC_SCAN_MODE, DISABLE);        // Disable Scan
-  //adc_special_function_config(ADC1, ADC_CONTINUOUS_MODE, DISABLE);  // !!! Disable Continuous Mode
-
-  //adc_external_trigger_source_config( ADC1, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_INSERTED_T0_TRGO );
-  //adc_external_trigger_config( ADC1, ADC_REGULAR_CHANNEL, ENABLE );
-
-  //adc_interrupt_enable( ADC1, ADC_INT_EOC );
-  //adc_enable( ADC1 );
-
-  //nvic_irq_enable( ADC1, 3, 0 );
-
   adc_deinit(ADC1);
   // Configure ADC1: Single channel, no scan
   adc_special_function_config(ADC1, ADC_SCAN_MODE, DISABLE);
@@ -397,8 +380,11 @@ void SetupADC( void )
   adc_external_trigger_source_config( ADC1, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_REGULAR_T2_TRGO );
   adc_external_trigger_config( ADC1, ADC_REGULAR_CHANNEL, ENABLE );
 
-  // Enable ADC and calibrate
+  // Enable ADC
   adc_enable(ADC1);
+  // Allow settling time.
+  delay_ms( 3 );
+  // Start calibration
   adc_calibration_enable(ADC1);
 
   // Enable Interrupt for End of Conversion
@@ -566,6 +552,16 @@ void EXTI5_9_IRQHandler( void )
 /* ADC Conversion results get posted from within here. */
 void ADC0_1_IRQHandler( void )
 {
-  adc_interrupt_flag_clear( ADC1, ADC_INT_FLAG_EOC );
-  adc_raw = adc_regular_data_read( ADC1 );
+  #define FILTER_SHIFT 4      // Smoothing factor (higher = smoother)
+
+  static uint16_t adc_filtered = 0;
+         uint16_t adc_raw;
+
+  // Get the raw value
+  adc_raw = (uint16_t)adc_regular_data_read( ADC1 );
+  // Note: We perform the subtraction first to find the 'error'
+  adc_filtered = adc_filtered + ( adc_raw - ( adc_filtered >> FILTER_SHIFT ) );
+
+  // Your actual 12-bit volume result (0-4095)
+  adc_out = adc_filtered >> FILTER_SHIFT;
 }

@@ -70,6 +70,8 @@ Discarded input sections
                 0x00000000        0xa GD32WavePlayer THUMB Release/gd32f30x_adc.o
  .text.adc_interrupt_flag_get
                 0x00000000       0x46 GD32WavePlayer THUMB Release/gd32f30x_adc.o
+ .text.adc_interrupt_flag_clear
+                0x00000000        0xa GD32WavePlayer THUMB Release/gd32f30x_adc.o
  .text.adc_interrupt_disable
                 0x00000000       0x2c GD32WavePlayer THUMB Release/gd32f30x_adc.o
  .text.adc_watchdog_single_channel_enable
@@ -4029,304 +4031,300 @@ Linker script and memory map
  .text.adc_regular_data_read
                 0x080006e6        0x6 GD32WavePlayer THUMB Release/gd32f30x_adc.o
                 0x080006e6                adc_regular_data_read
- .text.adc_interrupt_flag_clear
-                0x080006ec        0xa GD32WavePlayer THUMB Release/gd32f30x_adc.o
-                0x080006ec                adc_interrupt_flag_clear
  .text.adc_interrupt_enable
-                0x080006f6       0x2c GD32WavePlayer THUMB Release/gd32f30x_adc.o
-                0x080006f6                adc_interrupt_enable
- *fill*         0x08000722        0x2 
+                0x080006ec       0x2c GD32WavePlayer THUMB Release/gd32f30x_adc.o
+                0x080006ec                adc_interrupt_enable
  .text.dma_deinit
-                0x08000724       0x3c GD32WavePlayer THUMB Release/gd32f30x_dma.o
-                0x08000724                dma_deinit
+                0x08000718       0x3c GD32WavePlayer THUMB Release/gd32f30x_dma.o
+                0x08000718                dma_deinit
  .text.dma_init
-                0x08000760       0x78 GD32WavePlayer THUMB Release/gd32f30x_dma.o
-                0x08000760                dma_init
+                0x08000754       0x78 GD32WavePlayer THUMB Release/gd32f30x_dma.o
+                0x08000754                dma_init
  .text.dma_circulation_enable
-                0x080007d8       0x24 GD32WavePlayer THUMB Release/gd32f30x_dma.o
-                0x080007d8                dma_circulation_enable
+                0x080007cc       0x24 GD32WavePlayer THUMB Release/gd32f30x_dma.o
+                0x080007cc                dma_circulation_enable
  .text.dma_memory_to_memory_disable
-                0x080007fc       0x24 GD32WavePlayer THUMB Release/gd32f30x_dma.o
-                0x080007fc                dma_memory_to_memory_disable
+                0x080007f0       0x24 GD32WavePlayer THUMB Release/gd32f30x_dma.o
+                0x080007f0                dma_memory_to_memory_disable
  .text.dma_channel_enable
-                0x08000820       0x24 GD32WavePlayer THUMB Release/gd32f30x_dma.o
-                0x08000820                dma_channel_enable
+                0x08000814       0x24 GD32WavePlayer THUMB Release/gd32f30x_dma.o
+                0x08000814                dma_channel_enable
  .text.dma_flag_get
-                0x08000844       0x10 GD32WavePlayer THUMB Release/gd32f30x_dma.o
-                0x08000844                dma_flag_get
+                0x08000838       0x10 GD32WavePlayer THUMB Release/gd32f30x_dma.o
+                0x08000838                dma_flag_get
  .text.dma_interrupt_flag_clear
-                0x08000854        0xc GD32WavePlayer THUMB Release/gd32f30x_dma.o
-                0x08000854                dma_interrupt_flag_clear
+                0x08000848        0xc GD32WavePlayer THUMB Release/gd32f30x_dma.o
+                0x08000848                dma_interrupt_flag_clear
  .text.dma_interrupt_enable
-                0x08000860       0x20 GD32WavePlayer THUMB Release/gd32f30x_dma.o
-                0x08000860                dma_interrupt_enable
+                0x08000854       0x20 GD32WavePlayer THUMB Release/gd32f30x_dma.o
+                0x08000854                dma_interrupt_enable
  .text.dma_interrupt_disable
-                0x08000880       0x24 GD32WavePlayer THUMB Release/gd32f30x_dma.o
-                0x08000880                dma_interrupt_disable
+                0x08000874       0x24 GD32WavePlayer THUMB Release/gd32f30x_dma.o
+                0x08000874                dma_interrupt_disable
  .text.exti_init
-                0x080008a4       0xb4 GD32WavePlayer THUMB Release/gd32f30x_exti.o
-                0x080008a4                exti_init
+                0x08000898       0xb4 GD32WavePlayer THUMB Release/gd32f30x_exti.o
+                0x08000898                exti_init
  .text.exti_interrupt_enable
-                0x08000958       0x14 GD32WavePlayer THUMB Release/gd32f30x_exti.o
-                0x08000958                exti_interrupt_enable
+                0x0800094c       0x14 GD32WavePlayer THUMB Release/gd32f30x_exti.o
+                0x0800094c                exti_interrupt_enable
  .text.exti_interrupt_flag_clear
-                0x0800096c        0xc GD32WavePlayer THUMB Release/gd32f30x_exti.o
-                0x0800096c                exti_interrupt_flag_clear
+                0x08000960        0xc GD32WavePlayer THUMB Release/gd32f30x_exti.o
+                0x08000960                exti_interrupt_flag_clear
  .text.fmc_wscnt_set
-                0x08000978       0x14 GD32WavePlayer THUMB Release/gd32f30x_fmc.o
-                0x08000978                fmc_wscnt_set
+                0x0800096c       0x14 GD32WavePlayer THUMB Release/gd32f30x_fmc.o
+                0x0800096c                fmc_wscnt_set
  .text.gpio_init
-                0x0800098c       0xbe GD32WavePlayer THUMB Release/gd32f30x_gpio.o
-                0x0800098c                gpio_init
+                0x08000980       0xbe GD32WavePlayer THUMB Release/gd32f30x_gpio.o
+                0x08000980                gpio_init
  .text.gpio_bit_write
-                0x08000a4a        0xa GD32WavePlayer THUMB Release/gd32f30x_gpio.o
-                0x08000a4a                gpio_bit_write
+                0x08000a3e        0xa GD32WavePlayer THUMB Release/gd32f30x_gpio.o
+                0x08000a3e                gpio_bit_write
  .text.gpio_input_bit_get
-                0x08000a54        0xc GD32WavePlayer THUMB Release/gd32f30x_gpio.o
-                0x08000a54                gpio_input_bit_get
+                0x08000a48        0xc GD32WavePlayer THUMB Release/gd32f30x_gpio.o
+                0x08000a48                gpio_input_bit_get
  .text.gpio_pin_lock
-                0x08000a60       0x10 GD32WavePlayer THUMB Release/gd32f30x_gpio.o
-                0x08000a60                gpio_pin_lock
+                0x08000a54       0x10 GD32WavePlayer THUMB Release/gd32f30x_gpio.o
+                0x08000a54                gpio_pin_lock
  .text.nvic_irq_enable
-                0x08000a70       0xac GD32WavePlayer THUMB Release/gd32f30x_misc.o
-                0x08000a70                nvic_irq_enable
+                0x08000a64       0xac GD32WavePlayer THUMB Release/gd32f30x_misc.o
+                0x08000a64                nvic_irq_enable
  .text.nvic_irq_disable
-                0x08000b1c       0x18 GD32WavePlayer THUMB Release/gd32f30x_misc.o
-                0x08000b1c                nvic_irq_disable
+                0x08000b10       0x18 GD32WavePlayer THUMB Release/gd32f30x_misc.o
+                0x08000b10                nvic_irq_disable
  .text.pmu_to_deepsleepmode
-                0x08000b34       0xd0 GD32WavePlayer THUMB Release/gd32f30x_pmu.o
-                0x08000b34                pmu_to_deepsleepmode
+                0x08000b28       0xd0 GD32WavePlayer THUMB Release/gd32f30x_pmu.o
+                0x08000b28                pmu_to_deepsleepmode
  .text.rcu_periph_clock_enable
-                0x08000c04       0x1a GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000c04                rcu_periph_clock_enable
+                0x08000bf8       0x1a GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000bf8                rcu_periph_clock_enable
  .text.rcu_periph_reset_enable
-                0x08000c1e       0x1a GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000c1e                rcu_periph_reset_enable
+                0x08000c12       0x1a GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000c12                rcu_periph_reset_enable
  .text.rcu_periph_reset_disable
-                0x08000c38       0x1c GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000c38                rcu_periph_reset_disable
+                0x08000c2c       0x1c GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000c2c                rcu_periph_reset_disable
  .text.rcu_system_clock_source_config
-                0x08000c54       0x14 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000c54                rcu_system_clock_source_config
+                0x08000c48       0x14 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000c48                rcu_system_clock_source_config
  .text.rcu_ahb_clock_config
-                0x08000c68       0x14 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000c68                rcu_ahb_clock_config
+                0x08000c5c       0x14 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000c5c                rcu_ahb_clock_config
  .text.rcu_pll_config
-                0x08000c7c       0x18 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000c7c                rcu_pll_config
+                0x08000c70       0x18 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000c70                rcu_pll_config
  .text.rcu_adc_clock_config
-                0x08000c94       0x5c GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000c94                rcu_adc_clock_config
+                0x08000c88       0x5c GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000c88                rcu_adc_clock_config
  .text.rcu_flag_get
-                0x08000cf0       0x1e GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000cf0                rcu_flag_get
- *fill*         0x08000d0e        0x2 
+                0x08000ce4       0x1e GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000ce4                rcu_flag_get
+ *fill*         0x08000d02        0x2 
  .text.rcu_osci_stab_wait
-                0x08000d10       0xe8 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000d10                rcu_osci_stab_wait
+                0x08000d04       0xe8 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000d04                rcu_osci_stab_wait
  .text.rcu_osci_on
-                0x08000df8       0x1a GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000df8                rcu_osci_on
+                0x08000dec       0x1a GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000dec                rcu_osci_on
  .text.rcu_osci_off
-                0x08000e12       0x1c GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000e12                rcu_osci_off
- *fill*         0x08000e2e        0x2 
+                0x08000e06       0x1c GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000e06                rcu_osci_off
+ *fill*         0x08000e22        0x2 
  .text.rcu_clock_freq_get
-                0x08000e30      0x118 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
-                0x08000e30                rcu_clock_freq_get
+                0x08000e24      0x118 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+                0x08000e24                rcu_clock_freq_get
  .text.spi_i2s_deinit
-                0x08000f48       0x54 GD32WavePlayer THUMB Release/gd32f30x_spi.o
-                0x08000f48                spi_i2s_deinit
+                0x08000f3c       0x54 GD32WavePlayer THUMB Release/gd32f30x_spi.o
+                0x08000f3c                spi_i2s_deinit
  .text.spi_enable
-                0x08000f9c        0xa GD32WavePlayer THUMB Release/gd32f30x_spi.o
-                0x08000f9c                spi_enable
+                0x08000f90        0xa GD32WavePlayer THUMB Release/gd32f30x_spi.o
+                0x08000f90                spi_enable
  .text.i2s_init
-                0x08000fa6       0x24 GD32WavePlayer THUMB Release/gd32f30x_spi.o
-                0x08000fa6                i2s_init
- *fill*         0x08000fca        0x2 
+                0x08000f9a       0x24 GD32WavePlayer THUMB Release/gd32f30x_spi.o
+                0x08000f9a                i2s_init
+ *fill*         0x08000fbe        0x2 
  .text.i2s_psc_config
-                0x08000fcc       0x80 GD32WavePlayer THUMB Release/gd32f30x_spi.o
-                0x08000fcc                i2s_psc_config
+                0x08000fc0       0x80 GD32WavePlayer THUMB Release/gd32f30x_spi.o
+                0x08000fc0                i2s_psc_config
  .text.i2s_enable
-                0x0800104c        0xa GD32WavePlayer THUMB Release/gd32f30x_spi.o
-                0x0800104c                i2s_enable
+                0x08001040        0xa GD32WavePlayer THUMB Release/gd32f30x_spi.o
+                0x08001040                i2s_enable
  .text.i2s_disable
-                0x08001056        0xa GD32WavePlayer THUMB Release/gd32f30x_spi.o
-                0x08001056                i2s_disable
+                0x0800104a        0xa GD32WavePlayer THUMB Release/gd32f30x_spi.o
+                0x0800104a                i2s_disable
  .text.spi_dma_enable
-                0x08001060       0x16 GD32WavePlayer THUMB Release/gd32f30x_spi.o
-                0x08001060                spi_dma_enable
+                0x08001054       0x16 GD32WavePlayer THUMB Release/gd32f30x_spi.o
+                0x08001054                spi_dma_enable
  .text.spi_i2s_data_frame_format_config
-                0x08001076       0x10 GD32WavePlayer THUMB Release/gd32f30x_spi.o
-                0x08001076                spi_i2s_data_frame_format_config
- *fill*         0x08001086        0x2 
+                0x0800106a       0x10 GD32WavePlayer THUMB Release/gd32f30x_spi.o
+                0x0800106a                spi_i2s_data_frame_format_config
+ *fill*         0x0800107a        0x2 
  .text.timer_deinit
-                0x08001088      0x180 GD32WavePlayer THUMB Release/gd32f30x_timer.o
-                0x08001088                timer_deinit
+                0x0800107c      0x180 GD32WavePlayer THUMB Release/gd32f30x_timer.o
+                0x0800107c                timer_deinit
  .text.timer_init
-                0x08001208       0x94 GD32WavePlayer THUMB Release/gd32f30x_timer.o
-                0x08001208                timer_init
+                0x080011fc       0x94 GD32WavePlayer THUMB Release/gd32f30x_timer.o
+                0x080011fc                timer_init
  .text.timer_enable
-                0x0800129c        0xa GD32WavePlayer THUMB Release/gd32f30x_timer.o
-                0x0800129c                timer_enable
+                0x08001290        0xa GD32WavePlayer THUMB Release/gd32f30x_timer.o
+                0x08001290                timer_enable
  .text.timer_update_event_enable
-                0x080012a6        0xa GD32WavePlayer THUMB Release/gd32f30x_timer.o
-                0x080012a6                timer_update_event_enable
+                0x0800129a        0xa GD32WavePlayer THUMB Release/gd32f30x_timer.o
+                0x0800129a                timer_update_event_enable
  .text.timer_master_output_trigger_source_select
-                0x080012b0       0x10 GD32WavePlayer THUMB Release/gd32f30x_timer.o
-                0x080012b0                timer_master_output_trigger_source_select
+                0x080012a4       0x10 GD32WavePlayer THUMB Release/gd32f30x_timer.o
+                0x080012a4                timer_master_output_trigger_source_select
  .text.timer_master_slave_mode_config
-                0x080012c0       0x1c GD32WavePlayer THUMB Release/gd32f30x_timer.o
-                0x080012c0                timer_master_slave_mode_config
+                0x080012b4       0x1c GD32WavePlayer THUMB Release/gd32f30x_timer.o
+                0x080012b4                timer_master_slave_mode_config
  .text.FadeTimeToSamples
-                0x080012dc       0x54 GD32WavePlayer THUMB Release/audio_engine.o
+                0x080012d0       0x54 GD32WavePlayer THUMB Release/audio_engine.o
  .text.Apply8BitDithering
-                0x08001330       0x40 GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001324       0x40 GD32WavePlayer THUMB Release/audio_engine.o
  .text.ResetPlaybackState
-                0x08001370       0x3c GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001364       0x3c GD32WavePlayer THUMB Release/audio_engine.o
  .text.AudioEngine_OnPlaybackEnd
-                0x080013ac        0x2 GD32WavePlayer THUMB Release/audio_engine.o
-                0x080013ac                AudioEngine_OnPlaybackEnd
- *fill*         0x080013ae        0x2 
+                0x080013a0        0x2 GD32WavePlayer THUMB Release/audio_engine.o
+                0x080013a0                AudioEngine_OnPlaybackEnd
+ *fill*         0x080013a2        0x2 
  .text.AudioEngine_Init
-                0x080013b0       0xe0 GD32WavePlayer THUMB Release/audio_engine.o
-                0x080013b0                AudioEngine_Init
+                0x080013a4       0xe0 GD32WavePlayer THUMB Release/audio_engine.o
+                0x080013a4                AudioEngine_Init
  .text.SetFilterConfig
-                0x08001490       0x6c GD32WavePlayer THUMB Release/audio_engine.o
-                0x08001490                SetFilterConfig
+                0x08001484       0x6c GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001484                SetFilterConfig
  .text.SetAirEffectGainDb
-                0x080014fc       0x6c GD32WavePlayer THUMB Release/audio_engine.o
-                0x080014fc                SetAirEffectGainDb
+                0x080014f0       0x6c GD32WavePlayer THUMB Release/audio_engine.o
+                0x080014f0                SetAirEffectGainDb
  .text.SetAirEffectPresetDb
-                0x08001568       0x34 GD32WavePlayer THUMB Release/audio_engine.o
-                0x08001568                SetAirEffectPresetDb
+                0x0800155c       0x34 GD32WavePlayer THUMB Release/audio_engine.o
+                0x0800155c                SetAirEffectPresetDb
  .text.CalcLpf16BitAlphaFromCutoff
-                0x0800159c       0x68 GD32WavePlayer THUMB Release/audio_engine.o
-                0x0800159c                CalcLpf16BitAlphaFromCutoff
+                0x08001590       0x68 GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001590                CalcLpf16BitAlphaFromCutoff
  .text.SetLpf16BitLevel
-                0x08001604       0x78 GD32WavePlayer THUMB Release/audio_engine.o
-                0x08001604                SetLpf16BitLevel
+                0x080015f8       0x78 GD32WavePlayer THUMB Release/audio_engine.o
+                0x080015f8                SetLpf16BitLevel
  .text.SetLpf16BitCustomAlpha
-                0x0800167c       0x20 GD32WavePlayer THUMB Release/audio_engine.o
-                0x0800167c                SetLpf16BitCustomAlpha
+                0x08001670       0x20 GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001670                SetLpf16BitCustomAlpha
  .text.SetFadeInTime
-                0x0800169c       0x1c GD32WavePlayer THUMB Release/audio_engine.o
-                0x0800169c                SetFadeInTime
+                0x08001690       0x1c GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001690                SetFadeInTime
  .text.SetFadeOutTime
-                0x080016b8       0x1c GD32WavePlayer THUMB Release/audio_engine.o
-                0x080016b8                SetFadeOutTime
+                0x080016ac       0x1c GD32WavePlayer THUMB Release/audio_engine.o
+                0x080016ac                SetFadeOutTime
  .text.SetPauseFadeTime
-                0x080016d4       0x1c GD32WavePlayer THUMB Release/audio_engine.o
-                0x080016d4                SetPauseFadeTime
+                0x080016c8       0x1c GD32WavePlayer THUMB Release/audio_engine.o
+                0x080016c8                SetPauseFadeTime
  .text.SetResumeFadeTime
-                0x080016f0       0x1c GD32WavePlayer THUMB Release/audio_engine.o
-                0x080016f0                SetResumeFadeTime
+                0x080016e4       0x1c GD32WavePlayer THUMB Release/audio_engine.o
+                0x080016e4                SetResumeFadeTime
  .text.SetDAC_Control
-                0x0800170c        0xc GD32WavePlayer THUMB Release/audio_engine.o
-                0x0800170c                SetDAC_Control
+                0x08001700        0xc GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001700                SetDAC_Control
  .text.AdvanceSamplePointer
-                0x08001718       0x64 GD32WavePlayer THUMB Release/audio_engine.o
-                0x08001718                AdvanceSamplePointer
+                0x0800170c       0x64 GD32WavePlayer THUMB Release/audio_engine.o
+                0x0800170c                AdvanceSamplePointer
  .text.ProcessDMACallback
-                0x0800177c      0x1d4 GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001770      0x1d4 GD32WavePlayer THUMB Release/audio_engine.o
  .text.DMA0_Channel4_IRQHandler
-                0x08001950       0x38 GD32WavePlayer THUMB Release/audio_engine.o
-                0x08001950                DMA0_Channel4_IRQHandler
+                0x08001944       0x38 GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001944                DMA0_Channel4_IRQHandler
  .text.WaitForSampleEnd
-                0x08001988       0x40 GD32WavePlayer THUMB Release/audio_engine.o
-                0x08001988                WaitForSampleEnd
+                0x0800197c       0x40 GD32WavePlayer THUMB Release/audio_engine.o
+                0x0800197c                WaitForSampleEnd
  .text.SetVolumeResponseNonlinear
-                0x080019c8       0x10 GD32WavePlayer THUMB Release/audio_engine.o
-                0x080019c8                SetVolumeResponseNonlinear
+                0x080019bc       0x10 GD32WavePlayer THUMB Release/audio_engine.o
+                0x080019bc                SetVolumeResponseNonlinear
  .text.SetVolumeResponseGamma
-                0x080019d8       0x34 GD32WavePlayer THUMB Release/audio_engine.o
-                0x080019d8                SetVolumeResponseGamma
+                0x080019cc       0x34 GD32WavePlayer THUMB Release/audio_engine.o
+                0x080019cc                SetVolumeResponseGamma
  .text.dma_config
-                0x08001a0c       0x7c GD32WavePlayer THUMB Release/audio_engine.o
-                0x08001a0c                dma_config
+                0x08001a00       0x7c GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001a00                dma_config
  .text.PlaySample
-                0x08001a88      0x2f8 GD32WavePlayer THUMB Release/audio_engine.o
-                0x08001a88                PlaySample
+                0x08001a7c      0x2f8 GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001a7c                PlaySample
  .text.ReadVolume
-                0x08001d80       0x28 GD32WavePlayer THUMB Release/main.o
-                0x08001d80                ReadVolume
+                0x08001d74       0x28 GD32WavePlayer THUMB Release/main.o
+                0x08001d74                ReadVolume
  .text.spi_config
-                0x08001da8       0x4c GD32WavePlayer THUMB Release/main.o
-                0x08001da8                spi_config
+                0x08001d9c       0x4c GD32WavePlayer THUMB Release/main.o
+                0x08001d9c                spi_config
  .text.SysTick_Handler
-                0x08001df4       0x88 GD32WavePlayer THUMB Release/main.o
-                0x08001df4                SysTick_Handler
+                0x08001de8       0x88 GD32WavePlayer THUMB Release/main.o
+                0x08001de8                SysTick_Handler
  .text.delay_ms
-                0x08001e7c       0x14 GD32WavePlayer THUMB Release/main.o
-                0x08001e7c                delay_ms
+                0x08001e70       0x14 GD32WavePlayer THUMB Release/main.o
+                0x08001e70                delay_ms
  .text.DAC_MasterSwitch
-                0x08001e90       0x18 GD32WavePlayer THUMB Release/main.o
-                0x08001e90                DAC_MasterSwitch
+                0x08001e84       0x18 GD32WavePlayer THUMB Release/main.o
+                0x08001e84                DAC_MasterSwitch
  .text.Error_Handler
-                0x08001ea8        0xc GD32WavePlayer THUMB Release/main.o
-                0x08001ea8                Error_Handler
+                0x08001e9c        0xc GD32WavePlayer THUMB Release/main.o
+                0x08001e9c                Error_Handler
  .text.SetupClocks
-                0x08001eb4       0xbc GD32WavePlayer THUMB Release/main.o
+                0x08001ea8       0xbc GD32WavePlayer THUMB Release/main.o
  .text.SetupADC
-                0x08001f70       0x6c GD32WavePlayer THUMB Release/main.o
-                0x08001f70                SetupADC
+                0x08001f64       0x70 GD32WavePlayer THUMB Release/main.o
+                0x08001f64                SetupADC
  .text.SetupTimer2
-                0x08001fdc       0x60 GD32WavePlayer THUMB Release/main.o
-                0x08001fdc                SetupTimer2
+                0x08001fd4       0x60 GD32WavePlayer THUMB Release/main.o
+                0x08001fd4                SetupTimer2
  .text.Enter_LP_SleepMode
-                0x0800203c       0x68 GD32WavePlayer THUMB Release/main.o
-                0x0800203c                Enter_LP_SleepMode
- .text.main     0x080020a4      0x1fc GD32WavePlayer THUMB Release/main.o
-                0x080020a4                main
+                0x08002034       0x68 GD32WavePlayer THUMB Release/main.o
+                0x08002034                Enter_LP_SleepMode
+ .text.main     0x0800209c      0x1fc GD32WavePlayer THUMB Release/main.o
+                0x0800209c                main
  .text.HardFault_Handler
-                0x080022a0        0x4 GD32WavePlayer THUMB Release/main.o
-                0x080022a0                HardFault_Handler
+                0x08002298        0x4 GD32WavePlayer THUMB Release/main.o
+                0x08002298                HardFault_Handler
  .text.EXTI5_9_IRQHandler
-                0x080022a4        0xc GD32WavePlayer THUMB Release/main.o
-                0x080022a4                EXTI5_9_IRQHandler
+                0x0800229c        0xc GD32WavePlayer THUMB Release/main.o
+                0x0800229c                EXTI5_9_IRQHandler
  .text.ADC0_1_IRQHandler
-                0x080022b0       0x20 GD32WavePlayer THUMB Release/main.o
-                0x080022b0                ADC0_1_IRQHandler
+                0x080022a8       0x2c GD32WavePlayer THUMB Release/main.o
+                0x080022a8                ADC0_1_IRQHandler
  .text.__aeabi_read_tp
-                0x080022d0        0x8 GD32WavePlayer THUMB Release/thumb_crt0.o
-                0x080022d0                __aeabi_read_tp
+                0x080022d4        0x8 GD32WavePlayer THUMB Release/thumb_crt0.o
+                0x080022d4                __aeabi_read_tp
  .text.libc.expf
-                0x080022d8      0x17c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
-                0x080022d8                exp(float)
-                0x080022d8                expf
+                0x080022dc      0x17c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x080022dc                exp(float)
+                0x080022dc                expf
  .text.libc.logf
-                0x08002454      0x100 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
-                0x08002454                logf
-                0x08002454                log(float)
+                0x08002458      0x100 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x08002458                logf
+                0x08002458                log(float)
  .text.libc.powf
-                0x08002554       0xc0 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
-                0x08002554                powf
-                0x08002554                pow(float, float)
+                0x08002558       0xc0 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x08002558                powf
+                0x08002558                pow(float, float)
  .text.libc.fabsf
-                0x08002614        0x6 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
-                0x08002614                fabs(float)
-                0x08002614                fabsf
+                0x08002618        0x6 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
+                0x08002618                fabs(float)
+                0x08002618                fabsf
  .text.libc.frexpf
-                0x0800261a       0x3c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
-                0x0800261a                frexp(float, int*)
-                0x0800261a                frexpf
+                0x0800261e       0x3c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
+                0x0800261e                frexp(float, int*)
+                0x0800261e                frexpf
  .text.libc.__int64_udivmod
-                0x08002656       0xce /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
-                0x08002656                __int64_udivmod
-                0x08002656                __aeabi_uldivmod
-                0x08002656                __int64_udiv
-                0x08002656                __udivdi3
+                0x0800265a       0xce /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
+                0x0800265a                __int64_udivmod
+                0x0800265a                __aeabi_uldivmod
+                0x0800265a                __int64_udiv
+                0x0800265a                __udivdi3
  .text.libc.__aeabi_ldivmod
-                0x08002724       0x56 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
-                0x08002724                __aeabi_ldivmod
- *fill*         0x0800277a        0x2 
+                0x08002728       0x56 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
+                0x08002728                __aeabi_ldivmod
+ *fill*         0x0800277e        0x2 
  .text.libc.__aeabi_errno_addr
-                0x0800277c       0x10 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
-                0x0800277c                __aeabi_errno_addr
+                0x08002780       0x10 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
+                0x08002780                __aeabi_errno_addr
  .text.libc.memset
-                0x0800278c       0x66 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2_asm.o)
-                0x0800278c                memset
- *fill*         0x080027f2        0x6 
+                0x08002790       0x66 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2_asm.o)
+                0x08002790                memset
+ *fill*         0x080027f6        0x2 
  .text.libc.memset.__stub
                 0x080027f8       0x18 linker stubs
                 0x08002810                        __text_end__ = (__text_start__ + SIZEOF (.text))
@@ -4573,9 +4571,10 @@ Linker script and memory map
  .bss.AudioEngine_DACSwitch
                 0x20001bd8        0x4 GD32WavePlayer THUMB Release/audio_engine.o
                 0x20001bd8                AudioEngine_DACSwitch
- .bss.adc_raw   0x20001bdc        0x2 GD32WavePlayer THUMB Release/main.o
-                0x20001bdc                adc_raw
- *fill*         0x20001bde        0x2 
+ .bss.adc_filtered.0
+                0x20001bdc        0x2 GD32WavePlayer THUMB Release/main.o
+ .bss.adc_out   0x20001bde        0x2 GD32WavePlayer THUMB Release/main.o
+                0x20001bde                adc_out
  .bss.uwTick    0x20001be0        0x4 GD32WavePlayer THUMB Release/main.o
                 0x20001be0                uwTick
  .bss.systick_counter
