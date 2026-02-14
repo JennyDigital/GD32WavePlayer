@@ -40,6 +40,8 @@
 #include "dalby_tritone16b16k.h"
 #include "Lemon_Tree.h"
 
+              void        SetupADC                  ( void );
+              void        SetupTimer2               ( void );
 static        void        SetupClocks               ( void );
               void        spi_config                ( uint32_t speed );
 static        void        GPIO_InitPins             ( void );
@@ -61,8 +63,11 @@ volatile  uint8_t         trig_status                   = TRIGGER_CLR;    // Cur
 
 
 /* SysTick variables */
-volatile uint32_t     systick_counter         = 0,
-                      uwTick                  = 0;
+volatile  uint32_t        systick_counter               = 0,
+                          uwTick                        = 0;
+
+/* The ADC Value */
+volatile  uint16_t        adc_raw                       = 0;
 
 // External variables from audio_engine
 extern FilterConfig_TypeDef filter_cfg;
@@ -84,6 +89,10 @@ int main( void )
 
   /* Initialize all configured peripherals */
   GPIO_InitPins();              
+
+  /* Let's get our ADC Working, triggered by timer 2 (phew, that was just trouble! */
+  SetupADC();
+  SetupTimer2();
 
   /* Initialize audio engine with hardware interface functions */
   if( AudioEngine_Init( DAC_MasterSwitch, ReadVolume, spi_config ) != PB_Idle ) {
@@ -148,6 +157,37 @@ void DAC_MasterSwitch( uint8_t setting )
 }
 
 
+///** Read the master volume level for playback.
+//  *
+//  * params: none
+//  * retval: uint16_t between 1 and 65535 for volume scaling.
+//  *
+//  * Note: Non-linear volume response is now handled internally by the audio engine.
+//  *       Use SetVolumeResponseNonlinear() and SetVolumeResponseGamma() to configure.
+//  */
+//uint16_t ReadVolume( void )
+//{
+//  uint16_t volume = 0;
+
+//    // Use digital GPIOs for volume (3 bits, scaled to 1-65535)
+//    uint8_t v = (
+//                  ( gpio_input_bit_get( OPT3_Bank, OPT3_Pin ) << 2 )  |
+//                  ( gpio_input_bit_get( OPT2_Bank, OPT2_Pin ) << 1 )  |
+//                  ( gpio_input_bit_get( OPT1_Bank, OPT1_Pin )      )
+//                );
+
+//    v = 7 - v;        // Invert so 0b000 = max volume, 0b111 = min volume
+//    uint32_t scaled = ( (uint32_t)v * 65535U ) / 7U;  // Map 0-7 to 0-65535
+//    volume = (uint16_t)scaled;
+ 
+//  /* Analog signals have noise; clamp low values to avoid noise-induced ultra-quiet audio */
+//  if( volume < 32U ) volume = 32U;
+
+//  /* Return raw volume - audio engine applies non-linear response curve internally */
+//  return volume;
+//} 
+
+
 /** Read the master volume level for playback.
   *
   * params: none
@@ -160,23 +200,35 @@ uint16_t ReadVolume( void )
 {
   uint16_t volume = 0;
 
+  #ifdef VOLUME_INPUT_DIGITAL
     // Use digital GPIOs for volume (3 bits, scaled to 1-65535)
-    uint8_t v = (
-                  ( gpio_input_bit_get( OPT3_Bank, OPT3_Pin ) << 2 )  |
-                  ( gpio_input_bit_get( OPT2_Bank, OPT2_Pin ) << 1 )  |
-                  ( gpio_input_bit_get( OPT1_Bank, OPT1_Pin )      )
-                );
+    uint8_t v =
+      ( ( (OPT3_GPIO_Port->IDR & OPT3_Pin) != 0 ) << 2 ) |
+      ( ( (OPT2_GPIO_Port->IDR & OPT2_Pin) != 0 ) << 1 ) |
+      ( ( (OPT1_GPIO_Port->IDR & OPT1_Pin) != 0 ) << 0 );
 
     v = 7 - v;        // Invert so 0b000 = max volume, 0b111 = min volume
     uint32_t scaled = ( (uint32_t)v * 65535U ) / 7U;  // Map 0-7 to 0-65535
     volume = (uint16_t)scaled;
- 
+  #else
+    // Use 12-bit ADC value (0-4095) for linear volume
+    // Scale 12-bit ADC directly to match 16-bit volume range with 16x scaling factor
+    // (4095 * 16 = 65520, close to full 65535 range)
+    #ifndef VOLUME_ADC_INVERTED
+    uint32_t lin = (uint32_t)adc_raw * MASTER_VOLUME_SCALE;               // Scale 12-bit to acceptable range
+    #else
+    uint32_t lin = ( (4095U - (uint32_t)adc_raw) * MASTER_VOLUME_SCALE ); // Invert ADC reading so 0 = max volume, 4095 = min volume
+    #endif
+    if( lin > VOLUME_ADC_MAX_SCALED ) lin = VOLUME_ADC_MAX_SCALED;        // Cap at maximum ADC * 16
+    volume = (uint16_t)lin;
+  #endif
+
   /* Analog signals have noise; clamp low values to avoid noise-induced ultra-quiet audio */
   if( volume < 32U ) volume = 32U;
 
   /* Return raw volume - audio engine applies non-linear response curve internally */
   return volume;
-} 
+}
 
 
 /** Wait for the trigger signal
@@ -316,6 +368,81 @@ static void GPIO_InitPins( void )
 }
 
 
+void SetupADC( void )
+{
+  //adc_deinit( ADC1 );
+  //adc_resolution_config( ADC1, ADC_RESOLUTION_12B );
+  //adc_discontinuous_mode_config( ADC1, ADC_REGULAR_CHANNEL, 1 );
+  //adc_data_alignment_config( ADC1, ADC_DATAALIGN_RIGHT );
+  //adc_mode_config( ADC_MODE_FREE );
+
+  //adc_special_function_config(ADC1, ADC_SCAN_MODE, DISABLE);        // Disable Scan
+  //adc_special_function_config(ADC1, ADC_CONTINUOUS_MODE, DISABLE);  // !!! Disable Continuous Mode
+
+  //adc_external_trigger_source_config( ADC1, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_INSERTED_T0_TRGO );
+  //adc_external_trigger_config( ADC1, ADC_REGULAR_CHANNEL, ENABLE );
+
+  //adc_interrupt_enable( ADC1, ADC_INT_EOC );
+  //adc_enable( ADC1 );
+
+  //nvic_irq_enable( ADC1, 3, 0 );
+
+  adc_deinit(ADC1);
+  // Configure ADC1: Single channel, no scan
+  adc_special_function_config(ADC1, ADC_SCAN_MODE, DISABLE);
+  adc_special_function_config(ADC1, ADC_CONTINUOUS_MODE, DISABLE); // Triggered, not continuous
+  adc_data_alignment_config(ADC1, ADC_DATAALIGN_RIGHT);
+
+  // Set Trigger Source to Timer1 TRGO
+  adc_external_trigger_source_config( ADC1, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_REGULAR_T2_TRGO );
+  adc_external_trigger_config( ADC1, ADC_REGULAR_CHANNEL, ENABLE );
+
+  // Enable ADC and calibrate
+  adc_enable(ADC1);
+  adc_calibration_enable(ADC1);
+
+  // Enable Interrupt for End of Conversion
+  adc_interrupt_enable(ADC1, ADC_INT_EOC);
+  nvic_irq_enable(ADC0_1_IRQn, 0, 0); // Need to handle ADC0,1,2 ISR
+
+  // Start ADC
+  adc_software_trigger_enable(ADC1, ADC_REGULAR_CHANNEL); // Initial trigger
+}
+
+/** Set up timer 2 with update event
+  *
+  * @param: none.
+  * @retval: none
+  *
+  */
+void SetupTimer2( void )
+{
+  timer_deinit( TIMER2 );
+
+  timer_parameter_struct timer_initpara;
+
+
+  /* 2. Configure TIMER0 for Hz update */
+  timer_deinit( TIMER2 );
+  timer_initpara.prescaler         = 6000-1;
+  timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;
+  timer_initpara.counterdirection  = TIMER_COUNTER_UP;
+  timer_initpara.period            = 100-1;
+  timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
+  timer_initpara.repetitioncounter = 0;
+  timer_init( TIMER2, &timer_initpara );
+
+  /* 3. Set Master Mode to send Update Event to TRGO */
+  timer_master_slave_mode_config( TIMER2, TIMER_MASTER_SLAVE_MODE_ENABLE );
+  timer_master_output_trigger_source_select( TIMER2, TIMER_TRI_OUT_SRC_UPDATE );
+  timer_update_event_enable( TIMER2 );
+
+
+  /* 5. Enable the timer */
+  timer_enable( TIMER2 );
+}
+
+
 /** Configures the SPI peripheral as I2S at a given sample rate
   *
   * @param: speed.  The sample rate to which we will play the sound sample.
@@ -375,6 +502,15 @@ static void SetupClocks( void )
   rcu_periph_clock_enable( RCU_AF );
   rcu_periph_clock_enable( PROJECT_SPI_CLOCK );
   rcu_periph_clock_enable( RCU_DMA0 );
+
+  // Enable Timer 2 clock.
+  //
+  rcu_periph_clock_enable( RCU_TIMER2 );
+
+  // Enable ADC1 clock
+  //
+  rcu_periph_clock_enable( RCU_ADC1 );
+  rcu_adc_clock_config( RCU_CKADC_CKAPB2_DIV16 ); // Set proper ADC clock
 }
 
 
@@ -392,11 +528,14 @@ void Enter_LP_SleepMode( void )
 
   SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk; // Disable SysTick interrupt
   nvic_irq_disable( DMA0_Channel4_IRQn );     // If for some reason DMA is running, stop it's IRQs
+  nvic_irq_disable( ADC0_1_IRQn );
 
   /*  Flush pending interrupts */
   NVIC_ClearPendingIRQ( EXTI5_9_IRQn );
   NVIC_ClearPendingIRQ( DMA0_Channel4_IRQn );
   NVIC_ClearPendingIRQ( SysTick_IRQn );
+  NVIC_ClearPendingIRQ( ADC0_1_IRQn );
+
 
   /* To sleep, perchance to dream */
   pmu_to_deepsleepmode( PMU_LDO_LOWPOWER, PMU_LOWDRIVER_ENABLE , WFI_CMD );
@@ -405,6 +544,7 @@ void Enter_LP_SleepMode( void )
   nvic_irq_enable( DMA0_Channel4_IRQn, 1, 0 );
   SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;  // Re-enable after wakeup
   SetupClocks();
+  nvic_irq_enable(ADC0_1_IRQn, 0, 0); // Need to reenable ADC0,1,2 ISR
 }
 
 
@@ -420,4 +560,12 @@ void HardFault_Handler( void )
 void EXTI5_9_IRQHandler( void )
 {
   exti_interrupt_flag_clear( EXTI_8 );
+}
+
+
+/* ADC Conversion results get posted from within here. */
+void ADC0_1_IRQHandler( void )
+{
+  adc_interrupt_flag_clear( ADC1, ADC_INT_FLAG_EOC );
+  adc_raw = adc_regular_data_read( ADC1 );
 }

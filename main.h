@@ -32,6 +32,11 @@
   #define I2S_SD_Pin          GPIO_PIN_15
   #define I2S_SD_BANK         GPIOB
 
+  // ADC Input Pin
+  //
+  #define VOLRef_Pin          GPIO_PIN_6
+  #define VOLRef_BANK         GPIOA
+
   // Defines for I2S
   //
   #define PROJECT_SPI         SPI1        // The port used on the PCB design, no remap is available.
@@ -46,8 +51,18 @@
 #define TRIGGER_CLR           0
 #define TRIG_TIMEOUT_MS       1000U
 
+// Uncomment to use digital GPIOs for volume instead of ADC
+//#define VOLUME_INPUT_DIGITAL
+
+// Analog volume ADC scaling (12-bit ADC scaled to 16-bit range)
+// ADC max (4095) * 16 = 65520, representing the maximum usable 16-bit volume value
+#define VOLUME_ADC_MAX_SCALED 65520U
+
+// Scale factor for master volume input.
+#define MASTER_VOLUME_SCALE 8U
+
 // Sleep mode control; debug doesn't work well if it's enabled. Comment out for sleep feature.
-#define NO_SLEEP_MODE
+//#define NO_SLEEP_MODE
 
   // Includes
   //
