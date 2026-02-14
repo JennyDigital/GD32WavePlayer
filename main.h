@@ -47,7 +47,7 @@
 #define TRIG_TIMEOUT_MS       1000U
 
 // Sleep mode control; debug doesn't work well if it's enabled. Comment out for sleep feature.
-//#define NO_SLEEP_MODE
+#define NO_SLEEP_MODE
 
   // Includes
   //

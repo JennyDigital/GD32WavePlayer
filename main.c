@@ -115,11 +115,12 @@ int main( void )
 
   // Set initial Air Effect boost in dB (runtime adjustable)
   SetAirEffectPresetDb( 0 );              // default +3 dB preset
-  SetLpf16BitLevel( LPF_Soft );
+  SetLpf16BitLevel( LPF_Custom );
+  SetLpf16BitCustomAlpha( CalcLpf16BitAlphaFromCutoff( 2500, I2S_AUDIOSAMPLE_16K ) );
   
   // Set fade times
   SetFadeInTime(0.8f );                   // 800 ms fade-in
-  SetFadeOutTime( 0.8f );                // 150 ms fade-out
+  SetFadeOutTime( 0.8f );                 // 150 ms fade-out
   SetPauseFadeTime( 0.15f );              // 150 ms pause fade-out
   SetResumeFadeTime( 1.25f );             // 1250 ms resume fade-in
 
@@ -346,7 +347,8 @@ static void SetupClocks( void )
   //rcu_osci_on ( RCU_HXTAL );
   fmc_wscnt_set( WS_WSCNT_2 );
 
-  rcu_pll_config(RCU_PLLSRC_IRC8M_DIV2, RCU_PLL_MUL27 );
+  /* Let's go flat-out at 120MHz. Zoooooom!!! */
+  rcu_pll_config(RCU_PLLSRC_IRC8M_DIV2, RCU_PLL_MUL30 );
   rcu_osci_on( RCU_PLL_CK );
   if( SUCCESS != rcu_osci_stab_wait( RCU_PLL_CK ) )
   { 
