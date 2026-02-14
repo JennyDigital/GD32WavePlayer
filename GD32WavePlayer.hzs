@@ -47,10 +47,6 @@
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
-  <ProjectSessionItem path=""/>
-  <ProjectSessionItem path=""/>
-  <ProjectSessionItem path=""/>
-  <ProjectSessionItem path=""/>
   <SourceCodeControlLogin password="F9BB6682F5D56822" user="JennyDigital &lt;jennifer.a.gunn@outlook.com>"/>
  </Project>
  <Register1>
@@ -90,7 +86,7 @@
  </TraceWindow>
  <Watch1>
   <Watches active="1" update="Twice a Second">
-   <Watchpoint expression="key_detected" name="key_detected" radix="-1" linenumber="0" filename=""/>
+   <Watchpoint expression="key_detected" name="key_detected" radix="-1" linenumber="0" filename="../GD32WavePlayer"/>
   </Watches>
  </Watch1>
  <Watch2>
@@ -103,10 +99,10 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="57" y="192" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="33" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="4" y="1679" useTextEdit="1" path="Libraries/audio_engine.c" left="0" selected="1" top="1940" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="13" y="190" useTextEdit="1" path="main.c" left="0" top="345" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="49" useTextEdit="1" path="main.h" left="0" top="21" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="57" y="192" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="168" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1174" useTextEdit="1" path="Libraries/audio_engine.c" left="0" selected="1" top="1156" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="70" useTextEdit="1" path="main.c" left="0" top="68" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="49" useTextEdit="1" path="main.h" left="0" top="25" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="interrupt_utils.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="15" y="8" useTextEdit="1" path="sound_headers/ocarina_melody32k.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="8" y="343" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_gpio.h" left="0" top="334" codecName="Default"/>
@@ -116,5 +112,5 @@
   <SessionOpenFile windowGroup="DockEditLeft" x="38" y="227" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_pmu.c" left="0" top="216" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="8" y="672" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_rcu.h" left="0" top="652" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="GD32WavePlayer" fileDialogDefaultFilter="*.c;*.h" autoConnectTarget="ST-LINK/V2-V3" buildConfiguration="THUMB Release" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/jennifer/repos/GD32WavePlayer/sound_headers" debugSearchPath="" autoConnectCapabilities="388991"/>
+ <ARMCrossStudioWindow activeProject="GD32WavePlayer" fileDialogDefaultFilter="*.c;*.h" autoConnectTarget="ST-LINK/V2-V3" buildConfiguration="THUMB Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/jennifer/repos/GD32WavePlayer/sound_headers" debugSearchPath="" autoConnectCapabilities="388991"/>
 </session>

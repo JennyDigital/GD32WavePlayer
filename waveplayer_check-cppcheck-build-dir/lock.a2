@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="13694549506453193646">
+        <error id="missingInclude" severity="information" msg="Include file: &quot;main.h&quot; not found." verbose="Include file: &quot;main.h&quot; not found.">
+            <location file="/home/jennifer/repos/GD32WavePlayer/Libraries/lock.c" line="5" column="0"/>
+        </error>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/lock.c" functionName="TOOLS_RDPLevel1_Lock" lineNumber="9"/>
+    <functioncall functionName="HAL_FLASHEx_OBGetConfig"/>
+    <functioncall functionName="HAL_FLASHEx_OBProgram"/>
+    <functioncall functionName="HAL_FLASH_OB_Launch"/>
+    <functioncall functionName="HAL_FLASH_OB_Lock"/>
+    <functioncall functionName="HAL_FLASH_OB_Unlock"/>
+    <functioncall functionName="HAL_FLASH_Unlock"/>
+    <functioncall functionName="OB_RDP_LEVEL_1"/>
+    <functioncall functionName="OPTIONBYTE_RDP"/>
+  </FileInfo>
+</analyzerinfo>

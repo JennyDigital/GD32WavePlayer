@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="15839184849358851666">
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="main.h" line="54" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="Libraries/audio_engine.h" line="60" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="Libraries/audio_engine.h" line="61" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="Libraries/audio_engine.h" line="62" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="Libraries/audio_engine.c" line="40" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;math.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="Libraries/audio_engine.c" line="41" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stddef.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stddef.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="Libraries/audio_engine.c" line="42" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="Libraries/audio_engine.c" line="43" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;string.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="Libraries/audio_engine.c" line="44" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="Libraries/audio_engine.c" line="45" column="0"/>
+        </error>
+        <error id="normalCheckLevelMaxBranches" severity="information" msg="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." verbose="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." file0="Libraries/audio_engine.c">
+            <location file="Libraries/audio_engine.c" line="0" column="0"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="Libraries/audio_engine.h:533:22" call-funcname="SetAirEffectGainQ16" call-argnr="1" file="Libraries/audio_engine.c" line="522" col="22" call-argexpr="gain_q16" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="Libraries/audio_engine.c" line="517" col="23" info="Assignment &apos;G=0.0f&apos;, assigned value is 0.0"/>
+  <path file="Libraries/audio_engine.c" line="518" col="37" info="Assignment &apos;gain_q16=(uint32_t)(G*65536.0f+0.5f)&apos;, assigned value is 0"/>
+</function-call><function-call call-id="Libraries/audio_engine.h:261:21" call-funcname="SetAirEffectEnable" call-argnr="1" file="Libraries/audio_engine.c" line="552" col="21" call-argexpr="preset_index&gt;0?1:0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="Libraries/audio_engine.h:560:22" call-funcname="SetAirEffectPresetDb" call-argnr="1" file="Libraries/audio_engine.c" line="567" col="23" call-argexpr="next" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="Libraries/audio_engine.c" line="565" col="12" info="Assignment &apos;next=0&apos;, assigned value is 0"/>
+</function-call><function-call call-id="Libraries/audio_engine.c:268:40" call-funcname="GetChannelState" call-argnr="1" file="Libraries/audio_engine.c" line="1366" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="Libraries/audio_engine.c" line="1763" col="55" info="Calling function &apos;ApplyFilterChain16Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
+</function-call><function-call call-id="Libraries/audio_engine.c:110:27" call-funcname="ApplyPostFilters" call-argnr="2" file="Libraries/audio_engine.c" line="1372" col="26" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="Libraries/audio_engine.c" line="1763" col="55" info="Calling function &apos;ApplyFilterChain16Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
+</function-call><function-call call-id="Libraries/audio_engine.c:268:40" call-funcname="GetChannelState" call-argnr="1" file="Libraries/audio_engine.c" line="1384" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="Libraries/audio_engine.c" line="1831" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
+</function-call><function-call call-id="Libraries/audio_engine.c:110:27" call-funcname="ApplyPostFilters" call-argnr="2" file="Libraries/audio_engine.c" line="1389" col="26" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="Libraries/audio_engine.c" line="1831" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
+</function-call><function-call call-id="Libraries/audio_engine.c:268:40" call-funcname="GetChannelState" call-argnr="1" file="Libraries/audio_engine.c" line="1401" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="Libraries/audio_engine.c" line="1831" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
+  <path file="Libraries/audio_engine.c" line="1389" col="36" info="Calling function &apos;ApplyPostFilters&apos;, 2nd argument &apos;channel_id&apos; value is 0"/>
+</function-call><function-call call-id="Libraries/audio_engine.c:1603:33" call-funcname="ProcessDMACallback" call-argnr="1" file="Libraries/audio_engine.c" line="1690" col="23" call-argexpr="0U" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="Libraries/audio_engine.c:111:27" call-funcname="ApplyFilterChain16Bit" call-argnr="2" file="Libraries/audio_engine.c" line="1763" col="41" call-argexpr="CHANNEL_LEFT" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="Libraries/audio_engine.c:112:27" call-funcname="ApplyFilterChain8Bit" call-argnr="2" file="Libraries/audio_engine.c" line="1831" col="42" call-argexpr="CHANNEL_LEFT" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="2" file="Libraries/audio_engine.c" line="1252" col="10" my-id="Libraries/audio_engine.c:85:27" my-argnr="2"/>
+<function-call call-id="Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="3" file="Libraries/audio_engine.c" line="1252" col="10" my-id="Libraries/audio_engine.c:85:27" my-argnr="3"/>
+<function-call call-id="Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="2" file="Libraries/audio_engine.c" line="1269" col="10" my-id="Libraries/audio_engine.c:90:27" my-argnr="2"/>
+<function-call call-id="Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="3" file="Libraries/audio_engine.c" line="1269" col="10" my-id="Libraries/audio_engine.c:90:27" my-argnr="3"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="Libraries/audio_engine.c:237:20" my-argnr="1" my-argname="state" file="Libraries/audio_engine.c" line="239" col="3" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:106:27" my-argnr="2" my-argname="y1" file="Libraries/audio_engine.c" line="1006" col="45" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:79:27" my-argnr="2" my-argname="prev_input" file="Libraries/audio_engine.c" line="1226" col="29" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:79:27" my-argnr="3" my-argname="prev_output" file="Libraries/audio_engine.c" line="1227" col="25" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:99:27" my-argnr="2" my-argname="x1" file="Libraries/audio_engine.c" line="1296" col="35" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:99:27" my-argnr="3" my-argname="x2" file="Libraries/audio_engine.c" line="1297" col="35" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:99:27" my-argnr="4" my-argname="y1" file="Libraries/audio_engine.c" line="1298" col="35" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:99:27" my-argnr="5" my-argname="y2" file="Libraries/audio_engine.c" line="1299" col="35" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:1327:16" my-argnr="2" my-argname="x1" file="Libraries/audio_engine.c" line="1336" col="51" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:1327:16" my-argnr="3" my-argname="y1" file="Libraries/audio_engine.c" line="1343" col="64" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="Libraries/audio_engine.c:106:27" my-argnr="2" my-argname="y1" file="Libraries/audio_engine.c" line="1006" col="45" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:79:27" my-argnr="2" my-argname="prev_input" file="Libraries/audio_engine.c" line="1226" col="29" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:79:27" my-argnr="3" my-argname="prev_output" file="Libraries/audio_engine.c" line="1227" col="25" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:99:27" my-argnr="2" my-argname="x1" file="Libraries/audio_engine.c" line="1296" col="35" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:99:27" my-argnr="3" my-argname="x2" file="Libraries/audio_engine.c" line="1297" col="35" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:99:27" my-argnr="4" my-argname="y1" file="Libraries/audio_engine.c" line="1298" col="35" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:99:27" my-argnr="5" my-argname="y2" file="Libraries/audio_engine.c" line="1299" col="35" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:1327:16" my-argnr="2" my-argname="x1" file="Libraries/audio_engine.c" line="1336" col="51" value="0"/>
+    <unsafe-usage my-id="Libraries/audio_engine.c:1327:16" my-argnr="3" my-argname="y1" file="Libraries/audio_engine.c" line="1343" col="64" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="Libraries/audio_engine.c" functionName="AudioEngine_OnPlaybackEnd" lineNumber="123"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ResetFilterChannelState" lineNumber="237"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ResetAllFilterState" lineNumber="257"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetChannelState" lineNumber="268"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="AudioEngine_Init" lineNumber="286"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetFilterConfig" lineNumber="341"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetFilterConfig" lineNumber="368"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetSoftClippingEnable" lineNumber="382"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetSoftClippingEnable" lineNumber="394"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetLpf8BitLevel" lineNumber="406"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetLpf8BitLevel" lineNumber="424"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetLpf8BitCustomAlpha" lineNumber="429"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetLpf8BitCustomAlpha" lineNumber="436"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetFilterChain8BitEnable" lineNumber="441"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetFilterChain8BitEnable" lineNumber="446"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetFilterChain16BitEnable" lineNumber="451"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetFilterChain16BitEnable" lineNumber="456"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetAirEffectEnable" lineNumber="466"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetAirEffectEnable" lineNumber="476"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetAirEffectGainQ16" lineNumber="487"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetAirEffectGainQ16" lineNumber="499"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetAirEffectGainDb" lineNumber="511"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetAirEffectGainDb" lineNumber="530"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetAirEffectPresetDb" lineNumber="544"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="CycleAirEffectPresetDb" lineNumber="561"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetAirEffectPresetIndex" lineNumber="575"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetAirEffectPresetCount" lineNumber="584"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetAirEffectPresetDb" lineNumber="593"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetLpfMakeupGain8Bit" lineNumber="667"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetLpfMakeupGain16Bit" lineNumber="685"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetLpfMakeupGain16Bit" lineNumber="702"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="CalcLpf16BitAlphaFromCutoff" lineNumber="718"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="CalcLpf8BitAlphaFromCutoff" lineNumber="738"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetLpf16BitCustomAlphaFromCutoff" lineNumber="755"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="CalcSampleOffsetSamples" lineNumber="768"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetLpf16BitLevel" lineNumber="793"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetLpf16BitCustomAlpha" lineNumber="829"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="FadeTimeToSamples" lineNumber="844"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetFadeInTime" lineNumber="859"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetFadeInTime" lineNumber="871"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetFadeOutTime" lineNumber="883"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetFadeOutTime" lineNumber="895"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetPauseFadeTime" lineNumber="907"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetPauseFadeTime" lineNumber="919"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetResumeFadeTime" lineNumber="931"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetResumeFadeTime" lineNumber="943"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetPlaybackSpeed" lineNumber="954"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="Apply8BitDithering" lineNumber="977"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyLowPassFilter8Bit" lineNumber="1001"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyFadeIn" lineNumber="1021"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyFadeOut" lineNumber="1053"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyNoiseGate" lineNumber="1102"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="UpdateFadeCounters" lineNumber="1119"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="WarmupBiquadFilter16Bit" lineNumber="1145"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ComputeSoftClipCurve" lineNumber="1168"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplySoftClipping" lineNumber="1184"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyDCFilterWithAlpha" lineNumber="1219"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyDCBlockingFilter" lineNumber="1246"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplySoftDCFilter16Bit" lineNumber="1263"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyLowPassFilter16Bit" lineNumber="1280"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyAirEffect" lineNumber="1327"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyFilterChain16Bit" lineNumber="1364"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyFilterChain8Bit" lineNumber="1382"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyPostFilters" lineNumber="1399"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ResetPlaybackState" lineNumber="1435"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetPlaybackState" lineNumber="1453"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetPlaybackState" lineNumber="1464"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetDAC_Control" lineNumber="1475"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetDAC_Control" lineNumber="1485"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetHalfToFill" lineNumber="1496"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetHalfToFill" lineNumber="1507"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetPlaybackSpeed" lineNumber="1519"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="RecalculateFadeSamples" lineNumber="1537"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="EndPlaybackCleanup" lineNumber="1552"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="StopDmaAndResetPlaybackState" lineNumber="1569"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="StopImmediate" lineNumber="1583"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ProcessDMACallback" lineNumber="1603"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="DMA0_Channel4_IRQHandler" lineNumber="1681"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="AdvanceSamplePointer" lineNumber="1704"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ProcessNextWaveChunk" lineNumber="1736"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ProcessNextWaveChunk_8_bit" lineNumber="1800"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="PlaySample" lineNumber="1878"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="WaitForSampleEnd" lineNumber="1989"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="PausePlayback" lineNumber="2016"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ResumePlayback" lineNumber="2072"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="StopPlayback" lineNumber="2110"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyVolumeResponseCurve" lineNumber="2128"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ApplyVolumeSetting" lineNumber="2149"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="ShutDownAudio" lineNumber="2171"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetLpf8BitAlpha" lineNumber="2189"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetVolumeResponseNonlinear" lineNumber="2222"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetVolumeResponseNonlinear" lineNumber="2232"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="SetVolumeResponseGamma" lineNumber="2246"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="GetVolumeResponseGamma" lineNumber="2258"/>
+    <functiondecl file="Libraries/audio_engine.c" functionName="dma_config" lineNumber="2270"/>
+    <functioncall functionName="AdvanceSamplePointer"/>
+    <functioncall functionName="Apply8BitDithering"/>
+    <functioncall functionName="ApplyAirEffect"/>
+    <functioncall functionName="ApplyDCBlockingFilter"/>
+    <functioncall functionName="ApplyDCFilterWithAlpha"/>
+    <functioncall functionName="ApplyFadeIn"/>
+    <functioncall functionName="ApplyFadeOut"/>
+    <functioncall functionName="ApplyFilterChain16Bit"/>
+    <functioncall functionName="ApplyFilterChain8Bit"/>
+    <functioncall functionName="ApplyLowPassFilter16Bit"/>
+    <functioncall functionName="ApplyLowPassFilter8Bit"/>
+    <functioncall functionName="ApplyNoiseGate"/>
+    <functioncall functionName="ApplyPostFilters"/>
+    <functioncall functionName="ApplySoftClipping"/>
+    <functioncall functionName="ApplySoftDCFilter16Bit"/>
+    <functioncall functionName="ApplyVolumeResponseCurve"/>
+    <functioncall functionName="ApplyVolumeSetting"/>
+    <functioncall functionName="AudioEngine_OnPlaybackEnd"/>
+    <functioncall functionName="CalcLpf16BitAlphaFromCutoff"/>
+    <functioncall functionName="ComputeSoftClipCurve"/>
+    <functioncall functionName="DMA0"/>
+    <functioncall functionName="DMA_CH4"/>
+    <functioncall functionName="DMA_FLAG_FTF"/>
+    <functioncall functionName="DMA_FLAG_HTF"/>
+    <functioncall functionName="DMA_INT_FLAG_FTF"/>
+    <functioncall functionName="DMA_INT_FLAG_HTF"/>
+    <functioncall functionName="DMA_INT_FTF"/>
+    <functioncall functionName="DMA_INT_HTF"/>
+    <functioncall functionName="DMA_MEMORY_INCREASE_ENABLE"/>
+    <functioncall functionName="DMA_MEMORY_TO_PERIPHERAL"/>
+    <functioncall functionName="DMA_MEMORY_WIDTH_16BIT"/>
+    <functioncall functionName="DMA_PERIPHERAL_WIDTH_16BIT"/>
+    <functioncall functionName="DMA_PERIPH_INCREASE_DISABLE"/>
+    <functioncall functionName="DMA_PRIORITY_HIGH"/>
+    <functioncall functionName="EndPlaybackCleanup"/>
+    <functioncall functionName="FadeTimeToSamples"/>
+    <functioncall functionName="GetChannelState"/>
+    <functioncall functionName="GetLpf8BitAlpha"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="ProcessDMACallback"/>
+    <functioncall functionName="ProcessNextWaveChunk"/>
+    <functioncall functionName="ProcessNextWaveChunk_8_bit"/>
+    <functioncall functionName="RecalculateFadeSamples"/>
+    <functioncall functionName="ResetAllFilterState"/>
+    <functioncall functionName="ResetFilterChannelState"/>
+    <functioncall functionName="ResetPlaybackState"/>
+    <functioncall functionName="SPI1"/>
+    <functioncall functionName="SPI_DATA"/>
+    <functioncall functionName="SetAirEffectEnable"/>
+    <functioncall functionName="SetAirEffectGainDb"/>
+    <functioncall functionName="SetAirEffectGainQ16"/>
+    <functioncall functionName="SetAirEffectPresetDb"/>
+    <functioncall functionName="StopDmaAndResetPlaybackState"/>
+    <functioncall functionName="StopImmediate"/>
+    <functioncall functionName="UpdateFadeCounters"/>
+    <functioncall functionName="WarmupBiquadFilter16Bit"/>
+    <functioncall functionName="__NOP"/>
+    <functioncall functionName="dma_channel_enable"/>
+    <functioncall functionName="dma_circulation_enable"/>
+    <functioncall functionName="dma_config"/>
+    <functioncall functionName="dma_deinit"/>
+    <functioncall functionName="dma_flag_get"/>
+    <functioncall functionName="dma_init"/>
+    <functioncall functionName="dma_interrupt_disable"/>
+    <functioncall functionName="dma_interrupt_enable"/>
+    <functioncall functionName="dma_interrupt_flag_clear"/>
+    <functioncall functionName="dma_memory_to_memory_disable"/>
+    <functioncall functionName="expf"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="i2s_disable"/>
+    <functioncall functionName="log10f"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="powf"/>
+    <functioncall functionName="spi_config"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

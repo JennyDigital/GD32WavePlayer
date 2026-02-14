@@ -1167,12 +1167,12 @@ static inline void WarmupBiquadFilter16Bit( int16_t sample )
   */
 static inline int32_t ComputeSoftClipCurve( int32_t excess, int32_t range )
 {
-  int32_t x = excess * (int32_t)Q16_SCALE / range;
-  if( x > (int32_t)Q16_SCALE ) x = (int32_t)Q16_SCALE;
-  int32_t x2 = ( x * x )  >> 16;
-  int32_t x3 = ( x2 * x ) >> 16;
+  int64_t x = excess * (int64_t)Q16_SCALE / range;
+  if( x > (int64_t)Q16_SCALE ) x = (int64_t)Q16_SCALE;
+  int64_t x2 = ( x * x )  >> 16;
+  int64_t x3 = ( x2 * x ) >> 16;
 
-  return ( ( 3 * x2 ) >> 1 ) - ( ( 2 * x3 ) >> 1 );
+  return (int32_t)( ( ( 3 * x2 ) >> 1 ) - ( ( 2 * x3 ) >> 1 ) );
 }
 
 

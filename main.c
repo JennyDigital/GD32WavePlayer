@@ -103,7 +103,7 @@ int main( void )
   // FilterConfig_TypeDef filter_cfg;
   filter_cfg.enable_noise_gate            = 0;  // Noise gate disabled by default; enable as needed
   filter_cfg.enable_16bit_biquad_lpf      = 0;  // 16-bit biquad LPF disabled by default; enable as needed
-  filter_cfg.enable_8bit_lpf              = 0;  // 8-bit LPF disabled by default; enable as needed
+  filter_cfg.enable_8bit_lpf              = 1;  // 8-bit LPF disabled by default; enable as needed
   filter_cfg.enable_soft_dc_filter_16bit  = 1;  // Soft DC blocking filter for 16-bit samples enabled by default
   filter_cfg.enable_soft_clipping         = 1;  // Soft clipping enabled by default
   filter_cfg.enable_air_effect            = 0;  // Air effect (high-shelf brightening) disabled by default; enable as needed
@@ -115,7 +115,7 @@ int main( void )
 
   // Set initial Air Effect boost in dB (runtime adjustable)
   SetAirEffectPresetDb( 0 );              // default +3 dB preset
-  SetLpf16BitLevel( LPF_Off );
+  SetLpf16BitLevel( LPF_Soft );
   
   // Set fade times
   SetFadeInTime(0.8f );                   // 800 ms fade-in

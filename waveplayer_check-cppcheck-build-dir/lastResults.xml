@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="2.17.1"/>
+    <errors>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;gd32f30x.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;gd32f30x.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="main.h" line="54"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.h" line="60"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdbool.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdbool.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.h" line="61"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;gd32f30x.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;gd32f30x.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.h" line="62"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;gd32f30x.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;gd32f30x.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="40"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;math.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;math.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="41"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stddef.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stddef.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="42"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="43"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;string.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;string.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="44"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdbool.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdbool.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="45"/>
+        </error>
+        <error id="normalCheckLevelMaxBranches" severity="information" msg="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." verbose="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." file0="Libraries/audio_engine.c" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="0"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;CalcLpf8BitAlphaFromCutoff&amp;#039; is never used." verbose="The function &amp;#039;CalcLpf8BitAlphaFromCutoff&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="738"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;CalcSampleOffsetSamples&amp;#039; is never used." verbose="The function &amp;#039;CalcSampleOffsetSamples&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="768"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;CycleAirEffectPresetDb&amp;#039; is never used." verbose="The function &amp;#039;CycleAirEffectPresetDb&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="561"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;DMA0_Channel4_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;DMA0_Channel4_IRQHandler&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="1681"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetAirEffectEnable&amp;#039; is never used." verbose="The function &amp;#039;GetAirEffectEnable&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="476"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetAirEffectGainDb&amp;#039; is never used." verbose="The function &amp;#039;GetAirEffectGainDb&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="530"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetAirEffectGainQ16&amp;#039; is never used." verbose="The function &amp;#039;GetAirEffectGainQ16&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="499"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetAirEffectPresetCount&amp;#039; is never used." verbose="The function &amp;#039;GetAirEffectPresetCount&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="584"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetAirEffectPresetDb&amp;#039; is never used." verbose="The function &amp;#039;GetAirEffectPresetDb&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="593"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetAirEffectPresetIndex&amp;#039; is never used." verbose="The function &amp;#039;GetAirEffectPresetIndex&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="575"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetDAC_Control&amp;#039; is never used." verbose="The function &amp;#039;GetDAC_Control&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="1485"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetFadeInTime&amp;#039; is never used." verbose="The function &amp;#039;GetFadeInTime&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="871"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetFadeOutTime&amp;#039; is never used." verbose="The function &amp;#039;GetFadeOutTime&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="895"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetFilterChain16BitEnable&amp;#039; is never used." verbose="The function &amp;#039;GetFilterChain16BitEnable&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="456"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetFilterChain8BitEnable&amp;#039; is never used." verbose="The function &amp;#039;GetFilterChain8BitEnable&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="446"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetFilterConfig&amp;#039; is never used." verbose="The function &amp;#039;GetFilterConfig&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="368"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetHalfToFill&amp;#039; is never used." verbose="The function &amp;#039;GetHalfToFill&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="1496"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetLpf16BitCustomAlphaFromCutoff&amp;#039; is never used." verbose="The function &amp;#039;GetLpf16BitCustomAlphaFromCutoff&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="755"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetLpf8BitCustomAlpha&amp;#039; is never used." verbose="The function &amp;#039;GetLpf8BitCustomAlpha&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="436"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetLpf8BitLevel&amp;#039; is never used." verbose="The function &amp;#039;GetLpf8BitLevel&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="424"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetLpfMakeupGain16Bit&amp;#039; is never used." verbose="The function &amp;#039;GetLpfMakeupGain16Bit&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="702"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetPauseFadeTime&amp;#039; is never used." verbose="The function &amp;#039;GetPauseFadeTime&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="919"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetPlaybackSpeed&amp;#039; is never used." verbose="The function &amp;#039;GetPlaybackSpeed&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="954"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetPlaybackState&amp;#039; is never used." verbose="The function &amp;#039;GetPlaybackState&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="1453"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetResumeFadeTime&amp;#039; is never used." verbose="The function &amp;#039;GetResumeFadeTime&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="943"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetSoftClippingEnable&amp;#039; is never used." verbose="The function &amp;#039;GetSoftClippingEnable&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="394"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetVolumeResponseGamma&amp;#039; is never used." verbose="The function &amp;#039;GetVolumeResponseGamma&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="2258"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetVolumeResponseNonlinear&amp;#039; is never used." verbose="The function &amp;#039;GetVolumeResponseNonlinear&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="2232"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;PausePlayback&amp;#039; is never used." verbose="The function &amp;#039;PausePlayback&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="2016"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;ResumePlayback&amp;#039; is never used." verbose="The function &amp;#039;ResumePlayback&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="2072"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SetFilterChain16BitEnable&amp;#039; is never used." verbose="The function &amp;#039;SetFilterChain16BitEnable&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="451"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SetFilterChain8BitEnable&amp;#039; is never used." verbose="The function &amp;#039;SetFilterChain8BitEnable&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="441"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SetHalfToFill&amp;#039; is never used." verbose="The function &amp;#039;SetHalfToFill&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="1507"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SetLpf16BitCustomAlpha&amp;#039; is never used." verbose="The function &amp;#039;SetLpf16BitCustomAlpha&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="829"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SetLpf8BitCustomAlpha&amp;#039; is never used." verbose="The function &amp;#039;SetLpf8BitCustomAlpha&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="429"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SetLpf8BitLevel&amp;#039; is never used." verbose="The function &amp;#039;SetLpf8BitLevel&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="406"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SetLpfMakeupGain16Bit&amp;#039; is never used." verbose="The function &amp;#039;SetLpfMakeupGain16Bit&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="685"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SetLpfMakeupGain8Bit&amp;#039; is never used." verbose="The function &amp;#039;SetLpfMakeupGain8Bit&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="667"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SetPlaybackSpeed&amp;#039; is never used." verbose="The function &amp;#039;SetPlaybackSpeed&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="1519"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SetPlaybackState&amp;#039; is never used." verbose="The function &amp;#039;SetPlaybackState&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="1464"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SetSoftClippingEnable&amp;#039; is never used." verbose="The function &amp;#039;SetSoftClippingEnable&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="382"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;ShutDownAudio&amp;#039; is never used." verbose="The function &amp;#039;ShutDownAudio&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="2171"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;StopPlayback&amp;#039; is never used." verbose="The function &amp;#039;StopPlayback&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/audio_engine.c" line="2110"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &amp;quot;main.h&amp;quot; not found." verbose="Include file: &amp;quot;main.h&amp;quot; not found." sinceDate="14/02/2026">
+            <location file="Libraries/lock.c" line="5"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;TOOLS_RDPLevel1_Lock&amp;#039; is never used." verbose="The function &amp;#039;TOOLS_RDPLevel1_Lock&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="Libraries/lock.c" line="9"/>
+        </error>
+        <error id="duplicateBreak" severity="style" msg="Consecutive return, break, continue, goto or throw statements are unnecessary." verbose="Consecutive return, break, continue, goto or throw statements are unnecessary. The second statement can never be executed, and so should be removed." inconclusive="true" cwe="561" file0="main.c" sinceDate="14/02/2026">
+            <location file="main.c" line="224"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;gd32f30x.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;gd32f30x.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="main.c" line="4"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdbool.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdbool.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="main.c" line="5"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;EXTI5_9_IRQHandler&amp;#039; is never used." verbose="The function &amp;#039;EXTI5_9_IRQHandler&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="main.c" line="418"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;GetTriggerOption&amp;#039; is never used." verbose="The function &amp;#039;GetTriggerOption&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="main.c" line="216"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;HardFault_Handler&amp;#039; is never used." verbose="The function &amp;#039;HardFault_Handler&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="main.c" line="410"/>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &amp;#039;SysTick_Handler&amp;#039; is never used." verbose="The function &amp;#039;SysTick_Handler&amp;#039; is never used." cwe="561" sinceDate="14/02/2026">
+            <location file="main.c" line="232"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="interrupt_utils.h" line="35"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;cmsis_gcc.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;cmsis_gcc.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="interrupt_utils.h" line="38"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/newchallenger.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/newchallenger11k.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/guitar.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/mind_the_door.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/three_tone_arrival_c.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/tunnelbarra.h" line="4"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/tunnelbarra16.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/konnichiwa.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/dinding.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/elevator_ping.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/Danger.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/selfdestruct.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/new_rage32k.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/accoustic_rock22k.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/hey_yeah32k.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/darkblues32k.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/custom_tritone16k.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/ocarina_melody32k.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/theremin_quartet.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/steves_doorbell.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/harmony8b.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/andean_flute.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/quencho_flute.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/dreamy.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/guitar_small.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/guitar_riff.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/handpan.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/nylon_guitar.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/dalby_tritone16b16k.h" line="5"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &amp;lt;stdint.h&amp;gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." sinceDate="14/02/2026">
+            <location file="sound_headers/Lemon_Tree.h" line="5"/>
+        </error>
+    </errors>
+</results>

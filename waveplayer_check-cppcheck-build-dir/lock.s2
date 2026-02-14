@@ -1,0 +1,1 @@
+TOOLS_RDPLevel1_Lock global:[pOBInit] call:[HAL_FLASHEx_OBGetConfig,HAL_FLASHEx_OBProgram,HAL_FLASH_OB_Launch,HAL_FLASH_OB_Lock,HAL_FLASH_OB_Unlock,HAL_FLASH_Unlock] noreturn:[HAL_FLASH_OB_Launch,HAL_FLASH_OB_Lock]
