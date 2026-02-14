@@ -291,7 +291,7 @@ PB_StatusTypeDef AudioEngine_Init( DAC_SwitchFunc dac_switch,
   if( dac_switch == NULL || read_volume == NULL || i2s_init == NULL ) {
     return PB_Error;
   }
-  
+
   /* Assign hardware interface functions */
   AudioEngine_DACSwitch   = dac_switch;
   AudioEngine_ReadVolume  = read_volume;
@@ -2289,8 +2289,6 @@ void dma_config()
     dma_circulation_enable(DMA0, DMA_CH4);
     dma_memory_to_memory_disable(DMA0, DMA_CH4);
    
-
     dma_interrupt_enable(DMA0, DMA_CH4, DMA_INT_FTF | DMA_INT_HTF ); 
-
     dma_channel_enable(DMA0, DMA_CH4);
 }
