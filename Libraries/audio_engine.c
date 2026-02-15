@@ -1308,8 +1308,6 @@ static int16_t PUT_IN_FASTMEM
   if ( output64 > AUDIO_INT16_MAX ) output64 = AUDIO_INT16_MAX;
   if ( output64 < AUDIO_INT16_MIN ) output64 = AUDIO_INT16_MIN;
   output = (int32_t)output64;
-  if ( output > AUDIO_INT16_MAX ) output = AUDIO_INT16_MAX;
-  if ( output < AUDIO_INT16_MIN ) output = AUDIO_INT16_MIN;
   return (int16_t)output;
 }
 

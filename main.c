@@ -113,7 +113,7 @@ int main( void )
   filter_cfg.enable_noise_gate            = 0;  // Noise gate disabled by default; enable as needed
   filter_cfg.enable_16bit_biquad_lpf      = 0;  // 16-bit biquad LPF disabled by default; enable as needed
   filter_cfg.enable_8bit_lpf              = 1;  // 8-bit LPF disabled by default; enable as needed
-  filter_cfg.enable_soft_dc_filter_16bit  = 1;  // Soft DC blocking filter for 16-bit samples enabled by default
+  filter_cfg.enable_soft_dc_filter_16bit  = 0;  // Soft DC blocking filter for 16-bit samples enabled by default
   filter_cfg.enable_soft_clipping         = 1;  // Soft clipping enabled by default
   filter_cfg.enable_air_effect            = 0;  // Air effect (high-shelf brightening) disabled by default; enable as needed
   filter_cfg.enable_filter_chain_16bit    = 1;  // Master enable for entire 16-bit filter chain
@@ -124,21 +124,23 @@ int main( void )
 
   // Set initial Air Effect boost in dB (runtime adjustable)
   SetAirEffectPresetDb( 0 );              // default +3 dB preset
-  SetLpf16BitLevel( LPF_Custom );
-  SetLpf16BitCustomAlpha( CalcLpf16BitAlphaFromCutoff( 2500, I2S_AUDIOSAMPLE_16K ) );
+  SetLpf16BitLevel( LPF_Off );
+  //SetLpf16BitCustomAlpha( CalcLpf16BitAlphaFromCutoff( 3500, I2S_AUDIOSAMPLE_16K ) );
+  //SetLpfMakeupGain16Bit( 1 );
   
   // Set fade times
-  SetFadeInTime(0.8f );                   // 800 ms fade-in
-  SetFadeOutTime( 0.8f );                 // 150 ms fade-out
-  SetPauseFadeTime( 0.15f );              // 150 ms pause fade-out
-  SetResumeFadeTime( 1.25f );             // 1250 ms resume fade-in
+  SetFadeInTime(0.2f );                   // 800 ms fade-in
+  SetFadeOutTime( 0.2f );                 // 150 ms fade-out
+  SetPauseFadeTime( 0.5f );               // 150 ms pause fade-out
+  SetResumeFadeTime( 0.5f );              // 1250 ms resume fade-in
 
   /* Superloop */
   while( true )
   {
     WaitForTrigger( TRIGGER_SET );
 
-    PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
+    //PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
+    PlaySample( ocarina32k, OCARINA32K_SZ, I2S_AUDIOSAMPLE_32K, 16, Mode_mono );
 
     WaitForSampleEnd();
   }
