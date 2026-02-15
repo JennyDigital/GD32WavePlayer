@@ -379,7 +379,7 @@ void SetupADC( void )
   // Set Trigger Source to Timer1 TRGO
   adc_external_trigger_source_config( ADC1, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_REGULAR_T2_TRGO );
   adc_external_trigger_config( ADC1, ADC_REGULAR_CHANNEL, ENABLE );
-
+  adc_regular_channel_config( ADC1, 0, ADC_CHANNEL_6, ADC_SAMPLETIME_7POINT5 );
   // Enable ADC
   adc_enable(ADC1);
   // Allow settling time.
@@ -410,10 +410,10 @@ void SetupTimer2( void )
 
   /* 2. Configure TIMER0 for Hz update */
   timer_deinit( TIMER2 );
-  timer_initpara.prescaler         = 6000-1;
+  timer_initpara.prescaler         = 120-1;
   timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;
   timer_initpara.counterdirection  = TIMER_COUNTER_UP;
-  timer_initpara.period            = 100-1;
+  timer_initpara.period            = 2500-1;
   timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;
   timer_initpara.repetitioncounter = 0;
   timer_init( TIMER2, &timer_initpara );
