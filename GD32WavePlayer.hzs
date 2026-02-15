@@ -2,9 +2,7 @@
 <session>
  <Bookmarks/>
  <Breakpoints groups="Breakpoints" active_group="Breakpoints">
-  <Exceptions>
-   <Group group="V7M Exceptions" set="BusFault;ExceptionEntryReturnFault;HardFault;MemManage;UsageFault_CheckingError;UsageFault_Coprocessor;UsageFault_StateError"/>
-  </Exceptions>
+  <Exceptions/>
  </Breakpoints>
  <ExecutionProfileWindow/>
  <FrameBuffer>
@@ -43,7 +41,6 @@
   <MemoryWindow addressSpace="" dataSize="1" autoEvaluate="0" viewMode="0" viewType="4" addressOrder="0" columnsText="" refreshPeriod="0" name="GD32WavePlayer_THUMB Release" sizeText="" addressText=""/>
  </Memory4>
  <Project>
-  <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
@@ -87,7 +84,7 @@
  <Watch1>
   <Watches active="1" update="Twice a Second">
    <Watchpoint expression="adc_raw" name="adc_raw" radix="-1" linenumber="0" filename="../GD32WavePlayer"/>
-   <Watchpoint expression="adc_out" name="adc_out" radix="10" linenumber="0" filename=""/>
+   <Watchpoint expression="adc_out" name="adc_out" radix="10" linenumber="0" filename="../GD32WavePlayer"/>
   </Watches>
  </Watch1>
  <Watch2>
@@ -101,9 +98,9 @@
  </Watch4>
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="22" y="132" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="132" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="23" y="2128" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="2128" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="198" useTextEdit="1" path="main.c" left="0" selected="1" top="196" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="11" y="21" useTextEdit="1" path="main.h" left="0" top="4" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1310" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="1286" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="1" useTextEdit="1" path="main.c" left="0" selected="1" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="68" useTextEdit="1" path="main.h" left="0" top="46" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="interrupt_utils.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="15" y="8" useTextEdit="1" path="sound_headers/ocarina_melody32k.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="8" y="343" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_gpio.h" left="0" top="334" codecName="Default"/>
@@ -111,9 +108,9 @@
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="300" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_fmc.h" left="0" top="283" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="5" y="236" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_timer.c" left="0" top="224" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="58" y="50" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_timer.h" left="0" top="50" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="409" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_adc.c" left="0" top="389" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="252" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_adc.c" left="0" top="232" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="31" y="246" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_rcu.c" left="0" top="226" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="39" y="201" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_adc.h" left="0" top="190" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="19" y="353" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_adc.h" left="0" top="335" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="GD32WavePlayer" fileDialogDefaultFilter="*.c;*.h" autoConnectTarget="ST-LINK/V2-V3" buildConfiguration="THUMB Release" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/jennifer/repos/GD32WavePlayer/sound_headers" debugSearchPath="" autoConnectCapabilities="388991"/>
 </session>

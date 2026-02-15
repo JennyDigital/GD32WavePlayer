@@ -64,6 +64,10 @@
 // Sleep mode control; debug doesn't work well if it's enabled. Comment out for sleep feature.
 //#define NO_SLEEP_MODE
 
+//* Build options
+// #define FORCE_TRIGGER_OPT
+//#define TEST_CYCLING
+
   // Includes
   //
   #include <gd32f30x.h>

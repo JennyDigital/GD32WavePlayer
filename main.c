@@ -1,5 +1,5 @@
 //
-// main.cpp : Defines entry point for an GD32F30x C/C++ application.
+// main.c: Defines entry point for an GD32F30x C/C++ application.
 //
 #include <gd32f30x.h>
 #include <stdbool.h>
@@ -159,37 +159,6 @@ void DAC_MasterSwitch( uint8_t setting )
 }
 
 
-///** Read the master volume level for playback.
-//  *
-//  * params: none
-//  * retval: uint16_t between 1 and 65535 for volume scaling.
-//  *
-//  * Note: Non-linear volume response is now handled internally by the audio engine.
-//  *       Use SetVolumeResponseNonlinear() and SetVolumeResponseGamma() to configure.
-//  */
-//uint16_t ReadVolume( void )
-//{
-//  uint16_t volume = 0;
-
-//    // Use digital GPIOs for volume (3 bits, scaled to 1-65535)
-//    uint8_t v = (
-//                  ( gpio_input_bit_get( OPT3_Bank, OPT3_Pin ) << 2 )  |
-//                  ( gpio_input_bit_get( OPT2_Bank, OPT2_Pin ) << 1 )  |
-//                  ( gpio_input_bit_get( OPT1_Bank, OPT1_Pin )      )
-//                );
-
-//    v = 7 - v;        // Invert so 0b000 = max volume, 0b111 = min volume
-//    uint32_t scaled = ( (uint32_t)v * 65535U ) / 7U;  // Map 0-7 to 0-65535
-//    volume = (uint16_t)scaled;
- 
-//  /* Analog signals have noise; clamp low values to avoid noise-induced ultra-quiet audio */
-//  if( volume < 32U ) volume = 32U;
-
-//  /* Return raw volume - audio engine applies non-linear response curve internally */
-//  return volume;
-//} 
-
-
 /** Read the master volume level for playback.
   *
   * params: none
@@ -270,13 +239,11 @@ inline void WaitForTrigger( uint8_t trig_to_wait_for )
   */
 uint8_t GetTriggerOption( void )
 {
-#ifdef TEST_CYCLING
+#if defined(TEST_CYCLING) || defined(FORCE_TRIGGER_OPT)
   return 1;
-#endif
-#ifdef FORCE_TRIGGER_OPT
-  return 1;
-#endif
+#else
   return gpio_input_bit_get( OPT4_Bank, OPT4_Pin );
+#endif
 }
 
 

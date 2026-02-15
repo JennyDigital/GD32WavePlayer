@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<analyzerinfo hash="18440553815514512442">
+<analyzerinfo hash="14479941321697543045">
         <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
             <location file="main.c" line="4" column="0"/>
         </error>
@@ -7,7 +7,7 @@
             <location file="main.c" line="5" column="0"/>
         </error>
         <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
-            <location file="main.h" line="54" column="0"/>
+            <location file="main.h" line="69" column="0"/>
         </error>
         <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
             <location file="interrupt_utils.h" line="35" column="0"/>
@@ -115,25 +115,40 @@
             <location file="/home/jennifer/repos/GD32WavePlayer/sound_headers/Lemon_Tree.h" line="5" column="0"/>
         </error>
   <FileInfo check="ctu">
-<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:228:21" call-funcname="SetFilterConfig" call-argnr="1" file="main.c" line="114" col="18" call-argexpr="&amp;filter_cfg" call-argvaluetype="7" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:560:22" call-funcname="SetAirEffectPresetDb" call-argnr="1" file="main.c" line="117" col="23" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:421:21" call-funcname="PlaySample" call-argnr="1" file="main.c" line="131" col="15" call-argexpr="Lemon_Tree16b16km" call-argvaluetype="7" call-argvalue="638466" call-argvalue-ufr="0"/><function-call call-id="main.c:47:27" call-funcname="DAC_MasterSwitch" call-argnr="1" file="main.c" line="273" col="19" call-argexpr="false" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
+<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:231:21" call-funcname="SetFilterConfig" call-argnr="1" file="main.c" line="123" col="18" call-argexpr="&amp;filter_cfg" call-argvaluetype="7" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:563:22" call-funcname="SetAirEffectPresetDb" call-argnr="1" file="main.c" line="126" col="23" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:316:21" call-funcname="SetLpf16BitLevel" call-argnr="1" file="main.c" line="127" col="19" call-argexpr="LPF_Off" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:424:21" call-funcname="PlaySample" call-argnr="1" file="main.c" line="143" col="15" call-argexpr="ocarina32k" call-argvaluetype="7" call-argvalue="497860" call-argvalue-ufr="0"/><function-call call-id="main.c:49:27" call-funcname="DAC_MasterSwitch" call-argnr="1" file="main.c" line="328" col="19" call-argexpr="false" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
   <FileInfo check="CheckUnusedFunctions">
-    <functiondecl file="main.c" functionName="main" lineNumber="70"/>
-    <functiondecl file="main.c" functionName="DAC_MasterSwitch" lineNumber="143"/>
-    <functiondecl file="main.c" functionName="ReadVolume" lineNumber="158"/>
-    <functiondecl file="main.c" functionName="WaitForTrigger" lineNumber="189"/>
-    <functiondecl file="main.c" functionName="GetTriggerOption" lineNumber="216"/>
-    <functiondecl file="main.c" functionName="SysTick_Handler" lineNumber="232"/>
-    <functiondecl file="main.c" functionName="delay_ms" lineNumber="259"/>
-    <functiondecl file="main.c" functionName="Error_Handler" lineNumber="270"/>
-    <functiondecl file="main.c" functionName="GPIO_InitPins" lineNumber="286"/>
-    <functiondecl file="main.c" functionName="spi_config" lineNumber="324"/>
-    <functiondecl file="main.c" functionName="SetupClocks" lineNumber="341"/>
-    <functiondecl file="main.c" functionName="Enter_LP_SleepMode" lineNumber="387"/>
-    <functiondecl file="main.c" functionName="HardFault_Handler" lineNumber="410"/>
-    <functiondecl file="main.c" functionName="EXTI5_9_IRQHandler" lineNumber="418"/>
+    <functiondecl file="main.c" functionName="main" lineNumber="75"/>
+    <functiondecl file="main.c" functionName="DAC_MasterSwitch" lineNumber="155"/>
+    <functiondecl file="main.c" functionName="ReadVolume" lineNumber="201"/>
+    <functiondecl file="main.c" functionName="WaitForTrigger" lineNumber="244"/>
+    <functiondecl file="main.c" functionName="GetTriggerOption" lineNumber="271"/>
+    <functiondecl file="main.c" functionName="SysTick_Handler" lineNumber="287"/>
+    <functiondecl file="main.c" functionName="delay_ms" lineNumber="314"/>
+    <functiondecl file="main.c" functionName="Error_Handler" lineNumber="325"/>
+    <functiondecl file="main.c" functionName="GPIO_InitPins" lineNumber="341"/>
+    <functiondecl file="main.c" functionName="SetupADC" lineNumber="373"/>
+    <functiondecl file="main.c" functionName="SetupTimer2" lineNumber="406"/>
+    <functiondecl file="main.c" functionName="spi_config" lineNumber="440"/>
+    <functiondecl file="main.c" functionName="SetupClocks" lineNumber="457"/>
+    <functiondecl file="main.c" functionName="Enter_LP_SleepMode" lineNumber="513"/>
+    <functiondecl file="main.c" functionName="HardFault_Handler" lineNumber="540"/>
+    <functiondecl file="main.c" functionName="EXTI5_9_IRQHandler" lineNumber="548"/>
+    <functiondecl file="main.c" functionName="ADC0_1_IRQHandler" lineNumber="555"/>
+    <functioncall functionName="ADC0_1_EXTTRIG_REGULAR_T2_TRGO"/>
+    <functioncall functionName="ADC0_1_IRQn"/>
+    <functioncall functionName="ADC1"/>
+    <functioncall functionName="ADC_CHANNEL_6"/>
+    <functioncall functionName="ADC_CONTINUOUS_MODE"/>
+    <functioncall functionName="ADC_DATAALIGN_RIGHT"/>
+    <functioncall functionName="ADC_INT_EOC"/>
+    <functioncall functionName="ADC_REGULAR_CHANNEL"/>
+    <functioncall functionName="ADC_SAMPLETIME_7POINT5"/>
+    <functioncall functionName="ADC_SCAN_MODE"/>
     <functioncall functionName="AudioEngine_Init"/>
     <functioncall functionName="DAC_MasterSwitch"/>
+    <functioncall functionName="DISABLE"/>
     <functioncall functionName="DMA0_Channel4_IRQn"/>
+    <functioncall functionName="ENABLE"/>
     <functioncall functionName="EXTI5_9_IRQn"/>
     <functioncall functionName="EXTI_8"/>
     <functioncall functionName="EXTI_INTERRUPT"/>
@@ -157,7 +172,7 @@
     <functioncall functionName="GPIO_PIN_6"/>
     <functioncall functionName="GPIO_PIN_7"/>
     <functioncall functionName="GPIO_PIN_8"/>
-    <functioncall functionName="I2S_AUDIOSAMPLE_16K"/>
+    <functioncall functionName="I2S_AUDIOSAMPLE_32K"/>
     <functioncall functionName="I2S_CKPL_LOW"/>
     <functioncall functionName="I2S_FRAMEFORMAT_DT16B_CH16B"/>
     <functioncall functionName="I2S_MCKOUT_DISABLE"/>
@@ -167,16 +182,19 @@
     <functioncall functionName="PMU_LDO_LOWPOWER"/>
     <functioncall functionName="PMU_LOWDRIVER_ENABLE"/>
     <functioncall functionName="PlaySample"/>
+    <functioncall functionName="RCU_ADC1"/>
     <functioncall functionName="RCU_AF"/>
+    <functioncall functionName="RCU_CKADC_CKAPB2_DIV16"/>
     <functioncall functionName="RCU_CKSYSSRC_PLL"/>
     <functioncall functionName="RCU_DMA0"/>
     <functioncall functionName="RCU_GPIOA"/>
     <functioncall functionName="RCU_GPIOB"/>
     <functioncall functionName="RCU_PLLSRC_IRC8M_DIV2"/>
     <functioncall functionName="RCU_PLL_CK"/>
-    <functioncall functionName="RCU_PLL_MUL27"/>
+    <functioncall functionName="RCU_PLL_MUL30"/>
     <functioncall functionName="RCU_SCSS_IRC8M"/>
     <functioncall functionName="RCU_SPI1"/>
+    <functioncall functionName="RCU_TIMER2"/>
     <functioncall functionName="ReadVolume"/>
     <functioncall functionName="SPI1"/>
     <functioncall functionName="SPI_DMA_TRANSMIT"/>
@@ -191,16 +209,35 @@
     <functioncall functionName="SetResumeFadeTime"/>
     <functioncall functionName="SetVolumeResponseGamma"/>
     <functioncall functionName="SetVolumeResponseNonlinear"/>
+    <functioncall functionName="SetupADC"/>
     <functioncall functionName="SetupClocks"/>
+    <functioncall functionName="SetupTimer2"/>
     <functioncall functionName="SysTick_Config"/>
     <functioncall functionName="SysTick_IRQn"/>
     <functioncall functionName="SystemCoreClockUpdate"/>
     <functioncall functionName="SystemInit"/>
+    <functioncall functionName="TIMER2"/>
+    <functioncall functionName="TIMER_CKDIV_DIV1"/>
+    <functioncall functionName="TIMER_COUNTER_EDGE"/>
+    <functioncall functionName="TIMER_COUNTER_UP"/>
+    <functioncall functionName="TIMER_MASTER_SLAVE_MODE_ENABLE"/>
+    <functioncall functionName="TIMER_TRI_OUT_SRC_UPDATE"/>
     <functioncall functionName="WFI_CMD"/>
     <functioncall functionName="WS_WSCNT_2"/>
     <functioncall functionName="WaitForSampleEnd"/>
     <functioncall functionName="WaitForTrigger"/>
     <functioncall functionName="__disable_irq"/>
+    <functioncall functionName="adc_calibration_enable"/>
+    <functioncall functionName="adc_data_alignment_config"/>
+    <functioncall functionName="adc_deinit"/>
+    <functioncall functionName="adc_enable"/>
+    <functioncall functionName="adc_external_trigger_config"/>
+    <functioncall functionName="adc_external_trigger_source_config"/>
+    <functioncall functionName="adc_interrupt_enable"/>
+    <functioncall functionName="adc_regular_channel_config"/>
+    <functioncall functionName="adc_regular_data_read"/>
+    <functioncall functionName="adc_software_trigger_enable"/>
+    <functioncall functionName="adc_special_function_config"/>
     <functioncall functionName="delay_ms"/>
     <functioncall functionName="exti_init"/>
     <functioncall functionName="exti_interrupt_enable"/>
@@ -217,6 +254,7 @@
     <functioncall functionName="nvic_irq_disable"/>
     <functioncall functionName="nvic_irq_enable"/>
     <functioncall functionName="pmu_to_deepsleepmode"/>
+    <functioncall functionName="rcu_adc_clock_config"/>
     <functioncall functionName="rcu_ahb_clock_config"/>
     <functioncall functionName="rcu_osci_off"/>
     <functioncall functionName="rcu_osci_on"/>
@@ -229,31 +267,52 @@
     <functioncall functionName="spi_enable"/>
     <functioncall functionName="spi_i2s_data_frame_format_config"/>
     <functioncall functionName="spi_i2s_deinit"/>
+    <functioncall functionName="timer_deinit"/>
+    <functioncall functionName="timer_enable"/>
+    <functioncall functionName="timer_init"/>
+    <functioncall functionName="timer_master_output_trigger_source_select"/>
+    <functioncall functionName="timer_master_slave_mode_config"/>
+    <functioncall functionName="timer_update_event_enable"/>
     <functioncall functionName="true"/>
   </FileInfo>
         <error id="duplicateBreak" severity="style" msg="Consecutive return, break, continue, goto or throw statements are unnecessary." verbose="Consecutive return, break, continue, goto or throw statements are unnecessary. The second statement can never be executed, and so should be removed." cwe="561" inconclusive="true" file0="main.c">
-            <location file="main.c" line="224" column="3"/>
+            <location file="main.c" line="279" column="3"/>
         </error>
   <FileInfo check="ctu">
-<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:228:21" call-funcname="SetFilterConfig" call-argnr="1" file="main.c" line="114" col="18" call-argexpr="&amp;filter_cfg" call-argvaluetype="7" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:560:22" call-funcname="SetAirEffectPresetDb" call-argnr="1" file="main.c" line="117" col="23" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:421:21" call-funcname="PlaySample" call-argnr="1" file="main.c" line="131" col="15" call-argexpr="Lemon_Tree16b16km" call-argvaluetype="7" call-argvalue="638466" call-argvalue-ufr="0"/><function-call call-id="main.c:47:27" call-funcname="DAC_MasterSwitch" call-argnr="1" file="main.c" line="273" col="19" call-argexpr="false" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
+<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:231:21" call-funcname="SetFilterConfig" call-argnr="1" file="main.c" line="123" col="18" call-argexpr="&amp;filter_cfg" call-argvaluetype="7" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:563:22" call-funcname="SetAirEffectPresetDb" call-argnr="1" file="main.c" line="126" col="23" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:316:21" call-funcname="SetLpf16BitLevel" call-argnr="1" file="main.c" line="127" col="19" call-argexpr="LPF_Off" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:424:21" call-funcname="PlaySample" call-argnr="1" file="main.c" line="143" col="15" call-argexpr="ocarina32k" call-argvaluetype="7" call-argvalue="497860" call-argvalue-ufr="0"/><function-call call-id="main.c:49:27" call-funcname="DAC_MasterSwitch" call-argnr="1" file="main.c" line="328" col="19" call-argexpr="false" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
   <FileInfo check="CheckUnusedFunctions">
-    <functiondecl file="main.c" functionName="main" lineNumber="70"/>
-    <functiondecl file="main.c" functionName="DAC_MasterSwitch" lineNumber="143"/>
-    <functiondecl file="main.c" functionName="ReadVolume" lineNumber="158"/>
-    <functiondecl file="main.c" functionName="WaitForTrigger" lineNumber="189"/>
-    <functiondecl file="main.c" functionName="GetTriggerOption" lineNumber="216"/>
-    <functiondecl file="main.c" functionName="SysTick_Handler" lineNumber="232"/>
-    <functiondecl file="main.c" functionName="delay_ms" lineNumber="259"/>
-    <functiondecl file="main.c" functionName="Error_Handler" lineNumber="270"/>
-    <functiondecl file="main.c" functionName="GPIO_InitPins" lineNumber="286"/>
-    <functiondecl file="main.c" functionName="spi_config" lineNumber="324"/>
-    <functiondecl file="main.c" functionName="SetupClocks" lineNumber="341"/>
-    <functiondecl file="main.c" functionName="Enter_LP_SleepMode" lineNumber="387"/>
-    <functiondecl file="main.c" functionName="HardFault_Handler" lineNumber="410"/>
-    <functiondecl file="main.c" functionName="EXTI5_9_IRQHandler" lineNumber="418"/>
+    <functiondecl file="main.c" functionName="main" lineNumber="75"/>
+    <functiondecl file="main.c" functionName="DAC_MasterSwitch" lineNumber="155"/>
+    <functiondecl file="main.c" functionName="ReadVolume" lineNumber="201"/>
+    <functiondecl file="main.c" functionName="WaitForTrigger" lineNumber="244"/>
+    <functiondecl file="main.c" functionName="GetTriggerOption" lineNumber="271"/>
+    <functiondecl file="main.c" functionName="SysTick_Handler" lineNumber="287"/>
+    <functiondecl file="main.c" functionName="delay_ms" lineNumber="314"/>
+    <functiondecl file="main.c" functionName="Error_Handler" lineNumber="325"/>
+    <functiondecl file="main.c" functionName="GPIO_InitPins" lineNumber="341"/>
+    <functiondecl file="main.c" functionName="SetupADC" lineNumber="373"/>
+    <functiondecl file="main.c" functionName="SetupTimer2" lineNumber="406"/>
+    <functiondecl file="main.c" functionName="spi_config" lineNumber="440"/>
+    <functiondecl file="main.c" functionName="SetupClocks" lineNumber="457"/>
+    <functiondecl file="main.c" functionName="Enter_LP_SleepMode" lineNumber="513"/>
+    <functiondecl file="main.c" functionName="HardFault_Handler" lineNumber="540"/>
+    <functiondecl file="main.c" functionName="EXTI5_9_IRQHandler" lineNumber="548"/>
+    <functiondecl file="main.c" functionName="ADC0_1_IRQHandler" lineNumber="555"/>
+    <functioncall functionName="ADC0_1_EXTTRIG_REGULAR_T2_TRGO"/>
+    <functioncall functionName="ADC0_1_IRQn"/>
+    <functioncall functionName="ADC1"/>
+    <functioncall functionName="ADC_CHANNEL_6"/>
+    <functioncall functionName="ADC_CONTINUOUS_MODE"/>
+    <functioncall functionName="ADC_DATAALIGN_RIGHT"/>
+    <functioncall functionName="ADC_INT_EOC"/>
+    <functioncall functionName="ADC_REGULAR_CHANNEL"/>
+    <functioncall functionName="ADC_SAMPLETIME_7POINT5"/>
+    <functioncall functionName="ADC_SCAN_MODE"/>
     <functioncall functionName="AudioEngine_Init"/>
     <functioncall functionName="DAC_MasterSwitch"/>
+    <functioncall functionName="DISABLE"/>
     <functioncall functionName="DMA0_Channel4_IRQn"/>
+    <functioncall functionName="ENABLE"/>
     <functioncall functionName="EXTI5_9_IRQn"/>
     <functioncall functionName="EXTI_8"/>
     <functioncall functionName="EXTI_INTERRUPT"/>
@@ -277,7 +336,7 @@
     <functioncall functionName="GPIO_PIN_6"/>
     <functioncall functionName="GPIO_PIN_7"/>
     <functioncall functionName="GPIO_PIN_8"/>
-    <functioncall functionName="I2S_AUDIOSAMPLE_16K"/>
+    <functioncall functionName="I2S_AUDIOSAMPLE_32K"/>
     <functioncall functionName="I2S_CKPL_LOW"/>
     <functioncall functionName="I2S_FRAMEFORMAT_DT16B_CH16B"/>
     <functioncall functionName="I2S_MCKOUT_DISABLE"/>
@@ -287,16 +346,19 @@
     <functioncall functionName="PMU_LDO_LOWPOWER"/>
     <functioncall functionName="PMU_LOWDRIVER_ENABLE"/>
     <functioncall functionName="PlaySample"/>
+    <functioncall functionName="RCU_ADC1"/>
     <functioncall functionName="RCU_AF"/>
+    <functioncall functionName="RCU_CKADC_CKAPB2_DIV16"/>
     <functioncall functionName="RCU_CKSYSSRC_PLL"/>
     <functioncall functionName="RCU_DMA0"/>
     <functioncall functionName="RCU_GPIOA"/>
     <functioncall functionName="RCU_GPIOB"/>
     <functioncall functionName="RCU_PLLSRC_IRC8M_DIV2"/>
     <functioncall functionName="RCU_PLL_CK"/>
-    <functioncall functionName="RCU_PLL_MUL27"/>
+    <functioncall functionName="RCU_PLL_MUL30"/>
     <functioncall functionName="RCU_SCSS_IRC8M"/>
     <functioncall functionName="RCU_SPI1"/>
+    <functioncall functionName="RCU_TIMER2"/>
     <functioncall functionName="ReadVolume"/>
     <functioncall functionName="SPI1"/>
     <functioncall functionName="SPI_DMA_TRANSMIT"/>
@@ -311,16 +373,35 @@
     <functioncall functionName="SetResumeFadeTime"/>
     <functioncall functionName="SetVolumeResponseGamma"/>
     <functioncall functionName="SetVolumeResponseNonlinear"/>
+    <functioncall functionName="SetupADC"/>
     <functioncall functionName="SetupClocks"/>
+    <functioncall functionName="SetupTimer2"/>
     <functioncall functionName="SysTick_Config"/>
     <functioncall functionName="SysTick_IRQn"/>
     <functioncall functionName="SystemCoreClockUpdate"/>
     <functioncall functionName="SystemInit"/>
+    <functioncall functionName="TIMER2"/>
+    <functioncall functionName="TIMER_CKDIV_DIV1"/>
+    <functioncall functionName="TIMER_COUNTER_EDGE"/>
+    <functioncall functionName="TIMER_COUNTER_UP"/>
+    <functioncall functionName="TIMER_MASTER_SLAVE_MODE_ENABLE"/>
+    <functioncall functionName="TIMER_TRI_OUT_SRC_UPDATE"/>
     <functioncall functionName="WFI_CMD"/>
     <functioncall functionName="WS_WSCNT_2"/>
     <functioncall functionName="WaitForSampleEnd"/>
     <functioncall functionName="WaitForTrigger"/>
     <functioncall functionName="__disable_irq"/>
+    <functioncall functionName="adc_calibration_enable"/>
+    <functioncall functionName="adc_data_alignment_config"/>
+    <functioncall functionName="adc_deinit"/>
+    <functioncall functionName="adc_enable"/>
+    <functioncall functionName="adc_external_trigger_config"/>
+    <functioncall functionName="adc_external_trigger_source_config"/>
+    <functioncall functionName="adc_interrupt_enable"/>
+    <functioncall functionName="adc_regular_channel_config"/>
+    <functioncall functionName="adc_regular_data_read"/>
+    <functioncall functionName="adc_software_trigger_enable"/>
+    <functioncall functionName="adc_special_function_config"/>
     <functioncall functionName="delay_ms"/>
     <functioncall functionName="exti_init"/>
     <functioncall functionName="exti_interrupt_enable"/>
@@ -337,6 +418,7 @@
     <functioncall functionName="nvic_irq_disable"/>
     <functioncall functionName="nvic_irq_enable"/>
     <functioncall functionName="pmu_to_deepsleepmode"/>
+    <functioncall functionName="rcu_adc_clock_config"/>
     <functioncall functionName="rcu_ahb_clock_config"/>
     <functioncall functionName="rcu_osci_off"/>
     <functioncall functionName="rcu_osci_on"/>
@@ -349,6 +431,334 @@
     <functioncall functionName="spi_enable"/>
     <functioncall functionName="spi_i2s_data_frame_format_config"/>
     <functioncall functionName="spi_i2s_deinit"/>
+    <functioncall functionName="timer_deinit"/>
+    <functioncall functionName="timer_enable"/>
+    <functioncall functionName="timer_init"/>
+    <functioncall functionName="timer_master_output_trigger_source_select"/>
+    <functioncall functionName="timer_master_slave_mode_config"/>
+    <functioncall functionName="timer_update_event_enable"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+  <FileInfo check="ctu">
+<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:231:21" call-funcname="SetFilterConfig" call-argnr="1" file="main.c" line="123" col="18" call-argexpr="&amp;filter_cfg" call-argvaluetype="7" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:563:22" call-funcname="SetAirEffectPresetDb" call-argnr="1" file="main.c" line="126" col="23" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:316:21" call-funcname="SetLpf16BitLevel" call-argnr="1" file="main.c" line="127" col="19" call-argexpr="LPF_Off" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:424:21" call-funcname="PlaySample" call-argnr="1" file="main.c" line="143" col="15" call-argexpr="ocarina32k" call-argvaluetype="7" call-argvalue="497860" call-argvalue-ufr="0"/><function-call call-id="main.c:49:27" call-funcname="DAC_MasterSwitch" call-argnr="1" file="main.c" line="328" col="19" call-argexpr="false" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="main.c" functionName="main" lineNumber="75"/>
+    <functiondecl file="main.c" functionName="DAC_MasterSwitch" lineNumber="155"/>
+    <functiondecl file="main.c" functionName="ReadVolume" lineNumber="201"/>
+    <functiondecl file="main.c" functionName="WaitForTrigger" lineNumber="244"/>
+    <functiondecl file="main.c" functionName="GetTriggerOption" lineNumber="271"/>
+    <functiondecl file="main.c" functionName="SysTick_Handler" lineNumber="287"/>
+    <functiondecl file="main.c" functionName="delay_ms" lineNumber="314"/>
+    <functiondecl file="main.c" functionName="Error_Handler" lineNumber="325"/>
+    <functiondecl file="main.c" functionName="GPIO_InitPins" lineNumber="341"/>
+    <functiondecl file="main.c" functionName="SetupADC" lineNumber="373"/>
+    <functiondecl file="main.c" functionName="SetupTimer2" lineNumber="406"/>
+    <functiondecl file="main.c" functionName="spi_config" lineNumber="440"/>
+    <functiondecl file="main.c" functionName="SetupClocks" lineNumber="457"/>
+    <functiondecl file="main.c" functionName="Enter_LP_SleepMode" lineNumber="513"/>
+    <functiondecl file="main.c" functionName="HardFault_Handler" lineNumber="540"/>
+    <functiondecl file="main.c" functionName="EXTI5_9_IRQHandler" lineNumber="548"/>
+    <functiondecl file="main.c" functionName="ADC0_1_IRQHandler" lineNumber="555"/>
+    <functioncall functionName="ADC0_1_EXTTRIG_REGULAR_T2_TRGO"/>
+    <functioncall functionName="ADC0_1_IRQn"/>
+    <functioncall functionName="ADC1"/>
+    <functioncall functionName="ADC_CHANNEL_6"/>
+    <functioncall functionName="ADC_CONTINUOUS_MODE"/>
+    <functioncall functionName="ADC_DATAALIGN_RIGHT"/>
+    <functioncall functionName="ADC_INT_EOC"/>
+    <functioncall functionName="ADC_REGULAR_CHANNEL"/>
+    <functioncall functionName="ADC_SAMPLETIME_7POINT5"/>
+    <functioncall functionName="ADC_SCAN_MODE"/>
+    <functioncall functionName="AudioEngine_Init"/>
+    <functioncall functionName="DAC_MasterSwitch"/>
+    <functioncall functionName="DISABLE"/>
+    <functioncall functionName="DMA0_Channel4_IRQn"/>
+    <functioncall functionName="ENABLE"/>
+    <functioncall functionName="EXTI5_9_IRQn"/>
+    <functioncall functionName="EXTI_8"/>
+    <functioncall functionName="EXTI_INTERRUPT"/>
+    <functioncall functionName="EXTI_TRIG_BOTH"/>
+    <functioncall functionName="Enter_LP_SleepMode"/>
+    <functioncall functionName="Error_Handler"/>
+    <functioncall functionName="GPIOA"/>
+    <functioncall functionName="GPIOB"/>
+    <functioncall functionName="GPIO_InitPins"/>
+    <functioncall functionName="GPIO_MODE_AF_PP"/>
+    <functioncall functionName="GPIO_MODE_IPD"/>
+    <functioncall functionName="GPIO_MODE_OUT_OD"/>
+    <functioncall functionName="GPIO_OSPEED_10MHZ"/>
+    <functioncall functionName="GPIO_OSPEED_2MHZ"/>
+    <functioncall functionName="GPIO_PIN_12"/>
+    <functioncall functionName="GPIO_PIN_13"/>
+    <functioncall functionName="GPIO_PIN_15"/>
+    <functioncall functionName="GPIO_PIN_2"/>
+    <functioncall functionName="GPIO_PIN_4"/>
+    <functioncall functionName="GPIO_PIN_5"/>
+    <functioncall functionName="GPIO_PIN_6"/>
+    <functioncall functionName="GPIO_PIN_7"/>
+    <functioncall functionName="GPIO_PIN_8"/>
+    <functioncall functionName="I2S_AUDIOSAMPLE_32K"/>
+    <functioncall functionName="I2S_CKPL_LOW"/>
+    <functioncall functionName="I2S_FRAMEFORMAT_DT16B_CH16B"/>
+    <functioncall functionName="I2S_MCKOUT_DISABLE"/>
+    <functioncall functionName="I2S_MODE_MASTERTX"/>
+    <functioncall functionName="I2S_STD_PHILLIPS"/>
+    <functioncall functionName="NVIC_ClearPendingIRQ"/>
+    <functioncall functionName="PMU_LDO_LOWPOWER"/>
+    <functioncall functionName="PMU_LOWDRIVER_ENABLE"/>
+    <functioncall functionName="PlaySample"/>
+    <functioncall functionName="RCU_ADC1"/>
+    <functioncall functionName="RCU_AF"/>
+    <functioncall functionName="RCU_CKADC_CKAPB2_DIV16"/>
+    <functioncall functionName="RCU_CKSYSSRC_PLL"/>
+    <functioncall functionName="RCU_DMA0"/>
+    <functioncall functionName="RCU_GPIOA"/>
+    <functioncall functionName="RCU_GPIOB"/>
+    <functioncall functionName="RCU_PLLSRC_IRC8M_DIV2"/>
+    <functioncall functionName="RCU_PLL_CK"/>
+    <functioncall functionName="RCU_PLL_MUL30"/>
+    <functioncall functionName="RCU_SCSS_IRC8M"/>
+    <functioncall functionName="RCU_SPI1"/>
+    <functioncall functionName="RCU_TIMER2"/>
+    <functioncall functionName="ReadVolume"/>
+    <functioncall functionName="SPI1"/>
+    <functioncall functionName="SPI_DMA_TRANSMIT"/>
+    <functioncall functionName="SPI_FRAMESIZE_16BIT"/>
+    <functioncall functionName="SetAirEffectPresetDb"/>
+    <functioncall functionName="SetDAC_Control"/>
+    <functioncall functionName="SetFadeInTime"/>
+    <functioncall functionName="SetFadeOutTime"/>
+    <functioncall functionName="SetFilterConfig"/>
+    <functioncall functionName="SetLpf16BitLevel"/>
+    <functioncall functionName="SetPauseFadeTime"/>
+    <functioncall functionName="SetResumeFadeTime"/>
+    <functioncall functionName="SetVolumeResponseGamma"/>
+    <functioncall functionName="SetVolumeResponseNonlinear"/>
+    <functioncall functionName="SetupADC"/>
+    <functioncall functionName="SetupClocks"/>
+    <functioncall functionName="SetupTimer2"/>
+    <functioncall functionName="SysTick_Config"/>
+    <functioncall functionName="SysTick_IRQn"/>
+    <functioncall functionName="SystemCoreClockUpdate"/>
+    <functioncall functionName="SystemInit"/>
+    <functioncall functionName="TIMER2"/>
+    <functioncall functionName="TIMER_CKDIV_DIV1"/>
+    <functioncall functionName="TIMER_COUNTER_EDGE"/>
+    <functioncall functionName="TIMER_COUNTER_UP"/>
+    <functioncall functionName="TIMER_MASTER_SLAVE_MODE_ENABLE"/>
+    <functioncall functionName="TIMER_TRI_OUT_SRC_UPDATE"/>
+    <functioncall functionName="WFI_CMD"/>
+    <functioncall functionName="WS_WSCNT_2"/>
+    <functioncall functionName="WaitForSampleEnd"/>
+    <functioncall functionName="WaitForTrigger"/>
+    <functioncall functionName="__disable_irq"/>
+    <functioncall functionName="adc_calibration_enable"/>
+    <functioncall functionName="adc_data_alignment_config"/>
+    <functioncall functionName="adc_deinit"/>
+    <functioncall functionName="adc_enable"/>
+    <functioncall functionName="adc_external_trigger_config"/>
+    <functioncall functionName="adc_external_trigger_source_config"/>
+    <functioncall functionName="adc_interrupt_enable"/>
+    <functioncall functionName="adc_regular_channel_config"/>
+    <functioncall functionName="adc_regular_data_read"/>
+    <functioncall functionName="adc_software_trigger_enable"/>
+    <functioncall functionName="adc_special_function_config"/>
+    <functioncall functionName="delay_ms"/>
+    <functioncall functionName="exti_init"/>
+    <functioncall functionName="exti_interrupt_enable"/>
+    <functioncall functionName="exti_interrupt_flag_clear"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fmc_wscnt_set"/>
+    <functioncall functionName="gpio_bit_write"/>
+    <functioncall functionName="gpio_init"/>
+    <functioncall functionName="gpio_input_bit_get"/>
+    <functioncall functionName="gpio_pin_lock"/>
+    <functioncall functionName="i2s_enable"/>
+    <functioncall functionName="i2s_init"/>
+    <functioncall functionName="i2s_psc_config"/>
+    <functioncall functionName="nvic_irq_disable"/>
+    <functioncall functionName="nvic_irq_enable"/>
+    <functioncall functionName="pmu_to_deepsleepmode"/>
+    <functioncall functionName="rcu_adc_clock_config"/>
+    <functioncall functionName="rcu_ahb_clock_config"/>
+    <functioncall functionName="rcu_osci_off"/>
+    <functioncall functionName="rcu_osci_on"/>
+    <functioncall functionName="rcu_osci_stab_wait"/>
+    <functioncall functionName="rcu_periph_clock_enable"/>
+    <functioncall functionName="rcu_pll_config"/>
+    <functioncall functionName="rcu_system_clock_source_config"/>
+    <functioncall functionName="spi_config"/>
+    <functioncall functionName="spi_dma_enable"/>
+    <functioncall functionName="spi_enable"/>
+    <functioncall functionName="spi_i2s_data_frame_format_config"/>
+    <functioncall functionName="spi_i2s_deinit"/>
+    <functioncall functionName="timer_deinit"/>
+    <functioncall functionName="timer_enable"/>
+    <functioncall functionName="timer_init"/>
+    <functioncall functionName="timer_master_output_trigger_source_select"/>
+    <functioncall functionName="timer_master_slave_mode_config"/>
+    <functioncall functionName="timer_update_event_enable"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+  <FileInfo check="ctu">
+<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:231:21" call-funcname="SetFilterConfig" call-argnr="1" file="main.c" line="123" col="18" call-argexpr="&amp;filter_cfg" call-argvaluetype="7" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:563:22" call-funcname="SetAirEffectPresetDb" call-argnr="1" file="main.c" line="126" col="23" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:316:21" call-funcname="SetLpf16BitLevel" call-argnr="1" file="main.c" line="127" col="19" call-argexpr="LPF_Off" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:424:21" call-funcname="PlaySample" call-argnr="1" file="main.c" line="143" col="15" call-argexpr="ocarina32k" call-argvaluetype="7" call-argvalue="497860" call-argvalue-ufr="0"/><function-call call-id="main.c:49:27" call-funcname="DAC_MasterSwitch" call-argnr="1" file="main.c" line="328" col="19" call-argexpr="false" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="main.c" functionName="main" lineNumber="75"/>
+    <functiondecl file="main.c" functionName="DAC_MasterSwitch" lineNumber="155"/>
+    <functiondecl file="main.c" functionName="ReadVolume" lineNumber="201"/>
+    <functiondecl file="main.c" functionName="WaitForTrigger" lineNumber="244"/>
+    <functiondecl file="main.c" functionName="GetTriggerOption" lineNumber="271"/>
+    <functiondecl file="main.c" functionName="SysTick_Handler" lineNumber="287"/>
+    <functiondecl file="main.c" functionName="delay_ms" lineNumber="314"/>
+    <functiondecl file="main.c" functionName="Error_Handler" lineNumber="325"/>
+    <functiondecl file="main.c" functionName="GPIO_InitPins" lineNumber="341"/>
+    <functiondecl file="main.c" functionName="SetupADC" lineNumber="373"/>
+    <functiondecl file="main.c" functionName="SetupTimer2" lineNumber="406"/>
+    <functiondecl file="main.c" functionName="spi_config" lineNumber="440"/>
+    <functiondecl file="main.c" functionName="SetupClocks" lineNumber="457"/>
+    <functiondecl file="main.c" functionName="Enter_LP_SleepMode" lineNumber="513"/>
+    <functiondecl file="main.c" functionName="HardFault_Handler" lineNumber="540"/>
+    <functiondecl file="main.c" functionName="EXTI5_9_IRQHandler" lineNumber="548"/>
+    <functiondecl file="main.c" functionName="ADC0_1_IRQHandler" lineNumber="555"/>
+    <functioncall functionName="ADC0_1_EXTTRIG_REGULAR_T2_TRGO"/>
+    <functioncall functionName="ADC0_1_IRQn"/>
+    <functioncall functionName="ADC1"/>
+    <functioncall functionName="ADC_CHANNEL_6"/>
+    <functioncall functionName="ADC_CONTINUOUS_MODE"/>
+    <functioncall functionName="ADC_DATAALIGN_RIGHT"/>
+    <functioncall functionName="ADC_INT_EOC"/>
+    <functioncall functionName="ADC_REGULAR_CHANNEL"/>
+    <functioncall functionName="ADC_SAMPLETIME_7POINT5"/>
+    <functioncall functionName="ADC_SCAN_MODE"/>
+    <functioncall functionName="AudioEngine_Init"/>
+    <functioncall functionName="DAC_MasterSwitch"/>
+    <functioncall functionName="DISABLE"/>
+    <functioncall functionName="DMA0_Channel4_IRQn"/>
+    <functioncall functionName="ENABLE"/>
+    <functioncall functionName="EXTI5_9_IRQn"/>
+    <functioncall functionName="EXTI_8"/>
+    <functioncall functionName="EXTI_INTERRUPT"/>
+    <functioncall functionName="EXTI_TRIG_BOTH"/>
+    <functioncall functionName="Enter_LP_SleepMode"/>
+    <functioncall functionName="Error_Handler"/>
+    <functioncall functionName="GPIOA"/>
+    <functioncall functionName="GPIOB"/>
+    <functioncall functionName="GPIO_InitPins"/>
+    <functioncall functionName="GPIO_MODE_AF_PP"/>
+    <functioncall functionName="GPIO_MODE_IPD"/>
+    <functioncall functionName="GPIO_MODE_OUT_OD"/>
+    <functioncall functionName="GPIO_OSPEED_10MHZ"/>
+    <functioncall functionName="GPIO_OSPEED_2MHZ"/>
+    <functioncall functionName="GPIO_PIN_12"/>
+    <functioncall functionName="GPIO_PIN_13"/>
+    <functioncall functionName="GPIO_PIN_15"/>
+    <functioncall functionName="GPIO_PIN_2"/>
+    <functioncall functionName="GPIO_PIN_4"/>
+    <functioncall functionName="GPIO_PIN_5"/>
+    <functioncall functionName="GPIO_PIN_6"/>
+    <functioncall functionName="GPIO_PIN_7"/>
+    <functioncall functionName="GPIO_PIN_8"/>
+    <functioncall functionName="I2S_AUDIOSAMPLE_32K"/>
+    <functioncall functionName="I2S_CKPL_LOW"/>
+    <functioncall functionName="I2S_FRAMEFORMAT_DT16B_CH16B"/>
+    <functioncall functionName="I2S_MCKOUT_DISABLE"/>
+    <functioncall functionName="I2S_MODE_MASTERTX"/>
+    <functioncall functionName="I2S_STD_PHILLIPS"/>
+    <functioncall functionName="NVIC_ClearPendingIRQ"/>
+    <functioncall functionName="PMU_LDO_LOWPOWER"/>
+    <functioncall functionName="PMU_LOWDRIVER_ENABLE"/>
+    <functioncall functionName="PlaySample"/>
+    <functioncall functionName="RCU_ADC1"/>
+    <functioncall functionName="RCU_AF"/>
+    <functioncall functionName="RCU_CKADC_CKAPB2_DIV16"/>
+    <functioncall functionName="RCU_CKSYSSRC_PLL"/>
+    <functioncall functionName="RCU_DMA0"/>
+    <functioncall functionName="RCU_GPIOA"/>
+    <functioncall functionName="RCU_GPIOB"/>
+    <functioncall functionName="RCU_PLLSRC_IRC8M_DIV2"/>
+    <functioncall functionName="RCU_PLL_CK"/>
+    <functioncall functionName="RCU_PLL_MUL30"/>
+    <functioncall functionName="RCU_SCSS_IRC8M"/>
+    <functioncall functionName="RCU_SPI1"/>
+    <functioncall functionName="RCU_TIMER2"/>
+    <functioncall functionName="ReadVolume"/>
+    <functioncall functionName="SPI1"/>
+    <functioncall functionName="SPI_DMA_TRANSMIT"/>
+    <functioncall functionName="SPI_FRAMESIZE_16BIT"/>
+    <functioncall functionName="SetAirEffectPresetDb"/>
+    <functioncall functionName="SetDAC_Control"/>
+    <functioncall functionName="SetFadeInTime"/>
+    <functioncall functionName="SetFadeOutTime"/>
+    <functioncall functionName="SetFilterConfig"/>
+    <functioncall functionName="SetLpf16BitLevel"/>
+    <functioncall functionName="SetPauseFadeTime"/>
+    <functioncall functionName="SetResumeFadeTime"/>
+    <functioncall functionName="SetVolumeResponseGamma"/>
+    <functioncall functionName="SetVolumeResponseNonlinear"/>
+    <functioncall functionName="SetupADC"/>
+    <functioncall functionName="SetupClocks"/>
+    <functioncall functionName="SetupTimer2"/>
+    <functioncall functionName="SysTick_Config"/>
+    <functioncall functionName="SysTick_IRQn"/>
+    <functioncall functionName="SystemCoreClockUpdate"/>
+    <functioncall functionName="SystemInit"/>
+    <functioncall functionName="TIMER2"/>
+    <functioncall functionName="TIMER_CKDIV_DIV1"/>
+    <functioncall functionName="TIMER_COUNTER_EDGE"/>
+    <functioncall functionName="TIMER_COUNTER_UP"/>
+    <functioncall functionName="TIMER_MASTER_SLAVE_MODE_ENABLE"/>
+    <functioncall functionName="TIMER_TRI_OUT_SRC_UPDATE"/>
+    <functioncall functionName="WFI_CMD"/>
+    <functioncall functionName="WS_WSCNT_2"/>
+    <functioncall functionName="WaitForSampleEnd"/>
+    <functioncall functionName="WaitForTrigger"/>
+    <functioncall functionName="__disable_irq"/>
+    <functioncall functionName="adc_calibration_enable"/>
+    <functioncall functionName="adc_data_alignment_config"/>
+    <functioncall functionName="adc_deinit"/>
+    <functioncall functionName="adc_enable"/>
+    <functioncall functionName="adc_external_trigger_config"/>
+    <functioncall functionName="adc_external_trigger_source_config"/>
+    <functioncall functionName="adc_interrupt_enable"/>
+    <functioncall functionName="adc_regular_channel_config"/>
+    <functioncall functionName="adc_regular_data_read"/>
+    <functioncall functionName="adc_software_trigger_enable"/>
+    <functioncall functionName="adc_special_function_config"/>
+    <functioncall functionName="delay_ms"/>
+    <functioncall functionName="exti_init"/>
+    <functioncall functionName="exti_interrupt_enable"/>
+    <functioncall functionName="exti_interrupt_flag_clear"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fmc_wscnt_set"/>
+    <functioncall functionName="gpio_bit_write"/>
+    <functioncall functionName="gpio_init"/>
+    <functioncall functionName="gpio_input_bit_get"/>
+    <functioncall functionName="gpio_pin_lock"/>
+    <functioncall functionName="i2s_enable"/>
+    <functioncall functionName="i2s_init"/>
+    <functioncall functionName="i2s_psc_config"/>
+    <functioncall functionName="nvic_irq_disable"/>
+    <functioncall functionName="nvic_irq_enable"/>
+    <functioncall functionName="pmu_to_deepsleepmode"/>
+    <functioncall functionName="rcu_adc_clock_config"/>
+    <functioncall functionName="rcu_ahb_clock_config"/>
+    <functioncall functionName="rcu_osci_off"/>
+    <functioncall functionName="rcu_osci_on"/>
+    <functioncall functionName="rcu_osci_stab_wait"/>
+    <functioncall functionName="rcu_periph_clock_enable"/>
+    <functioncall functionName="rcu_pll_config"/>
+    <functioncall functionName="rcu_system_clock_source_config"/>
+    <functioncall functionName="spi_config"/>
+    <functioncall functionName="spi_dma_enable"/>
+    <functioncall functionName="spi_enable"/>
+    <functioncall functionName="spi_i2s_data_frame_format_config"/>
+    <functioncall functionName="spi_i2s_deinit"/>
+    <functioncall functionName="timer_deinit"/>
+    <functioncall functionName="timer_enable"/>
+    <functioncall functionName="timer_init"/>
+    <functioncall functionName="timer_master_output_trigger_source_select"/>
+    <functioncall functionName="timer_master_slave_mode_config"/>
+    <functioncall functionName="timer_update_event_enable"/>
     <functioncall functionName="true"/>
   </FileInfo>
 </analyzerinfo>
