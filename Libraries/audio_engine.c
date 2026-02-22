@@ -159,6 +159,8 @@ volatile  uint8_t         *pb_end8_ptr;                             // End point
 volatile  uint16_t        *pb_p16_ptr;                              // Pointer for 16-bit sample processing
 volatile  uint16_t        *pb_end16_ptr;                            // End pointer for 16-bit sample processing
 
+volatile  uint16_t        fade_offset;
+
 volatile  uint8_t         pb_state                    = PB_Idle;    // Playback state machine variable
 volatile  uint8_t         half_to_fill;                             // Flag to indicate which half of the buffer to fill in the DMA callback
           uint8_t         pb_mode;                                  // Mono or stereo mode (set by application before playback)
@@ -1067,9 +1069,9 @@ static int16_t PUT_IN_FASTMEM ApplyFadeOut( int16_t sample )
     uint32_t remaining_in_file = 0;
     
     if( pb_mode == 16 ) {
-      remaining_in_file = (uint32_t)( pb_end16_ptr - pb_p16_ptr );
+      remaining_in_file = (uint32_t)( pb_end16_ptr - ( pb_p16_ptr + fade_offset ) );
     } else {
-      remaining_in_file = (uint32_t)( pb_end8_ptr - pb_p8_ptr );
+      remaining_in_file = (uint32_t)( pb_end8_ptr - ( pb_p8_ptr + fade_offset ) );
     }
     
     if( remaining_in_file > 0 && remaining_in_file <= fadeout_samples ) {
@@ -1079,6 +1081,7 @@ static int16_t PUT_IN_FASTMEM ApplyFadeOut( int16_t sample )
     }
   }
   
+
   if( should_apply_fade ) {
     // Use 64-bit intermediate to prevent overflow when squaring remaining
     int64_t fade_mult   = ( (int64_t)remaining_to_use * (int64_t)remaining_to_use ) / fade_total;
@@ -1741,6 +1744,8 @@ PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk( int16_t * chunk_p )
     return PB_Error;
   }
 
+  fade_offset = 0;
+
   vol_input = AudioEngine_ReadVolume();
 
   input   = chunk_p;      // Source sample pointer
@@ -1782,6 +1787,9 @@ PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk( int16_t * chunk_p )
     
     // Update fade counters based on samples processed
     uint32_t samples_processed = ( channels == Mode_stereo ) ? 2 : 1;
+
+    fade_offset++;
+
     UpdateFadeCounters( samples_processed );
   }
   return PB_Playing;;
@@ -1807,6 +1815,8 @@ PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
   }
 
   vol_input = AudioEngine_ReadVolume();
+
+  fade_offset = 0;
 
   input   = chunk_p;                                                        // Source sample pointer
   output  = ( half_to_fill == SECOND ) ? ( pb_buffer + CHUNK_SZ ) : pb_buffer;
@@ -1853,6 +1863,9 @@ PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
     
     // Update fade counters based on samples processed
     uint32_t samples_processed = ( channels == Mode_stereo ) ? 2 : 1;
+
+    fade_offset++;
+
     UpdateFadeCounters( samples_processed );
   }
   return PB_Playing;

@@ -39,6 +39,8 @@
 #include "nylon_guitar.h"
 #include "dalby_tritone16b16k.h"
 #include "Lemon_Tree.h"
+#include "medieval_flute.h"
+
 
               void        SetupADC                  ( void );
               void        SetupTimer2               ( void );
@@ -129,8 +131,8 @@ int main( void )
   //SetLpfMakeupGain16Bit( 1 );
   
   // Set fade times
-  SetFadeInTime(0.2f );                   // 800 ms fade-in
-  SetFadeOutTime( 0.2f );                 // 150 ms fade-out
+  SetFadeInTime(5.0f );                   // 800 ms fade-in
+  SetFadeOutTime( 5.0f );                 // 150 ms fade-out
   SetPauseFadeTime( 0.5f );               // 150 ms pause fade-out
   SetResumeFadeTime( 0.5f );              // 1250 ms resume fade-in
 
@@ -140,7 +142,7 @@ int main( void )
     WaitForTrigger( TRIGGER_SET );
 
     //PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
-    PlaySample( ocarina32k, OCARINA32K_SZ, I2S_AUDIOSAMPLE_32K, 16, Mode_mono );
+    PlaySample( medieval_flute16b22k1c, MEDIEVAL_FLUTE16B22K1C_SZ, I2S_AUDIOSAMPLE_22K, 16, Mode_mono );
 
     WaitForSampleEnd();
   }

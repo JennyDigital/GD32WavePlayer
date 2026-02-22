@@ -56,4 +56,4 @@ GD32WavePlayer\ THUMB\ Release/main.o: \
  sound_headers/dreamy.h sound_headers/guitar_small.h \
  sound_headers/guitar_riff.h sound_headers/handpan.h \
  sound_headers/nylon_guitar.h sound_headers/dalby_tritone16b16k.h \
- sound_headers/Lemon_Tree.h
+ sound_headers/Lemon_Tree.h sound_headers/medieval_flute.h

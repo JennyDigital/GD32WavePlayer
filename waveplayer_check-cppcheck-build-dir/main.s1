@@ -1,4 +1,4 @@
-main global:[filter_cfg,ocarina32k] call:[AudioEngine_Init,Error_Handler,GPIO_InitPins,PlaySample,SetAirEffectPresetDb,SetDAC_Control,SetFadeInTime,SetFadeOutTime,SetFilterConfig,SetLpf16BitLevel,SetPauseFadeTime,SetResumeFadeTime,SetVolumeResponseGamma,SetVolumeResponseNonlinear,SetupADC,SetupClocks,SetupTimer2,SystemInit,WaitForSampleEnd,WaitForTrigger,delay_ms,exti_init,exti_interrupt_enable,nvic_irq_enable] noreturn:[Error_Handler,WaitForSampleEnd]
+main global:[filter_cfg,medieval_flute16b22k1c] call:[AudioEngine_Init,Error_Handler,GPIO_InitPins,PlaySample,SetAirEffectPresetDb,SetDAC_Control,SetFadeInTime,SetFadeOutTime,SetFilterConfig,SetLpf16BitLevel,SetPauseFadeTime,SetResumeFadeTime,SetVolumeResponseGamma,SetVolumeResponseNonlinear,SetupADC,SetupClocks,SetupTimer2,SystemInit,WaitForSampleEnd,WaitForTrigger,delay_ms,exti_init,exti_interrupt_enable,nvic_irq_enable] noreturn:[Error_Handler,WaitForSampleEnd]
 DAC_MasterSwitch call:[delay_ms,gpio_bit_write] noreturn:[delay_ms]
 ReadVolume global:[adc_out]
 WaitForTrigger global:[trig_status,trig_timeout_counter,trig_timeout_flag] call:[Enter_LP_SleepMode,delay_ms] noreturn:[Enter_LP_SleepMode]
