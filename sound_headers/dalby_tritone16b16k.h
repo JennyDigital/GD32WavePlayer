@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #define DALBY_TRITONE16B16K_SZ 49876
+#define DALBY_TRITONE16B16K_PB_FMT Mode_mono
 
 const uint16_t dalby_tritone16b16k[ DALBY_TRITONE16B16K_SZ ] =
 {

@@ -4324,7 +4324,7 @@ Linker script and memory map
                 0x00000001                        . = ASSERT (((__ctors_start__ == __ctors_end__) || ((__ctors_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .ctors is too large to fit in FLASH memory segment)
                 0x08002a34                        __rodata_load_start__ = ALIGN (__ctors_end__, 0x4)
 
-.rodata         0x08002a34    0x48bec
+.rodata         0x08002a34    0x4a748
                 0x08002a34                        __rodata_start__ = .
  *(.rodata .rodata.* .gnu.linkonce.r.* .data.rel.ro .data.rel.ro.*)
  .rodata        0x08002a34       0x18 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
@@ -4340,36 +4340,35 @@ Linker script and memory map
                 0x08027a84     0xd126 GD32WavePlayer THUMB Release/dalby_multi.o
                 0x08027a84                mind_the_door
  *fill*         0x08034baa        0x2 
- .rodata.tt_arrival
-                0x08034bac    0x16a4a GD32WavePlayer THUMB Release/dalby_multi.o
-                0x08034bac                tt_arrival
- *fill*         0x0804b5f6        0x2 
+ .rodata.dalby_tritone16b16k
+                0x08034bac    0x185a8 GD32WavePlayer THUMB Release/dalby_multi.o
+                0x08034bac                dalby_tritone16b16k
  .rodata.libc.expf_twojby8
-                0x0804b5f8       0x20 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x0804d154       0x20 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
  .rodata.libc.__aeabi_ERANGE
-                0x0804b618        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
-                0x0804b618                __aeabi_ERANGE
+                0x0804d174        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
+                0x0804d174                __aeabi_ERANGE
  .rodata.libc.__aeabi_EDOM
-                0x0804b61c        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
-                0x0804b61c                __aeabi_EDOM
-                0x0804b620                        __rodata_end__ = (__rodata_start__ + SIZEOF (.rodata))
-                0x00048bec                        __rodata_size__ = SIZEOF (.rodata)
-                0x0804b620                        __rodata_load_end__ = __rodata_end__
+                0x0804d178        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
+                0x0804d178                __aeabi_EDOM
+                0x0804d17c                        __rodata_end__ = (__rodata_start__ + SIZEOF (.rodata))
+                0x0004a748                        __rodata_size__ = SIZEOF (.rodata)
+                0x0804d17c                        __rodata_load_end__ = __rodata_end__
                 0x00000001                        . = ASSERT (((__rodata_start__ == __rodata_end__) || ((__rodata_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .rodata is too large to fit in FLASH memory segment)
-                0x0804b620                        __ARM.exidx_load_start__ = ALIGN (__rodata_end__, 0x4)
+                0x0804d17c                        __ARM.exidx_load_start__ = ALIGN (__rodata_end__, 0x4)
 
-.ARM.exidx      0x0804b620        0x0
-                0x0804b620                        __ARM.exidx_start__ = .
-                0x0804b620                        __exidx_start = __ARM.exidx_start__
+.ARM.exidx      0x0804d17c        0x0
+                0x0804d17c                        __ARM.exidx_start__ = .
+                0x0804d17c                        __exidx_start = __ARM.exidx_start__
  *(.ARM.exidx .ARM.exidx.*)
-                0x0804b620                        __ARM.exidx_end__ = (__ARM.exidx_start__ + SIZEOF (.ARM.exidx))
+                0x0804d17c                        __ARM.exidx_end__ = (__ARM.exidx_start__ + SIZEOF (.ARM.exidx))
                 0x00000000                        __ARM.exidx_size__ = SIZEOF (.ARM.exidx)
-                0x0804b620                        __exidx_end = __ARM.exidx_end__
-                0x0804b620                        __ARM.exidx_load_end__ = __ARM.exidx_end__
+                0x0804d17c                        __exidx_end = __ARM.exidx_end__
+                0x0804d17c                        __ARM.exidx_load_end__ = __ARM.exidx_end__
                 0x00000001                        . = ASSERT (((__ARM.exidx_start__ == __ARM.exidx_end__) || ((__ARM.exidx_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .ARM.exidx is too large to fit in FLASH memory segment)
-                0x0804b620                        __fast_load_start__ = ALIGN (__ARM.exidx_end__, 0x4)
+                0x0804d17c                        __fast_load_start__ = ALIGN (__ARM.exidx_end__, 0x4)
 
-.fast           0x20000000      0xb00 load address 0x0804b620
+.fast           0x20000000      0xb00 load address 0x0804d17c
                 0x20000000                        __fast_start__ = .
  *(.fast .fast.*)
  .fast          0x20000000      0xae8 GD32WavePlayer THUMB Release/audio_engine.o
@@ -4378,7 +4377,7 @@ Linker script and memory map
  .fast.__stub   0x20000ae8       0x18 linker stubs
                 0x20000b00                        __fast_end__ = (__fast_start__ + SIZEOF (.fast))
                 0x00000b00                        __fast_size__ = SIZEOF (.fast)
-                0x0804c120                        __fast_load_end__ = (__fast_load_start__ + SIZEOF (.fast))
+                0x0804dc7c                        __fast_load_end__ = (__fast_load_start__ + SIZEOF (.fast))
 
 .rel.dyn        0x08000000        0x0
  .rel.iplt      0x08000000        0x0 GD32WavePlayer THUMB Release/system_gd32f30x.o
@@ -4390,9 +4389,9 @@ Linker script and memory map
                 0x00000b00                        __fast_run_size__ = (__fast_run_end__ - __fast_run_start__)
                 0x20000b00                        __fast_run_load_end__ = __fast_run_end__
                 0x00000001                        . = ASSERT (((__fast_run_start__ == __fast_run_end__) || ((__fast_run_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .fast_run is too large to fit in RAM memory segment)
-                0x0804c120                        __data_load_start__ = ALIGN ((__fast_load_start__ + SIZEOF (.fast)), 0x4)
+                0x0804dc7c                        __data_load_start__ = ALIGN ((__fast_load_start__ + SIZEOF (.fast)), 0x4)
 
-.data           0x20000b00       0x5e load address 0x0804c120
+.data           0x20000b00       0x5e load address 0x0804dc7c
                 0x20000b00                        __data_start__ = .
  *(.data .data.* .gnu.linkonce.d.*)
  .data.SystemCoreClock
@@ -4461,7 +4460,7 @@ Linker script and memory map
                 0x20000b5d                sleep_setting
                 0x20000b5e                        __data_end__ = (__data_start__ + SIZEOF (.data))
                 0x0000005e                        __data_size__ = SIZEOF (.data)
-                0x0804c17e                        __data_load_end__ = (__data_load_start__ + SIZEOF (.data))
+                0x0804dcda                        __data_load_end__ = (__data_load_start__ + SIZEOF (.data))
 
 .igot.plt       0x00000000        0x0
  .igot.plt      0x00000000        0x0 GD32WavePlayer THUMB Release/system_gd32f30x.o
@@ -4583,16 +4582,16 @@ Linker script and memory map
                 0x00000004                        __tbss_size__ = SIZEOF (.tbss)
                 0x20001c28                        __tbss_load_end__ = __tbss_end__
                 0x00000001                        . = ASSERT (((__tbss_start__ == __tbss_end__) || ((__tbss_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .tbss is too large to fit in RAM memory segment)
-                0x0804c180                        __tdata_load_start__ = ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4)
+                0x0804dcdc                        __tdata_load_start__ = ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4)
 
-.tdata          0x20001c28        0x0 load address 0x0804c180
+.tdata          0x20001c28        0x0 load address 0x0804dcdc
                 0x20001c28                        __tdata_start__ = .
  *(.tdata .tdata.*)
                 0x20001c28                        __tdata_end__ = (__tdata_start__ + SIZEOF (.tdata))
                 0x00000000                        __tdata_size__ = SIZEOF (.tdata)
-                0x0804c180                        __tdata_load_end__ = (__tdata_load_start__ + SIZEOF (.tdata))
-                0x0804c180                        __FLASH_segment_used_end__ = (ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4) + SIZEOF (.tdata))
-                0x0004c180                        __FLASH_segment_used_size__ = (__FLASH_segment_used_end__ - __FLASH_segment_start__)
+                0x0804dcdc                        __tdata_load_end__ = (__tdata_load_start__ + SIZEOF (.tdata))
+                0x0804dcdc                        __FLASH_segment_used_end__ = (ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4) + SIZEOF (.tdata))
+                0x0004dcdc                        __FLASH_segment_used_size__ = (__FLASH_segment_used_end__ - __FLASH_segment_start__)
                 0x00000001                        . = ASSERT (((__tdata_load_start__ == __tdata_load_end__) || ((__tdata_load_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .tdata is too large to fit in FLASH memory segment)
 
 .tdata_run      0x20001c28        0x0

@@ -2,7 +2,7 @@
 #include "main.h"
 #include "audio_engine.h"
 #include <stdbool.h>
-#include "three_tone_arrival_c.h"
+#include "dalby_tritone16b16k.h"
 #include "mind_the_door.h"
 #include "doors_opening.h"
 #include "doors_closing.h"
@@ -42,7 +42,7 @@ void ChimeLoop( void )
     case OPT_Chime:   // Value: 0
 
       if( trigger_option == 1 ) { WaitForTrigger( TRIGGER_SET ); }
-      PlaySample( tt_arrival, TT_ARRIVAL_SZ, I2S_AUDIOSAMPLE_11K, 16, TT_ARRIVAL_PB_FMT );
+      PlaySample( dalby_tritone16b16k, DALBY_TRITONE16B16K_SZ, I2S_AUDIOSAMPLE_16K, 16, DALBY_TRITONE16B16K_PB_FMT );
       WaitForSampleEnd();
       if( trigger_option == 1 )
       {

@@ -41,5 +41,5 @@ GD32WavePlayer\ THUMB\ Release/dalby_multi.o: \
  /home/jennifer/.rowley_associates_limited/CrossWorks\ for\ ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_wwdgt.h \
  Libraries/audio_engine.h \
  /usr/share/crossworks_for_arm_5.4/include/stdbool.h \
- sound_headers/three_tone_arrival_c.h sound_headers/mind_the_door.h \
+ sound_headers/dalby_tritone16b16k.h sound_headers/mind_the_door.h \
  sound_headers/doors_opening.h sound_headers/doors_closing.h
