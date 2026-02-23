@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #define MIND_THE_DOOR_SZ 26771
+#define MIND_THE_DOOR_PB_FMT Mode_mono
 
 const uint16_t mind_the_door[ MIND_THE_DOOR_SZ ] =
 {

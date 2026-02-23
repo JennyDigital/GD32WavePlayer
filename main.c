@@ -6,40 +6,41 @@
 #include "main.h"
 #include "interrupt_utils.h"
 #include "audio_engine.h"
+#include "dalby_multi.h"
 
 /* Sounds for playback */
 
-#include "newchallenger.h"
-#include "newchallenger11k.h"
-#include "guitar.h"
-#include "mind_the_door.h"
-#include "three_tone_arrival_c.h"
-#include "tunnelbarra.h"
-#include "tunnelbarra16.h"
-#include "konnichiwa.h"
-#include "dinding.h"
-#include "elevator_ping.h"
-#include "Danger.h"
-#include "selfdestruct.h"
-#include "new_rage32k.h"
-#include "accoustic_rock22k.h"
-#include "hey_yeah32k.h"
-#include "darkblues32k.h"
-#include "custom_tritone16k.h"
-#include "ocarina_melody32k.h"
-#include "theremin_quartet.h"
-#include "steves_doorbell.h"
-#include "harmony8b.h"
-#include "andean_flute.h"
-#include "quencho_flute.h"
-#include "dreamy.h"
-#include "guitar_small.h"
-#include "guitar_riff.h"
-#include "handpan.h"
-#include "nylon_guitar.h"
-#include "dalby_tritone16b16k.h"
-#include "Lemon_Tree.h"
-#include "medieval_flute.h"
+//#include "newchallenger.h"
+//#include "newchallenger11k.h"
+//#include "guitar.h"
+//#include "mind_the_door.h"
+//#include "three_tone_arrival_c.h"
+//#include "tunnelbarra.h"
+//#include "tunnelbarra16.h"
+//#include "konnichiwa.h"
+//#include "dinding.h"
+//#include "elevator_ping.h"
+//#include "Danger.h"
+//#include "selfdestruct.h"
+//#include "new_rage32k.h"
+//#include "accoustic_rock22k.h"
+//#include "hey_yeah32k.h"
+//#include "darkblues32k.h"
+//#include "custom_tritone16k.h"
+//#include "ocarina_melody32k.h"
+//#include "theremin_quartet.h"
+//#include "steves_doorbell.h"
+//#include "harmony8b.h"
+//#include "andean_flute.h"
+//#include "quencho_flute.h"
+//#include "dreamy.h"
+//#include "guitar_small.h"
+//#include "guitar_riff.h"
+//#include "handpan.h"
+//#include "nylon_guitar.h"
+//#include "dalby_tritone16b16k.h"
+//#include "Lemon_Tree.h"
+//#include "medieval_flute.h"
 
 
               void        SetupADC                  ( void );
@@ -56,12 +57,19 @@ static        void        GPIO_InitPins             ( void );
               void        delay_ms                  ( uint32_t millis );
               void        Error_Handler             ( void );
               void        Enter_LP_SleepMode        ( void );
+              void        SetSleepSetting           ( uint8_t setting );
+              uint8_t     GetSleepSetting           ( void );
+
 
 // Trigger control variables (hardware-specific)
 volatile  uint16_t        trig_counter                  = 0;              // Counter for trigger input timing
 volatile  uint8_t         trig_timeout_flag             = 0;              // Flag indicating trigger timeout has occurred
 volatile  uint16_t        trig_timeout_counter          = 0;              // Counter for trigger timeout duration
 volatile  uint8_t         trig_status                   = TRIGGER_CLR;    // Current trigger status  (SET or CLR)
+
+
+// Sleep Settings
+uint8_t sleep_setting = 1;           // Defaults to sleep permitted.
 
 
 /* SysTick variables */
@@ -115,7 +123,7 @@ int main( void )
   filter_cfg.enable_noise_gate            = 0;  // Noise gate disabled by default; enable as needed
   filter_cfg.enable_16bit_biquad_lpf      = 0;  // 16-bit biquad LPF disabled by default; enable as needed
   filter_cfg.enable_8bit_lpf              = 1;  // 8-bit LPF disabled by default; enable as needed
-  filter_cfg.enable_soft_dc_filter_16bit  = 0;  // Soft DC blocking filter for 16-bit samples enabled by default
+  filter_cfg.enable_soft_dc_filter_16bit  = 1;  // Soft DC blocking filter for 16-bit samples enabled by default
   filter_cfg.enable_soft_clipping         = 1;  // Soft clipping enabled by default
   filter_cfg.enable_air_effect            = 0;  // Air effect (high-shelf brightening) disabled by default; enable as needed
   filter_cfg.enable_filter_chain_16bit    = 1;  // Master enable for entire 16-bit filter chain
@@ -136,16 +144,17 @@ int main( void )
   SetPauseFadeTime( 0.5f );               // 150 ms pause fade-out
   SetResumeFadeTime( 0.5f );              // 1250 ms resume fade-in
 
+  ChimeLoop();
   /* Superloop */
-  while( true )
-  {
-    WaitForTrigger( TRIGGER_SET );
+  //while( true )
+  //{
+  //  WaitForTrigger( TRIGGER_SET );
 
-    //PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
-    PlaySample( medieval_flute16b22k1c, MEDIEVAL_FLUTE16B22K1C_SZ, I2S_AUDIOSAMPLE_22K, 16, Mode_mono );
+  //  //PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
+  //  //PlaySample( medieval_flute16b22k1c, MEDIEVAL_FLUTE16B22K1C_SZ, I2S_AUDIOSAMPLE_22K, 16, Mode_mono );
 
-    WaitForSampleEnd();
-  }
+  //  WaitForSampleEnd();
+  //}
 }
 
 
@@ -481,8 +490,10 @@ static void SetupClocks( void )
   */
 void Enter_LP_SleepMode( void )
 {
-  //SysClockToSlow();
+  // Only act if permitted.
+  if( !sleep_setting ) return;
 
+  // Prepare for sleep
   SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk; // Disable SysTick interrupt
   nvic_irq_disable( DMA0_Channel4_IRQn );     // If for some reason DMA is running, stop it's IRQs
   nvic_irq_disable( ADC0_1_IRQn );
@@ -502,6 +513,22 @@ void Enter_LP_SleepMode( void )
   SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;  // Re-enable after wakeup
   SetupClocks();
   nvic_irq_enable(ADC0_1_IRQn, 0, 0); // Need to reenable ADC0,1,2 ISR
+}
+
+/** Determine whether the mcu can enter sleep mode or not.
+  *
+  * @param: setting. 1 = permitted, 0 = no sleep permitted
+  * @retval: none
+  */
+void SetSleepSetting( uint8_t setting )
+{
+  sleep_setting = setting ? 1 : 0;
+}
+
+
+uint8_t GetSleepSetting( void )
+{
+  return sleep_setting;
 }
 
 

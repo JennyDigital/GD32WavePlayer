@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #define DO_16B1C24K_SZ 44708
+#define DO_16B1C24K_PB_FMT Mode_mono
 
 const uint16_t do_16b1c24k[ DO_16B1C24K_SZ ] =
 {

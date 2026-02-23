@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #define TT_ARRIVAL_SZ 46373
+#define TT_ARRIVAL_PB_FMT Mode_mono
 
 const uint16_t tt_arrival[ TT_ARRIVAL_SZ ] =
 {
