@@ -7,13 +7,13 @@
 
   // Option Pins
   //
-  #define OPT1_Pin            GPIO_PIN_7
+  #define OPT1_Pin            GPIO_PIN_4
   #define OPT1_Bank           GPIOB
-  #define OPT2_Pin            GPIO_PIN_6
+  #define OPT2_Pin            GPIO_PIN_5
   #define OPT2_Bank           GPIOB
-  #define OPT3_Pin            GPIO_PIN_5
+  #define OPT3_Pin            GPIO_PIN_6
   #define OPT3_Bank           GPIOB
-  #define OPT4_Pin            GPIO_PIN_4
+  #define OPT4_Pin            GPIO_PIN_7
   #define OPT4_Bank           GPIOB
 
   // Trigger Pin
@@ -44,15 +44,12 @@
 
 
 // Trigger counter values
-#define TC_LOW_THRESHOLD      120U
-#define TC_HIGH_THRESHOLD     240U
-#define TC_MAX                360U
+#define TC_LOW_THRESHOLD      60U
+#define TC_HIGH_THRESHOLD     120U
+#define TC_MAX                240U
 #define TRIGGER_SET           1
 #define TRIGGER_CLR           0
 #define TRIG_TIMEOUT_MS       1000U
-
-// Uncomment to use digital GPIOs for volume instead of ADC
-//#define VOLUME_INPUT_DIGITAL
 
 // Analog volume ADC scaling (12-bit ADC scaled to 16-bit range)
 // ADC max (4095) * 16 = 65520, representing the maximum usable 16-bit volume value
@@ -61,12 +58,16 @@
 // Scale factor for master volume input.
 #define MASTER_VOLUME_SCALE 8U
 
+// Volume floor value
+#define MASTER_VOLUME_MINIMUM 8U
+
 // Sleep mode control; debug doesn't work well if it's enabled. Comment out for sleep feature.
 //#define NO_SLEEP_MODE
 
 //* Build options
-// #define FORCE_TRIGGER_OPT
+//#define FORCE_TRIGGER_OPT
 //#define TEST_CYCLING
+#define DALBY_BUILD
 
   // Includes
   //

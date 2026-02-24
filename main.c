@@ -1,15 +1,13 @@
 //
 // main.c: Defines entry point for an GD32F30x C/C++ application.
 //
-#include <gd32f30x.h>
 #include <stdbool.h>
 #include "main.h"
 #include "interrupt_utils.h"
 #include "audio_engine.h"
-#include "dalby_multi.h"
 
 /* Sounds for playback */
-
+#ifndef DALBY_BUILD
 //#include "newchallenger.h"
 //#include "newchallenger11k.h"
 //#include "guitar.h"
@@ -41,7 +39,9 @@
 //#include "dalby_tritone16b16k.h"
 //#include "Lemon_Tree.h"
 //#include "medieval_flute.h"
-
+#else
+#include "dalby_multi.h"
+#endif
 
               void        SetupADC                  ( void );
               void        SetupTimer2               ( void );
@@ -69,7 +69,7 @@ volatile  uint8_t         trig_status                   = TRIGGER_CLR;    // Cur
 
 
 // Sleep Settings
-uint8_t sleep_setting = 1;           // Defaults to sleep permitted.
+uint8_t sleep_setting = 1;                                                // Defaults to sleep permitted.
 
 
 /* SysTick variables */
@@ -139,22 +139,25 @@ int main( void )
   //SetLpfMakeupGain16Bit( 1 );
   
   // Set fade times
-  SetFadeInTime(5.0f );                   // 800 ms fade-in
-  SetFadeOutTime( 5.0f );                 // 150 ms fade-out
-  SetPauseFadeTime( 0.5f );               // 150 ms pause fade-out
-  SetResumeFadeTime( 0.5f );              // 1250 ms resume fade-in
+  SetFadeInTime(0.1f );                   // 100 ms fade-in
+  SetFadeOutTime( 0.1f );                 // 100 ms fade-out
+  SetPauseFadeTime( 0.5f );               // 500 ms pause fade-out
+  SetResumeFadeTime( 0.5f );              // 500 ms resume fade-in
 
+#ifdef DALBY_BUILD
   ChimeLoop();
+ #else
   /* Superloop */
-  //while( true )
-  //{
-  //  WaitForTrigger( TRIGGER_SET );
+  while( true )
+  {
+    WaitForTrigger( TRIGGER_SET );
 
-  //  //PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
-  //  //PlaySample( medieval_flute16b22k1c, MEDIEVAL_FLUTE16B22K1C_SZ, I2S_AUDIOSAMPLE_22K, 16, Mode_mono );
+    //PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
+    //PlaySample( medieval_flute16b22k1c, MEDIEVAL_FLUTE16B22K1C_SZ, I2S_AUDIOSAMPLE_22K, 16, Mode_mono );
 
-  //  WaitForSampleEnd();
-  //}
+    WaitForSampleEnd();
+  }
+#endif
 }
 
 
@@ -182,31 +185,19 @@ uint16_t ReadVolume( void )
 {
   uint16_t volume = 0;
 
-  #ifdef VOLUME_INPUT_DIGITAL
-    // Use digital GPIOs for volume (3 bits, scaled to 1-65535)
-    uint8_t v =
-      ( ( (OPT3_GPIO_Port->IDR & OPT3_Pin) != 0 ) << 2 ) |
-      ( ( (OPT2_GPIO_Port->IDR & OPT2_Pin) != 0 ) << 1 ) |
-      ( ( (OPT1_GPIO_Port->IDR & OPT1_Pin) != 0 ) << 0 );
-
-    v = 7 - v;        // Invert so 0b000 = max volume, 0b111 = min volume
-    uint32_t scaled = ( (uint32_t)v * 65535U ) / 7U;  // Map 0-7 to 0-65535
-    volume = (uint16_t)scaled;
+  // Use 12-bit ADC value (0-4095) for linear volume
+  // Scale 12-bit ADC directly to match 16-bit volume range with 16x scaling factor
+  // (4095 * 16 = 65520, close to full 65535 range)
+  #ifndef VOLUME_ADC_INVERTED
+  uint32_t lin = (uint32_t)adc_out * MASTER_VOLUME_SCALE;                   // Scale 12-bit to acceptable range
   #else
-    // Use 12-bit ADC value (0-4095) for linear volume
-    // Scale 12-bit ADC directly to match 16-bit volume range with 16x scaling factor
-    // (4095 * 16 = 65520, close to full 65535 range)
-    #ifndef VOLUME_ADC_INVERTED
-    uint32_t lin = (uint32_t)adc_out * MASTER_VOLUME_SCALE;                   // Scale 12-bit to acceptable range
-    #else
-    uint32_t lin = ( ( 4095U - (uint32_t) adc_out ) * MASTER_VOLUME_SCALE );  // Invert ADC reading so 0 = max volume, 4095 = min volume
-    #endif
-    if( lin > VOLUME_ADC_MAX_SCALED ) lin = VOLUME_ADC_MAX_SCALED;            // Cap at maximum ADC * 16
-    volume = (uint16_t)lin;
+  uint32_t lin = ( ( 4095U - (uint32_t) adc_out ) * MASTER_VOLUME_SCALE );  // Invert ADC reading so 0 = max volume, 4095 = min volume
   #endif
+  if( lin > VOLUME_ADC_MAX_SCALED ) lin = VOLUME_ADC_MAX_SCALED;            // Cap at maximum ADC * 16
+  volume = (uint16_t)lin;
 
   /* Analog signals have noise; clamp low values to avoid noise-induced ultra-quiet audio */
-  if( volume < 32U ) volume = 32U;
+  if( volume < MASTER_VOLUME_MINIMUM ) volume = MASTER_VOLUME_MINIMUM;
 
   /* Return raw volume - audio engine applies non-linear response curve internally */
   return volume;
@@ -333,6 +324,7 @@ static void GPIO_InitPins( void )
 
   // Option pins
   //
+  gpio_pin_remap_config( GPIO_SWJ_SWDPENABLE_REMAP, ENABLE );
   gpio_init( OPT1_Bank, GPIO_MODE_IPD, GPIO_OSPEED_2MHZ, OPT1_Pin );
   gpio_init( OPT2_Bank, GPIO_MODE_IPD, GPIO_OSPEED_2MHZ, OPT2_Pin );
   gpio_init( OPT3_Bank, GPIO_MODE_IPD, GPIO_OSPEED_2MHZ, OPT3_Pin );
@@ -345,6 +337,8 @@ static void GPIO_InitPins( void )
   // Trigger pin.
   //
   gpio_init( TRIGGER_Bank, GPIO_MODE_IPD, GPIO_OSPEED_2MHZ, TRIGGER_Pin );
+  gpio_exti_source_select( TRIGGER_Bank, TRIGGER_Pin );
+  gpio_pin_lock( TRIGGER_Bank, TRIGGER_Pin );
 }
 
 
@@ -437,7 +431,6 @@ static void SetupClocks( void )
   rcu_system_clock_source_config( RCU_SCSS_IRC8M );
   rcu_ahb_clock_config( 1 );
   rcu_osci_off( RCU_PLL_CK );
-  //rcu_osci_on ( RCU_HXTAL );
   fmc_wscnt_set( WS_WSCNT_2 );
 
   /* Let's go flat-out at 120MHz. Zoooooom!!! */
@@ -496,7 +489,7 @@ void Enter_LP_SleepMode( void )
   // Prepare for sleep
   SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk; // Disable SysTick interrupt
   nvic_irq_disable( DMA0_Channel4_IRQn );     // If for some reason DMA is running, stop it's IRQs
-  nvic_irq_disable( ADC0_1_IRQn );
+  nvic_irq_disable( ADC0_1_IRQn );            // Stop the ADC Interrupts.
 
   /*  Flush pending interrupts */
   NVIC_ClearPendingIRQ( EXTI5_9_IRQn );
@@ -506,7 +499,7 @@ void Enter_LP_SleepMode( void )
 
 
   /* To sleep, perchance to dream */
-  pmu_to_deepsleepmode( PMU_LDO_LOWPOWER, PMU_LOWDRIVER_ENABLE , WFI_CMD );
+  pmu_to_deepsleepmode( PMU_LDO_NORMAL, PMU_LOWDRIVER_ENABLE, WFI_CMD );
 
   /* Wake from your slumber, mighty microcontroller! */
   nvic_irq_enable( DMA0_Channel4_IRQn, 1, 0 );

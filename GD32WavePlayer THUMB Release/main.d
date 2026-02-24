@@ -1,5 +1,7 @@
 GD32WavePlayer\ THUMB\ Release/main.o: \
  /home/jennifer/repos/GD32WavePlayer/main.c \
+ /usr/share/crossworks_for_arm_5.4/include/stdbool.h \
+ /home/jennifer/repos/GD32WavePlayer/main.h \
  /home/jennifer/.rowley_associates_limited/CrossWorks\ for\ ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Include/gd32f30x.h \
  /home/jennifer/.rowley_associates_limited/CrossWorks\ for\ ARM/v5/packages/libraries/CMSIS_6/CMSIS/Core/Include/core_cm4.h \
  /usr/share/crossworks_for_arm_5.4/include/stdint.h \
@@ -37,8 +39,6 @@ GD32WavePlayer\ THUMB\ Release/main.o: \
  /home/jennifer/.rowley_associates_limited/CrossWorks\ for\ ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_timer.h \
  /home/jennifer/.rowley_associates_limited/CrossWorks\ for\ ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_usart.h \
  /home/jennifer/.rowley_associates_limited/CrossWorks\ for\ ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_wwdgt.h \
- /usr/share/crossworks_for_arm_5.4/include/stdbool.h \
- /home/jennifer/repos/GD32WavePlayer/main.h \
  /home/jennifer/repos/GD32WavePlayer/interrupt_utils.h \
  /home/jennifer/.rowley_associates_limited/CrossWorks\ for\ ARM/v5/packages/libraries/CMSIS_6/CMSIS/Core/Include/cmsis_gcc.h \
  Libraries/audio_engine.h \
