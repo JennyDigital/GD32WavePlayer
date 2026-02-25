@@ -10,7 +10,6 @@
 
 extern void     Enter_LP_SleepMode( void );
 extern void     WaitForTrigger    ( uint8_t trig_to_wait_for );
-extern void     DAC_MasterSwitch  ( uint8_t setting );
 extern void     SetSleepSetting   ( uint8_t setting );
 extern uint8_t  GetTriggerOption  ( void );
 extern void     delay_ms          ( uint32_t millis );
@@ -40,8 +39,8 @@ void ChimeLoop( void )
             );
 
     switch( option ) {
-    case OPT_Chime:   // Value: 0
-    default:          // ...or default
+    case OPT_Chime:         // Value: 0
+    default:                // ...or default
       SetSleepSetting( 1 );
       SetFadeInTime( 0.2f );
       SetFadeOutTime( 0.2f );
@@ -64,7 +63,7 @@ void ChimeLoop( void )
 
     case OPT_MindTheDoor:   // Value: 1
         SetSleepSetting( 1 );
-        DAC_MasterSwitch( 1 );
+        AudioEngine_DACSwitch( 1 );
         SetFadeInTime( 0.2f );
         SetFadeOutTime( 0.2f );
         SetDAC_Control( 1 );
@@ -86,7 +85,7 @@ void ChimeLoop( void )
     case OPT_DoorsOpeningClosing: // Value: 2
       // We'll keep the system live the whole time for this option.
       SetDAC_Control( 0 );
-      DAC_MasterSwitch( 1 );
+      AudioEngine_DACSwitch( 1 );
       SetSleepSetting( 0 );
       SetFadeInTime( 0.01f );
       SetFadeOutTime( 0.01f );
