@@ -41,5 +41,9 @@ GD32WavePlayer\ THUMB\ Debug/dalby_multi.o: \
  /home/jennifer/.rowley_associates_limited/CrossWorks\ for\ ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc/gd32f30x_wwdgt.h \
  Libraries/audio_engine.h \
  /usr/share/crossworks_for_arm_5.4/include/stdbool.h \
- sound_headers/dalby_tritone16b16k.h sound_headers/mind_the_door.h \
- sound_headers/doors_opening.h sound_headers/doors_closing.h
+ sound_headers/dalby_tritone16b16k.h \
+ sound_headers/16k/please_mind_the_door.h \
+ sound_headers/16k/doors_opening.h sound_headers/16k/doors_closing.h \
+ sound_headers/16k/ground_floor.h sound_headers/16k/first_floor.h \
+ sound_headers/16k/second_floor.h sound_headers/16k/third_floor.h \
+ sound_headers/16k/top_floor.h sound_headers/16k/lift_out_of_service.h

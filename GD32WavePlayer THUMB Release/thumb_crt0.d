@@ -1,2 +1,2 @@
 GD32WavePlayer\ THUMB\ Release/thumb_crt0.o: \
- /Applications/CrossWorks\ for\ ARM\ 5.4/source/thumb_crt0.s
+ /usr/share/crossworks_for_arm_5.4/source/thumb_crt0.s

@@ -49,7 +49,7 @@
       arm_target_loader_applicable_loaders="Flash"
       arm_target_loader_default_loader="Flash"
       c_preprocessor_definitions="USE_IRC_OSC;GD32F30X_XD"
-      c_user_include_directories="$(DeviceIncludePath);$(TargetsDir)/GD32F30x/Include;$(TargetsDir)/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc;Libraries;sound_headers"
+      c_user_include_directories="$(DeviceIncludePath);$(TargetsDir)/GD32F30x/Include;$(TargetsDir)/GD32F30x/CMSIS/Device/Firmware/Peripherals/inc;Libraries;sound_headers;sound_headers/16k"
       debug_register_definition_file="$(DeviceRegisterDefinitionFile)"
       gcc_c_language_standard="c17"
       gcc_enable_all_warnings="No"
@@ -129,13 +129,17 @@
       <file file_name="sound_headers/Danger.h" />
       <file file_name="sound_headers/darkblues32k.h" />
       <file file_name="sound_headers/dinding.h" />
+      <file file_name="sound_headers/16k/doors_closing.h" />
       <file file_name="sound_headers/doors_closing.h" />
       <file file_name="sound_headers/doors_closing11k.h" />
+      <file file_name="sound_headers/16k/doors_opening.h" />
       <file file_name="sound_headers/doors_opening.h" />
       <file file_name="sound_headers/doors_opening11k.h" />
       <file file_name="sound_headers/dramatic_organ11k.h" />
       <file file_name="sound_headers/dreamy.h" />
       <file file_name="sound_headers/elevator_ping.h" />
+      <file file_name="sound_headers/16k/first_floor.h" />
+      <file file_name="sound_headers/16k/ground_floor.h" />
       <file file_name="sound_headers/guitar.h" />
       <file file_name="sound_headers/guitar_harmony2.h" />
       <file file_name="sound_headers/guitar_riff.h" />
@@ -150,6 +154,7 @@
       <file file_name="sound_headers/KillBillWhistle11k.h" />
       <file file_name="sound_headers/konnichiwa.h" />
       <file file_name="sound_headers/Lemon_Tree.h" />
+      <file file_name="sound_headers/16k/lift_out_of_service.h" />
       <file file_name="sound_headers/magic_gong44k.h" />
       <file file_name="sound_headers/medieval_flute.h" />
       <file file_name="sound_headers/mind_the_door.h" />
@@ -159,13 +164,17 @@
       <file file_name="sound_headers/newchallenger2.h" />
       <file file_name="sound_headers/nylon_guitar.h" />
       <file file_name="sound_headers/ocarina_melody32k.h" />
+      <file file_name="sound_headers/16k/please_mind_the_door.h" />
       <file file_name="sound_headers/quencho_flute.h" />
       <file file_name="sound_headers/rooster.h" />
       <file file_name="sound_headers/rooster16b2c.h" />
+      <file file_name="sound_headers/16k/second_floor.h" />
       <file file_name="sound_headers/selfdestruct.h" />
       <file file_name="sound_headers/steves_doorbell.h" />
       <file file_name="sound_headers/theremin_quartet.h" />
+      <file file_name="sound_headers/16k/third_floor.h" />
       <file file_name="sound_headers/three_tone_arrival_c.h" />
+      <file file_name="sound_headers/16k/top_floor.h" />
       <file file_name="sound_headers/tunnelbarra.h" />
       <file file_name="sound_headers/tunnelbarra16.h" />
     </folder>
