@@ -107,7 +107,7 @@ void ChimeLoop( void )
       break;
 
       case OPT_GroundFloor:   // Number 8
-        SetSleepSetting( 0 );
+        SetSleepSetting( 1 );
         AudioEngine_DACSwitch( 1 );
         SetFadeInTime( 0.2f );
         SetFadeOutTime( 0.2f );

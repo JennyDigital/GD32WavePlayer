@@ -5,7 +5,6 @@
 #include "main.h"
 #include "interrupt_utils.h"
 #include "audio_engine.h"
-#include <cross_studio_io.h>
 
 /* Sounds for playback */
 #ifndef DALBY_BUILD

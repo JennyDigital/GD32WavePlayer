@@ -3,7 +3,7 @@
  <Bookmarks/>
  <Breakpoints groups="Breakpoints" active_group="Breakpoints">
   <BreakpointListItem trigger="" line="124" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Libraries/audio_engine.c" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="1556" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="2" filename="Libraries/audio_engine.c" useHWbreakpoint="false"/>
+  <BreakpointListItem trigger="" line="1556" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Libraries/audio_engine.c" useHWbreakpoint="false"/>
   <Exceptions>
    <Group group="V7M Exceptions" set="BusFault;ExceptionEntryReturnFault;HardFault;MemManage;UsageFault_CheckingError;UsageFault_Coprocessor;UsageFault_StateError"/>
   </Exceptions>
@@ -45,8 +45,6 @@
   <MemoryWindow addressSpace="" dataSize="1" autoEvaluate="0" viewMode="0" viewType="4" addressOrder="0" columnsText="" refreshPeriod="0" name="GD32WavePlayer_THUMB Release" sizeText="" addressText=""/>
  </Memory4>
  <Project>
-  <ProjectSessionItem path=""/>
-  <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
@@ -94,8 +92,8 @@
    <Watchpoint expression="option" name="option" radix="16" linenumber="0" filename="../GD32WavePlayer"/>
    <Watchpoint expression="trig_status" name="trig_status" radix="-1" linenumber="0" filename="../GD32WavePlayer"/>
    <Watchpoint expression="trigger_option" name="trigger_option" radix="16" linenumber="0" filename="../GD32WavePlayer"/>
-   <Watchpoint expression="uwTick" name="uwTick" radix="-1" linenumber="0" filename=""/>
-   <Watchpoint expression="pb_state" name="pb_state" radix="-1" linenumber="0" filename=""/>
+   <Watchpoint expression="uwTick" name="uwTick" radix="-1" linenumber="0" filename="../GD32WavePlayer"/>
+   <Watchpoint expression="pb_state" name="pb_state" radix="-1" linenumber="0" filename="../GD32WavePlayer"/>
    <Watchpoint expression="playback_end_callback_called" name="playback_end_callback_called" radix="16" linenumber="1559" filename="Libraries/audio_engine.c"/>
    <Watchpoint expression="pb_p16_ptr" name="pb_p16_ptr" radix="-1" linenumber="1657" filename="Libraries/audio_engine.c"/>
    <Watchpoint expression="pb_end16_ptr" name="pb_end16_ptr" radix="-1" linenumber="1657" filename="Libraries/audio_engine.c"/>
@@ -114,15 +112,15 @@
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="8" y="129" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="84" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="22" y="1717" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="1675" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="89" useTextEdit="1" path="main.c" left="0" selected="1" top="60" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="64" useTextEdit="1" path="main.h" left="0" top="21" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="25" y="6" useTextEdit="1" path="main.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="64" useTextEdit="1" path="main.h" left="0" top="21" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="interrupt_utils.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="28" y="16" useTextEdit="1" path="dalby_multi.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="16" useTextEdit="1" path="dalby_multi.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="26" y="109" useTextEdit="1" path="dalby_multi.c" left="0" selected="1" top="66" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="15" y="9" useTextEdit="1" path="sound_headers/16k/doors_opening.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="27" y="9" useTextEdit="1" path="sound_headers/16k/please_mind_the_door.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="55" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_dma.c" left="0" top="28" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="20" y="431" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_spi.c" left="0" top="404" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="GD32WavePlayer" fileDialogDefaultFilter="*.c;*.h" autoConnectTarget="CrossConnect" buildConfiguration="THUMB Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/jennifer/repos/GD32WavePlayer/sound_headers/16k" debugSearchPath="" autoConnectCapabilities="388991"/>
+ <ARMCrossStudioWindow activeProject="GD32WavePlayer" fileDialogDefaultFilter="*.c;*.h" autoConnectTarget="CrossConnect" buildConfiguration="THUMB Release" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/jennifer/repos/GD32WavePlayer/sound_headers/16k" debugSearchPath="" autoConnectCapabilities="388991"/>
 </session>
