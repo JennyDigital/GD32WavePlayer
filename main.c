@@ -5,6 +5,7 @@
 #include "main.h"
 #include "interrupt_utils.h"
 #include "audio_engine.h"
+#include <cross_studio_io.h>
 
 /* Sounds for playback */
 #ifndef DALBY_BUILD
@@ -66,6 +67,9 @@ volatile  uint16_t        trig_counter                  = 0;              // Cou
 volatile  uint8_t         trig_timeout_flag             = 0;              // Flag indicating trigger timeout has occurred
 volatile  uint16_t        trig_timeout_counter          = 0;              // Counter for trigger timeout duration
 volatile  uint8_t         trig_status                   = TRIGGER_CLR;    // Current trigger status  (SET or CLR)
+
+// External variables.
+volatile  extern OptionSelTypeDef option;
 
 
 // Sleep Settings
@@ -271,6 +275,7 @@ void SysTick_Handler( void ) {
 
   if( trig_counter < TC_LOW_THRESHOLD )   trig_status = TRIGGER_CLR;
   if( trig_counter > TC_HIGH_THRESHOLD )  trig_status = TRIGGER_SET;
+  option = GetOption();
 }
 
 

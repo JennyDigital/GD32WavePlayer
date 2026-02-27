@@ -42,4 +42,7 @@ GD32WavePlayer\ THUMB\ Debug/main.o: \
  /home/jennifer/repos/GD32WavePlayer/interrupt_utils.h \
  /home/jennifer/.rowley_associates_limited/CrossWorks\ for\ ARM/v5/packages/libraries/CMSIS_6/CMSIS/Core/Include/cmsis_gcc.h \
  Libraries/audio_engine.h \
+ /usr/share/crossworks_for_arm_5.4/include/cross_studio_io.h \
+ /usr/share/crossworks_for_arm_5.4/include/debugio.h \
+ /usr/share/crossworks_for_arm_5.4/include/__crossworks.h \
  /home/jennifer/repos/GD32WavePlayer/dalby_multi.h

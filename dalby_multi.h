@@ -13,6 +13,7 @@ typedef enum {
     OPT_LiftOutOfService = 15
   } OptionSelTypeDef;
 
-void ChimeLoop( void );
+void              ChimeLoop ( void );
+OptionSelTypeDef  GetOption ( void );
 
 #endif // _DALBY_MULTI_H

@@ -1435,7 +1435,7 @@ static inline int16_t PUT_IN_FASTMEM ApplyPostFilters( int16_t sample, AudioChan
   * Resets mode, pointers, and counters.
   */
 static void ResetPlaybackState( void ) {
-  pb_mode                       = 0;
+  pb_mode                       = PB_Idle;
   paused_sample_ptr             = NULL;
   samples_remaining             = 0;
   fadeout_samples_remaining     = 0;
@@ -1571,6 +1571,7 @@ static inline void EndPlaybackCleanup( void )
 static inline void StopDmaAndResetPlaybackState( uint8_t reset_state )
 {
   dma_interrupt_disable( DMA0, DMA_CH4, DMA_INT_HTF | DMA_INT_FTF );
+  spi_dma_disable( PROJECT_SPI, DMA0 );   // FINDME
   i2s_disable( PROJECT_SPI );
   if( reset_state ) {
     ResetPlaybackState();
@@ -1639,14 +1640,12 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
   
   /* If fully paused (fadeout already complete), fill buffer with silence */
   if( pb_state == PB_Paused ) {
-    //int16_t *output = ( which_half == SECOND ) ? (pb_buffer + CHUNK_SZ ) : pb_buffer;
     MIDPOINT_FILL_BUFFER();
     return;
   }
   
   /* Special case: if pausing and fadeout nearly complete, skip processing and fill with silence */
   if( pb_state == PB_Pausing && fadeout_samples_remaining <= HALFCHUNK_SZ ) {
-    //int16_t *output = ( which_half == SECOND ) ? (pb_buffer + CHUNK_SZ ) : pb_buffer;
     MIDPOINT_FILL_BUFFER();
     pb_state = PB_Paused;
     return;
@@ -1655,8 +1654,8 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
   half_to_fill = which_half;
 
   if( pb_mode == 16 || pb_mode == 8 ) {
-    if( ( pb_mode == 16 && pb_p16_ptr >= pb_end16_ptr ) ||
-        ( pb_mode == 8  && pb_p8_ptr  >= pb_end8_ptr )
+    if( ( pb_mode == 16 && ( pb_p16_ptr >= pb_end16_ptr ) ) ||
+        ( pb_mode == 8  && ( pb_p8_ptr  >= pb_end8_ptr  ) )
       ) {
       EndPlaybackCleanup();   // Cleanup and stop playback if we've reached the end of the sample data.
       return;
@@ -1708,6 +1707,7 @@ void AdvanceSamplePointer( void )
   if( pb_mode == 16 ) {  // Advance the 16-bit sample pointer
     pb_p16_ptr += p_advance;
     if( pb_p16_ptr >= pb_end16_ptr ) {
+      StopImmediate();
       pb_state = PB_Idle;
       return;
     }
@@ -1715,6 +1715,7 @@ void AdvanceSamplePointer( void )
   else if( pb_mode == 8 ) {  // Or advance the 8-bit sample pointer
     pb_p8_ptr += p_advance;
     if( pb_p8_ptr >= pb_end8_ptr ) {
+      StopImmediate();
       pb_state = PB_Idle;
       return;
     }
@@ -1792,7 +1793,7 @@ PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk( int16_t * chunk_p )
 
     UpdateFadeCounters( samples_processed );
   }
-  return PB_Playing;;
+  return PB_Playing;
 }
 
 
