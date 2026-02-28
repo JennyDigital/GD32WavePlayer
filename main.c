@@ -8,37 +8,36 @@
 
 /* Sounds for playback */
 #ifndef DALBY_BUILD
-//#include "newchallenger.h"
-//#include "newchallenger11k.h"
-//#include "guitar.h"
-//#include "mind_the_door.h"
-//#include "three_tone_arrival_c.h"
-//#include "tunnelbarra.h"
-//#include "tunnelbarra16.h"
-//#include "konnichiwa.h"
-//#include "dinding.h"
-//#include "elevator_ping.h"
-//#include "Danger.h"
-//#include "selfdestruct.h"
-//#include "new_rage32k.h"
-//#include "accoustic_rock22k.h"
-//#include "hey_yeah32k.h"
-//#include "darkblues32k.h"
-//#include "custom_tritone16k.h"
-//#include "ocarina_melody32k.h"
-//#include "theremin_quartet.h"
-//#include "steves_doorbell.h"
-//#include "harmony8b.h"
-//#include "andean_flute.h"
-//#include "quencho_flute.h"
-//#include "dreamy.h"
-//#include "guitar_small.h"
-//#include "guitar_riff.h"
-//#include "handpan.h"
-//#include "nylon_guitar.h"
-//#include "dalby_tritone16b16k.h"
-//#include "Lemon_Tree.h"
-//#include "medieval_flute.h"
+#include "newchallenger.h"
+#include "newchallenger11k.h"
+#include "guitar.h"
+#include "three_tone_arrival_c.h"
+#include "tunnelbarra.h"
+#include "tunnelbarra16.h"
+#include "konnichiwa.h"
+#include "dinding.h"
+#include "elevator_ping.h"
+#include "Danger.h"
+#include "selfdestruct.h"
+#include "new_rage32k.h"
+#include "accoustic_rock22k.h"
+#include "hey_yeah32k.h"
+#include "darkblues32k.h"
+#include "custom_tritone16k.h"
+#include "ocarina_melody32k.h"
+#include "theremin_quartet.h"
+#include "steves_doorbell.h"
+#include "harmony8b.h"
+#include "andean_flute.h"
+#include "quencho_flute.h"
+#include "dreamy.h"
+#include "guitar_small.h"
+#include "guitar_riff.h"
+#include "handpan.h"
+#include "nylon_guitar.h"
+#include "Lemon_Tree.h"
+#include "medieval_flute.h"
+
 #else
 #include "dalby_multi.h"
 #endif
@@ -68,8 +67,9 @@ volatile  uint16_t        trig_timeout_counter          = 0;              // Cou
 volatile  uint8_t         trig_status                   = TRIGGER_CLR;    // Current trigger status  (SET or CLR)
 
 // External variables.
+#ifdef DALBY_BUILD
 volatile  extern OptionSelTypeDef option;
-
+#endif
 
 // Sleep Settings
 uint8_t sleep_setting = 1;                                                // Defaults to sleep permitted.
@@ -155,7 +155,7 @@ int main( void )
   {
     WaitForTrigger( TRIGGER_SET );
 
-    //PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
+    PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
     //PlaySample( medieval_flute16b22k1c, MEDIEVAL_FLUTE16B22K1C_SZ, I2S_AUDIOSAMPLE_22K, 16, Mode_mono );
 
     WaitForSampleEnd();
@@ -274,7 +274,9 @@ void SysTick_Handler( void ) {
 
   if( trig_counter < TC_LOW_THRESHOLD )   trig_status = TRIGGER_CLR;
   if( trig_counter > TC_HIGH_THRESHOLD )  trig_status = TRIGGER_SET;
+  #ifdef DALBY_BUILD
   option = GetOption();
+  #endif
 }
 
 

@@ -2153,6 +2153,26 @@ static inline uint16_t ApplyVolumeResponseCurve( uint16_t linear_volume )
   }
 }
 
+///** Apply volume setting to sample
+//  * 
+//  * @param: sample - Signed 16-bit audio sample
+//  * @param: volume_setting - Volume division factor (1 to 65535) where 65535 is full volume and 1 is minimum audible volume
+//  * @retval: int16_t - Volume-adjusted signed 16-bit audio sample
+//  */
+//static inline int16_t ApplyVolumeSetting( int16_t sample, uint16_t volume_setting )
+//{
+//  /* Apply non-linear volume response curve if enabled */
+//  uint16_t adjusted_volume = ApplyVolumeResponseCurve( volume_setting );
+  
+//  int32_t sample32 = (int32_t) sample;
+//  int32_t volume32 = (int32_t) adjusted_volume;
+
+//  /* Apply 16-bit volume (0-65535) with proper scaling to 0.0-1.0 range
+//     Preserve signed sample polarity by keeping all math in signed space. */
+//  return  (int16_t)( ( sample32 * volume32 ) / 65535 );
+//}
+
+
 /** Apply volume setting to sample
   * 
   * @param: sample - Signed 16-bit audio sample
@@ -2161,9 +2181,15 @@ static inline uint16_t ApplyVolumeResponseCurve( uint16_t linear_volume )
   */
 static inline int16_t ApplyVolumeSetting( int16_t sample, uint16_t volume_setting )
 {
-  /* Apply non-linear volume response curve if enabled */
-  uint16_t adjusted_volume = ApplyVolumeResponseCurve( volume_setting );
-  
+  static uint16_t   adjusted_volume,
+                    last_volume_setting   = 0;
+
+  /* Apply non-linear volume response curve if enabled, only recalculating when volume changes to lower CPU overhead */
+  if( volume_setting != last_volume_setting ) {
+    adjusted_volume = ApplyVolumeResponseCurve( volume_setting );
+    last_volume_setting = volume_setting;
+  }
+
   int32_t sample32 = (int32_t) sample;
   int32_t volume32 = (int32_t) adjusted_volume;
 

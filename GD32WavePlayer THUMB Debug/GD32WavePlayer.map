@@ -1933,6 +1933,8 @@ Discarded input sections
  .text          0x00000000        0x0 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
  .data          0x00000000        0x0 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
  .bss           0x00000000        0x0 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
+ .text.nvic_irq_disable
+                0x00000000       0x34 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
  .text.nvic_vector_table_set
                 0x00000000       0x28 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
  .text.system_lowpower_set
@@ -2039,6 +2041,8 @@ Discarded input sections
                 0x00000000       0x28 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
  .text.pmu_to_sleepmode
                 0x00000000       0x2c GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .text.pmu_to_deepsleepmode
+                0x00000000      0x11c GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
  .text.pmu_to_standbymode
                 0x00000000       0x48 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
  .text.pmu_backup_write_enable
@@ -2053,6 +2057,18 @@ Discarded input sections
                 0x00000000       0x20 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
  .text.pmu_flag_clear
                 0x00000000       0x38 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .bss.reg_snap.0
+                0x00000000       0x10 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .debug_info    0x00000000      0x678 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .debug_abbrev  0x00000000      0x1fe GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .debug_pubnames
+                0x00000000      0x52d GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .debug_pubtypes
+                0x00000000       0xee GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .debug_aranges
+                0x00000000       0xb8 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .debug_ranges  0x00000000       0xa8 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .debug_macro   0x00000000      0x19d GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
  .debug_macro   0x00000000      0xb98 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
  .debug_macro   0x00000000       0x70 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
  .debug_macro   0x00000000      0x18d GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
@@ -2088,6 +2104,13 @@ Discarded input sections
  .debug_macro   0x00000000      0x9a7 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
  .debug_macro   0x00000000      0x39d GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
  .debug_macro   0x00000000       0x64 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .debug_macro   0x00000000      0x18b GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .debug_line    0x00000000      0x90c GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .debug_str     0x00000000    0x2e03c GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .comment       0x00000000       0x3e GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .debug_frame   0x00000000      0x1ac GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+ .ARM.attributes
+                0x00000000       0x36 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
  .group         0x00000000        0xc GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
  .group         0x00000000        0xc GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
  .group         0x00000000        0xc GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
@@ -3199,6 +3222,8 @@ Discarded input sections
  .bss           0x00000000        0x0 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.GetFilterConfig
                 0x00000000       0x2c GD32WavePlayer THUMB Debug/audio_engine.o
+ .text.SetSoftClippingEnable
+                0x00000000       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.GetSoftClippingEnable
                 0x00000000       0x10 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.SetLpf8BitLevel
@@ -3273,6 +3298,10 @@ Discarded input sections
                 0x00000000      0x104 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.ResumePlayback
                 0x00000000       0x70 GD32WavePlayer THUMB Debug/audio_engine.o
+ .text.StopPlayback
+                0x00000000       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
+ .text.ShutDownAudio
+                0x00000000       0x40 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.GetVolumeResponseNonlinear
                 0x00000000       0x10 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.GetVolumeResponseGamma
@@ -3366,8 +3395,43 @@ Discarded input sections
  .text          0x00000000        0x0 GD32WavePlayer THUMB Debug/dalby_multi.o
  .data          0x00000000        0x0 GD32WavePlayer THUMB Debug/dalby_multi.o
  .bss           0x00000000        0x0 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .rodata.dalby_tritone16b16k
+                0x00000000    0x185a8 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .rodata.pmtd16k16b1c
+                0x00000000     0xa99a GD32WavePlayer THUMB Debug/dalby_multi.o
+ .rodata.do16k16b1c
+                0x00000000     0xa76a GD32WavePlayer THUMB Debug/dalby_multi.o
+ .rodata.dc16k16b1c
+                0x00000000     0xad3c GD32WavePlayer THUMB Debug/dalby_multi.o
+ .rodata.ground_floor16k16b1c
+                0x00000000     0x7302 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .rodata.first_floor16k16b1c
+                0x00000000     0x7530 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .rodata.second_floor16k16b1c
+                0x00000000     0x7874 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .rodata.third_floor16k16b1c
+                0x00000000     0x741a GD32WavePlayer THUMB Debug/dalby_multi.o
+ .rodata.top_floor16k16b1c
+                0x00000000     0x6422 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .rodata.lift_oos16k16b1c
+                0x00000000     0xa99a GD32WavePlayer THUMB Debug/dalby_multi.o
+ .bss.option    0x00000000        0x1 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .text.ChimeLoop
+                0x00000000      0x3fc GD32WavePlayer THUMB Debug/dalby_multi.o
+ .text.GetOption
+                0x00000000       0x54 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_info    0x00000000      0x564 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_abbrev  0x00000000      0x1fb GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_pubnames
+                0x00000000      0x38f GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_pubtypes
+                0x00000000      0x158 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_aranges
+                0x00000000       0x28 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_ranges  0x00000000       0x18 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000      0x218 GD32WavePlayer THUMB Debug/dalby_multi.o
  .debug_macro   0x00000000      0xb98 GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x00000000       0xd0 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000       0xca GD32WavePlayer THUMB Debug/dalby_multi.o
  .debug_macro   0x00000000       0x70 GD32WavePlayer THUMB Debug/dalby_multi.o
  .debug_macro   0x00000000      0x18d GD32WavePlayer THUMB Debug/dalby_multi.o
  .debug_macro   0x00000000       0x2e GD32WavePlayer THUMB Debug/dalby_multi.o
@@ -3405,6 +3469,49 @@ Discarded input sections
  .debug_macro   0x00000000       0x64 GD32WavePlayer THUMB Debug/dalby_multi.o
  .debug_macro   0x00000000       0x22 GD32WavePlayer THUMB Debug/dalby_multi.o
  .debug_macro   0x00000000       0xe1 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_macro   0x00000000       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_line    0x00000000      0x8a5 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_str     0x00000000    0x2e921 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .comment       0x00000000       0x3e GD32WavePlayer THUMB Debug/dalby_multi.o
+ .debug_frame   0x00000000       0x40 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .ARM.attributes
+                0x00000000       0x36 GD32WavePlayer THUMB Debug/dalby_multi.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
+ .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
  .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
  .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
  .group         0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
@@ -3450,11 +3557,77 @@ Discarded input sections
  .text          0x00000000        0x0 GD32WavePlayer THUMB Debug/main.o
  .data          0x00000000        0x0 GD32WavePlayer THUMB Debug/main.o
  .bss           0x00000000        0x0 GD32WavePlayer THUMB Debug/main.o
+ .text.__NVIC_ClearPendingIRQ
+                0x00000000       0x38 GD32WavePlayer THUMB Debug/main.o
+ .rodata.newchallenger
+                0x00000000    0x440fe GD32WavePlayer THUMB Debug/main.o
+ .rodata.newchallenger11k
+                0x00000000    0x10c54 GD32WavePlayer THUMB Debug/main.o
+ .rodata.guitar
+                0x00000000    0x436a4 GD32WavePlayer THUMB Debug/main.o
+ .rodata.tt_arrival
+                0x00000000    0x16a4a GD32WavePlayer THUMB Debug/main.o
+ .rodata.tunnelbarra
+                0x00000000    0x1ce30 GD32WavePlayer THUMB Debug/main.o
+ .rodata.tunnelbarra16
+                0x00000000    0x14f60 GD32WavePlayer THUMB Debug/main.o
+ .rodata.konnichiwa
+                0x00000000    0x13000 GD32WavePlayer THUMB Debug/main.o
+ .rodata.dinding
+                0x00000000    0x138ea GD32WavePlayer THUMB Debug/main.o
+ .rodata.elevator_ping32k
+                0x00000000    0x16c10 GD32WavePlayer THUMB Debug/main.o
+ .rodata.danger32k
+                0x00000000    0x42c1e GD32WavePlayer THUMB Debug/main.o
+ .rodata.selfdestruct16k
+                0x00000000    0x5f6f6 GD32WavePlayer THUMB Debug/main.o
+ .rodata.new_rage32k
+                0x00000000    0x72b7e GD32WavePlayer THUMB Debug/main.o
+ .rodata.accoustic_rock22k
+                0x00000000    0x52b00 GD32WavePlayer THUMB Debug/main.o
+ .rodata.hey_yeah32k
+                0x00000000    0x740d8 GD32WavePlayer THUMB Debug/main.o
+ .rodata.darkblues32k
+                0x00000000    0x58daa GD32WavePlayer THUMB Debug/main.o
+ .rodata.custom_tritone16k
+                0x00000000    0x185a8 GD32WavePlayer THUMB Debug/main.o
+ .rodata.ocarina32k
+                0x00000000    0x798c4 GD32WavePlayer THUMB Debug/main.o
+ .rodata.theremin_quartet11k
+                0x00000000    0x721f4 GD32WavePlayer THUMB Debug/main.o
+ .rodata.steves_doorbell
+                0x00000000    0x5739c GD32WavePlayer THUMB Debug/main.o
+ .rodata.harmony8b
+                0x00000000     0xcf9a GD32WavePlayer THUMB Debug/main.o
+ .rodata.andean_flute
+                0x00000000    0x68fd4 GD32WavePlayer THUMB Debug/main.o
+ .rodata.quencho_flute11k
+                0x00000000    0x6a4d6 GD32WavePlayer THUMB Debug/main.o
+ .rodata.dreamy22k
+                0x00000000    0x677fa GD32WavePlayer THUMB Debug/main.o
+ .rodata.guitar_small32k
+                0x00000000    0x4a10e GD32WavePlayer THUMB Debug/main.o
+ .rodata.guitar_riff22k
+                0x00000000    0x73180 GD32WavePlayer THUMB Debug/main.o
+ .rodata.handpan44k
+                0x00000000    0x56220 GD32WavePlayer THUMB Debug/main.o
+ .rodata.nylon_guitar16k
+                0x00000000    0x615be GD32WavePlayer THUMB Debug/main.o
+ .rodata.medieval_flute16b22k1c
+                0x00000000    0xbb8c2 GD32WavePlayer THUMB Debug/main.o
+ .data.sleep_setting
+                0x00000000        0x1 GD32WavePlayer THUMB Debug/main.o
+ .text.GetTriggerOption
+                0x00000000       0x14 GD32WavePlayer THUMB Debug/main.o
+ .text.Enter_LP_SleepMode
+                0x00000000       0x7c GD32WavePlayer THUMB Debug/main.o
+ .text.SetSleepSetting
+                0x00000000       0x28 GD32WavePlayer THUMB Debug/main.o
  .text.GetSleepSetting
                 0x00000000        0xc GD32WavePlayer THUMB Debug/main.o
  .debug_macro   0x00000000      0xb98 GD32WavePlayer THUMB Debug/main.o
  .debug_macro   0x00000000       0x22 GD32WavePlayer THUMB Debug/main.o
- .debug_macro   0x00000000       0xd0 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x00000000       0xca GD32WavePlayer THUMB Debug/main.o
  .debug_macro   0x00000000       0x70 GD32WavePlayer THUMB Debug/main.o
  .debug_macro   0x00000000      0x18d GD32WavePlayer THUMB Debug/main.o
  .debug_macro   0x00000000       0x2e GD32WavePlayer THUMB Debug/main.o
@@ -3490,7 +3663,6 @@ Discarded input sections
  .debug_macro   0x00000000      0x9a7 GD32WavePlayer THUMB Debug/main.o
  .debug_macro   0x00000000      0x39d GD32WavePlayer THUMB Debug/main.o
  .debug_macro   0x00000000       0x64 GD32WavePlayer THUMB Debug/main.o
- .debug_macro   0x00000000       0x90 GD32WavePlayer THUMB Debug/main.o
  .text          0x00000000        0x0 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
  .data          0x00000000        0x0 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
  .bss           0x00000000        0x0 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
@@ -6126,7 +6298,7 @@ Linker script and memory map
                 0x00000001                        . = ASSERT (((__init_rodata_start__ == __init_rodata_end__) || ((__init_rodata_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .init_rodata is too large to fit in FLASH memory segment)
                 0x08000684                        __text_load_start__ = ALIGN (__init_rodata_end__, 0x4)
 
-.text           0x08000684     0x41c4
+.text           0x08000684     0x3ad4
                 0x08000684                        __text_start__ = .
  *(.text .text.* .gnu.linkonce.t.* .glue_7t .glue_7 .gcc_except_table .ARM.extab* .gnu.linkonce.armextab.*)
  .glue_7        0x08000684        0x0 linker stubs
@@ -6229,316 +6401,284 @@ Linker script and memory map
  .text.nvic_irq_enable
                 0x0800165c      0x118 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
                 0x0800165c                nvic_irq_enable
- .text.nvic_irq_disable
-                0x08001774       0x34 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
-                0x08001774                nvic_irq_disable
- .text.pmu_to_deepsleepmode
-                0x080017a8      0x11c GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
-                0x080017a8                pmu_to_deepsleepmode
  .text.rcu_periph_clock_enable
-                0x080018c4       0x44 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x080018c4                rcu_periph_clock_enable
+                0x08001774       0x44 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x08001774                rcu_periph_clock_enable
  .text.rcu_periph_reset_enable
-                0x08001908       0x44 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x08001908                rcu_periph_reset_enable
+                0x080017b8       0x44 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x080017b8                rcu_periph_reset_enable
  .text.rcu_periph_reset_disable
-                0x0800194c       0x48 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x0800194c                rcu_periph_reset_disable
+                0x080017fc       0x48 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x080017fc                rcu_periph_reset_disable
  .text.rcu_system_clock_source_config
-                0x08001994       0x28 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x08001994                rcu_system_clock_source_config
+                0x08001844       0x28 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x08001844                rcu_system_clock_source_config
  .text.rcu_ahb_clock_config
-                0x080019bc       0x28 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x080019bc                rcu_ahb_clock_config
+                0x0800186c       0x28 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x0800186c                rcu_ahb_clock_config
  .text.rcu_pll_config
-                0x080019e4       0x38 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x080019e4                rcu_pll_config
+                0x08001894       0x38 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x08001894                rcu_pll_config
  .text.rcu_adc_clock_config
-                0x08001a1c       0xa8 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x08001a1c                rcu_adc_clock_config
+                0x080018cc       0xa8 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x080018cc                rcu_adc_clock_config
  .text.rcu_flag_get
-                0x08001ac4       0x3a GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x08001ac4                rcu_flag_get
- *fill*         0x08001afe        0x2 
+                0x08001974       0x3a GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x08001974                rcu_flag_get
+ *fill*         0x080019ae        0x2 
  .text.rcu_osci_stab_wait
-                0x08001b00      0x1e4 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x08001b00                rcu_osci_stab_wait
+                0x080019b0      0x1e4 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x080019b0                rcu_osci_stab_wait
  .text.rcu_osci_on
-                0x08001ce4       0x44 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x08001ce4                rcu_osci_on
+                0x08001b94       0x44 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x08001b94                rcu_osci_on
  .text.rcu_osci_off
-                0x08001d28       0x48 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x08001d28                rcu_osci_off
+                0x08001bd8       0x48 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x08001bd8                rcu_osci_off
  .text.rcu_clock_freq_get
-                0x08001d70      0x1d8 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
-                0x08001d70                rcu_clock_freq_get
+                0x08001c20      0x1d8 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x08001c20                rcu_clock_freq_get
  .text.spi_i2s_deinit
-                0x08001f48       0x74 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
-                0x08001f48                spi_i2s_deinit
+                0x08001df8       0x74 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x08001df8                spi_i2s_deinit
  .text.spi_enable
-                0x08001fbc       0x16 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
-                0x08001fbc                spi_enable
+                0x08001e6c       0x16 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x08001e6c                spi_enable
  .text.i2s_init
-                0x08001fd2       0x50 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
-                0x08001fd2                i2s_init
- *fill*         0x08002022        0x2 
+                0x08001e82       0x50 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x08001e82                i2s_init
+ *fill*         0x08001ed2        0x2 
  .text.i2s_psc_config
-                0x08002024      0x104 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
-                0x08002024                i2s_psc_config
+                0x08001ed4      0x104 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x08001ed4                i2s_psc_config
  .text.i2s_enable
-                0x08002128       0x1a GD32WavePlayer THUMB Debug/gd32f30x_spi.o
-                0x08002128                i2s_enable
+                0x08001fd8       0x1a GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x08001fd8                i2s_enable
  .text.i2s_disable
-                0x08002142       0x1a GD32WavePlayer THUMB Debug/gd32f30x_spi.o
-                0x08002142                i2s_disable
+                0x08001ff2       0x1a GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x08001ff2                i2s_disable
  .text.spi_dma_enable
-                0x0800215c       0x3a GD32WavePlayer THUMB Debug/gd32f30x_spi.o
-                0x0800215c                spi_dma_enable
+                0x0800200c       0x3a GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x0800200c                spi_dma_enable
  .text.spi_dma_disable
-                0x08002196       0x3a GD32WavePlayer THUMB Debug/gd32f30x_spi.o
-                0x08002196                spi_dma_disable
+                0x08002046       0x3a GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x08002046                spi_dma_disable
  .text.spi_i2s_data_frame_format_config
-                0x080021d0       0x2a GD32WavePlayer THUMB Debug/gd32f30x_spi.o
-                0x080021d0                spi_i2s_data_frame_format_config
- *fill*         0x080021fa        0x2 
+                0x08002080       0x2a GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x08002080                spi_i2s_data_frame_format_config
+ *fill*         0x080020aa        0x2 
  .text.timer_deinit
-                0x080021fc      0x238 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
-                0x080021fc                timer_deinit
+                0x080020ac      0x238 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+                0x080020ac                timer_deinit
  .text.timer_init
-                0x08002434       0xf0 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
-                0x08002434                timer_init
+                0x080022e4       0xf0 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+                0x080022e4                timer_init
  .text.timer_enable
-                0x08002524       0x16 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
-                0x08002524                timer_enable
+                0x080023d4       0x16 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+                0x080023d4                timer_enable
  .text.timer_update_event_enable
-                0x0800253a       0x16 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
-                0x0800253a                timer_update_event_enable
+                0x080023ea       0x16 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+                0x080023ea                timer_update_event_enable
  .text.timer_master_output_trigger_source_select
-                0x08002550       0x2e GD32WavePlayer THUMB Debug/gd32f30x_timer.o
-                0x08002550                timer_master_output_trigger_source_select
+                0x08002400       0x2e GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+                0x08002400                timer_master_output_trigger_source_select
  .text.timer_master_slave_mode_config
-                0x0800257e       0x3a GD32WavePlayer THUMB Debug/gd32f30x_timer.o
-                0x0800257e                timer_master_slave_mode_config
+                0x0800242e       0x3a GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+                0x0800242e                timer_master_slave_mode_config
  .text.AudioEngine_OnPlaybackEnd
-                0x080025b8        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x080025b8                AudioEngine_OnPlaybackEnd
+                0x08002468        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002468                AudioEngine_OnPlaybackEnd
  .text.ResetFilterChannelState
-                0x080025bc       0x52 GD32WavePlayer THUMB Debug/audio_engine.o
- *fill*         0x0800260e        0x2 
+                0x0800246c       0x52 GD32WavePlayer THUMB Debug/audio_engine.o
+ *fill*         0x080024be        0x2 
  .text.ResetAllFilterState
-                0x08002610       0x1c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x080024c0       0x1c GD32WavePlayer THUMB Debug/audio_engine.o
  .text.GetChannelState
-                0x0800262c       0x24 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x080024dc       0x24 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.AudioEngine_Init
-                0x08002650       0xec GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08002650                AudioEngine_Init
+                0x08002500       0xec GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002500                AudioEngine_Init
  .text.SetFilterConfig
-                0x0800273c       0x78 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x0800273c                SetFilterConfig
- .text.SetSoftClippingEnable
-                0x080027b4       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x080027b4                SetSoftClippingEnable
+                0x080025ec       0x78 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x080025ec                SetFilterConfig
  .text.SetAirEffectEnable
-                0x080027dc       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x080027dc                SetAirEffectEnable
+                0x08002664       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002664                SetAirEffectEnable
  .text.SetAirEffectGainQ16
-                0x08002804       0x24 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08002804                SetAirEffectGainQ16
+                0x0800268c       0x24 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x0800268c                SetAirEffectGainQ16
  .text.SetAirEffectGainDb
-                0x08002828       0xb8 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08002828                SetAirEffectGainDb
+                0x080026b0       0xb8 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x080026b0                SetAirEffectGainDb
  .text.SetAirEffectPresetDb
-                0x080028e0       0x58 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x080028e0                SetAirEffectPresetDb
+                0x08002768       0x58 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002768                SetAirEffectPresetDb
  .text.SetLpf16BitLevel
-                0x08002938       0xb8 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08002938                SetLpf16BitLevel
+                0x080027c0       0xb8 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x080027c0                SetLpf16BitLevel
  .text.FadeTimeToSamples
-                0x080029f0       0x7c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002878       0x7c GD32WavePlayer THUMB Debug/audio_engine.o
  .text.SetFadeInTime
-                0x08002a6c       0x2c GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08002a6c                SetFadeInTime
+                0x080028f4       0x2c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x080028f4                SetFadeInTime
  .text.SetFadeOutTime
-                0x08002a98       0x2c GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08002a98                SetFadeOutTime
+                0x08002920       0x2c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002920                SetFadeOutTime
  .text.SetPauseFadeTime
-                0x08002ac4       0x2c GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08002ac4                SetPauseFadeTime
+                0x0800294c       0x2c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x0800294c                SetPauseFadeTime
  .text.SetResumeFadeTime
-                0x08002af0       0x2c GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08002af0                SetResumeFadeTime
+                0x08002978       0x2c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002978                SetResumeFadeTime
  .text.Apply8BitDithering
-                0x08002b1c       0x80 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x080029a4       0x80 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.ApplyNoiseGate
-                0x08002b9c       0x46 GD32WavePlayer THUMB Debug/audio_engine.o
- *fill*         0x08002be2        0x2 
+                0x08002a24       0x46 GD32WavePlayer THUMB Debug/audio_engine.o
+ *fill*         0x08002a6a        0x2 
  .text.WarmupBiquadFilter16Bit
-                0x08002be4       0x80 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002a6c       0x80 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.ComputeSoftClipCurve
-                0x08002c64      0x114 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002aec      0x114 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.ApplyDCFilterWithAlpha
-                0x08002d78       0x68 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002c00       0x68 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.ApplyDCBlockingFilter
-                0x08002de0       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002c68       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.ApplySoftDCFilter16Bit
-                0x08002e08       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002c90       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.ResetPlaybackState
-                0x08002e30       0x4c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002cb8       0x4c GD32WavePlayer THUMB Debug/audio_engine.o
  .text.SetDAC_Control
-                0x08002e7c       0x1c GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08002e7c                SetDAC_Control
+                0x08002d04       0x1c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002d04                SetDAC_Control
  .text.RecalculateFadeSamples
-                0x08002e98       0x78 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002d20       0x78 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.EndPlaybackCleanup
-                0x08002f10       0x48 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002d98       0x48 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.StopDmaAndResetPlaybackState
-                0x08002f58       0x3c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002de0       0x3c GD32WavePlayer THUMB Debug/audio_engine.o
  .text.StopImmediate
-                0x08002f94       0x40 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002e1c       0x40 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.ProcessDMACallback
-                0x08002fd4      0x1c0 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08002e5c      0x1c0 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.DMA0_Channel4_IRQHandler
-                0x08003194       0x4c GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08003194                DMA0_Channel4_IRQHandler
+                0x0800301c       0x4c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x0800301c                DMA0_Channel4_IRQHandler
  .text.AdvanceSamplePointer
-                0x080031e0       0x80 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x080031e0                AdvanceSamplePointer
+                0x08003068       0x80 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08003068                AdvanceSamplePointer
  .text.PlaySample
-                0x08003260      0x27c GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08003260                PlaySample
+                0x080030e8      0x27c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x080030e8                PlaySample
  .text.WaitForSampleEnd
-                0x080034dc       0x40 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x080034dc                WaitForSampleEnd
- .text.StopPlayback
-                0x0800351c       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x0800351c                StopPlayback
+                0x08003364       0x40 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08003364                WaitForSampleEnd
  .text.ApplyVolumeResponseCurve
-                0x08003544       0x80 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x080033a4       0x80 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.ApplyVolumeSetting
-                0x080035c4       0x50 GD32WavePlayer THUMB Debug/audio_engine.o
- .text.ShutDownAudio
-                0x08003614       0x40 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08003614                ShutDownAudio
+                0x08003424       0x70 GD32WavePlayer THUMB Debug/audio_engine.o
  .text.GetLpf8BitAlpha
-                0x08003654       0x5c GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08003494       0x5c GD32WavePlayer THUMB Debug/audio_engine.o
  .text.SetVolumeResponseNonlinear
-                0x080036b0       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x080036b0                SetVolumeResponseNonlinear
+                0x080034f0       0x28 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x080034f0                SetVolumeResponseNonlinear
  .text.SetVolumeResponseGamma
-                0x080036d8       0x48 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x080036d8                SetVolumeResponseGamma
+                0x08003518       0x48 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08003518                SetVolumeResponseGamma
  .text.dma_config
-                0x08003720       0x80 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x08003720                dma_config
- .text.ChimeLoop
-                0x080037a0      0x3fc GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x080037a0                ChimeLoop
- .text.GetOption
-                0x08003b9c       0x54 GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x08003b9c                GetOption
- .text.__NVIC_ClearPendingIRQ
-                0x08003bf0       0x38 GD32WavePlayer THUMB Debug/main.o
+                0x08003560       0x80 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x08003560                dma_config
  .text.__NVIC_SetPriority
-                0x08003c28       0x50 GD32WavePlayer THUMB Debug/main.o
+                0x080035e0       0x50 GD32WavePlayer THUMB Debug/main.o
  .text.SysTick_Config
-                0x08003c78       0x40 GD32WavePlayer THUMB Debug/main.o
- .text.main     0x08003cb8       0xec GD32WavePlayer THUMB Debug/main.o
-                0x08003cb8                main
+                0x08003630       0x40 GD32WavePlayer THUMB Debug/main.o
+ .text.main     0x08003670      0x10c GD32WavePlayer THUMB Debug/main.o
+                0x08003670                main
  .text.DAC_MasterSwitch
-                0x08003da4       0x28 GD32WavePlayer THUMB Debug/main.o
-                0x08003da4                DAC_MasterSwitch
+                0x0800377c       0x28 GD32WavePlayer THUMB Debug/main.o
+                0x0800377c                DAC_MasterSwitch
  .text.ReadVolume
-                0x08003dcc       0x44 GD32WavePlayer THUMB Debug/main.o
-                0x08003dcc                ReadVolume
+                0x080037a4       0x44 GD32WavePlayer THUMB Debug/main.o
+                0x080037a4                ReadVolume
  .text.WaitForTrigger
-                0x08003e10       0x70 GD32WavePlayer THUMB Debug/main.o
-                0x08003e10                WaitForTrigger
- .text.GetTriggerOption
-                0x08003e80       0x14 GD32WavePlayer THUMB Debug/main.o
-                0x08003e80                GetTriggerOption
+                0x080037e8       0x70 GD32WavePlayer THUMB Debug/main.o
+                0x080037e8                WaitForTrigger
  .text.SysTick_Handler
-                0x08003e94       0xa8 GD32WavePlayer THUMB Debug/main.o
-                0x08003e94                SysTick_Handler
+                0x08003858       0x98 GD32WavePlayer THUMB Debug/main.o
+                0x08003858                SysTick_Handler
  .text.delay_ms
-                0x08003f3c       0x20 GD32WavePlayer THUMB Debug/main.o
-                0x08003f3c                delay_ms
+                0x080038f0       0x20 GD32WavePlayer THUMB Debug/main.o
+                0x080038f0                delay_ms
  .text.Error_Handler
-                0x08003f5c        0xe GD32WavePlayer THUMB Debug/main.o
-                0x08003f5c                Error_Handler
- *fill*         0x08003f6a        0x2 
+                0x08003910        0xe GD32WavePlayer THUMB Debug/main.o
+                0x08003910                Error_Handler
+ *fill*         0x0800391e        0x2 
  .text.GPIO_InitPins
-                0x08003f6c       0xc8 GD32WavePlayer THUMB Debug/main.o
+                0x08003920       0xc8 GD32WavePlayer THUMB Debug/main.o
  .text.SetupADC
-                0x08004034       0x7c GD32WavePlayer THUMB Debug/main.o
-                0x08004034                SetupADC
+                0x080039e8       0x7c GD32WavePlayer THUMB Debug/main.o
+                0x080039e8                SetupADC
  .text.SetupTimer2
-                0x080040b0       0x64 GD32WavePlayer THUMB Debug/main.o
-                0x080040b0                SetupTimer2
+                0x08003a64       0x64 GD32WavePlayer THUMB Debug/main.o
+                0x08003a64                SetupTimer2
  .text.spi_config
-                0x08004114       0x50 GD32WavePlayer THUMB Debug/main.o
-                0x08004114                spi_config
+                0x08003ac8       0x50 GD32WavePlayer THUMB Debug/main.o
+                0x08003ac8                spi_config
  .text.SetupClocks
-                0x08004164       0xa4 GD32WavePlayer THUMB Debug/main.o
- .text.Enter_LP_SleepMode
-                0x08004208       0x7c GD32WavePlayer THUMB Debug/main.o
-                0x08004208                Enter_LP_SleepMode
- .text.SetSleepSetting
-                0x08004284       0x28 GD32WavePlayer THUMB Debug/main.o
-                0x08004284                SetSleepSetting
+                0x08003b18       0xa4 GD32WavePlayer THUMB Debug/main.o
  .text.HardFault_Handler
-                0x080042ac        0x6 GD32WavePlayer THUMB Debug/main.o
-                0x080042ac                HardFault_Handler
+                0x08003bbc        0x6 GD32WavePlayer THUMB Debug/main.o
+                0x08003bbc                HardFault_Handler
  .text.EXTI5_9_IRQHandler
-                0x080042b2        0xe GD32WavePlayer THUMB Debug/main.o
-                0x080042b2                EXTI5_9_IRQHandler
+                0x08003bc2        0xe GD32WavePlayer THUMB Debug/main.o
+                0x08003bc2                EXTI5_9_IRQHandler
  .text.ADC0_1_IRQHandler
-                0x080042c0       0x4c GD32WavePlayer THUMB Debug/main.o
-                0x080042c0                ADC0_1_IRQHandler
+                0x08003bd0       0x4c GD32WavePlayer THUMB Debug/main.o
+                0x08003bd0                ADC0_1_IRQHandler
  .text.__aeabi_read_tp
-                0x0800430c        0x8 GD32WavePlayer THUMB Debug/thumb_crt0.o
-                0x0800430c                __aeabi_read_tp
+                0x08003c1c        0x8 GD32WavePlayer THUMB Debug/thumb_crt0.o
+                0x08003c1c                __aeabi_read_tp
  .text.libc.expf
-                0x08004314      0x17c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
-                0x08004314                exp(float)
-                0x08004314                expf
+                0x08003c24      0x17c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x08003c24                exp(float)
+                0x08003c24                expf
  .text.libc.logf
-                0x08004490      0x100 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
-                0x08004490                logf
-                0x08004490                log(float)
+                0x08003da0      0x100 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x08003da0                logf
+                0x08003da0                log(float)
  .text.libc.powf
-                0x08004590       0xc0 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
-                0x08004590                powf
-                0x08004590                pow(float, float)
+                0x08003ea0       0xc0 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x08003ea0                powf
+                0x08003ea0                pow(float, float)
  .text.libc.fabsf
-                0x08004650        0x6 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
-                0x08004650                fabs(float)
-                0x08004650                fabsf
+                0x08003f60        0x6 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
+                0x08003f60                fabs(float)
+                0x08003f60                fabsf
  .text.libc.frexpf
-                0x08004656       0x3c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
-                0x08004656                frexp(float, int*)
-                0x08004656                frexpf
+                0x08003f66       0x3c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
+                0x08003f66                frexp(float, int*)
+                0x08003f66                frexpf
  .text.libc.__int64_udivmod
-                0x08004692       0xce /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
-                0x08004692                __int64_udivmod
-                0x08004692                __aeabi_uldivmod
-                0x08004692                __int64_udiv
-                0x08004692                __udivdi3
+                0x08003fa2       0xce /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
+                0x08003fa2                __int64_udivmod
+                0x08003fa2                __aeabi_uldivmod
+                0x08003fa2                __int64_udiv
+                0x08003fa2                __udivdi3
  .text.libc.__aeabi_ldivmod
-                0x08004760       0x56 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
-                0x08004760                __aeabi_ldivmod
- *fill*         0x080047b6        0x2 
+                0x08004070       0x56 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
+                0x08004070                __aeabi_ldivmod
+ *fill*         0x080040c6        0x2 
  .text.libc.__aeabi_errno_addr
-                0x080047b8       0x10 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
-                0x080047b8                __aeabi_errno_addr
+                0x080040c8       0x10 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
+                0x080040c8                __aeabi_errno_addr
  .text.libc.memset
-                0x080047c8       0x66 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2_asm.o)
-                0x080047c8                memset
- *fill*         0x0800482e        0x2 
+                0x080040d8       0x66 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2_asm.o)
+                0x080040d8                memset
+ *fill*         0x0800413e        0x2 
  .text.libc.memset.__stub
-                0x08004830       0x18 linker stubs
-                0x08004848                        __text_end__ = (__text_start__ + SIZEOF (.text))
-                0x000041c4                        __text_size__ = SIZEOF (.text)
-                0x08004848                        __text_load_end__ = __text_end__
+                0x08004140       0x18 linker stubs
+                0x08004158                        __text_end__ = (__text_start__ + SIZEOF (.text))
+                0x00003ad4                        __text_size__ = SIZEOF (.text)
+                0x08004158                        __text_load_end__ = __text_end__
 
 .vfp11_veneer   0x00000000        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
@@ -6549,101 +6689,69 @@ Linker script and memory map
 .iplt           0x00000000        0x0
  .iplt          0x00000000        0x0 GD32WavePlayer THUMB Debug/system_gd32f30x.o
                 0x00000001                        . = ASSERT (((__text_start__ == __text_end__) || ((__text_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .text is too large to fit in FLASH memory segment)
-                0x08004848                        __dtors_load_start__ = ALIGN (__text_end__, 0x4)
+                0x08004158                        __dtors_load_start__ = ALIGN (__text_end__, 0x4)
 
-.dtors          0x08004848        0x0
-                0x08004848                        __dtors_start__ = .
+.dtors          0x08004158        0x0
+                0x08004158                        __dtors_start__ = .
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
  *(.fini_array)
  *(SORT_BY_NAME(.fini_array.*))
-                0x08004848                        __dtors_end__ = (__dtors_start__ + SIZEOF (.dtors))
+                0x08004158                        __dtors_end__ = (__dtors_start__ + SIZEOF (.dtors))
                 0x00000000                        __dtors_size__ = SIZEOF (.dtors)
-                0x08004848                        __dtors_load_end__ = __dtors_end__
+                0x08004158                        __dtors_load_end__ = __dtors_end__
                 0x00000001                        . = ASSERT (((__dtors_start__ == __dtors_end__) || ((__dtors_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .dtors is too large to fit in FLASH memory segment)
-                0x08004848                        __ctors_load_start__ = ALIGN (__dtors_end__, 0x4)
+                0x08004158                        __ctors_load_start__ = ALIGN (__dtors_end__, 0x4)
 
-.ctors          0x08004848        0x4
-                0x08004848                        __ctors_start__ = .
+.ctors          0x08004158        0x4
+                0x08004158                        __ctors_start__ = .
  *(SORT_BY_NAME(.ctors.*))
  *(.ctors)
  *(.init_array)
- .init_array    0x08004848        0x4 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
+ .init_array    0x08004158        0x4 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
  *(SORT_BY_NAME(.init_array.*))
-                0x0800484c                        __ctors_end__ = (__ctors_start__ + SIZEOF (.ctors))
+                0x0800415c                        __ctors_end__ = (__ctors_start__ + SIZEOF (.ctors))
                 0x00000004                        __ctors_size__ = SIZEOF (.ctors)
-                0x0800484c                        __ctors_load_end__ = __ctors_end__
+                0x0800415c                        __ctors_load_end__ = __ctors_end__
                 0x00000001                        . = ASSERT (((__ctors_start__ == __ctors_end__) || ((__ctors_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .ctors is too large to fit in FLASH memory segment)
-                0x0800484c                        __rodata_load_start__ = ALIGN (__ctors_end__, 0x4)
+                0x0800415c                        __rodata_load_start__ = ALIGN (__ctors_end__, 0x4)
 
-.rodata         0x0800484c    0x666bc
-                0x0800484c                        __rodata_start__ = .
+.rodata         0x0800415c    0x9be50
+                0x0800415c                        __rodata_start__ = .
  *(.rodata .rodata.* .gnu.linkonce.r.* .data.rel.ro .data.rel.ro.*)
- .rodata        0x0800484c       0x18 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+ .rodata        0x0800415c       0x18 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
  .rodata.air_effect_presets_db
-                0x08004864        0xc GD32WavePlayer THUMB Debug/audio_engine.o
- .rodata.dalby_tritone16b16k
-                0x08004870    0x185a8 GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x08004870                dalby_tritone16b16k
- .rodata.pmtd16k16b1c
-                0x0801ce18     0xa99a GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x0801ce18                pmtd16k16b1c
- *fill*         0x080277b2        0x2 
- .rodata.do16k16b1c
-                0x080277b4     0xa76a GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x080277b4                do16k16b1c
- *fill*         0x08031f1e        0x2 
- .rodata.dc16k16b1c
-                0x08031f20     0xad3c GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x08031f20                dc16k16b1c
- .rodata.ground_floor16k16b1c
-                0x0803cc5c     0x7302 GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x0803cc5c                ground_floor16k16b1c
- *fill*         0x08043f5e        0x2 
- .rodata.first_floor16k16b1c
-                0x08043f60     0x7530 GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x08043f60                first_floor16k16b1c
- .rodata.second_floor16k16b1c
-                0x0804b490     0x7874 GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x0804b490                second_floor16k16b1c
- .rodata.third_floor16k16b1c
-                0x08052d04     0x741a GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x08052d04                third_floor16k16b1c
- *fill*         0x0805a11e        0x2 
- .rodata.top_floor16k16b1c
-                0x0805a120     0x6422 GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x0805a120                top_floor16k16b1c
- *fill*         0x08060542        0x2 
- .rodata.lift_oos16k16b1c
-                0x08060544     0xa99a GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x08060544                lift_oos16k16b1c
- *fill*         0x0806aede        0x2 
+                0x08004174        0xc GD32WavePlayer THUMB Debug/audio_engine.o
+ .rodata.Lemon_Tree16b16km
+                0x08004180    0x9be02 GD32WavePlayer THUMB Debug/main.o
+                0x08004180                Lemon_Tree16b16km
+ *fill*         0x0809ff82        0x2 
  .rodata.libc.expf_twojby8
-                0x0806aee0       0x20 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x0809ff84       0x20 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
  .rodata.libc.__aeabi_ERANGE
-                0x0806af00        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
-                0x0806af00                __aeabi_ERANGE
+                0x0809ffa4        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
+                0x0809ffa4                __aeabi_ERANGE
  .rodata.libc.__aeabi_EDOM
-                0x0806af04        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
-                0x0806af04                __aeabi_EDOM
-                0x0806af08                        __rodata_end__ = (__rodata_start__ + SIZEOF (.rodata))
-                0x000666bc                        __rodata_size__ = SIZEOF (.rodata)
-                0x0806af08                        __rodata_load_end__ = __rodata_end__
+                0x0809ffa8        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
+                0x0809ffa8                __aeabi_EDOM
+                0x0809ffac                        __rodata_end__ = (__rodata_start__ + SIZEOF (.rodata))
+                0x0009be50                        __rodata_size__ = SIZEOF (.rodata)
+                0x0809ffac                        __rodata_load_end__ = __rodata_end__
                 0x00000001                        . = ASSERT (((__rodata_start__ == __rodata_end__) || ((__rodata_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .rodata is too large to fit in FLASH memory segment)
-                0x0806af08                        __ARM.exidx_load_start__ = ALIGN (__rodata_end__, 0x4)
+                0x0809ffac                        __ARM.exidx_load_start__ = ALIGN (__rodata_end__, 0x4)
 
-.ARM.exidx      0x0806af08        0x0
-                0x0806af08                        __ARM.exidx_start__ = .
-                0x0806af08                        __exidx_start = __ARM.exidx_start__
+.ARM.exidx      0x0809ffac        0x0
+                0x0809ffac                        __ARM.exidx_start__ = .
+                0x0809ffac                        __exidx_start = __ARM.exidx_start__
  *(.ARM.exidx .ARM.exidx.*)
-                0x0806af08                        __ARM.exidx_end__ = (__ARM.exidx_start__ + SIZEOF (.ARM.exidx))
+                0x0809ffac                        __ARM.exidx_end__ = (__ARM.exidx_start__ + SIZEOF (.ARM.exidx))
                 0x00000000                        __ARM.exidx_size__ = SIZEOF (.ARM.exidx)
-                0x0806af08                        __exidx_end = __ARM.exidx_end__
-                0x0806af08                        __ARM.exidx_load_end__ = __ARM.exidx_end__
+                0x0809ffac                        __exidx_end = __ARM.exidx_end__
+                0x0809ffac                        __ARM.exidx_load_end__ = __ARM.exidx_end__
                 0x00000001                        . = ASSERT (((__ARM.exidx_start__ == __ARM.exidx_end__) || ((__ARM.exidx_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .ARM.exidx is too large to fit in FLASH memory segment)
-                0x0806af08                        __fast_load_start__ = ALIGN (__ARM.exidx_end__, 0x4)
+                0x0809ffac                        __fast_load_start__ = ALIGN (__ARM.exidx_end__, 0x4)
 
-.fast           0x20000000      0xe30 load address 0x0806af08
+.fast           0x20000000      0xe30 load address 0x0809ffac
                 0x20000000                        __fast_start__ = .
  *(.fast .fast.*)
  .fast          0x20000000      0xdec GD32WavePlayer THUMB Debug/audio_engine.o
@@ -6653,7 +6761,7 @@ Linker script and memory map
  .fast.__stub   0x20000df0       0x40 linker stubs
                 0x20000e30                        __fast_end__ = (__fast_start__ + SIZEOF (.fast))
                 0x00000e30                        __fast_size__ = SIZEOF (.fast)
-                0x0806bd38                        __fast_load_end__ = (__fast_load_start__ + SIZEOF (.fast))
+                0x080a0ddc                        __fast_load_end__ = (__fast_load_start__ + SIZEOF (.fast))
 
 .rel.dyn        0x08000000        0x0
  .rel.iplt      0x08000000        0x0 GD32WavePlayer THUMB Debug/system_gd32f30x.o
@@ -6665,9 +6773,9 @@ Linker script and memory map
                 0x00000e30                        __fast_run_size__ = (__fast_run_end__ - __fast_run_start__)
                 0x20000e30                        __fast_run_load_end__ = __fast_run_end__
                 0x00000001                        . = ASSERT (((__fast_run_start__ == __fast_run_end__) || ((__fast_run_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .fast_run is too large to fit in RAM memory segment)
-                0x0806bd38                        __data_load_start__ = ALIGN ((__fast_load_start__ + SIZEOF (.fast)), 0x4)
+                0x080a0ddc                        __data_load_start__ = ALIGN ((__fast_load_start__ + SIZEOF (.fast)), 0x4)
 
-.data           0x20000e30       0x5f load address 0x0806bd38
+.data           0x20000e30       0x5e load address 0x080a0ddc
                 0x20000e30                        __data_start__ = .
  *(.data .data.* .gnu.linkonce.d.*)
  .data.SystemCoreClock
@@ -6731,12 +6839,9 @@ Linker script and memory map
  .data.dac_power_control
                 0x20000e8d        0x1 GD32WavePlayer THUMB Debug/audio_engine.o
                 0x20000e8d                dac_power_control
- .data.sleep_setting
-                0x20000e8e        0x1 GD32WavePlayer THUMB Debug/main.o
-                0x20000e8e                sleep_setting
-                0x20000e8f                        __data_end__ = (__data_start__ + SIZEOF (.data))
-                0x0000005f                        __data_size__ = SIZEOF (.data)
-                0x0806bd97                        __data_load_end__ = (__data_load_start__ + SIZEOF (.data))
+                0x20000e8e                        __data_end__ = (__data_start__ + SIZEOF (.data))
+                0x0000005e                        __data_size__ = SIZEOF (.data)
+                0x080a0e3a                        __data_load_end__ = (__data_load_start__ + SIZEOF (.data))
 
 .igot.plt       0x00000000        0x0
  .igot.plt      0x00000000        0x0 GD32WavePlayer THUMB Debug/system_gd32f30x.o
@@ -6744,194 +6849,193 @@ Linker script and memory map
 
 .data_run       0x20000e30        0x0
                 0x20000e30                        __data_run_start__ = .
-                0x20000e8f                        __data_run_end__ = (__data_run_start__ + SIZEOF (.data))
-                0x0000005f                        __data_run_size__ = (__data_run_end__ - __data_run_start__)
-                0x20000e8f                        __data_run_load_end__ = __data_run_end__
+                0x20000e8e                        __data_run_end__ = (__data_run_start__ + SIZEOF (.data))
+                0x0000005e                        __data_run_size__ = (__data_run_end__ - __data_run_start__)
+                0x20000e8e                        __data_run_load_end__ = __data_run_end__
                 0x00000001                        . = ASSERT (((__data_run_start__ == __data_run_end__) || ((__data_run_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .data_run is too large to fit in RAM memory segment)
                 0x20000e90                        __bss_load_start__ = ALIGN (__data_run_end__, 0x4)
 
-.bss            0x20000e90     0x10c4
+.bss            0x20000e90     0x10b8
                 0x20000e90                        __bss_start__ = .
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss.reg_snap.0
-                0x20000e90       0x10 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
  .bss.AudioEngine_DACSwitch
-                0x20000ea0        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20000ea0                AudioEngine_DACSwitch
+                0x20000e90        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20000e90                AudioEngine_DACSwitch
  .bss.AudioEngine_ReadVolume
-                0x20000ea4        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20000ea4                AudioEngine_ReadVolume
+                0x20000e94        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20000e94                AudioEngine_ReadVolume
  .bss.AudioEngine_I2SInit
-                0x20000ea8        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20000ea8                AudioEngine_I2SInit
+                0x20000e98        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20000e98                AudioEngine_I2SInit
  .bss.vol_input
-                0x20000eac        0x2 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20000eac                vol_input
- *fill*         0x20000eae        0x2 
+                0x20000e9c        0x2 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20000e9c                vol_input
+ *fill*         0x20000e9e        0x2 
  .bss.pb_buffer
-                0x20000eb0     0x1000 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20000eb0                pb_buffer
+                0x20000ea0     0x1000 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20000ea0                pb_buffer
  .bss.pb_p8_ptr
-                0x20001eb0        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001eb0                pb_p8_ptr
+                0x20001ea0        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001ea0                pb_p8_ptr
  .bss.pb_end8_ptr
-                0x20001eb4        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001eb4                pb_end8_ptr
+                0x20001ea4        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001ea4                pb_end8_ptr
  .bss.pb_p16_ptr
-                0x20001eb8        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001eb8                pb_p16_ptr
+                0x20001ea8        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001ea8                pb_p16_ptr
  .bss.pb_end16_ptr
-                0x20001ebc        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001ebc                pb_end16_ptr
+                0x20001eac        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001eac                pb_end16_ptr
  .bss.fade_offset
-                0x20001ec0        0x2 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001ec0                fade_offset
- .bss.pb_state  0x20001ec2        0x1 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001ec2                pb_state
+                0x20001eb0        0x2 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001eb0                fade_offset
+ .bss.pb_state  0x20001eb2        0x1 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001eb2                pb_state
  .bss.half_to_fill
-                0x20001ec3        0x1 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001ec3                half_to_fill
- .bss.pb_mode   0x20001ec4        0x1 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001ec4                pb_mode
- *fill*         0x20001ec5        0x3 
+                0x20001eb3        0x1 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001eb3                half_to_fill
+ .bss.pb_mode   0x20001eb4        0x1 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001eb4                pb_mode
+ *fill*         0x20001eb5        0x3 
  .bss.p_advance
-                0x20001ec8        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001ec8                p_advance
+                0x20001eb8        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001eb8                p_advance
  .bss.samples_remaining
-                0x20001ecc        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001ecc                samples_remaining
+                0x20001ebc        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001ebc                samples_remaining
  .bss.fadein_samples_remaining
-                0x20001ed0        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001ed0                fadein_samples_remaining
+                0x20001ec0        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001ec0                fadein_samples_remaining
  .bss.fadeout_samples_remaining
-                0x20001ed4        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001ed4                fadeout_samples_remaining
+                0x20001ec4        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001ec4                fadeout_samples_remaining
  .bss.filter_state
-                0x20001ed8       0x60 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001ec8       0x60 GD32WavePlayer THUMB Debug/audio_engine.o
  .bss.paused_sample_ptr
-                0x20001f38        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001f38                paused_sample_ptr
+                0x20001f28        0x4 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001f28                paused_sample_ptr
  .bss.stop_requested
-                0x20001f3c        0x1 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001f3c                stop_requested
+                0x20001f2c        0x1 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001f2c                stop_requested
  .bss.playback_end_callback_called
-                0x20001f3d        0x1 GD32WavePlayer THUMB Debug/audio_engine.o
-                0x20001f3d                playback_end_callback_called
- .bss.option    0x20001f3e        0x1 GD32WavePlayer THUMB Debug/dalby_multi.o
-                0x20001f3e                option
- *fill*         0x20001f3f        0x1 
+                0x20001f2d        0x1 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x20001f2d                playback_end_callback_called
+ .bss.last_volume_setting.1
+                0x20001f2e        0x2 GD32WavePlayer THUMB Debug/audio_engine.o
+ .bss.adjusted_volume.0
+                0x20001f30        0x2 GD32WavePlayer THUMB Debug/audio_engine.o
  .bss.trig_counter
-                0x20001f40        0x2 GD32WavePlayer THUMB Debug/main.o
-                0x20001f40                trig_counter
+                0x20001f32        0x2 GD32WavePlayer THUMB Debug/main.o
+                0x20001f32                trig_counter
  .bss.trig_timeout_flag
-                0x20001f42        0x1 GD32WavePlayer THUMB Debug/main.o
-                0x20001f42                trig_timeout_flag
- *fill*         0x20001f43        0x1 
+                0x20001f34        0x1 GD32WavePlayer THUMB Debug/main.o
+                0x20001f34                trig_timeout_flag
+ *fill*         0x20001f35        0x1 
  .bss.trig_timeout_counter
-                0x20001f44        0x2 GD32WavePlayer THUMB Debug/main.o
-                0x20001f44                trig_timeout_counter
+                0x20001f36        0x2 GD32WavePlayer THUMB Debug/main.o
+                0x20001f36                trig_timeout_counter
  .bss.trig_status
-                0x20001f46        0x1 GD32WavePlayer THUMB Debug/main.o
-                0x20001f46                trig_status
- *fill*         0x20001f47        0x1 
+                0x20001f38        0x1 GD32WavePlayer THUMB Debug/main.o
+                0x20001f38                trig_status
+ *fill*         0x20001f39        0x3 
  .bss.systick_counter
-                0x20001f48        0x4 GD32WavePlayer THUMB Debug/main.o
-                0x20001f48                systick_counter
- .bss.uwTick    0x20001f4c        0x4 GD32WavePlayer THUMB Debug/main.o
-                0x20001f4c                uwTick
- .bss.adc_out   0x20001f50        0x2 GD32WavePlayer THUMB Debug/main.o
-                0x20001f50                adc_out
+                0x20001f3c        0x4 GD32WavePlayer THUMB Debug/main.o
+                0x20001f3c                systick_counter
+ .bss.uwTick    0x20001f40        0x4 GD32WavePlayer THUMB Debug/main.o
+                0x20001f40                uwTick
+ .bss.adc_out   0x20001f44        0x2 GD32WavePlayer THUMB Debug/main.o
+                0x20001f44                adc_out
  .bss.adc_filtered.0
-                0x20001f52        0x2 GD32WavePlayer THUMB Debug/main.o
+                0x20001f46        0x2 GD32WavePlayer THUMB Debug/main.o
  *(COMMON)
-                0x20001f54                        __bss_end__ = (__bss_start__ + SIZEOF (.bss))
-                0x000010c4                        __bss_size__ = SIZEOF (.bss)
-                0x20001f54                        __bss_load_end__ = __bss_end__
+                0x20001f48                        __bss_end__ = (__bss_start__ + SIZEOF (.bss))
+                0x000010b8                        __bss_size__ = SIZEOF (.bss)
+                0x20001f48                        __bss_load_end__ = __bss_end__
                 0x00000001                        . = ASSERT (((__bss_start__ == __bss_end__) || ((__bss_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .bss is too large to fit in RAM memory segment)
-                0x20001f54                        __tbss_load_start__ = ALIGN (__bss_end__, 0x4)
+                0x20001f48                        __tbss_load_start__ = ALIGN (__bss_end__, 0x4)
 
-.tbss           0x20001f54        0x4
-                0x20001f54                        __tbss_start__ = .
+.tbss           0x20001f48        0x4
+                0x20001f48                        __tbss_start__ = .
  *(.tbss .tbss.*)
  .tbss.errno_val
-                0x20001f54        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
-                0x20001f58                        __tbss_end__ = (__tbss_start__ + SIZEOF (.tbss))
+                0x20001f48        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
+                0x20001f4c                        __tbss_end__ = (__tbss_start__ + SIZEOF (.tbss))
                 0x00000004                        __tbss_size__ = SIZEOF (.tbss)
-                0x20001f58                        __tbss_load_end__ = __tbss_end__
+                0x20001f4c                        __tbss_load_end__ = __tbss_end__
                 0x00000001                        . = ASSERT (((__tbss_start__ == __tbss_end__) || ((__tbss_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .tbss is too large to fit in RAM memory segment)
-                0x0806bd98                        __tdata_load_start__ = ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4)
+                0x080a0e3c                        __tdata_load_start__ = ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4)
 
-.tdata          0x20001f58        0x0 load address 0x0806bd98
-                0x20001f58                        __tdata_start__ = .
+.tdata          0x20001f4c        0x0 load address 0x080a0e3c
+                0x20001f4c                        __tdata_start__ = .
  *(.tdata .tdata.*)
-                0x20001f58                        __tdata_end__ = (__tdata_start__ + SIZEOF (.tdata))
+                0x20001f4c                        __tdata_end__ = (__tdata_start__ + SIZEOF (.tdata))
                 0x00000000                        __tdata_size__ = SIZEOF (.tdata)
-                0x0806bd98                        __tdata_load_end__ = (__tdata_load_start__ + SIZEOF (.tdata))
-                0x0806bd98                        __FLASH_segment_used_end__ = (ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4) + SIZEOF (.tdata))
-                0x0006bd98                        __FLASH_segment_used_size__ = (__FLASH_segment_used_end__ - __FLASH_segment_start__)
+                0x080a0e3c                        __tdata_load_end__ = (__tdata_load_start__ + SIZEOF (.tdata))
+                0x080a0e3c                        __FLASH_segment_used_end__ = (ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4) + SIZEOF (.tdata))
+                0x000a0e3c                        __FLASH_segment_used_size__ = (__FLASH_segment_used_end__ - __FLASH_segment_start__)
                 0x00000001                        . = ASSERT (((__tdata_load_start__ == __tdata_load_end__) || ((__tdata_load_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .tdata is too large to fit in FLASH memory segment)
 
-.tdata_run      0x20001f58        0x0
-                0x20001f58                        __tdata_run_start__ = .
-                0x20001f58                        __tdata_run_end__ = (__tdata_run_start__ + SIZEOF (.tdata))
+.tdata_run      0x20001f4c        0x0
+                0x20001f4c                        __tdata_run_start__ = .
+                0x20001f4c                        __tdata_run_end__ = (__tdata_run_start__ + SIZEOF (.tdata))
                 0x00000000                        __tdata_run_size__ = (__tdata_run_end__ - __tdata_run_start__)
-                0x20001f58                        __tdata_run_load_end__ = __tdata_run_end__
+                0x20001f4c                        __tdata_run_load_end__ = __tdata_run_end__
                 0x00000001                        . = ASSERT (((__tdata_run_start__ == __tdata_run_end__) || ((__tdata_run_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .tdata_run is too large to fit in RAM memory segment)
-                0x20001f58                        __non_init_load_start__ = ALIGN (__tdata_run_end__, 0x4)
+                0x20001f4c                        __non_init_load_start__ = ALIGN (__tdata_run_end__, 0x4)
 
-.non_init       0x20001f58        0x0
-                0x20001f58                        __non_init_start__ = .
+.non_init       0x20001f4c        0x0
+                0x20001f4c                        __non_init_start__ = .
  *(.non_init .non_init.*)
-                0x20001f58                        __non_init_end__ = (__non_init_start__ + SIZEOF (.non_init))
+                0x20001f4c                        __non_init_end__ = (__non_init_start__ + SIZEOF (.non_init))
                 0x00000000                        __non_init_size__ = SIZEOF (.non_init)
-                0x20001f58                        __non_init_load_end__ = __non_init_end__
+                0x20001f4c                        __non_init_load_end__ = __non_init_end__
                 0x00000001                        . = ASSERT (((__non_init_start__ == __non_init_end__) || ((__non_init_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .non_init is too large to fit in RAM memory segment)
-                0x20001f58                        __noinit_load_start__ = ALIGN (__non_init_end__, 0x4)
+                0x20001f4c                        __noinit_load_start__ = ALIGN (__non_init_end__, 0x4)
 
-.noinit         0x20001f58        0x0
-                0x20001f58                        __noinit_start__ = .
+.noinit         0x20001f4c        0x0
+                0x20001f4c                        __noinit_start__ = .
  *(.noinit .noinit.*)
-                0x20001f58                        __noinit_end__ = (__noinit_start__ + SIZEOF (.noinit))
+                0x20001f4c                        __noinit_end__ = (__noinit_start__ + SIZEOF (.noinit))
                 0x00000000                        __noinit_size__ = SIZEOF (.noinit)
-                0x20001f58                        __noinit_load_end__ = __noinit_end__
+                0x20001f4c                        __noinit_load_end__ = __noinit_end__
                 0x00000001                        . = ASSERT (((__noinit_start__ == __noinit_end__) || ((__noinit_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .noinit is too large to fit in RAM memory segment)
-                0x20001f58                        __heap_load_start__ = ALIGN (__noinit_end__, 0x8)
+                0x20001f50                        __heap_load_start__ = ALIGN (__noinit_end__, 0x8)
 
-.heap           0x20001f58      0x400
-                0x20001f58                        __heap_start__ = .
+.heap           0x20001f50      0x400
+                0x20001f50                        __heap_start__ = .
  *(.heap .heap.*)
-                0x20002358                        . = ALIGN (MAX ((__heap_start__ + __HEAPSIZE__), .), 0x8)
- *fill*         0x20001f58      0x400 
-                0x20002358                        __heap_end__ = (__heap_start__ + SIZEOF (.heap))
+                0x20002350                        . = ALIGN (MAX ((__heap_start__ + __HEAPSIZE__), .), 0x8)
+ *fill*         0x20001f50      0x400 
+                0x20002350                        __heap_end__ = (__heap_start__ + SIZEOF (.heap))
                 0x00000400                        __heap_size__ = SIZEOF (.heap)
-                0x20002358                        __heap_load_end__ = __heap_end__
+                0x20002350                        __heap_load_end__ = __heap_end__
                 0x00000001                        . = ASSERT (((__heap_start__ == __heap_end__) || ((__heap_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .heap is too large to fit in RAM memory segment)
                 0x00000001                        . = ASSERT ((__HEAPSIZE__ == ALIGN (__HEAPSIZE__, 0x8)), error: .heap section size does not match alignment)
                 0x00000001                        . = ASSERT ((__heap_size__ <= __HEAPSIZE__), error: .heap section is larger than specified size)
-                0x20002358                        __stack_load_start__ = ALIGN (__heap_end__, 0x8)
+                0x20002350                        __stack_load_start__ = ALIGN (__heap_end__, 0x8)
 
-.stack          0x20002358      0x200
-                0x20002358                        __stack_start__ = .
+.stack          0x20002350      0x200
+                0x20002350                        __stack_start__ = .
  *(.stack .stack.*)
-                0x20002558                        . = ALIGN (MAX ((__stack_start__ + __STACKSIZE__), .), 0x8)
- *fill*         0x20002358      0x200 
-                0x20002558                        __stack_end__ = (__stack_start__ + SIZEOF (.stack))
+                0x20002550                        . = ALIGN (MAX ((__stack_start__ + __STACKSIZE__), .), 0x8)
+ *fill*         0x20002350      0x200 
+                0x20002550                        __stack_end__ = (__stack_start__ + SIZEOF (.stack))
                 0x00000200                        __stack_size__ = SIZEOF (.stack)
-                0x20002558                        __stack_load_end__ = __stack_end__
+                0x20002550                        __stack_load_end__ = __stack_end__
                 0x00000001                        . = ASSERT (((__stack_start__ == __stack_end__) || ((__stack_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .stack is too large to fit in RAM memory segment)
                 0x00000001                        . = ASSERT ((__STACKSIZE__ == ALIGN (__STACKSIZE__, 0x8)), error: .stack section size does not match alignment)
                 0x00000001                        . = ASSERT ((__stack_size__ <= __STACKSIZE__), error: .stack section is larger than specified size)
-                0x20002558                        __stack_process_load_start__ = ALIGN (__stack_end__, 0x8)
+                0x20002550                        __stack_process_load_start__ = ALIGN (__stack_end__, 0x8)
 
-.stack_process  0x20002558        0x0
-                0x20002558                        __stack_process_start__ = .
+.stack_process  0x20002550        0x0
+                0x20002550                        __stack_process_start__ = .
  *(.stack_process .stack_process.*)
-                0x20002558                        . = ALIGN (MAX ((__stack_process_start__ + __STACKSIZE_PROCESS__), .), 0x8)
-                0x20002558                        __stack_process_end__ = (__stack_process_start__ + SIZEOF (.stack_process))
+                0x20002550                        . = ALIGN (MAX ((__stack_process_start__ + __STACKSIZE_PROCESS__), .), 0x8)
+                0x20002550                        __stack_process_end__ = (__stack_process_start__ + SIZEOF (.stack_process))
                 0x00000000                        __stack_process_size__ = SIZEOF (.stack_process)
-                0x20002558                        __stack_process_load_end__ = __stack_process_end__
-                0x20002558                        __RAM_segment_used_end__ = (ALIGN (__stack_end__, 0x8) + SIZEOF (.stack_process))
-                0x00002558                        __RAM_segment_used_size__ = (__RAM_segment_used_end__ - __RAM_segment_start__)
+                0x20002550                        __stack_process_load_end__ = __stack_process_end__
+                0x20002550                        __RAM_segment_used_end__ = (ALIGN (__stack_end__, 0x8) + SIZEOF (.stack_process))
+                0x00002550                        __RAM_segment_used_size__ = (__RAM_segment_used_end__ - __RAM_segment_start__)
                 0x00000001                        . = ASSERT (((__stack_process_start__ == __stack_process_end__) || ((__stack_process_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .stack_process is too large to fit in RAM memory segment)
                 0x00000001                        . = ASSERT ((__STACKSIZE_PROCESS__ == ALIGN (__STACKSIZE_PROCESS__, 0x8)), error: .stack_process section size does not match alignment)
                 0x00000001                        . = ASSERT ((__stack_process_size__ <= __STACKSIZE_PROCESS__), error: .stack_process section is larger than specified size)
@@ -6986,7 +7090,7 @@ END GROUP
 OUTPUT(/home/jennifer/repos/GD32WavePlayer/GD32WavePlayer THUMB Debug/GD32WavePlayer.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000     0x9b28
+.debug_info     0x00000000     0x9400
  .debug_info    0x00000000      0x3e4 GD32WavePlayer THUMB Debug/system_gd32f30x.o
  .debug_info    0x000003e4      0xa77 GD32WavePlayer THUMB Debug/gd32f30x_adc.o
  .debug_info    0x00000e5b      0x913 GD32WavePlayer THUMB Debug/gd32f30x_dma.o
@@ -6994,18 +7098,16 @@ LOAD linker stubs
  .debug_info    0x00001af8      0x7aa GD32WavePlayer THUMB Debug/gd32f30x_fmc.o
  .debug_info    0x000022a2      0x67b GD32WavePlayer THUMB Debug/gd32f30x_gpio.o
  .debug_info    0x0000291d      0x568 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
- .debug_info    0x00002e85      0x678 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
- .debug_info    0x000034fd      0xd7f GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
- .debug_info    0x0000427c      0xab0 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
- .debug_info    0x00004d2c     0x1420 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
- .debug_info    0x0000614c     0x1fa7 GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_info    0x000080f3      0x564 GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_info    0x00008657     0x1468 GD32WavePlayer THUMB Debug/main.o
- .debug_info    0x00009abf       0x24 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
- .debug_info    0x00009ae3       0x23 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
- .debug_info    0x00009b06       0x22 GD32WavePlayer THUMB Debug/thumb_crt0.o
+ .debug_info    0x00002e85      0xd7f GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+ .debug_info    0x00003c04      0xab0 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+ .debug_info    0x000046b4     0x1420 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+ .debug_info    0x00005ad4     0x1fbd GD32WavePlayer THUMB Debug/audio_engine.o
+ .debug_info    0x00007a91     0x1906 GD32WavePlayer THUMB Debug/main.o
+ .debug_info    0x00009397       0x24 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
+ .debug_info    0x000093bb       0x23 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
+ .debug_info    0x000093de       0x22 GD32WavePlayer THUMB Debug/thumb_crt0.o
 
-.debug_abbrev   0x00000000     0x1bc4
+.debug_abbrev   0x00000000     0x17d9
  .debug_abbrev  0x00000000      0x194 GD32WavePlayer THUMB Debug/system_gd32f30x.o
  .debug_abbrev  0x00000194      0x182 GD32WavePlayer THUMB Debug/gd32f30x_adc.o
  .debug_abbrev  0x00000316      0x1e6 GD32WavePlayer THUMB Debug/gd32f30x_dma.o
@@ -7013,19 +7115,17 @@ LOAD linker stubs
  .debug_abbrev  0x0000060a      0x1cd GD32WavePlayer THUMB Debug/gd32f30x_fmc.o
  .debug_abbrev  0x000007d7      0x1e0 GD32WavePlayer THUMB Debug/gd32f30x_gpio.o
  .debug_abbrev  0x000009b7      0x155 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
- .debug_abbrev  0x00000b0c      0x1fe GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
- .debug_abbrev  0x00000d0a      0x196 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
- .debug_abbrev  0x00000ea0      0x1db GD32WavePlayer THUMB Debug/gd32f30x_spi.o
- .debug_abbrev  0x0000107b      0x1a2 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
- .debug_abbrev  0x0000121d      0x3c0 GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_abbrev  0x000015dd      0x1fb GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_abbrev  0x000017d8      0x3b2 GD32WavePlayer THUMB Debug/main.o
- .debug_abbrev  0x00001b8a       0x14 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
- .debug_abbrev  0x00001b9e       0x14 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
- .debug_abbrev  0x00001bb2       0x12 GD32WavePlayer THUMB Debug/thumb_crt0.o
+ .debug_abbrev  0x00000b0c      0x196 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+ .debug_abbrev  0x00000ca2      0x1db GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+ .debug_abbrev  0x00000e7d      0x1a2 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+ .debug_abbrev  0x0000101f      0x3c0 GD32WavePlayer THUMB Debug/audio_engine.o
+ .debug_abbrev  0x000013df      0x3c0 GD32WavePlayer THUMB Debug/main.o
+ .debug_abbrev  0x0000179f       0x14 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
+ .debug_abbrev  0x000017b3       0x14 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
+ .debug_abbrev  0x000017c7       0x12 GD32WavePlayer THUMB Debug/thumb_crt0.o
 
 .debug_pubnames
-                0x00000000     0x59a8
+                0x00000000     0x531c
  .debug_pubnames
                 0x00000000       0x94 GD32WavePlayer THUMB Debug/system_gd32f30x.o
  .debug_pubnames
@@ -7041,22 +7141,18 @@ LOAD linker stubs
  .debug_pubnames
                 0x0000152c       0xc7 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
  .debug_pubnames
-                0x000015f3      0x52d GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+                0x000015f3      0x5d6 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
  .debug_pubnames
-                0x00001b20      0x5d6 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x00001bc9      0x6f5 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
  .debug_pubnames
-                0x000020f6      0x6f5 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x000022be      0xc98 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
  .debug_pubnames
-                0x000027eb      0xc98 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+                0x00002f56      0xf8f GD32WavePlayer THUMB Debug/audio_engine.o
  .debug_pubnames
-                0x00003483      0xf8f GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_pubnames
-                0x00004412      0x38f GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_pubnames
-                0x000047a1     0x1207 GD32WavePlayer THUMB Debug/main.o
+                0x00003ee5     0x1437 GD32WavePlayer THUMB Debug/main.o
 
 .debug_pubtypes
-                0x00000000     0x1251
+                0x00000000      0xff3
  .debug_pubtypes
                 0x00000000       0xee GD32WavePlayer THUMB Debug/system_gd32f30x.o
  .debug_pubtypes
@@ -7072,21 +7168,17 @@ LOAD linker stubs
  .debug_pubtypes
                 0x00000612       0xe4 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
  .debug_pubtypes
-                0x000006f6       0xee GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+                0x000006f6      0x1ae GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
  .debug_pubtypes
-                0x000007e4      0x1ae GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x000008a4      0x11f GD32WavePlayer THUMB Debug/gd32f30x_spi.o
  .debug_pubtypes
-                0x00000992      0x11f GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x000009c3      0x178 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
  .debug_pubtypes
-                0x00000ab1      0x178 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+                0x00000b3b      0x242 GD32WavePlayer THUMB Debug/audio_engine.o
  .debug_pubtypes
-                0x00000c29      0x242 GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_pubtypes
-                0x00000e6b      0x158 GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_pubtypes
-                0x00000fc3      0x28e GD32WavePlayer THUMB Debug/main.o
+                0x00000d7d      0x276 GD32WavePlayer THUMB Debug/main.o
 
-.debug_aranges  0x00000000      0xf58
+.debug_aranges  0x00000000      0xe78
  .debug_aranges
                 0x00000000       0x38 GD32WavePlayer THUMB Debug/system_gd32f30x.o
  .debug_aranges
@@ -7102,27 +7194,23 @@ LOAD linker stubs
  .debug_aranges
                 0x000004c0       0x50 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
  .debug_aranges
-                0x00000510       0xb8 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+                0x00000510      0x150 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
  .debug_aranges
-                0x000005c8      0x150 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x00000660      0x158 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
  .debug_aranges
-                0x00000718      0x158 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x000007b8      0x250 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
  .debug_aranges
-                0x00000870      0x250 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+                0x00000a08      0x310 GD32WavePlayer THUMB Debug/audio_engine.o
  .debug_aranges
-                0x00000ac0      0x310 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x00000d18       0xc8 GD32WavePlayer THUMB Debug/main.o
  .debug_aranges
-                0x00000dd0       0x28 GD32WavePlayer THUMB Debug/dalby_multi.o
+                0x00000de0       0x20 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
  .debug_aranges
-                0x00000df8       0xc8 GD32WavePlayer THUMB Debug/main.o
+                0x00000e00       0x20 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
  .debug_aranges
-                0x00000ec0       0x20 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
- .debug_aranges
-                0x00000ee0       0x20 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
- .debug_aranges
-                0x00000f00       0x58 GD32WavePlayer THUMB Debug/thumb_crt0.o
+                0x00000e20       0x58 GD32WavePlayer THUMB Debug/thumb_crt0.o
 
-.debug_ranges   0x00000000      0xe30
+.debug_ranges   0x00000000      0xd70
  .debug_ranges  0x00000000       0x28 GD32WavePlayer THUMB Debug/system_gd32f30x.o
  .debug_ranges  0x00000028      0x128 GD32WavePlayer THUMB Debug/gd32f30x_adc.o
  .debug_ranges  0x00000150       0xe8 GD32WavePlayer THUMB Debug/gd32f30x_dma.o
@@ -7130,16 +7218,14 @@ LOAD linker stubs
  .debug_ranges  0x000002a0      0x120 GD32WavePlayer THUMB Debug/gd32f30x_fmc.o
  .debug_ranges  0x000003c0       0xa0 GD32WavePlayer THUMB Debug/gd32f30x_gpio.o
  .debug_ranges  0x00000460       0x40 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
- .debug_ranges  0x000004a0       0xa8 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
- .debug_ranges  0x00000548      0x140 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
- .debug_ranges  0x00000688      0x148 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
- .debug_ranges  0x000007d0      0x240 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
- .debug_ranges  0x00000a10      0x300 GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_ranges  0x00000d10       0x18 GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_ranges  0x00000d28       0xb8 GD32WavePlayer THUMB Debug/main.o
- .debug_ranges  0x00000de0       0x50 GD32WavePlayer THUMB Debug/thumb_crt0.o
+ .debug_ranges  0x000004a0      0x140 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+ .debug_ranges  0x000005e0      0x148 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+ .debug_ranges  0x00000728      0x240 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+ .debug_ranges  0x00000968      0x300 GD32WavePlayer THUMB Debug/audio_engine.o
+ .debug_ranges  0x00000c68       0xb8 GD32WavePlayer THUMB Debug/main.o
+ .debug_ranges  0x00000d20       0x50 GD32WavePlayer THUMB Debug/thumb_crt0.o
 
-.debug_macro    0x00000000     0xdb17
+.debug_macro    0x00000000     0xd7ee
  .debug_macro   0x00000000      0x1c3 GD32WavePlayer THUMB Debug/system_gd32f30x.o
  .debug_macro   0x000001c3      0xb98 GD32WavePlayer THUMB Debug/system_gd32f30x.o
  .debug_macro   0x00000d5b       0x70 GD32WavePlayer THUMB Debug/system_gd32f30x.o
@@ -7189,37 +7275,52 @@ LOAD linker stubs
  .debug_macro   0x0000a3d6      0x8d9 GD32WavePlayer THUMB Debug/gd32f30x_gpio.o
  .debug_macro   0x0000acaf      0x19d GD32WavePlayer THUMB Debug/gd32f30x_misc.o
  .debug_macro   0x0000ae4c       0x6a GD32WavePlayer THUMB Debug/gd32f30x_misc.o
- .debug_macro   0x0000aeb6      0x19d GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
- .debug_macro   0x0000b053      0x18b GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
- .debug_macro   0x0000b1de      0x1d9 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
- .debug_macro   0x0000b3b7      0xb0c GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
- .debug_macro   0x0000bec3      0x1cd GD32WavePlayer THUMB Debug/gd32f30x_spi.o
- .debug_macro   0x0000c090      0x3c5 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
- .debug_macro   0x0000c455      0x19d GD32WavePlayer THUMB Debug/gd32f30x_timer.o
- .debug_macro   0x0000c5f2      0x9a1 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
- .debug_macro   0x0000cf93      0x23f GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_macro   0x0000d1d2       0xd0 GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_macro   0x0000d2a2       0x22 GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_macro   0x0000d2c4       0xe1 GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_macro   0x0000d3a5      0x113 GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_macro   0x0000d4b8       0x1c GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_macro   0x0000d4d4      0x218 GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x0000d6ec       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x0000d708       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x0000d724       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x0000d740       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x0000d75c       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x0000d778       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x0000d794       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x0000d7b0       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x0000d7cc       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x0000d7e8       0x1c GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_macro   0x0000d804      0x1ee GD32WavePlayer THUMB Debug/main.o
- .debug_macro   0x0000d9f2       0x10 GD32WavePlayer THUMB Debug/main.o
- .debug_macro   0x0000da02       0xe7 GD32WavePlayer THUMB Debug/main.o
- .debug_macro   0x0000dae9       0x2e GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000aeb6      0x1d9 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+ .debug_macro   0x0000b08f      0xb0c GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+ .debug_macro   0x0000bb9b      0x1cd GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+ .debug_macro   0x0000bd68      0x3c5 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+ .debug_macro   0x0000c12d      0x19d GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+ .debug_macro   0x0000c2ca      0x9a1 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+ .debug_macro   0x0000cc6b      0x23f GD32WavePlayer THUMB Debug/audio_engine.o
+ .debug_macro   0x0000ceaa       0xca GD32WavePlayer THUMB Debug/audio_engine.o
+ .debug_macro   0x0000cf74       0x22 GD32WavePlayer THUMB Debug/audio_engine.o
+ .debug_macro   0x0000cf96       0xe1 GD32WavePlayer THUMB Debug/audio_engine.o
+ .debug_macro   0x0000d077      0x113 GD32WavePlayer THUMB Debug/audio_engine.o
+ .debug_macro   0x0000d18a       0x1c GD32WavePlayer THUMB Debug/audio_engine.o
+ .debug_macro   0x0000d1a6      0x2cd GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d473       0x10 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d483       0xe7 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d56a       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d580       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d596       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d5ac       0x1c GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d5c8       0x10 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d5d8       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d5ee       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d604       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d61a       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d630       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d646       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d65c       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d672       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d688       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d69e       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d6b4       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d6ca       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d6e0       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d6f6       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d70c       0x10 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d71c       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d732       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d748       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d75e       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d774       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d78a       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d7a0       0x16 GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d7b6       0x1c GD32WavePlayer THUMB Debug/main.o
+ .debug_macro   0x0000d7d2       0x1c GD32WavePlayer THUMB Debug/main.o
 
-.debug_line     0x00000000     0xb4b7
+.debug_line     0x00000000     0xa4e9
  .debug_line    0x00000000      0x7ba GD32WavePlayer THUMB Debug/system_gd32f30x.o
  .debug_line    0x000007ba      0xdfb GD32WavePlayer THUMB Debug/gd32f30x_adc.o
  .debug_line    0x000015b5      0xb5e GD32WavePlayer THUMB Debug/gd32f30x_dma.o
@@ -7227,51 +7328,45 @@ LOAD linker stubs
  .debug_line    0x000028ef      0xea3 GD32WavePlayer THUMB Debug/gd32f30x_fmc.o
  .debug_line    0x00003792      0xa31 GD32WavePlayer THUMB Debug/gd32f30x_gpio.o
  .debug_line    0x000041c3      0x74b GD32WavePlayer THUMB Debug/gd32f30x_misc.o
- .debug_line    0x0000490e      0x90c GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
- .debug_line    0x0000521a      0xd9c GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
- .debug_line    0x00005fb6      0xbdc GD32WavePlayer THUMB Debug/gd32f30x_spi.o
- .debug_line    0x00006b92     0x1988 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
- .debug_line    0x0000851a     0x19e9 GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_line    0x00009f03      0x8a5 GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_line    0x0000a7a8      0x9e4 GD32WavePlayer THUMB Debug/main.o
- .debug_line    0x0000b18c       0xf0 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
- .debug_line    0x0000b27c       0xbe GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
- .debug_line    0x0000b33a      0x17d GD32WavePlayer THUMB Debug/thumb_crt0.o
+ .debug_line    0x0000490e      0xd9c GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+ .debug_line    0x000056aa      0xbdc GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+ .debug_line    0x00006286     0x1988 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+ .debug_line    0x00007c0e     0x19fe GD32WavePlayer THUMB Debug/audio_engine.o
+ .debug_line    0x0000960c      0xbb2 GD32WavePlayer THUMB Debug/main.o
+ .debug_line    0x0000a1be       0xf0 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
+ .debug_line    0x0000a2ae       0xbe GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
+ .debug_line    0x0000a36c      0x17d GD32WavePlayer THUMB Debug/thumb_crt0.o
 
-.debug_str      0x00000000    0x34727
- .debug_str     0x00000000    0x34727 GD32WavePlayer THUMB Debug/system_gd32f30x.o
+.debug_str      0x00000000    0x34792
+ .debug_str     0x00000000    0x34792 GD32WavePlayer THUMB Debug/system_gd32f30x.o
                               0x2dd86 (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/gd32f30x_adc.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/gd32f30x_adc.o
                               0x2e247 (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/gd32f30x_dma.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/gd32f30x_dma.o
                               0x2e222 (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/gd32f30x_exti.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/gd32f30x_exti.o
                               0x2dd55 (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/gd32f30x_fmc.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/gd32f30x_fmc.o
                               0x2df24 (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/gd32f30x_gpio.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/gd32f30x_gpio.o
                               0x2e12c (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
                               0x2dd39 (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
-                              0x2e03c (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
                               0x2e92f (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
                               0x2e327 (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
                               0x2e918 (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/audio_engine.o
-                              0x2ff1c (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/dalby_multi.o
-                              0x2e92e (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/main.o
-                              0x2f7ae (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/audio_engine.o
+                              0x2ff23 (size before relaxing)
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/main.o
+                              0x2fdaf (size before relaxing)
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
                                  0xa9 (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
                                  0xa6 (size before relaxing)
- .debug_str     0x00034727        0x0 GD32WavePlayer THUMB Debug/thumb_crt0.o
+ .debug_str     0x00034792        0x0 GD32WavePlayer THUMB Debug/thumb_crt0.o
                                  0x68 (size before relaxing)
 
 .comment        0x00000000       0x3d
@@ -7289,8 +7384,6 @@ LOAD linker stubs
                                  0x3e (size before relaxing)
  .comment       0x0000003d        0x0 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
                                  0x3e (size before relaxing)
- .comment       0x0000003d        0x0 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
-                                 0x3e (size before relaxing)
  .comment       0x0000003d        0x0 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
                                  0x3e (size before relaxing)
  .comment       0x0000003d        0x0 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
@@ -7298,8 +7391,6 @@ LOAD linker stubs
  .comment       0x0000003d        0x0 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
                                  0x3e (size before relaxing)
  .comment       0x0000003d        0x0 GD32WavePlayer THUMB Debug/audio_engine.o
-                                 0x3e (size before relaxing)
- .comment       0x0000003d        0x0 GD32WavePlayer THUMB Debug/dalby_multi.o
                                  0x3e (size before relaxing)
  .comment       0x0000003d        0x0 GD32WavePlayer THUMB Debug/main.o
                                  0x3e (size before relaxing)
@@ -7325,37 +7416,33 @@ LOAD linker stubs
  .ARM.attributes
                 0x00000144       0x36 GD32WavePlayer THUMB Debug/gd32f30x_misc.o
  .ARM.attributes
-                0x0000017a       0x36 GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
+                0x0000017a       0x36 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
  .ARM.attributes
-                0x000001b0       0x36 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+                0x000001b0       0x36 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
  .ARM.attributes
-                0x000001e6       0x36 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+                0x000001e6       0x36 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
  .ARM.attributes
-                0x0000021c       0x36 GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+                0x0000021c       0x36 GD32WavePlayer THUMB Debug/audio_engine.o
  .ARM.attributes
-                0x00000252       0x36 GD32WavePlayer THUMB Debug/audio_engine.o
+                0x00000252       0x36 GD32WavePlayer THUMB Debug/main.o
  .ARM.attributes
-                0x00000288       0x36 GD32WavePlayer THUMB Debug/dalby_multi.o
+                0x00000288       0x20 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
  .ARM.attributes
-                0x000002be       0x36 GD32WavePlayer THUMB Debug/main.o
+                0x000002a8       0x20 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
  .ARM.attributes
-                0x000002f4       0x20 GD32WavePlayer THUMB Debug/GD32F30x_XD_Vectors.o
+                0x000002c8       0x20 GD32WavePlayer THUMB Debug/thumb_crt0.o
  .ARM.attributes
-                0x00000314       0x20 GD32WavePlayer THUMB Debug/GD32F30x_Startup.o
+                0x000002e8       0x36 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
  .ARM.attributes
-                0x00000334       0x20 GD32WavePlayer THUMB Debug/thumb_crt0.o
+                0x0000031e       0x20 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
  .ARM.attributes
-                0x00000354       0x36 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x0000033e       0x20 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
  .ARM.attributes
-                0x0000038a       0x20 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
+                0x0000035e       0x36 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
  .ARM.attributes
-                0x000003aa       0x20 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
- .ARM.attributes
-                0x000003ca       0x36 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
- .ARM.attributes
-                0x00000400       0x20 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2_asm.o)
+                0x00000394       0x20 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2_asm.o)
 
-.debug_frame    0x00000000     0x2980
+.debug_frame    0x00000000     0x2794
  .debug_frame   0x00000000       0x7c GD32WavePlayer THUMB Debug/system_gd32f30x.o
  .debug_frame   0x0000007c      0x35c GD32WavePlayer THUMB Debug/gd32f30x_adc.o
  .debug_frame   0x000003d8      0x30c GD32WavePlayer THUMB Debug/gd32f30x_dma.o
@@ -7363,10 +7450,8 @@ LOAD linker stubs
  .debug_frame   0x0000080c      0x33c GD32WavePlayer THUMB Debug/gd32f30x_fmc.o
  .debug_frame   0x00000b48      0x1c4 GD32WavePlayer THUMB Debug/gd32f30x_gpio.o
  .debug_frame   0x00000d0c       0xbc GD32WavePlayer THUMB Debug/gd32f30x_misc.o
- .debug_frame   0x00000dc8      0x1ac GD32WavePlayer THUMB Debug/gd32f30x_pmu.o
- .debug_frame   0x00000f74      0x394 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
- .debug_frame   0x00001308      0x3d8 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
- .debug_frame   0x000016e0      0x6dc GD32WavePlayer THUMB Debug/gd32f30x_timer.o
- .debug_frame   0x00001dbc      0x95c GD32WavePlayer THUMB Debug/audio_engine.o
- .debug_frame   0x00002718       0x40 GD32WavePlayer THUMB Debug/dalby_multi.o
- .debug_frame   0x00002758      0x228 GD32WavePlayer THUMB Debug/main.o
+ .debug_frame   0x00000dc8      0x394 GD32WavePlayer THUMB Debug/gd32f30x_rcu.o
+ .debug_frame   0x0000115c      0x3d8 GD32WavePlayer THUMB Debug/gd32f30x_spi.o
+ .debug_frame   0x00001534      0x6dc GD32WavePlayer THUMB Debug/gd32f30x_timer.o
+ .debug_frame   0x00001c10      0x95c GD32WavePlayer THUMB Debug/audio_engine.o
+ .debug_frame   0x0000256c      0x228 GD32WavePlayer THUMB Debug/main.o
