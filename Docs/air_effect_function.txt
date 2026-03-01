@@ -1,0 +1,38 @@
+/** Apply Air Effect (High-Shelf Brightening) to 16-bit sample
+  * 
+  * One-pole high-shelf filter to add brightness/presence to audio.
+  * Boosts frequencies above cutoff (~5-6 kHz @ 22 kHz sample rate).
+  * 
+  * @param: input - Signed 16-bit audio sample
+  * @param: x1 - Pointer to previous input sample
+  * @param: y1 - Pointer to previous output sample
+  * @retval: int16_t - Filtered signed 16-bit audio sample
+  */
+static int16_t ApplyAirEffect( int16_t input, volatile int32_t *x1, volatile int32_t *y1 )
+{
+  // Air effect uses high-shelf filter to brighten treble
+  int32_t alpha               = AIR_EFFECT_CUTOFF;              // ~0.75
+  int32_t one_minus_alpha     = 65536 - alpha;                  // ~0.25
+  int32_t shelf_gain          = air_effect_shelf_gain_q16;      // runtime-adjustable boost
+  
+  // High-pass portion: amplify high frequencies
+  // Use 64-bit intermediates to prevent overflow when multiplying Q16 terms
+  int32_t high_freq           = (int32_t)input - *x1;
+  int64_t air_boost64         = ( ( (int64_t)high_freq * (int64_t)one_minus_alpha ) >> 16 );
+  air_boost64                 = ( ( air_boost64 * (int64_t)shelf_gain ) >> 16 );
+  int32_t air_boost           = (int32_t)air_boost64;
+  
+  // Output = low-pass + high-pass boost
+  int64_t out64   = ( ( (int64_t)alpha * (int64_t)input ) >> 16 ) +
+                  ( ( ( (int64_t)(65536 - alpha) * (int64_t)(*y1) ) >> 16 ) ) +
+                  (int64_t)air_boost;
+  int32_t output  = (int32_t)out64;
+  
+  *x1 = input;
+  *y1 = output;
+  
+  if ( output > 32767 )  output = 32767;
+  if ( output < -32768 ) output = -32768;
+  
+  return (int16_t)output;
+}

@@ -1,0 +1,191 @@
+{
+  "main": {
+    "id": "c5d4007153a44242",
+    "type": "split",
+    "children": [
+      {
+        "id": "38918c2432a6e26a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b31611f017b150cd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AUDIO_ENGINE_FLOWCHART.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "AUDIO_ENGINE_FLOWCHART"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d523972045ba6c07",
+    "type": "split",
+    "children": [
+      {
+        "id": "b0481d8e12975864",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "97799e8770ba64f7",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "9c9aa24caec96d33",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "a9ef895165a59064",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "eaa51c3f184c6a62",
+    "type": "split",
+    "children": [
+      {
+        "id": "6c47ec69d4403ad0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "88b43648bf4577dd",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "AUDIO_ENGINE_FLOWCHART.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for AUDIO_ENGINE_FLOWCHART"
+            }
+          },
+          {
+            "id": "bb04e4a63e175f02",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "AUDIO_ENGINE_FLOWCHART.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from AUDIO_ENGINE_FLOWCHART"
+            }
+          },
+          {
+            "id": "b65a534b2235cd9b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "724fb9526fee06c5",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "b94f5b9f8d0a4b16",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "AUDIO_ENGINE_FLOWCHART.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of AUDIO_ENGINE_FLOWCHART"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "b31611f017b150cd",
+  "lastOpenFiles": [
+    "AUDIO_ENGINE_MANUAL.md",
+    "AUDIO_ENGINE_FLOWCHART.md"
+  ]
+}
