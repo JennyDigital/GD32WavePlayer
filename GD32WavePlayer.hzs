@@ -2,9 +2,10 @@
 <session>
  <Bookmarks/>
  <Breakpoints groups="Breakpoints" active_group="Breakpoints">
-  <BreakpointListItem trigger="" line="124" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Libraries/audio_engine.c" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="1556" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="2" filename="Libraries/audio_engine.c" useHWbreakpoint="false"/>
-  <Exceptions/>
+  <BreakpointListItem trigger="" line="121" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="Libraries/audio_engine.c" useHWbreakpoint="false"/>
+  <Exceptions>
+   <Group group="V7M Exceptions" set="BusFault;ExceptionEntryReturnFault;HardFault;MemManage;UsageFault_CheckingError;UsageFault_Coprocessor;UsageFault_StateError"/>
+  </Exceptions>
  </Breakpoints>
  <ExecutionProfileWindow/>
  <FrameBuffer>
@@ -43,6 +44,7 @@
   <MemoryWindow addressSpace="" dataSize="1" autoEvaluate="0" viewMode="0" viewType="4" addressOrder="0" columnsText="" refreshPeriod="0" name="GD32WavePlayer_THUMB Release" sizeText="" addressText=""/>
  </Memory4>
  <Project>
+  <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
@@ -92,10 +94,10 @@
    <Watchpoint expression="trigger_option" name="trigger_option" radix="16" linenumber="0" filename="../GD32WavePlayer"/>
    <Watchpoint expression="uwTick" name="uwTick" radix="-1" linenumber="0" filename="../GD32WavePlayer"/>
    <Watchpoint expression="pb_state" name="pb_state" radix="-1" linenumber="0" filename="../GD32WavePlayer"/>
-   <Watchpoint expression="playback_end_callback_called" name="playback_end_callback_called" radix="16" linenumber="1559" filename="Libraries/audio_engine.c"/>
-   <Watchpoint expression="pb_p16_ptr" name="pb_p16_ptr" radix="-1" linenumber="1657" filename="Libraries/audio_engine.c"/>
-   <Watchpoint expression="pb_end16_ptr" name="pb_end16_ptr" radix="-1" linenumber="1657" filename="Libraries/audio_engine.c"/>
-   <Watchpoint expression="pb_mode" name="pb_mode" radix="10" linenumber="1657" filename="Libraries/audio_engine.c"/>
+   <Watchpoint expression="playback_end_callback_called" name="playback_end_callback_called" radix="16" linenumber="1567" filename="Libraries/audio_engine.c"/>
+   <Watchpoint expression="pb_p16_ptr" name="pb_p16_ptr" radix="-1" linenumber="1665" filename="Libraries/audio_engine.c"/>
+   <Watchpoint expression="pb_end16_ptr" name="pb_end16_ptr" radix="-1" linenumber="1665" filename="Libraries/audio_engine.c"/>
+   <Watchpoint expression="pb_mode" name="pb_mode" radix="10" linenumber="1665" filename="Libraries/audio_engine.c"/>
   </Watches>
  </Watch1>
  <Watch2>
@@ -108,10 +110,10 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="8" y="129" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="105" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="1" y="2198" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="2174" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="25" y="513" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="492" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="36" y="117" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="103" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="88" useTextEdit="1" path="main.c" left="0" selected="1" top="68" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="69" useTextEdit="1" path="main.h" left="0" top="48" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="69" useTextEdit="1" path="main.h" left="0" top="42" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="interrupt_utils.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="28" y="16" useTextEdit="1" path="dalby_multi.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="26" y="109" useTextEdit="1" path="dalby_multi.c" left="0" top="87" codecName="Default"/>

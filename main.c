@@ -142,10 +142,10 @@ int main( void )
   //SetLpfMakeupGain16Bit( 1 );
   
   // Set fade times
-  SetFadeInTime(0.1f );                   // 100 ms fade-in
-  SetFadeOutTime( 0.1f );                 // 100 ms fade-out
-  SetPauseFadeTime( 0.5f );               // 500 ms pause fade-out
-  SetResumeFadeTime( 0.5f );              // 500 ms resume fade-in
+  SetFadeInTime(1.0f );                   // 100 ms fade-in
+  SetFadeOutTime( 1.0f );                 // 100 ms fade-out
+  SetPauseFadeTime( 1.5f );               // 500 ms pause fade-out
+  SetResumeFadeTime( 1.5f );              // 500 ms resume fade-in
 
 #ifdef DALBY_BUILD
   ChimeLoop();
@@ -156,6 +156,10 @@ int main( void )
     WaitForTrigger( TRIGGER_SET );
 
     PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
+    delay_ms( 800 );
+    PausePlayback();
+    delay_ms( 2000 );
+    ResumePlayback();
     //PlaySample( medieval_flute16b22k1c, MEDIEVAL_FLUTE16B22K1C_SZ, I2S_AUDIOSAMPLE_22K, 16, Mode_mono );
 
     WaitForSampleEnd();

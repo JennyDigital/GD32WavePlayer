@@ -348,6 +348,18 @@ uint16_t            CalcLpf8BitAlphaFromCutoff        ( float cutoff_hz, float s
 uint16_t            GetLpf16BitCustomAlphaFromCutoff  ( float cutoff_hz );
 
 /* Fade time configuration functions */
+
+/** @brief Set whether the faders are enabled or not
+ *  @param[in] 1 (Enabled) or 0 (Disabled).
+ */
+void                SetFadersEnabled                  ( uint8_t fader_setting );
+
+/**
+ * @brief Get the state of whether the faders are enabled or not.
+ * @return Faders enabled (1) or not (0)
+ */
+  uint8_t             GetFadersEnabled                ( void );
+
 /**
  * @brief Set the duration of fade-in ramp at playback start
  * @param[in] seconds Fade-in time in seconds (0.0-5.0 typical range)
@@ -432,7 +444,7 @@ PB_StatusTypeDef    PlaySample                        (
 /**
  * @brief Block until current sample playback completes
  * @return PB_Idle when playback finished, PB_Error on playback failure
- * @note Suitable for simple blocking playback. For non-blocking, poll GetPlaybackState()
+ * @note This blocks while paused/pausing as well. For non-blocking, poll GetPlaybackState().
  */
 PB_StatusTypeDef    WaitForSampleEnd                  ( void );
 
@@ -611,13 +623,13 @@ void                 I2S_TxCpltCallback             ( void );
  * @brief Get current playback state
  * @return PB_Idle, PB_Error, PB_Playing, PB_Paused, or PB_PlayingFailed
  */
-uint8_t             GetPlaybackState                ( void );
+PB_StatusTypeDef    GetPlaybackState                ( void );
 
 /**
  * @brief Set playback state (internal use)
  * @param[in] state New playback state
  */
-void                SetPlaybackState                ( uint8_t state );
+void                SetPlaybackState                ( PB_StatusTypeDef state );
 
 /**
  * @brief Get which half of double-buffer is next to fill

@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="7682741747844189447">
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="main.h" line="74" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h" line="60" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h" line="61" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h" line="62" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="dalby_multi.c" line="4" column="0"/>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
+            <location file="/home/jennifer/repos/GD32WavePlayer/sound_headers/dalby_tritone16b16k.h" line="5" column="0"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &quot;please_mind_the_door.h&quot; not found." verbose="Include file: &quot;please_mind_the_door.h&quot; not found.">
+            <location file="dalby_multi.c" line="7" column="0"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &quot;doors_opening.h&quot; not found." verbose="Include file: &quot;doors_opening.h&quot; not found.">
+            <location file="dalby_multi.c" line="8" column="0"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &quot;doors_closing.h&quot; not found." verbose="Include file: &quot;doors_closing.h&quot; not found.">
+            <location file="dalby_multi.c" line="9" column="0"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &quot;ground_floor.h&quot; not found." verbose="Include file: &quot;ground_floor.h&quot; not found.">
+            <location file="dalby_multi.c" line="10" column="0"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &quot;first_floor.h&quot; not found." verbose="Include file: &quot;first_floor.h&quot; not found.">
+            <location file="dalby_multi.c" line="11" column="0"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &quot;second_floor.h&quot; not found." verbose="Include file: &quot;second_floor.h&quot; not found.">
+            <location file="dalby_multi.c" line="12" column="0"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &quot;third_floor.h&quot; not found." verbose="Include file: &quot;third_floor.h&quot; not found.">
+            <location file="dalby_multi.c" line="13" column="0"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &quot;top_floor.h&quot; not found." verbose="Include file: &quot;top_floor.h&quot; not found.">
+            <location file="dalby_multi.c" line="14" column="0"/>
+        </error>
+        <error id="missingInclude" severity="information" msg="Include file: &quot;lift_out_of_service.h&quot; not found." verbose="Include file: &quot;lift_out_of_service.h&quot; not found.">
+            <location file="dalby_multi.c" line="15" column="0"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:316:21" call-funcname="SetLpf16BitLevel" call-argnr="1" file="dalby_multi.c" line="37" col="19" call-argexpr="LPF_Off" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:436:21" call-funcname="PlaySample" call-argnr="1" file="dalby_multi.c" line="56" col="17" call-argexpr="dalby_tritone16b16k" call-argvaluetype="7" call-argvalue="99752" call-argvalue-ufr="0"/><function-call call-id="dalby_multi.c:20:17" call-funcname="WaitForTrigger" call-argnr="1" file="dalby_multi.c" line="60" col="23" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="dalby_multi.c:20:17" call-funcname="WaitForTrigger" call-argnr="1" file="dalby_multi.c" line="80" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:484:21" call-funcname="SetDAC_Control" call-argnr="1" file="dalby_multi.c" line="92" col="21" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="dalby_multi.c:21:17" call-funcname="SetSleepSetting" call-argnr="1" file="dalby_multi.c" line="94" col="22" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="dalby_multi.c:20:17" call-funcname="WaitForTrigger" call-argnr="1" file="dalby_multi.c" line="101" col="23" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="dalby_multi.c:20:17" call-funcname="WaitForTrigger" call-argnr="1" file="dalby_multi.c" line="119" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="dalby_multi.c:20:17" call-funcname="WaitForTrigger" call-argnr="1" file="dalby_multi.c" line="139" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="dalby_multi.c:20:17" call-funcname="WaitForTrigger" call-argnr="1" file="dalby_multi.c" line="159" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="dalby_multi.c:20:17" call-funcname="WaitForTrigger" call-argnr="1" file="dalby_multi.c" line="179" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="dalby_multi.c:20:17" call-funcname="WaitForTrigger" call-argnr="1" file="dalby_multi.c" line="199" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="dalby_multi.c:20:17" call-funcname="WaitForTrigger" call-argnr="1" file="dalby_multi.c" line="219" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/>  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl file="dalby_multi.c" functionName="ChimeLoop" lineNumber="32"/>
+    <functiondecl file="dalby_multi.c" functionName="GetOption" lineNumber="232"/>
+    <functioncall functionName="DC16K16B1C_PB_FMT"/>
+    <functioncall functionName="DC16K16B1C_SZ"/>
+    <functioncall functionName="DO16K16B1C_PB_FMT"/>
+    <functioncall functionName="DO16K16B1C_SZ"/>
+    <functioncall functionName="Enter_LP_SleepMode"/>
+    <functioncall functionName="FIRST_FLOOR16K16B1C_PB_FMT"/>
+    <functioncall functionName="FIRST_FLOOR16K16B1C_SZ"/>
+    <functioncall functionName="GPIOB"/>
+    <functioncall functionName="GPIO_PIN_4"/>
+    <functioncall functionName="GPIO_PIN_5"/>
+    <functioncall functionName="GPIO_PIN_6"/>
+    <functioncall functionName="GPIO_PIN_7"/>
+    <functioncall functionName="GROUND_FLOOR16K16B1C_PB_FMT"/>
+    <functioncall functionName="GROUND_FLOOR16K16B1C_SZ"/>
+    <functioncall functionName="GetOption"/>
+    <functioncall functionName="GetTriggerOption"/>
+    <functioncall functionName="I2S_AUDIOSAMPLE_16K"/>
+    <functioncall functionName="LIFT_OOS16K16B1C_PB_FMT"/>
+    <functioncall functionName="LIFT_OOS16K16B1C_SZ"/>
+    <functioncall functionName="PMTD16K16B1C_PB_FMT"/>
+    <functioncall functionName="PMTD16K16B1C_SZ"/>
+    <functioncall functionName="PlaySample"/>
+    <functioncall functionName="SECOND_FLOOR16K16B1C_PB_FMT"/>
+    <functioncall functionName="SECOND_FLOOR16K16B1C_SZ"/>
+    <functioncall functionName="SetDAC_Control"/>
+    <functioncall functionName="SetFadeInTime"/>
+    <functioncall functionName="SetFadeOutTime"/>
+    <functioncall functionName="SetLpf16BitLevel"/>
+    <functioncall functionName="SetSleepSetting"/>
+    <functioncall functionName="SetSoftClippingEnable"/>
+    <functioncall functionName="ShutDownAudio"/>
+    <functioncall functionName="StopPlayback"/>
+    <functioncall functionName="THIRD_FLOOR16K16B1C_PB_FMT"/>
+    <functioncall functionName="THIRD_FLOOR16K16B1C_SZ"/>
+    <functioncall functionName="TOP_FLOOR16K16B1C_PB_FMT"/>
+    <functioncall functionName="TOP_FLOOR16K16B1C_SZ"/>
+    <functioncall functionName="WaitForSampleEnd"/>
+    <functioncall functionName="WaitForTrigger"/>
+    <functioncall functionName="__disable_irq"/>
+    <functioncall functionName="dc16k16b1c"/>
+    <functioncall functionName="do16k16b1c"/>
+    <functioncall functionName="first_floor16k16b1c"/>
+    <functioncall functionName="gpio_input_bit_get"/>
+    <functioncall functionName="ground_floor16k16b1c"/>
+    <functioncall functionName="lift_oos16k16b1c"/>
+    <functioncall functionName="pmtd16k16b1c"/>
+    <functioncall functionName="second_floor16k16b1c"/>
+    <functioncall functionName="third_floor16k16b1c"/>
+    <functioncall functionName="top_floor16k16b1c"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

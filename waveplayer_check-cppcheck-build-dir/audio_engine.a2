@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<analyzerinfo hash="4878250377294438528">
+<analyzerinfo hash="15972598189083712993">
         <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;gd32f30x.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
-            <location file="/home/jennifer/repos/GD32WavePlayer/main.h" line="73" column="0"/>
+            <location file="/home/jennifer/repos/GD32WavePlayer/main.h" line="74" column="0"/>
         </error>
         <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdint.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
             <location file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h" line="60" column="0"/>
@@ -30,287 +30,152 @@
         <error id="missingIncludeSystem" severity="information" msg="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results." verbose="Include file: &lt;stdbool.h&gt; not found. Please note: Cppcheck does not need standard library headers to get proper results.">
             <location file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="45" column="0"/>
         </error>
+        <error id="normalCheckLevelMaxBranches" severity="information" msg="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." verbose="Limiting analysis of branches. Use --check-level=exhaustive to analyze all branches." file0="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c">
+            <location file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="0" column="0"/>
+        </error>
   <FileInfo check="ctu">
-<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:536:22" call-funcname="SetAirEffectGainQ16" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="522" col="22" call-argexpr="gain_q16" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="517" col="23" info="Assignment &apos;G=0.0f&apos;, assigned value is 0.0"/>
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="518" col="37" info="Assignment &apos;gain_q16=(uint32_t)(G*65536.0f+0.5f)&apos;, assigned value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:264:21" call-funcname="SetAirEffectEnable" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="552" col="21" call-argexpr="preset_index&gt;0?1:0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:563:22" call-funcname="SetAirEffectPresetDb" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="567" col="23" call-argexpr="next" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="565" col="12" info="Assignment &apos;next=0&apos;, assigned value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:268:40" call-funcname="GetChannelState" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1365" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1762" col="55" info="Calling function &apos;ApplyFilterChain16Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:110:27" call-funcname="ApplyPostFilters" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1371" col="26" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1762" col="55" info="Calling function &apos;ApplyFilterChain16Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:268:40" call-funcname="GetChannelState" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1383" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1830" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:110:27" call-funcname="ApplyPostFilters" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1388" col="26" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1830" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:268:40" call-funcname="GetChannelState" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1400" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1830" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1388" col="36" info="Calling function &apos;ApplyPostFilters&apos;, 2nd argument &apos;channel_id&apos; value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1602:33" call-funcname="ProcessDMACallback" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1689" col="23" call-argexpr="0U" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:111:27" call-funcname="ApplyFilterChain16Bit" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1762" col="41" call-argexpr="CHANNEL_LEFT" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:112:27" call-funcname="ApplyFilterChain8Bit" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1830" col="42" call-argexpr="CHANNEL_LEFT" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1252" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:85:27" my-argnr="2"/>
-<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="3" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1252" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:85:27" my-argnr="3"/>
-<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1269" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:90:27" my-argnr="2"/>
-<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="3" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1269" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:90:27" my-argnr="3"/>
+<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:548:22" call-funcname="SetAirEffectGainQ16" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="526" col="22" call-argexpr="gain_q16" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="521" col="23" info="Assignment &apos;G=0.0f&apos;, assigned value is 0.0"/>
+  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="522" col="37" info="Assignment &apos;gain_q16=(uint32_t)(G*65536.0f+0.5f)&apos;, assigned value is 0"/>
+</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:264:21" call-funcname="SetAirEffectEnable" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="556" col="21" call-argexpr="preset_index&gt;0?1:0" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:575:22" call-funcname="SetAirEffectPresetDb" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="571" col="23" call-argexpr="next" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="569" col="12" info="Assignment &apos;next=0&apos;, assigned value is 0"/>
+</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:272:40" call-funcname="GetChannelState" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1385" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1791" col="55" info="Calling function &apos;ApplyFilterChain16Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
+</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:110:27" call-funcname="ApplyPostFilters" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1391" col="26" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1791" col="55" info="Calling function &apos;ApplyFilterChain16Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
+</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:272:40" call-funcname="GetChannelState" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1403" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1860" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
+</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:110:27" call-funcname="ApplyPostFilters" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1408" col="26" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1860" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
+</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:272:40" call-funcname="GetChannelState" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1420" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0">
+  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1860" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
+  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1408" col="36" info="Calling function &apos;ApplyPostFilters&apos;, 2nd argument &apos;channel_id&apos; value is 0"/>
+</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1628:33" call-funcname="ProcessDMACallback" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1716" col="23" call-argexpr="0U" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:111:27" call-funcname="ApplyFilterChain16Bit" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1791" col="41" call-argexpr="CHANNEL_LEFT" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:112:27" call-funcname="ApplyFilterChain8Bit" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1860" col="42" call-argexpr="CHANNEL_LEFT" call-argvaluetype="0" call-argvalue="0" call-argvalue-ufr="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1271" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:85:27" my-argnr="2"/>
+<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="3" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1271" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:85:27" my-argnr="3"/>
+<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1288" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:90:27" my-argnr="2"/>
+<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="3" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1288" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:90:27" my-argnr="3"/>
   </FileInfo>
   <FileInfo check="Null pointer">
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:237:20" my-argnr="1" my-argname="state" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="239" col="3" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:106:27" my-argnr="2" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1006" col="45" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="2" my-argname="prev_input" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1226" col="29" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="3" my-argname="prev_output" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1227" col="25" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1297" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="3" my-argname="x2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1298" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="4" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1299" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="5" my-argname="y2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1300" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1326:31" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1335" col="51" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1326:31" my-argnr="3" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1342" col="64" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:241:20" my-argnr="1" my-argname="state" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="243" col="3" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:106:27" my-argnr="2" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1034" col="45" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="2" my-argname="prev_input" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1245" col="29" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="3" my-argname="prev_output" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1246" col="25" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1316" col="35" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="3" my-argname="x2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1317" col="35" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="4" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1318" col="35" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="5" my-argname="y2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1319" col="35" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1346:31" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1355" col="51" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1346:31" my-argnr="3" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1362" col="64" value="0"/>
   </FileInfo>
   <FileInfo check="Uninitialized variables">
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:106:27" my-argnr="2" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1006" col="45" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="2" my-argname="prev_input" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1226" col="29" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="3" my-argname="prev_output" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1227" col="25" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1297" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="3" my-argname="x2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1298" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="4" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1299" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="5" my-argname="y2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1300" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1326:31" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1335" col="51" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1326:31" my-argnr="3" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1342" col="64" value="0"/>
-  </FileInfo>
-  <FileInfo check="ctu">
-<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:536:22" call-funcname="SetAirEffectGainQ16" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="522" col="22" call-argexpr="gain_q16" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="517" col="23" info="Assignment &apos;G=0.0f&apos;, assigned value is 0.0"/>
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="518" col="37" info="Assignment &apos;gain_q16=(uint32_t)(G*65536.0f+0.5f)&apos;, assigned value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:264:21" call-funcname="SetAirEffectEnable" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="552" col="21" call-argexpr="preset_index&gt;0?1:0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.h:563:22" call-funcname="SetAirEffectPresetDb" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="567" col="23" call-argexpr="next" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="565" col="12" info="Assignment &apos;next=0&apos;, assigned value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:268:40" call-funcname="GetChannelState" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1365" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1762" col="55" info="Calling function &apos;ApplyFilterChain16Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:110:27" call-funcname="ApplyPostFilters" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1371" col="26" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1762" col="55" info="Calling function &apos;ApplyFilterChain16Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:268:40" call-funcname="GetChannelState" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1383" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1830" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:110:27" call-funcname="ApplyPostFilters" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1388" col="26" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1830" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:268:40" call-funcname="GetChannelState" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1400" col="53" call-argexpr="channel_id" call-argvaluetype="0" call-argvalue="0">
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1830" col="56" info="Calling function &apos;ApplyFilterChain8Bit&apos;, 2nd argument &apos;CHANNEL_LEFT&apos; value is 0"/>
-  <path file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1388" col="36" info="Calling function &apos;ApplyPostFilters&apos;, 2nd argument &apos;channel_id&apos; value is 0"/>
-</function-call><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1602:33" call-funcname="ProcessDMACallback" call-argnr="1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1689" col="23" call-argexpr="0U" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:111:27" call-funcname="ApplyFilterChain16Bit" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1762" col="41" call-argexpr="CHANNEL_LEFT" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:112:27" call-funcname="ApplyFilterChain8Bit" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1830" col="42" call-argexpr="CHANNEL_LEFT" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1252" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:85:27" my-argnr="2"/>
-<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="3" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1252" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:85:27" my-argnr="3"/>
-<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1269" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:90:27" my-argnr="2"/>
-<function-call call-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" call-funcname="ApplyDCFilterWithAlpha" call-argnr="3" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1269" col="10" my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:90:27" my-argnr="3"/>
-  </FileInfo>
-  <FileInfo check="Null pointer">
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:237:20" my-argnr="1" my-argname="state" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="239" col="3" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:106:27" my-argnr="2" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1006" col="45" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="2" my-argname="prev_input" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1226" col="29" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="3" my-argname="prev_output" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1227" col="25" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1297" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="3" my-argname="x2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1298" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="4" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1299" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="5" my-argname="y2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1300" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1326:31" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1335" col="51" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1326:31" my-argnr="3" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1342" col="64" value="0"/>
-  </FileInfo>
-  <FileInfo check="Uninitialized variables">
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:106:27" my-argnr="2" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1006" col="45" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="2" my-argname="prev_input" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1226" col="29" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="3" my-argname="prev_output" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1227" col="25" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1297" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="3" my-argname="x2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1298" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="4" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1299" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="5" my-argname="y2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1300" col="35" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1326:31" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1335" col="51" value="0"/>
-    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1326:31" my-argnr="3" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1342" col="64" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:106:27" my-argnr="2" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1034" col="45" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="2" my-argname="prev_input" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1245" col="29" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:79:27" my-argnr="3" my-argname="prev_output" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1246" col="25" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1316" col="35" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="3" my-argname="x2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1317" col="35" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="4" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1318" col="35" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:99:27" my-argnr="5" my-argname="y2" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1319" col="35" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1346:31" my-argnr="2" my-argname="x1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1355" col="51" value="0"/>
+    <unsafe-usage my-id="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c:1346:31" my-argnr="3" my-argname="y1" file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" line="1362" col="64" value="0"/>
   </FileInfo>
   <FileInfo check="CheckUnusedFunctions">
-    <functiondecl functionName="AudioEngine_OnPlaybackEnd" lineNumber="123"/>
-    <functiondecl functionName="ResetFilterChannelState" lineNumber="237"/>
-    <functiondecl functionName="ResetAllFilterState" lineNumber="257"/>
-    <functiondecl functionName="GetChannelState" lineNumber="268"/>
-    <functiondecl functionName="AudioEngine_Init" lineNumber="286"/>
-    <functiondecl functionName="SetFilterConfig" lineNumber="341"/>
-    <functiondecl functionName="GetFilterConfig" lineNumber="368"/>
-    <functiondecl functionName="SetSoftClippingEnable" lineNumber="382"/>
-    <functiondecl functionName="GetSoftClippingEnable" lineNumber="394"/>
-    <functiondecl functionName="SetLpf8BitLevel" lineNumber="406"/>
-    <functiondecl functionName="GetLpf8BitLevel" lineNumber="424"/>
-    <functiondecl functionName="SetLpf8BitCustomAlpha" lineNumber="429"/>
-    <functiondecl functionName="GetLpf8BitCustomAlpha" lineNumber="436"/>
-    <functiondecl functionName="SetFilterChain8BitEnable" lineNumber="441"/>
-    <functiondecl functionName="GetFilterChain8BitEnable" lineNumber="446"/>
-    <functiondecl functionName="SetFilterChain16BitEnable" lineNumber="451"/>
-    <functiondecl functionName="GetFilterChain16BitEnable" lineNumber="456"/>
-    <functiondecl functionName="SetAirEffectEnable" lineNumber="466"/>
-    <functiondecl functionName="GetAirEffectEnable" lineNumber="476"/>
-    <functiondecl functionName="SetAirEffectGainQ16" lineNumber="487"/>
-    <functiondecl functionName="GetAirEffectGainQ16" lineNumber="499"/>
-    <functiondecl functionName="SetAirEffectGainDb" lineNumber="511"/>
-    <functiondecl functionName="GetAirEffectGainDb" lineNumber="530"/>
-    <functiondecl functionName="SetAirEffectPresetDb" lineNumber="544"/>
-    <functiondecl functionName="CycleAirEffectPresetDb" lineNumber="561"/>
-    <functiondecl functionName="GetAirEffectPresetIndex" lineNumber="575"/>
-    <functiondecl functionName="GetAirEffectPresetCount" lineNumber="584"/>
-    <functiondecl functionName="GetAirEffectPresetDb" lineNumber="593"/>
-    <functiondecl functionName="SetLpfMakeupGain8Bit" lineNumber="667"/>
-    <functiondecl functionName="SetLpfMakeupGain16Bit" lineNumber="685"/>
-    <functiondecl functionName="GetLpfMakeupGain16Bit" lineNumber="702"/>
-    <functiondecl functionName="CalcLpf16BitAlphaFromCutoff" lineNumber="718"/>
-    <functiondecl functionName="CalcLpf8BitAlphaFromCutoff" lineNumber="738"/>
-    <functiondecl functionName="GetLpf16BitCustomAlphaFromCutoff" lineNumber="755"/>
-    <functiondecl functionName="CalcSampleOffsetSamples" lineNumber="768"/>
-    <functiondecl functionName="SetLpf16BitLevel" lineNumber="793"/>
-    <functiondecl functionName="SetLpf16BitCustomAlpha" lineNumber="829"/>
-    <functiondecl functionName="FadeTimeToSamples" lineNumber="844"/>
-    <functiondecl functionName="SetFadeInTime" lineNumber="859"/>
-    <functiondecl functionName="GetFadeInTime" lineNumber="871"/>
-    <functiondecl functionName="SetFadeOutTime" lineNumber="883"/>
-    <functiondecl functionName="GetFadeOutTime" lineNumber="895"/>
-    <functiondecl functionName="SetPauseFadeTime" lineNumber="907"/>
-    <functiondecl functionName="GetPauseFadeTime" lineNumber="919"/>
-    <functiondecl functionName="SetResumeFadeTime" lineNumber="931"/>
-    <functiondecl functionName="GetResumeFadeTime" lineNumber="943"/>
-    <functiondecl functionName="GetPlaybackSpeed" lineNumber="954"/>
-    <functiondecl functionName="Apply8BitDithering" lineNumber="977"/>
-    <functiondecl functionName="ApplyLowPassFilter8Bit" lineNumber="1001"/>
-    <functiondecl functionName="ApplyFadeIn" lineNumber="1021"/>
-    <functiondecl functionName="ApplyFadeOut" lineNumber="1053"/>
-    <functiondecl functionName="ApplyNoiseGate" lineNumber="1102"/>
-    <functiondecl functionName="UpdateFadeCounters" lineNumber="1119"/>
-    <functiondecl functionName="WarmupBiquadFilter16Bit" lineNumber="1145"/>
-    <functiondecl functionName="ComputeSoftClipCurve" lineNumber="1168"/>
-    <functiondecl functionName="ApplySoftClipping" lineNumber="1184"/>
-    <functiondecl functionName="ApplyDCFilterWithAlpha" lineNumber="1219"/>
-    <functiondecl functionName="ApplyDCBlockingFilter" lineNumber="1246"/>
-    <functiondecl functionName="ApplySoftDCFilter16Bit" lineNumber="1263"/>
-    <functiondecl functionName="ApplyLowPassFilter16Bit" lineNumber="1281"/>
-    <functiondecl functionName="ApplyAirEffect" lineNumber="1326"/>
-    <functiondecl functionName="ApplyFilterChain16Bit" lineNumber="1363"/>
-    <functiondecl functionName="ApplyFilterChain8Bit" lineNumber="1381"/>
-    <functiondecl functionName="ApplyPostFilters" lineNumber="1398"/>
-    <functiondecl functionName="ResetPlaybackState" lineNumber="1434"/>
-    <functiondecl functionName="GetPlaybackState" lineNumber="1452"/>
-    <functiondecl functionName="SetPlaybackState" lineNumber="1463"/>
-    <functiondecl functionName="SetDAC_Control" lineNumber="1474"/>
-    <functiondecl functionName="GetDAC_Control" lineNumber="1484"/>
-    <functiondecl functionName="GetHalfToFill" lineNumber="1495"/>
-    <functiondecl functionName="SetHalfToFill" lineNumber="1506"/>
-    <functiondecl functionName="SetPlaybackSpeed" lineNumber="1518"/>
-    <functiondecl functionName="RecalculateFadeSamples" lineNumber="1536"/>
-    <functiondecl functionName="EndPlaybackCleanup" lineNumber="1551"/>
-    <functiondecl functionName="StopDmaAndResetPlaybackState" lineNumber="1568"/>
-    <functiondecl functionName="StopImmediate" lineNumber="1582"/>
-    <functiondecl functionName="ProcessDMACallback" lineNumber="1602"/>
-    <functiondecl functionName="DMA0_Channel4_IRQHandler" lineNumber="1680"/>
-    <functiondecl functionName="AdvanceSamplePointer" lineNumber="1703"/>
-    <functiondecl functionName="ProcessNextWaveChunk" lineNumber="1735"/>
-    <functiondecl functionName="ProcessNextWaveChunk_8_bit" lineNumber="1799"/>
-    <functiondecl functionName="PlaySample" lineNumber="1877"/>
-    <functiondecl functionName="WaitForSampleEnd" lineNumber="1988"/>
-    <functiondecl functionName="PausePlayback" lineNumber="2015"/>
-    <functiondecl functionName="ResumePlayback" lineNumber="2071"/>
-    <functiondecl functionName="StopPlayback" lineNumber="2109"/>
-    <functiondecl functionName="ApplyVolumeResponseCurve" lineNumber="2127"/>
-    <functiondecl functionName="ApplyVolumeSetting" lineNumber="2148"/>
-    <functiondecl functionName="ShutDownAudio" lineNumber="2170"/>
-    <functiondecl functionName="GetLpf8BitAlpha" lineNumber="2188"/>
-    <functiondecl functionName="SetVolumeResponseNonlinear" lineNumber="2221"/>
-    <functiondecl functionName="GetVolumeResponseNonlinear" lineNumber="2231"/>
-    <functiondecl functionName="SetVolumeResponseGamma" lineNumber="2245"/>
-    <functiondecl functionName="GetVolumeResponseGamma" lineNumber="2257"/>
-    <functiondecl functionName="dma_config" lineNumber="2269"/>
-    <functiondecl functionName="AudioEngine_OnPlaybackEnd" lineNumber="123"/>
-    <functiondecl functionName="ResetFilterChannelState" lineNumber="237"/>
-    <functiondecl functionName="ResetAllFilterState" lineNumber="257"/>
-    <functiondecl functionName="GetChannelState" lineNumber="268"/>
-    <functiondecl functionName="AudioEngine_Init" lineNumber="286"/>
-    <functiondecl functionName="SetFilterConfig" lineNumber="341"/>
-    <functiondecl functionName="GetFilterConfig" lineNumber="368"/>
-    <functiondecl functionName="SetSoftClippingEnable" lineNumber="382"/>
-    <functiondecl functionName="GetSoftClippingEnable" lineNumber="394"/>
-    <functiondecl functionName="SetLpf8BitLevel" lineNumber="406"/>
-    <functiondecl functionName="GetLpf8BitLevel" lineNumber="424"/>
-    <functiondecl functionName="SetLpf8BitCustomAlpha" lineNumber="429"/>
-    <functiondecl functionName="GetLpf8BitCustomAlpha" lineNumber="436"/>
-    <functiondecl functionName="SetFilterChain8BitEnable" lineNumber="441"/>
-    <functiondecl functionName="GetFilterChain8BitEnable" lineNumber="446"/>
-    <functiondecl functionName="SetFilterChain16BitEnable" lineNumber="451"/>
-    <functiondecl functionName="GetFilterChain16BitEnable" lineNumber="456"/>
-    <functiondecl functionName="SetAirEffectEnable" lineNumber="466"/>
-    <functiondecl functionName="GetAirEffectEnable" lineNumber="476"/>
-    <functiondecl functionName="SetAirEffectGainQ16" lineNumber="487"/>
-    <functiondecl functionName="GetAirEffectGainQ16" lineNumber="499"/>
-    <functiondecl functionName="SetAirEffectGainDb" lineNumber="511"/>
-    <functiondecl functionName="GetAirEffectGainDb" lineNumber="530"/>
-    <functiondecl functionName="SetAirEffectPresetDb" lineNumber="544"/>
-    <functiondecl functionName="CycleAirEffectPresetDb" lineNumber="561"/>
-    <functiondecl functionName="GetAirEffectPresetIndex" lineNumber="575"/>
-    <functiondecl functionName="GetAirEffectPresetCount" lineNumber="584"/>
-    <functiondecl functionName="GetAirEffectPresetDb" lineNumber="593"/>
-    <functiondecl functionName="SetLpfMakeupGain8Bit" lineNumber="667"/>
-    <functiondecl functionName="SetLpfMakeupGain16Bit" lineNumber="685"/>
-    <functiondecl functionName="GetLpfMakeupGain16Bit" lineNumber="702"/>
-    <functiondecl functionName="CalcLpf16BitAlphaFromCutoff" lineNumber="718"/>
-    <functiondecl functionName="CalcLpf8BitAlphaFromCutoff" lineNumber="738"/>
-    <functiondecl functionName="GetLpf16BitCustomAlphaFromCutoff" lineNumber="755"/>
-    <functiondecl functionName="CalcSampleOffsetSamples" lineNumber="768"/>
-    <functiondecl functionName="SetLpf16BitLevel" lineNumber="793"/>
-    <functiondecl functionName="SetLpf16BitCustomAlpha" lineNumber="829"/>
-    <functiondecl functionName="FadeTimeToSamples" lineNumber="844"/>
-    <functiondecl functionName="SetFadeInTime" lineNumber="859"/>
-    <functiondecl functionName="GetFadeInTime" lineNumber="871"/>
-    <functiondecl functionName="SetFadeOutTime" lineNumber="883"/>
-    <functiondecl functionName="GetFadeOutTime" lineNumber="895"/>
-    <functiondecl functionName="SetPauseFadeTime" lineNumber="907"/>
-    <functiondecl functionName="GetPauseFadeTime" lineNumber="919"/>
-    <functiondecl functionName="SetResumeFadeTime" lineNumber="931"/>
-    <functiondecl functionName="GetResumeFadeTime" lineNumber="943"/>
-    <functiondecl functionName="GetPlaybackSpeed" lineNumber="954"/>
-    <functiondecl functionName="Apply8BitDithering" lineNumber="977"/>
-    <functiondecl functionName="ApplyLowPassFilter8Bit" lineNumber="1001"/>
-    <functiondecl functionName="ApplyFadeIn" lineNumber="1021"/>
-    <functiondecl functionName="ApplyFadeOut" lineNumber="1053"/>
-    <functiondecl functionName="ApplyNoiseGate" lineNumber="1102"/>
-    <functiondecl functionName="UpdateFadeCounters" lineNumber="1119"/>
-    <functiondecl functionName="WarmupBiquadFilter16Bit" lineNumber="1145"/>
-    <functiondecl functionName="ComputeSoftClipCurve" lineNumber="1168"/>
-    <functiondecl functionName="ApplySoftClipping" lineNumber="1184"/>
-    <functiondecl functionName="ApplyDCFilterWithAlpha" lineNumber="1219"/>
-    <functiondecl functionName="ApplyDCBlockingFilter" lineNumber="1246"/>
-    <functiondecl functionName="ApplySoftDCFilter16Bit" lineNumber="1263"/>
-    <functiondecl functionName="ApplyLowPassFilter16Bit" lineNumber="1281"/>
-    <functiondecl functionName="ApplyAirEffect" lineNumber="1326"/>
-    <functiondecl functionName="ApplyFilterChain16Bit" lineNumber="1363"/>
-    <functiondecl functionName="ApplyFilterChain8Bit" lineNumber="1381"/>
-    <functiondecl functionName="ApplyPostFilters" lineNumber="1398"/>
-    <functiondecl functionName="ResetPlaybackState" lineNumber="1434"/>
-    <functiondecl functionName="GetPlaybackState" lineNumber="1452"/>
-    <functiondecl functionName="SetPlaybackState" lineNumber="1463"/>
-    <functiondecl functionName="SetDAC_Control" lineNumber="1474"/>
-    <functiondecl functionName="GetDAC_Control" lineNumber="1484"/>
-    <functiondecl functionName="GetHalfToFill" lineNumber="1495"/>
-    <functiondecl functionName="SetHalfToFill" lineNumber="1506"/>
-    <functiondecl functionName="SetPlaybackSpeed" lineNumber="1518"/>
-    <functiondecl functionName="RecalculateFadeSamples" lineNumber="1536"/>
-    <functiondecl functionName="EndPlaybackCleanup" lineNumber="1551"/>
-    <functiondecl functionName="StopDmaAndResetPlaybackState" lineNumber="1568"/>
-    <functiondecl functionName="StopImmediate" lineNumber="1582"/>
-    <functiondecl functionName="ProcessDMACallback" lineNumber="1602"/>
-    <functiondecl functionName="DMA0_Channel4_IRQHandler" lineNumber="1680"/>
-    <functiondecl functionName="AdvanceSamplePointer" lineNumber="1703"/>
-    <functiondecl functionName="ProcessNextWaveChunk" lineNumber="1735"/>
-    <functiondecl functionName="ProcessNextWaveChunk_8_bit" lineNumber="1799"/>
-    <functiondecl functionName="PlaySample" lineNumber="1877"/>
-    <functiondecl functionName="WaitForSampleEnd" lineNumber="1988"/>
-    <functiondecl functionName="PausePlayback" lineNumber="2015"/>
-    <functiondecl functionName="ResumePlayback" lineNumber="2071"/>
-    <functiondecl functionName="StopPlayback" lineNumber="2109"/>
-    <functiondecl functionName="ApplyVolumeResponseCurve" lineNumber="2127"/>
-    <functiondecl functionName="ApplyVolumeSetting" lineNumber="2148"/>
-    <functiondecl functionName="ShutDownAudio" lineNumber="2170"/>
-    <functiondecl functionName="GetLpf8BitAlpha" lineNumber="2188"/>
-    <functiondecl functionName="SetVolumeResponseNonlinear" lineNumber="2221"/>
-    <functiondecl functionName="GetVolumeResponseNonlinear" lineNumber="2231"/>
-    <functiondecl functionName="SetVolumeResponseGamma" lineNumber="2245"/>
-    <functiondecl functionName="GetVolumeResponseGamma" lineNumber="2257"/>
-    <functiondecl functionName="dma_config" lineNumber="2269"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="AudioEngine_OnPlaybackEnd" lineNumber="126"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ResetFilterChannelState" lineNumber="241"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ResetAllFilterState" lineNumber="261"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetChannelState" lineNumber="272"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="AudioEngine_Init" lineNumber="290"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetFilterConfig" lineNumber="345"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetFilterConfig" lineNumber="372"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetSoftClippingEnable" lineNumber="386"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetSoftClippingEnable" lineNumber="398"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetLpf8BitLevel" lineNumber="410"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetLpf8BitLevel" lineNumber="428"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetLpf8BitCustomAlpha" lineNumber="433"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetLpf8BitCustomAlpha" lineNumber="440"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetFilterChain8BitEnable" lineNumber="445"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetFilterChain8BitEnable" lineNumber="450"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetFilterChain16BitEnable" lineNumber="455"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetFilterChain16BitEnable" lineNumber="460"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetAirEffectEnable" lineNumber="470"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetAirEffectEnable" lineNumber="480"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetAirEffectGainQ16" lineNumber="491"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetAirEffectGainQ16" lineNumber="503"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetAirEffectGainDb" lineNumber="515"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetAirEffectGainDb" lineNumber="534"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetAirEffectPresetDb" lineNumber="548"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="CycleAirEffectPresetDb" lineNumber="565"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetAirEffectPresetIndex" lineNumber="579"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetAirEffectPresetCount" lineNumber="588"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetAirEffectPresetDb" lineNumber="597"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetLpfMakeupGain8Bit" lineNumber="671"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetLpfMakeupGain16Bit" lineNumber="689"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetLpfMakeupGain16Bit" lineNumber="706"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="CalcLpf16BitAlphaFromCutoff" lineNumber="722"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="CalcLpf8BitAlphaFromCutoff" lineNumber="742"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetLpf16BitCustomAlphaFromCutoff" lineNumber="759"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="CalcSampleOffsetSamples" lineNumber="772"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetLpf16BitLevel" lineNumber="797"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetLpf16BitCustomAlpha" lineNumber="833"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="FadeTimeToSamples" lineNumber="848"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetFadersEnabled" lineNumber="863"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetFadersEnabled" lineNumber="875"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetFadeInTime" lineNumber="887"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetFadeInTime" lineNumber="899"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetFadeOutTime" lineNumber="911"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetFadeOutTime" lineNumber="923"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetPauseFadeTime" lineNumber="935"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetPauseFadeTime" lineNumber="947"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetResumeFadeTime" lineNumber="959"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetResumeFadeTime" lineNumber="971"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetPlaybackSpeed" lineNumber="982"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="Apply8BitDithering" lineNumber="1005"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyLowPassFilter8Bit" lineNumber="1029"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyFadeIn" lineNumber="1050"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyFadeOut" lineNumber="1082"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyNoiseGate" lineNumber="1121"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="UpdateFadeCounters" lineNumber="1138"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="WarmupBiquadFilter16Bit" lineNumber="1164"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ComputeSoftClipCurve" lineNumber="1187"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplySoftClipping" lineNumber="1203"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyDCFilterWithAlpha" lineNumber="1238"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyDCBlockingFilter" lineNumber="1265"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplySoftDCFilter16Bit" lineNumber="1282"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyLowPassFilter16Bit" lineNumber="1300"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyAirEffect" lineNumber="1346"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyFilterChain16Bit" lineNumber="1383"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyFilterChain8Bit" lineNumber="1401"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyPostFilters" lineNumber="1418"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ResetPlaybackState" lineNumber="1458"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetPlaybackState" lineNumber="1477"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetPlaybackState" lineNumber="1488"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetDAC_Control" lineNumber="1499"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetDAC_Control" lineNumber="1509"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetHalfToFill" lineNumber="1520"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetHalfToFill" lineNumber="1531"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetPlaybackSpeed" lineNumber="1543"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="RecalculateFadeSamples" lineNumber="1561"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="EndPlaybackCleanup" lineNumber="1576"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="StopDmaAndResetPlaybackState" lineNumber="1593"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="StopImmediate" lineNumber="1608"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ProcessDMACallback" lineNumber="1628"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="DMA0_Channel4_IRQHandler" lineNumber="1707"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="AdvanceSamplePointer" lineNumber="1730"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ProcessNextWaveChunk" lineNumber="1764"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ProcessNextWaveChunk_8_bit" lineNumber="1829"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="PlaySample" lineNumber="1908"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="WaitForSampleEnd" lineNumber="2019"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="PausePlayback" lineNumber="2046"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ResumePlayback" lineNumber="2105"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="StopPlayback" lineNumber="2147"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyVolumeResponseCurve" lineNumber="2165"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ApplyVolumeSetting" lineNumber="2209"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="ShutDownAudio" lineNumber="2237"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetLpf8BitAlpha" lineNumber="2255"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetVolumeResponseNonlinear" lineNumber="2288"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetVolumeResponseNonlinear" lineNumber="2298"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="SetVolumeResponseGamma" lineNumber="2312"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="GetVolumeResponseGamma" lineNumber="2324"/>
+    <functiondecl file="/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c" functionName="dma_config" lineNumber="2336"/>
     <functioncall functionName="AdvanceSamplePointer"/>
     <functioncall functionName="Apply8BitDithering"/>
     <functioncall functionName="ApplyAirEffect"/>
@@ -328,13 +193,7 @@
     <functioncall functionName="ApplySoftDCFilter16Bit"/>
     <functioncall functionName="ApplyVolumeResponseCurve"/>
     <functioncall functionName="ApplyVolumeSetting"/>
-    <functioncall functionName="AudioEngine_DACSwitch"/>
-    <functioncall functionName="AudioEngine_I2SInit"/>
     <functioncall functionName="AudioEngine_OnPlaybackEnd"/>
-    <functioncall functionName="AudioEngine_ReadVolume"/>
-    <functioncall functionName="CHANNEL_COUNT"/>
-    <functioncall functionName="CHANNEL_LEFT"/>
-    <functioncall functionName="CHANNEL_RIGHT"/>
     <functioncall functionName="CalcLpf16BitAlphaFromCutoff"/>
     <functioncall functionName="ComputeSoftClipCurve"/>
     <functioncall functionName="DMA0"/>
@@ -355,18 +214,7 @@
     <functioncall functionName="FadeTimeToSamples"/>
     <functioncall functionName="GetChannelState"/>
     <functioncall functionName="GetLpf8BitAlpha"/>
-    <functioncall functionName="LPF_Custom"/>
-    <functioncall functionName="LPF_Medium"/>
-    <functioncall functionName="LPF_Soft"/>
-    <functioncall functionName="LPF_VerySoft"/>
-    <functioncall functionName="Mode_mono"/>
-    <functioncall functionName="Mode_stereo"/>
     <functioncall functionName="NULL"/>
-    <functioncall functionName="PB_Error"/>
-    <functioncall functionName="PB_Idle"/>
-    <functioncall functionName="PB_Paused"/>
-    <functioncall functionName="PB_Pausing"/>
-    <functioncall functionName="PB_Playing"/>
     <functioncall functionName="ProcessDMACallback"/>
     <functioncall functionName="ProcessNextWaveChunk"/>
     <functioncall functionName="ProcessNextWaveChunk_8_bit"/>
@@ -402,6 +250,7 @@
     <functioncall functionName="memset"/>
     <functioncall functionName="powf"/>
     <functioncall functionName="spi_config"/>
+    <functioncall functionName="spi_dma_disable"/>
     <functioncall functionName="true"/>
   </FileInfo>
 </analyzerinfo>

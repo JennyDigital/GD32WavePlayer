@@ -1,0 +1,2 @@
+ChimeLoop global:[AudioEngine_DACSwitch,dalby_tritone16b16k,option] call:[AudioEngine_DACSwitch,Enter_LP_SleepMode,GetOption,GetTriggerOption,PlaySample,SetDAC_Control,SetFadeInTime,SetFadeOutTime,SetLpf16BitLevel,SetSleepSetting,SetSoftClippingEnable,ShutDownAudio,StopPlayback,WaitForSampleEnd,WaitForTrigger,__disable_irq] noreturn:[Enter_LP_SleepMode,StopPlayback,WaitForTrigger]
+GetOption call:[gpio_input_bit_get,return] noreturn:[return]

@@ -114,6 +114,9 @@ static          int16_t   ApplyFilterChain8Bit        ( int16_t sample, AudioCha
 // DMA stop helper
 static inline   void      StopDmaAndResetPlaybackState( uint8_t reset_state );
 
+// Default fader state
+volatile uint8_t faders_enabled = 1;
+
 /* Hardware interface function pointers (set by application) */
 DAC_SwitchFunc  AudioEngine_DACSwitch   = NULL;
 ReadVolumeFunc  AudioEngine_ReadVolume  = NULL;
@@ -154,24 +157,23 @@ volatile FilterConfig_TypeDef filter_cfg = {
 };
 
 /* Playback state variables */
-volatile  uint8_t         *pb_p8_ptr;                               // Pointer for 8-bit sample processing
-volatile  uint8_t         *pb_end8_ptr;                             // End pointer for 8-bit sample processing
-volatile  uint16_t        *pb_p16_ptr;                              // Pointer for 16-bit sample processing
-volatile  uint16_t        *pb_end16_ptr;                            // End pointer for 16-bit sample processing
+  volatile  uint8_t         *pb_p8_ptr;                               // Pointer for 8-bit sample processing
+volatile  uint8_t           *pb_end8_ptr;                             // End pointer for 8-bit sample processing
+volatile  uint16_t          *pb_p16_ptr;                              // Pointer for 16-bit sample processing
+volatile  uint16_t          *pb_end16_ptr;                            // End pointer for 16-bit sample processing
 
-volatile  uint16_t        fade_offset;
-
-volatile  uint8_t         pb_state                    = PB_Idle;    // Playback state machine variable
-volatile  uint8_t         half_to_fill;                             // Flag to indicate which half of the buffer to fill in the DMA callback
-          uint8_t         pb_mode;                                  // Mono or stereo mode (set by application before playback)
-          uint32_t        I2S_PlaybackSpeed           = 22025;      // Default playback speed in Hz
+volatile  PB_StatusTypeDef  pb_state                    = PB_Idle;    // Playback state machine variable
+volatile  uint8_t           half_to_fill;                             // Flag to indicate which half of the buffer to fill in the DMA callback
+          uint8_t           pb_mode;                                  // Mono or stereo mode (set by application before playback)
+          uint32_t          I2S_PlaybackSpeed           = 22025;      // Default playback speed in Hz
 
 /* Playback engine control variables */
-          uint32_t        p_advance;                                // Number of samples to advance in current buffer.
-          PB_ModeTypeDef  channels                    = Mode_mono;  // Default to mono; set to Mode_stereo for stereo playback.
-volatile  uint32_t        samples_remaining           = 0;          // Total samples remaining in current playback (used for tracking when to stop)
-volatile  uint32_t        fadein_samples_remaining    = 0;          // Fade-in samples remaining, used for applying fade-in effect over specified duration
-volatile  uint32_t        fadeout_samples_remaining   = 0;          // Fade-out samples remaining, used for applying fade-out effect over specified duration
+          uint32_t          p_advance;                                // Number of samples to advance in current buffer.
+          PB_ModeTypeDef    channels                    = Mode_mono;  // Default to mono; set to Mode_stereo for stereo playback.
+volatile  uint32_t          samples_remaining           = 0;          // Total samples remaining in current playback (used for tracking when to stop)
+volatile  uint32_t          fadein_samples_remaining    = 0;          // Fade-in samples remaining, used for applying fade-in effect over specified duration
+volatile  uint32_t          fadeout_samples_remaining   = 0;          // Fade-out samples remaining, used for applying fade-out effect over specified duration
+volatile  uint32_t          paused_samples_remaining    = 0;          // Saved remaining samples at pause point (used to resume correctly)
 
 /* Fade time configuration (stored in seconds, converted to samples based on playback speed) */
           float           fadein_time_seconds         = 0.150f;     // 150ms default
@@ -852,6 +854,30 @@ static uint32_t FadeTimeToSamples( float seconds )
 }
 
 
+/** Fader state Setter
+  *
+  * @brief Sets whether to apply fades or not.
+  * @param: fader_setting - 1 is faders enabled, 0 is disabled.
+  * @retval: none
+  */
+void SetFadersEnabled( uint8_t fader_setting )
+{
+  faders_enabled = fader_setting ? 1 : 0;
+}
+
+
+/** Fader state getter
+  *
+  * @brief Gets the the fader enable state
+  * @param: none
+  * @retval: fader_enabled state.
+  */
+uint8_t GetFadersEnabled( void )
+{
+  return faders_enabled;
+}
+
+
 /** Set fade-in time in seconds
   * 
   * @brief Sets the fade-in duration based on the current playback speed.
@@ -1008,6 +1034,7 @@ static int16_t PUT_IN_FASTMEM ApplyLowPassFilter8Bit( int16_t sample, volatile i
                    ( ( one_minus_alpha * ( *y1 ) ) >> 16 );
   // Apply makeup gain
   int64_t output64 = ( (int64_t)output * (int64_t)filter_cfg.lpf_makeup_gain_q16 ) >> 16;
+  // Clamp to valid 16-bit range
   if( output64 > AUDIO_INT16_MAX ) output64 = AUDIO_INT16_MAX;
   if( output64 < AUDIO_INT16_MIN ) output64 = AUDIO_INT16_MIN;
   *y1 = (int32_t)output64;
@@ -1052,7 +1079,7 @@ static int16_t PUT_IN_FASTMEM ApplyFadeIn( int16_t sample )
   * @param: sample - Signed 16-bit audio sample
   * @retval: int16_t - Faded-out signed 16-bit audio sample
   */
-static int16_t PUT_IN_FASTMEM ApplyFadeOut( int16_t sample )
+static int16_t ApplyFadeOut( int16_t sample )
 {
   uint8_t should_apply_fade = 0;
   uint32_t fade_total       = 0;
@@ -1064,24 +1091,13 @@ static int16_t PUT_IN_FASTMEM ApplyFadeOut( int16_t sample )
     fade_total        = pause_fadeout_samples;
     remaining_to_use  = fadeout_samples_remaining;
   } else if( pb_state == PB_Playing ) {
-    /* For normal playback, check if we're in the fadeout window based on file position.
-       Calculate remaining samples from current pointer position to end. */
-    uint32_t remaining_in_file = 0;
-    
-    if( pb_mode == 16 ) {
-      remaining_in_file = (uint32_t)( pb_end16_ptr - ( pb_p16_ptr + fade_offset ) );
-    } else {
-      remaining_in_file = (uint32_t)( pb_end8_ptr - ( pb_p8_ptr + fade_offset ) );
-    }
-    
-    if( remaining_in_file > 0 && remaining_in_file <= fadeout_samples ) {
+    if( samples_remaining > 0 && samples_remaining <= fadeout_samples ) {
       should_apply_fade = 1;
       fade_total = fadeout_samples;
-      remaining_to_use = remaining_in_file;
+      remaining_to_use = samples_remaining;
     }
   }
   
-
   if( should_apply_fade ) {
     // Use 64-bit intermediate to prevent overflow when squaring remaining
     int64_t fade_mult   = ( (int64_t)remaining_to_use * (int64_t)remaining_to_use ) / fade_total;
@@ -1308,6 +1324,7 @@ static int16_t PUT_IN_FASTMEM
   *y1 = output;
   // Apply 16-bit LPF makeup gain
   int64_t output64 = ( (int64_t)output * (int64_t)filter_cfg.lpf_makeup_gain_16bit_q16 ) >> 16;
+  // Clamp to valid 16-bit range
   if ( output64 > AUDIO_INT16_MAX ) output64 = AUDIO_INT16_MAX;
   if ( output64 < AUDIO_INT16_MIN ) output64 = AUDIO_INT16_MIN;
   output = (int32_t)output64;
@@ -1414,9 +1431,13 @@ static inline int16_t PUT_IN_FASTMEM ApplyPostFilters( int16_t sample, AudioChan
     sample = ApplyAirEffect( sample, &channel->air_x1, &channel->air_y1 );
   }
 #endif
-  
-  sample = ApplyFadeIn( sample );
-  sample = ApplyFadeOut( sample );
+
+  // Apply faders if enabled
+  if( faders_enabled )
+  {  
+    sample = ApplyFadeIn( sample );
+    sample = ApplyFadeOut( sample );
+  }
   
   if( filter_cfg.enable_noise_gate ) {
     sample = ApplyNoiseGate( sample );
@@ -1435,11 +1456,12 @@ static inline int16_t PUT_IN_FASTMEM ApplyPostFilters( int16_t sample, AudioChan
   * Resets mode, pointers, and counters.
   */
 static void ResetPlaybackState( void ) {
-  pb_mode                       = PB_Idle;
+  pb_mode                       = 0;
   paused_sample_ptr             = NULL;
   samples_remaining             = 0;
   fadeout_samples_remaining     = 0;
   fadein_samples_remaining      = 0;
+  paused_samples_remaining      = 0;
   stop_requested                = 0;
   playback_end_callback_called  = 0;
 }
@@ -1450,9 +1472,9 @@ static void ResetPlaybackState( void ) {
 /** Get current playback state
   * 
   * @param: none
-  * @retval: uint8_t - Current playback state (PB_Idle, PB_Playing, PB_Paused)
+  * @retval: PB_StatusTypeDef - Current playback state (PB_Idle, PB_Playing, PB_Paused)
   */
-uint8_t GetPlaybackState( void )
+PB_StatusTypeDef GetPlaybackState( void )
 {
   return pb_state;
 }
@@ -1463,7 +1485,7 @@ uint8_t GetPlaybackState( void )
   * @param: state - Desired playback state (PB_Idle, PB_Playing, PB_Paused)
   * @retval: none
   */
-void SetPlaybackState( uint8_t state )
+void SetPlaybackState( PB_StatusTypeDef state )
 {
   pb_state = state;
 }
@@ -1654,8 +1676,8 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
   half_to_fill = which_half;
 
   if( pb_mode == 16 || pb_mode == 8 ) {
-    if( ( pb_mode == 16 && ( pb_p16_ptr >= pb_end16_ptr ) ) ||
-        ( pb_mode == 8  && ( pb_p8_ptr  >= pb_end8_ptr  ) )
+    if( ( pb_mode == 16 && pb_p16_ptr >= pb_end16_ptr ) ||
+        ( pb_mode == 8  && pb_p8_ptr  >= pb_end8_ptr )
       ) {
       EndPlaybackCleanup();   // Cleanup and stop playback if we've reached the end of the sample data.
       return;
@@ -1674,9 +1696,12 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
 }
 
 
-/** DMA Interrupt entry point
+/** Handle refilling the first half of the buffer whilst the second half is playing
   *
-  * Separates the half full from the full and calls ProcessDMACallback to updte the buffer.
+  * params: hi2s_p I2S port handle.
+  * retval: none.
+  *
+  * NOTE: Also shuts down the playback when the recording is done.
   *
   */
 void DMA0_Channel4_IRQHandler( void )
@@ -1736,7 +1761,7 @@ void AdvanceSamplePointer( void )
   * @retval: none.
   *
   */
-PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk( int16_t * chunk_p )
+PB_StatusTypeDef ProcessNextWaveChunk( int16_t * chunk_p )
 {
   int16_t *input, *output;
   int16_t leftsample, rightsample;
@@ -1744,8 +1769,6 @@ PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk( int16_t * chunk_p )
   if( chunk_p == NULL ) {   // Sanity check
     return PB_Error;
   }
-
-  fade_offset = 0;
 
   vol_input = AudioEngine_ReadVolume();
 
@@ -1789,11 +1812,9 @@ PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk( int16_t * chunk_p )
     // Update fade counters based on samples processed
     uint32_t samples_processed = ( channels == Mode_stereo ) ? 2 : 1;
 
-    fade_offset++;
-
     UpdateFadeCounters( samples_processed );
   }
-  return PB_Playing;
+  return PB_Playing;;
 }
 
 
@@ -1805,7 +1826,7 @@ PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk( int16_t * chunk_p )
   * @retval: none.
   *
   */
-PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
+PB_StatusTypeDef ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
 {
   uint8_t *input;
   int16_t *output;
@@ -1816,8 +1837,6 @@ PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
   }
 
   vol_input = AudioEngine_ReadVolume();
-
-  fade_offset = 0;
 
   input   = chunk_p;                                                        // Source sample pointer
   output  = ( half_to_fill == SECOND ) ? ( pb_buffer + CHUNK_SZ ) : pb_buffer;
@@ -1864,8 +1883,6 @@ PB_StatusTypeDef PUT_IN_FASTMEM ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
     
     // Update fade counters based on samples processed
     uint32_t samples_processed = ( channels == Mode_stereo ) ? 2 : 1;
-
-    fade_offset++;
 
     UpdateFadeCounters( samples_processed );
   }
@@ -2001,7 +2018,7 @@ PB_StatusTypeDef PlaySample (
   */
 PB_StatusTypeDef WaitForSampleEnd( void )
 {
-  while( pb_state == PB_Playing ) {
+  while( pb_state == PB_Playing || pb_state == PB_Pausing || pb_state == PB_Paused ) {
     __NOP();  // Prevent optimizer from removing loop
   }
   
@@ -2038,6 +2055,9 @@ PB_StatusTypeDef PausePlayback( void )
   } else {
     paused_sample_ptr = (const void *)pb_p8_ptr;
   }
+
+  /* Preserve remaining samples so resume doesn't skip the end-of-file logic */
+  paused_samples_remaining = samples_remaining;
   
   /* Calculate current volume level if fading in */
   uint32_t fadeout_start_level = pause_fadeout_samples;
@@ -2084,8 +2104,8 @@ PB_StatusTypeDef PausePlayback( void )
   */
 PB_StatusTypeDef ResumePlayback( void )
 {
-  if( pb_state != PB_Paused ) {
-    return pb_state;  // Can only resume from paused state
+  if( pb_state != PB_Paused && pb_state != PB_Pausing ) {
+    return pb_state;  // Can only resume from paused or pausing state
   }
   
   /* Restore playback position from where it was paused */
@@ -2096,7 +2116,11 @@ PB_StatusTypeDef ResumePlayback( void )
       pb_p8_ptr   = (uint8_t *)paused_sample_ptr;
     }
   }
-  
+
+  /* Restore remaining samples to align fade-out timing after resume */
+  if( paused_samples_remaining > 0 ) {
+    samples_remaining = paused_samples_remaining;
+  }
 
   /* Resume playback from where it was paused */
   pb_state = PB_Playing;
@@ -2141,10 +2165,13 @@ PB_StatusTypeDef StopPlayback( void )
 static inline uint16_t ApplyVolumeResponseCurve( uint16_t linear_volume )
 {
   if( volume_response_nonlinear ) {
+
     /* Normalize to 0.0-1.0 range */
     float normalized = (float)linear_volume / 65535.0f;
+
     /* Apply inverse power law (gamma > 1 creates logarithmic response) */
     float curved = powf( normalized, 1.0f / volume_response_gamma );
+    
     /* Scale back to 0-65535 range */
     return (uint16_t)( curved * 65535.0f + 0.5f );
   } else {

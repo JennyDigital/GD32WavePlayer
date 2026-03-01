@@ -1,3 +1,4 @@
 audio_engine.a1::Libraries/audio_engine.c
+dalby_multi.a1::dalby_multi.c
 main.a1::main.c
 audio_engine.a2::/home/jennifer/repos/GD32WavePlayer/Libraries/audio_engine.c
