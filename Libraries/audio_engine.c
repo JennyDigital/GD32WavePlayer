@@ -1593,7 +1593,7 @@ static inline void EndPlaybackCleanup( void )
 static inline void StopDmaAndResetPlaybackState( uint8_t reset_state )
 {
   dma_interrupt_disable( DMA0, DMA_CH4, DMA_INT_HTF | DMA_INT_FTF );
-  spi_dma_disable( PROJECT_SPI, DMA0 );   // FINDME
+  spi_dma_disable( PROJECT_SPI, SPI_DMA_TRANSMIT );   // FINDME
   i2s_disable( PROJECT_SPI );
   if( reset_state ) {
     ResetPlaybackState();
@@ -1765,6 +1765,7 @@ PB_StatusTypeDef ProcessNextWaveChunk( int16_t * chunk_p )
 {
   int16_t *input, *output;
   int16_t leftsample, rightsample;
+  uint16_t current_volume;
 
   if( chunk_p == NULL ) {   // Sanity check
     return PB_Error;
@@ -1782,11 +1783,14 @@ PB_StatusTypeDef ProcessNextWaveChunk( int16_t * chunk_p )
   //
   for( uint16_t i = 0; i < HALFCHUNK_SZ; i++ )
   {
+    current_volume = AudioEngine_ReadVolume();
+    vol_input = current_volume;
+
     if( (uint16_t *) input >=  pb_end16_ptr ) {                                   // Check for end of sample data
       leftsample = SAMPLE16_MIDPOINT;                                             // Pad with silence if at end 
     }
     else {
-      leftsample = ApplyVolumeSetting( *input, vol_input );                       // Apply volume setting
+      leftsample = ApplyVolumeSetting( *input, current_volume );                  // Apply volume setting
       if( filter_cfg.enable_filter_chain_16bit == 1 ) {
       leftsample = ApplyFilterChain16Bit( leftsample, CHANNEL_LEFT );             // Apply complete filter chain
       }
@@ -1799,7 +1803,7 @@ PB_StatusTypeDef ProcessNextWaveChunk( int16_t * chunk_p )
         rightsample = SAMPLE16_MIDPOINT;                                          // Pad with silence if at end
       }
       else { 
-        rightsample = ApplyVolumeSetting( *input, vol_input );                    // Right channel
+        rightsample = ApplyVolumeSetting( *input, current_volume );               // Right channel
         if( filter_cfg.enable_filter_chain_16bit == 1 ) {
         rightsample = ApplyFilterChain16Bit( rightsample, CHANNEL_RIGHT );        // Apply complete filter chain
         }
@@ -1831,6 +1835,7 @@ PB_StatusTypeDef ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
   uint8_t *input;
   int16_t *output;
   int16_t leftsample, rightsample;
+  uint16_t current_volume;
 
   if( chunk_p == NULL ) {   // Sanity check
     return PB_Error;
@@ -1848,6 +1853,9 @@ PB_StatusTypeDef ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
 
   for( uint16_t i = 0; i < HALFCHUNK_SZ; i++ )
   {
+    current_volume = AudioEngine_ReadVolume();
+    vol_input = current_volume;
+
     if( (uint8_t *) input >=  pb_end8_ptr ) {                               // Check for end of sample data
       leftsample = SAMPLE16_MIDPOINT;                                       // Pad with silence if at end
     }
@@ -1855,7 +1863,7 @@ PB_StatusTypeDef ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
       /* Convert unsigned 8-bit (0..255) -> signed 16-bit with dithering */
       uint8_t sample8 = *input;
       leftsample = Apply8BitDithering( sample8 );                           // Left channel with dithering
-      leftsample = ApplyVolumeSetting( leftsample, vol_input );
+      leftsample = ApplyVolumeSetting( leftsample, current_volume );
       if( filter_cfg.enable_filter_chain_8bit == 1 ) {
         leftsample = ApplyFilterChain8Bit( leftsample, CHANNEL_LEFT );       // Apply complete filter chain
       }
@@ -1871,7 +1879,7 @@ PB_StatusTypeDef ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
         /* Convert unsigned 8-bit (0..255) -> signed 16-bit with dithering */
         uint8_t sample8 = *input;
         rightsample = Apply8BitDithering( sample8 );                        // Right channel with dithering
-        rightsample = ApplyVolumeSetting( rightsample, vol_input );
+        rightsample = ApplyVolumeSetting( rightsample, current_volume );
         if( filter_cfg.enable_filter_chain_8bit == 1 ) {
           rightsample = ApplyFilterChain8Bit( rightsample, CHANNEL_RIGHT );   // Apply complete filter chain
         }
@@ -2179,25 +2187,6 @@ static inline uint16_t ApplyVolumeResponseCurve( uint16_t linear_volume )
     return linear_volume;
   }
 }
-
-///** Apply volume setting to sample
-//  * 
-//  * @param: sample - Signed 16-bit audio sample
-//  * @param: volume_setting - Volume division factor (1 to 65535) where 65535 is full volume and 1 is minimum audible volume
-//  * @retval: int16_t - Volume-adjusted signed 16-bit audio sample
-//  */
-//static inline int16_t ApplyVolumeSetting( int16_t sample, uint16_t volume_setting )
-//{
-//  /* Apply non-linear volume response curve if enabled */
-//  uint16_t adjusted_volume = ApplyVolumeResponseCurve( volume_setting );
-  
-//  int32_t sample32 = (int32_t) sample;
-//  int32_t volume32 = (int32_t) adjusted_volume;
-
-//  /* Apply 16-bit volume (0-65535) with proper scaling to 0.0-1.0 range
-//     Preserve signed sample polarity by keeping all math in signed space. */
-//  return  (int16_t)( ( sample32 * volume32 ) / 65535 );
-//}
 
 
 /** Apply volume setting to sample
