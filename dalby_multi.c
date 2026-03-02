@@ -70,7 +70,7 @@ void ChimeLoop( void )
     case OPT_MindTheDoor:   // Value: 1
         SetSleepSetting( 1 );
         AudioEngine_DACSwitch( 1 );
-        SetFadeInTime( 0.2f );
+        SetFadeInTime( 0.1f );
         SetFadeOutTime( 0.2f );
         SetDAC_Control( 1 );
 
@@ -100,9 +100,15 @@ void ChimeLoop( void )
         PlaySample( do16k16b1c, DO16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, DO16K16B1C_PB_FMT );
         WaitForTrigger( TRIGGER_CLR );
         StopPlayback();
+        if( option != OPT_DoorsOpeningClosing ) {
+          break;
+        }
         PlaySample( dc16k16b1c, DC16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, DC16K16B1C_PB_FMT );
         WaitForTrigger( TRIGGER_SET );
         StopPlayback();
+        if( option != OPT_DoorsOpeningClosing ) {
+          break;
+        }
       }      
       break;
 
@@ -189,8 +195,8 @@ void ChimeLoop( void )
       case OPT_TopFloor:    // Number 12
         SetSleepSetting( 1 );
         AudioEngine_DACSwitch( 1 );
-        SetFadeInTime( 0.2f );
-        SetFadeOutTime( 0.2f );
+        SetFadeInTime( 0.01f );
+        SetFadeOutTime( 0.1f );
         SetDAC_Control( 1 );
 
         PlaySample( top_floor16k16b1c, TOP_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, TOP_FLOOR16K16B1C_PB_FMT );
