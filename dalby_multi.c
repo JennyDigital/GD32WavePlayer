@@ -46,13 +46,20 @@ void ChimeLoop( void )
     }
  
     switch( option ) {
-    case OPT_Chime:         // Value: 0
-    default:                // ...or default
+    case OPT_Chime:             // Value: 1
+      trigger_option = 1;
+    case OPT_ChimeNoTrigger:    // Value 0
+    default:                    // ...or default
       SetSleepSetting( 1 );
       SetFadeInTime( 0.2f );
       SetFadeOutTime( 0.2f );
       SetDAC_Control( 1 );
       
+      if( option == OPT_Chime ) {
+        WaitForTrigger( TRIGGER_SET );
+      } else {
+        trigger_option == 0;
+      }    
       PlaySample( dalby_tritone16b16k, DALBY_TRITONE16B16K_SZ, I2S_AUDIOSAMPLE_16K, 16, DALBY_TRITONE16B16K_PB_FMT );
       WaitForSampleEnd();
       if( trigger_option == 1 )
@@ -60,10 +67,7 @@ void ChimeLoop( void )
         WaitForTrigger( TRIGGER_CLR );
       } else {
         ShutDownAudio();
-        __disable_irq();
-        while( true ) {
-          Enter_LP_SleepMode();
-        }
+        Enter_LP_SleepMode();
       }
       break;
 

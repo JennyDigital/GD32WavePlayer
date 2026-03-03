@@ -233,9 +233,7 @@ inline void WaitForTrigger( uint8_t trig_to_wait_for )
       }
     }
     if( trig_status == trig_to_wait_for ) return;
-#ifndef NO_SLEEP_MODE
     Enter_LP_SleepMode();
-#endif
   }
 }
 
@@ -347,7 +345,7 @@ static void GPIO_InitPins( void )
   // Trigger pin.
   //
   gpio_init( TRIGGER_Bank, GPIO_MODE_IPD, GPIO_OSPEED_2MHZ, TRIGGER_Pin );
-  gpio_exti_source_select( TRIGGER_Bank, TRIGGER_Pin );
+  gpio_exti_source_select( GPIO_PORT_SOURCE_GPIOA, GPIO_PIN_SOURCE_8 );
   gpio_pin_lock( TRIGGER_Bank, TRIGGER_Pin );
 }
 
@@ -495,6 +493,9 @@ void Enter_LP_SleepMode( void )
 {
   // Only act if permitted.
   if( !sleep_setting ) return;
+#ifdef NO_SLEEP_MODE
+  return;
+#endif
 
   // Prepare for sleep
   SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk; // Disable SysTick interrupt

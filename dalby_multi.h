@@ -2,6 +2,7 @@
 #define _DALBY_MULTI_H
 
 typedef enum {
+    OPT_ChimeNoTrigger,
     OPT_Chime,
     OPT_MindTheDoor,
     OPT_DoorsOpeningClosing,
