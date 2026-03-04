@@ -6,6 +6,7 @@ typedef enum {
     OPT_Chime,
     OPT_MindTheDoor,
     OPT_DoorsOpeningClosing,
+    OPT_DoorOpeningClosing,
     OPT_GroundFloor = 8,
     OPT_FirstFloor,
     OPT_SecondFloor,

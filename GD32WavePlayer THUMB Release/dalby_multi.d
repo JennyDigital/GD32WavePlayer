@@ -44,6 +44,7 @@ GD32WavePlayer\ THUMB\ Release/dalby_multi.o: \
  sound_headers/dalby_tritone16b16k.h \
  sound_headers/16k/please_mind_the_door.h \
  sound_headers/16k/doors_opening.h sound_headers/16k/doors_closing.h \
+ sound_headers/16k/door_opening.h sound_headers/16k/door_closing.h \
  sound_headers/16k/ground_floor.h sound_headers/16k/first_floor.h \
  sound_headers/16k/second_floor.h sound_headers/16k/third_floor.h \
  sound_headers/16k/top_floor.h sound_headers/16k/lift_out_of_service.h

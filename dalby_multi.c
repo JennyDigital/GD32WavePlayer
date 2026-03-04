@@ -7,6 +7,8 @@
 #include "please_mind_the_door.h"
 #include "doors_opening.h"
 #include "doors_closing.h"
+#include "door_opening.h"
+#include "door_closing.h"
 #include "ground_floor.h"
 #include "first_floor.h"
 #include "second_floor.h"
@@ -31,7 +33,7 @@ OptionSelTypeDef GetOption( void );
   */
 void ChimeLoop( void )
 {    
-  uint8_t trigger_option = GetTriggerOption();
+  uint8_t trigger_option = 0;
  
   SetDAC_Control( 1 );
   SetLpf16BitLevel( LPF_Off );
@@ -41,7 +43,8 @@ void ChimeLoop( void )
   while( true )
   {
 
-    if( option != OPT_DoorsOpeningClosing ) {
+    if( option != OPT_DoorsOpeningClosing &&
+        option != OPT_DoorOpeningClosing ) {
       if( trigger_option == 1 ) { WaitForTrigger( TRIGGER_SET ); }
     }
  
@@ -80,15 +83,8 @@ void ChimeLoop( void )
 
         PlaySample( pmtd16k16b1c, PMTD16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, PMTD16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        if( trigger_option == 1 ) {
-          WaitForTrigger( TRIGGER_CLR );
-        } else {
-          ShutDownAudio();
-          __disable_irq();
-          while( true ) {
-            Enter_LP_SleepMode();
-          }
-        }
+        WaitForTrigger( TRIGGER_CLR );
+        Enter_LP_SleepMode();
         break;
 
     case OPT_DoorsOpeningClosing: // Value: 2
@@ -116,6 +112,31 @@ void ChimeLoop( void )
       }      
       break;
 
+    case OPT_DoorOpeningClosing: // Value: 2
+      // We'll keep the system live the whole time for this option.
+      SetDAC_Control( 0 );
+      AudioEngine_DACSwitch( 1 );
+      SetSleepSetting( 0 );
+      SetFadeInTime( 0.01f );
+      SetFadeOutTime( 0.01f );
+
+      // Endless loop of doors opening/closing.
+      while( true ) {
+        PlaySample( door_opening16k16b1c, DOOR_OPENING16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, DOOR_OPENING16K16B1C_PB_FMT );
+        WaitForTrigger( TRIGGER_CLR );
+        StopPlayback();
+        if( option != OPT_DoorOpeningClosing ) {
+          break;
+        }
+        PlaySample( door_closing16k16b1c, DOOR_CLOSING16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, DOOR_CLOSING16K16B1C_PB_FMT );
+        WaitForTrigger( TRIGGER_SET );
+        StopPlayback();
+        if( option != OPT_DoorOpeningClosing ) {
+          break;
+        }
+      }      
+      break;
+
       case OPT_GroundFloor:   // Number 8
         SetSleepSetting( 1 );
         AudioEngine_DACSwitch( 1 );
@@ -125,15 +146,8 @@ void ChimeLoop( void )
 
         PlaySample( ground_floor16k16b1c, GROUND_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, GROUND_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        if( trigger_option == 1 ) {
-          WaitForTrigger( TRIGGER_CLR );
-        } else {
-          ShutDownAudio();
-          __disable_irq();
-          while( true ) {
-            Enter_LP_SleepMode();
-          }
-        }
+        WaitForTrigger( TRIGGER_CLR );
+        Enter_LP_SleepMode();
         break;
 
       case OPT_FirstFloor:    // Number 9
@@ -145,15 +159,8 @@ void ChimeLoop( void )
 
         PlaySample( first_floor16k16b1c, FIRST_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, FIRST_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        if( trigger_option == 1 ) {
-          WaitForTrigger( TRIGGER_CLR );
-        } else {
-          ShutDownAudio();
-          __disable_irq();
-          while( true ) {
-            Enter_LP_SleepMode();
-          }
-        }
+        WaitForTrigger( TRIGGER_CLR );
+        Enter_LP_SleepMode();
         break;
 
       case OPT_SecondFloor:   // Number 10
@@ -165,15 +172,8 @@ void ChimeLoop( void )
 
         PlaySample( second_floor16k16b1c, SECOND_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, SECOND_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        if( trigger_option == 1 ) {
-          WaitForTrigger( TRIGGER_CLR );
-        } else {
-          ShutDownAudio();
-          __disable_irq();
-          while( true ) {
-            Enter_LP_SleepMode();
-          }
-        }
+        WaitForTrigger( TRIGGER_CLR );
+        Enter_LP_SleepMode();
         break;
 
       case OPT_ThirdFloor:    // Number 11
@@ -185,15 +185,8 @@ void ChimeLoop( void )
 
         PlaySample( third_floor16k16b1c, THIRD_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, THIRD_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        if( trigger_option == 1 ) {
-          WaitForTrigger( TRIGGER_CLR );
-        } else {
-          ShutDownAudio();
-          __disable_irq();
-          while( true ) {
-            Enter_LP_SleepMode();
-          }
-        }
+        WaitForTrigger( TRIGGER_CLR );
+        Enter_LP_SleepMode();
         break;
 
       case OPT_TopFloor:    // Number 12
@@ -205,15 +198,8 @@ void ChimeLoop( void )
 
         PlaySample( top_floor16k16b1c, TOP_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, TOP_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        if( trigger_option == 1 ) {
-          WaitForTrigger( TRIGGER_CLR );
-        } else {
-          ShutDownAudio();
-          __disable_irq();
-          while( true ) {
-            Enter_LP_SleepMode();
-          }
-        }
+        WaitForTrigger( TRIGGER_CLR );
+        Enter_LP_SleepMode();
         break;
 
       case OPT_LiftOutOfService:    // Number 15
@@ -225,15 +211,8 @@ void ChimeLoop( void )
 
         PlaySample( lift_oos16k16b1c, LIFT_OOS16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, LIFT_OOS16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        if( trigger_option == 1 ) {
-          WaitForTrigger( TRIGGER_CLR );
-        } else {
-          ShutDownAudio();
-          __disable_irq();
-          while( true ) {
-            Enter_LP_SleepMode();
-          }
-        }
+        WaitForTrigger( TRIGGER_CLR );
+        Enter_LP_SleepMode();
         break;
     }  // End option switch
   }

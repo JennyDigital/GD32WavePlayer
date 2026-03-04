@@ -129,11 +129,13 @@
       <file file_name="sound_headers/Danger.h" />
       <file file_name="sound_headers/darkblues32k.h" />
       <file file_name="sound_headers/dinding.h" />
-      <file file_name="sound_headers/16k/doors_closing.h" />
+      <file file_name="sound_headers/16k/door_closing.h" />
+      <file file_name="sound_headers/16k/door_opening.h" />
       <file file_name="sound_headers/doors_closing.h" />
+      <file file_name="sound_headers/16k/doors_closing.h" />
       <file file_name="sound_headers/doors_closing11k.h" />
-      <file file_name="sound_headers/16k/doors_opening.h" />
       <file file_name="sound_headers/doors_opening.h" />
+      <file file_name="sound_headers/16k/doors_opening.h" />
       <file file_name="sound_headers/doors_opening11k.h" />
       <file file_name="sound_headers/dramatic_organ11k.h" />
       <file file_name="sound_headers/dreamy.h" />
