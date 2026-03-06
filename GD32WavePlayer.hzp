@@ -125,6 +125,7 @@
       <file file_name="sound_headers/chinese_flute.h" />
       <file file_name="sound_headers/custom_tritone16k.h" />
       <file file_name="sound_headers/dalby_tritone16b16k.h" />
+      <file file_name="sound_headers/dalby_tritone_low.h" />
       <file file_name="sound_headers/dalby_tritone_mar26.h" />
       <file file_name="sound_headers/dalby_tritoneJan26.h" />
       <file file_name="sound_headers/Danger.h" />
@@ -132,11 +133,11 @@
       <file file_name="sound_headers/dinding.h" />
       <file file_name="sound_headers/16k/door_closing.h" />
       <file file_name="sound_headers/16k/door_opening.h" />
-      <file file_name="sound_headers/16k/doors_closing.h" />
       <file file_name="sound_headers/doors_closing.h" />
+      <file file_name="sound_headers/16k/doors_closing.h" />
       <file file_name="sound_headers/doors_closing11k.h" />
-      <file file_name="sound_headers/16k/doors_opening.h" />
       <file file_name="sound_headers/doors_opening.h" />
+      <file file_name="sound_headers/16k/doors_opening.h" />
       <file file_name="sound_headers/doors_opening11k.h" />
       <file file_name="sound_headers/dramatic_organ11k.h" />
       <file file_name="sound_headers/dreamy.h" />

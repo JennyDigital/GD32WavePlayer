@@ -62,7 +62,7 @@
 #define MASTER_VOLUME_MINIMUM 8U
 
 // Sleep mode control; debug doesn't work well if it's enabled. Comment out for sleep feature.
-//#define NO_SLEEP_MODE
+#define NO_SLEEP_MODE
 
 /* Build options */ 
 //#define FORCE_TRIGGER_OPT

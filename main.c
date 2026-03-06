@@ -117,30 +117,27 @@ int main( void )
   SetVolumeResponseGamma( 2.0f );     // Gamma = 2.0 (quadratic, typical for human perception)
 
   // Small delay to allow hardware to stabilize
-  delay_ms( 150 );
+  delay_ms( 200 );
 
   // Set DAC control to auto..
   SetDAC_Control( 1 );                // 0 = manual control, 1 = auto control by audio engine
 
   // FilterConfig_TypeDef filter_cfg;
   filter_cfg.enable_noise_gate            = 0;  // Noise gate disabled by default; enable as needed
-  filter_cfg.enable_16bit_biquad_lpf      = 0;  // 16-bit biquad LPF disabled by default; enable as needed
+  filter_cfg.enable_16bit_biquad_lpf      = 1;  // 16-bit biquad LPF disabled by default; enable as needed
   filter_cfg.enable_8bit_lpf              = 1;  // 8-bit LPF disabled by default; enable as needed
   filter_cfg.enable_soft_dc_filter_16bit  = 1;  // Soft DC blocking filter for 16-bit samples enabled by default
-  filter_cfg.enable_soft_clipping         = 1;  // Soft clipping enabled by default
+  filter_cfg.enable_soft_clipping         = 0;  // Soft clipping enabled by default
   filter_cfg.enable_air_effect            = 0;  // Air effect (high-shelf brightening) disabled by default; enable as needed
   filter_cfg.enable_filter_chain_16bit    = 1;  // Master enable for entire 16-bit filter chain
   filter_cfg.enable_filter_chain_8bit     = 0;  // Master enable for entire 8-bit filter chain
+  
 
   // Apply initial filter configuration
   SetFilterConfig( &filter_cfg );
 
-  // Set initial Air Effect boost in dB (runtime adjustable)
-  SetAirEffectPresetDb( 0 );              // default +3 dB preset
   SetLpf16BitLevel( LPF_Off );
-  //SetLpf16BitCustomAlpha( CalcLpf16BitAlphaFromCutoff( 3500, I2S_AUDIOSAMPLE_16K ) );
-  //SetLpfMakeupGain16Bit( 1 );
-  
+
   // Set fade times
   SetFadeInTime(0.2f );                   // 100 ms fade-in
   SetFadeOutTime( 0.2f );                 // 100 ms fade-out
@@ -173,7 +170,7 @@ int main( void )
 void DAC_MasterSwitch( uint8_t setting )
 {
   gpio_bit_write( nSD_MODE_BANK, nSD_MODE_Pin, setting );
-  delay_ms( 10 );
+  delay_ms( 12 );
 }
 
 

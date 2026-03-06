@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #define CUSTOM_TRITONE16K_SZ 49876
+#define CUSTOM_TRITONE16K_PB_FMT Mode_mono
 
 const uint16_t custom_tritone16k[ CUSTOM_TRITONE16K_SZ ] =
 {

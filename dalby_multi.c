@@ -5,6 +5,10 @@
 
 //#include "dalby_tritone16b16k.h"
 #include "dalby_tritone_mar26.h"
+#include "dalby_tritone16b16k.h"
+#include "custom_tritone16k.h"
+#include "dalby_tritone_low.h"
+#include "three_tone_arrival_c.h"
 #include "please_mind_the_door.h"
 #include "doors_opening.h"
 #include "doors_closing.h"
@@ -50,43 +54,59 @@ void ChimeLoop( void )
     }
  
     switch( option ) {
-    case OPT_Chime:             // Value: 1
-      trigger_option = 1;
+
+    
     case OPT_ChimeNoTrigger:    // Value 0
     default:                    // ...or default
       SetSleepSetting( 1 );
       SetFadeInTime( 0.2f );
       SetFadeOutTime( 0.2f );
-      SetDAC_Control( 1 );
-      
-      if( option == OPT_Chime ) {
-        WaitForTrigger( TRIGGER_SET );
-      } else {
-        trigger_option == 1;
-      }    
-      PlaySample( dalby_tt32k16b1c_mar26, DALBY_TT32K16B1C_MAR26_SZ, I2S_AUDIOSAMPLE_32K, 16, DALBY_TT32K16B1C_MAR26_PB_FMT );
+      SetDAC_Control( 0 );
+      AudioEngine_DACSwitch( 1 );
+      SetFilterChain16BitEnable( 0 );
+      SetLpf16BitLevel( LPF_Off );    
+   
+      PlaySample( dalby_tt_low44k16b1c, DALBY_TT_LOW44K16B1C_SZ, I2S_AUDIOSAMPLE_44K, 16, DALBY_TT_LOW44K16B1C_PB_FMT );
       WaitForSampleEnd();
-      if( trigger_option == 1 )
-      {
-        WaitForTrigger( TRIGGER_CLR );
-      } else {
-        ShutDownAudio();
-        Enter_LP_SleepMode();      
-        WaitForTrigger( TRIGGER_SET );
-      }
+
+      WaitForTrigger( TRIGGER_SET );
+      option = GetOption();
       break;
 
-    case OPT_MindTheDoor:   // Value: 1
+    case OPT_Chime:             // Value: 1
+      trigger_option = 1;
+      SetSleepSetting( 1 );
+      SetFadeInTime( 0.1f );
+      SetFadeOutTime( 0.1f );
+      SetDAC_Control( 0 );
+      AudioEngine_DACSwitch( 1 );
+      SetFilterChain16BitEnable( 0 );
+ 
+      WaitForTrigger( TRIGGER_SET );
+  
+      PlaySample( dalby_tt_low44k16b1c, DALBY_TT_LOW44K16B1C_SZ, I2S_AUDIOSAMPLE_44K, 16, DALBY_TT_LOW44K16B1C_PB_FMT );
+      WaitForSampleEnd();
+
+      WaitForTrigger( TRIGGER_CLR );
+      ShutDownAudio(); 
+      WaitForTrigger( TRIGGER_SET );
+      option = GetOption();
+      break;
+
+    case OPT_MindTheDoor:   // Value: 2
         SetSleepSetting( 1 );
         AudioEngine_DACSwitch( 1 );
         SetFadeInTime( 0.1f );
         SetFadeOutTime( 0.2f );
         SetDAC_Control( 1 );
+        SetFilterChain16BitEnable( 1 );
+        SetLpf16BitLevel( LPF_Off );
 
         PlaySample( pmtd16k16b1c, PMTD16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, PMTD16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_CLR );
+        WaitForTrigger( TRIGGER_SET );
         Enter_LP_SleepMode();
+        option = GetOption();
         break;
 
     case OPT_DoorsOpeningClosing: // Value: 2
@@ -96,6 +116,8 @@ void ChimeLoop( void )
       SetSleepSetting( 0 );
       SetFadeInTime( 0.01f );
       SetFadeOutTime( 0.01f );
+      SetFilterChain16BitEnable( 1 );
+      SetLpf16BitLevel( LPF_Off );
 
       // Endless loop of doors opening/closing.
       while( true ) {
@@ -111,7 +133,8 @@ void ChimeLoop( void )
         if( option != OPT_DoorsOpeningClosing ) {
           break;
         }
-      }      
+      }
+      option = GetOption();     
       break;
 
     case OPT_DoorOpeningClosing: // Value: 2
@@ -121,6 +144,8 @@ void ChimeLoop( void )
       SetSleepSetting( 0 );
       SetFadeInTime( 0.01f );
       SetFadeOutTime( 0.01f );
+      SetFilterChain16BitEnable( 1 );
+      SetLpf16BitLevel( LPF_Off );
 
       // Endless loop of doors opening/closing.
       while( true ) {
@@ -136,85 +161,98 @@ void ChimeLoop( void )
         if( option != OPT_DoorOpeningClosing ) {
           break;
         }
-      }      
+      }
+      option = GetOption();      
       break;
 
       case OPT_GroundFloor:   // Number 8
         SetSleepSetting( 1 );
-        AudioEngine_DACSwitch( 1 );
         SetFadeInTime( 0.2f );
         SetFadeOutTime( 0.2f );
         SetDAC_Control( 1 );
+        SetFilterChain16BitEnable( 1 );
+        SetLpf16BitLevel( LPF_Off );
 
         PlaySample( ground_floor16k16b1c, GROUND_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, GROUND_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_CLR );
+        WaitForTrigger( TRIGGER_SET );
         Enter_LP_SleepMode();
+        option = GetOption();
         break;
 
       case OPT_FirstFloor:    // Number 9
         SetSleepSetting( 1 );
-        AudioEngine_DACSwitch( 1 );
         SetFadeInTime( 0.2f );
         SetFadeOutTime( 0.2f );
         SetDAC_Control( 1 );
+        SetFilterChain16BitEnable( 1 );
+        SetLpf16BitLevel( LPF_Off );
 
         PlaySample( first_floor16k16b1c, FIRST_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, FIRST_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_CLR );
+        WaitForTrigger( TRIGGER_SET );
         Enter_LP_SleepMode();
+        option = GetOption();
         break;
 
       case OPT_SecondFloor:   // Number 10
         SetSleepSetting( 1 );
-        AudioEngine_DACSwitch( 1 );
         SetFadeInTime( 0.2f );
         SetFadeOutTime( 0.2f );
         SetDAC_Control( 1 );
+        SetFilterChain16BitEnable( 1 );
+        SetLpf16BitLevel( LPF_Off );
 
         PlaySample( second_floor16k16b1c, SECOND_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, SECOND_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_CLR );
+        WaitForTrigger( TRIGGER_SET );
         Enter_LP_SleepMode();
+        option = GetOption();
         break;
 
       case OPT_ThirdFloor:    // Number 11
         SetSleepSetting( 1 );
-        AudioEngine_DACSwitch( 1 );
         SetFadeInTime( 0.2f );
         SetFadeOutTime( 0.2f );
         SetDAC_Control( 1 );
+        SetFilterChain16BitEnable( 1 );
+        SetLpf16BitLevel( LPF_Off );
 
         PlaySample( third_floor16k16b1c, THIRD_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, THIRD_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_CLR );
+        WaitForTrigger( TRIGGER_SET );
         Enter_LP_SleepMode();
+        option = GetOption();
         break;
 
       case OPT_TopFloor:    // Number 12
         SetSleepSetting( 1 );
-        AudioEngine_DACSwitch( 1 );
         SetFadeInTime( 0.01f );
         SetFadeOutTime( 0.1f );
         SetDAC_Control( 1 );
+        SetFilterChain16BitEnable( 1 );
+        SetLpf16BitLevel( LPF_Off );
 
         PlaySample( top_floor16k16b1c, TOP_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, TOP_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_CLR );
+        WaitForTrigger( TRIGGER_SET );
         Enter_LP_SleepMode();
+        option = GetOption();
         break;
 
       case OPT_LiftOutOfService:    // Number 15
         SetSleepSetting( 1 );
-        AudioEngine_DACSwitch( 1 );
-        SetFadeInTime( 0.2f );
-        SetFadeOutTime( 0.2f );
+        SetFadeInTime( 0.1f );
+        SetFadeOutTime( 0.1f );
         SetDAC_Control( 1 );
+        SetFilterChain16BitEnable( 1 );
+        SetLpf16BitLevel( LPF_Off );
 
         PlaySample( lift_oos16k16b1c, LIFT_OOS16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, LIFT_OOS16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_CLR );
+        WaitForTrigger( TRIGGER_SET );
         Enter_LP_SleepMode();
+        option = GetOption();
         break;
     }  // End option switch
   }

@@ -410,6 +410,16 @@ void                SetResumeFadeTime                 ( float seconds );
  */
 float               GetResumeFadeTime                 ( void );
 
+/** Set whether the 16-bit filter chain is enabled or not.
+ * @param[in] 1 = Filter chain enabled, 0 = filter chain disabled
+ */
+void                SetFilterChain16BitEnable         ( uint8_t enabled );
+
+/** Set whether the 8-bit filter chain is enabled or not.
+ * @param[in] 1 = Filter chain enabled, 0 = filter chain disabled
+ */
+void                SetFilterChain8BitEnable         ( uint8_t enabled );
+
 /* Playback control functions */
 /**
  * @brief Calculate a sample offset from time, sample rate, and mode
