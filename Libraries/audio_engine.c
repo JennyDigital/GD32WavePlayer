@@ -113,6 +113,7 @@ static          int16_t   ApplyFilterChain8Bit        ( int16_t sample, AudioCha
 
 // DMA stop helper
 static inline   void      StopDmaAndResetPlaybackState( uint8_t reset_state );
+static inline   void      PrepareForNewPlayback        ( void );
 
 // Default fader state
 volatile uint8_t faders_enabled = 1;
@@ -1457,13 +1458,34 @@ static inline int16_t PUT_IN_FASTMEM ApplyPostFilters( int16_t sample, AudioChan
   */
 static void ResetPlaybackState( void ) {
   pb_mode                       = 0;
+  pb_p8_ptr                     = NULL;
+  pb_end8_ptr                   = NULL;
+  pb_p16_ptr                    = NULL;
+  pb_end16_ptr                  = NULL;
   paused_sample_ptr             = NULL;
   samples_remaining             = 0;
   fadeout_samples_remaining     = 0;
   fadein_samples_remaining      = 0;
-  paused_samples_remaining      = 0;
+  half_to_fill                  = FIRST;
   stop_requested                = 0;
   playback_end_callback_called  = 0;
+}
+
+
+/** Prepare engine and transport state for a deterministic playback start.
+  *
+  * Ensures DMA is halted, playback state is reset, filter memory is cleared,
+  * and the output buffer is filled with silence before prefill begins.
+  */
+static inline void PrepareForNewPlayback( void )
+{
+  dma_interrupt_disable( DMA0, DMA_CH4, DMA_INT_HTF | DMA_INT_FTF );
+  spi_dma_disable( PROJECT_SPI, SPI_DMA_TRANSMIT );   // FINDME
+  i2s_disable( PROJECT_SPI );
+  ResetPlaybackState();
+  ResetAllFilterState();
+  MIDPOINT_FILL_BUFFER();
+  pb_state = PB_Idle;
 }
 
 
@@ -1577,7 +1599,7 @@ static inline void EndPlaybackCleanup( void )
 {
   pb_state = PB_Idle;
   MIDPOINT_FILL_BUFFER();
-  StopDmaAndResetPlaybackState( stop_requested );
+  StopDmaAndResetPlaybackState( 1U );
   if( !playback_end_callback_called ) {
     playback_end_callback_called = 1;
     AudioEngine_OnPlaybackEnd();
@@ -1959,13 +1981,8 @@ PB_StatusTypeDef PlaySample (
   dma_interrupt_disable( DMA0, DMA_CH4, DMA_INT_HTF | DMA_INT_FTF );    // Stop playback and IRQ generation.
   i2s_disable( PROJECT_SPI );
 
-  // Reset callback guard for new playback session
-  playback_end_callback_called  = 0;
-  stop_requested                = 0;
-  paused_sample_ptr             = NULL;
-  
-  // Reset all filter state for new sample
-  ResetAllFilterState();
+// Always start from a known-clean state before filling the next playback buffer.
+  PrepareForNewPlayback();
   
   // Warm up 16-bit biquad filter state from first sample to avoid startup transient
   if( sample_depth == 16 && filter_cfg.enable_16bit_biquad_lpf ) {
