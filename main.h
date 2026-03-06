@@ -64,7 +64,7 @@
 // Sleep mode control; debug doesn't work well if it's enabled. Comment out for sleep feature.
 //#define NO_SLEEP_MODE
 
-//* Build options
+/* Build options */ 
 //#define FORCE_TRIGGER_OPT
 //#define TEST_CYCLING
 #define DALBY_BUILD

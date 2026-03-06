@@ -3938,7 +3938,7 @@ Linker script and memory map
                 0x00000001                        . = ASSERT (((__init_rodata_start__ == __init_rodata_end__) || ((__init_rodata_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .init_rodata is too large to fit in FLASH memory segment)
                 0x08000564                        __text_load_start__ = ALIGN (__init_rodata_end__, 0x4)
 
-.text           0x08000564     0x2eec
+.text           0x08000564     0x2f24
                 0x08000564                        __text_start__ = .
  *(.text .text.* .gnu.linkonce.t.* .glue_7t .glue_7 .gcc_except_table .ARM.extab* .gnu.linkonce.armextab.*)
  .glue_7        0x08000564        0x0 linker stubs
@@ -4181,128 +4181,128 @@ Linker script and memory map
                 0x08001c24      0x230 GD32WavePlayer THUMB Release/audio_engine.o
                 0x08001c24                ProcessNextWaveChunk_8_bit
  .text.ProcessDMACallback
-                0x08001e54      0x1e8 GD32WavePlayer THUMB Release/audio_engine.o
+                0x08001e54      0x200 GD32WavePlayer THUMB Release/audio_engine.o
  .text.DMA0_Channel4_IRQHandler
-                0x0800203c       0x38 GD32WavePlayer THUMB Release/audio_engine.o
-                0x0800203c                DMA0_Channel4_IRQHandler
+                0x08002054       0x38 GD32WavePlayer THUMB Release/audio_engine.o
+                0x08002054                DMA0_Channel4_IRQHandler
  .text.WaitForSampleEnd
-                0x08002074       0x48 GD32WavePlayer THUMB Release/audio_engine.o
-                0x08002074                WaitForSampleEnd
+                0x0800208c       0x48 GD32WavePlayer THUMB Release/audio_engine.o
+                0x0800208c                WaitForSampleEnd
  .text.StopPlayback
-                0x080020bc       0x20 GD32WavePlayer THUMB Release/audio_engine.o
-                0x080020bc                StopPlayback
+                0x080020d4       0x20 GD32WavePlayer THUMB Release/audio_engine.o
+                0x080020d4                StopPlayback
  .text.ShutDownAudio
-                0x080020dc       0x60 GD32WavePlayer THUMB Release/audio_engine.o
-                0x080020dc                ShutDownAudio
+                0x080020f4       0x60 GD32WavePlayer THUMB Release/audio_engine.o
+                0x080020f4                ShutDownAudio
  .text.SetVolumeResponseNonlinear
-                0x0800213c       0x10 GD32WavePlayer THUMB Release/audio_engine.o
-                0x0800213c                SetVolumeResponseNonlinear
+                0x08002154       0x10 GD32WavePlayer THUMB Release/audio_engine.o
+                0x08002154                SetVolumeResponseNonlinear
  .text.SetVolumeResponseGamma
-                0x0800214c       0x34 GD32WavePlayer THUMB Release/audio_engine.o
-                0x0800214c                SetVolumeResponseGamma
+                0x08002164       0x34 GD32WavePlayer THUMB Release/audio_engine.o
+                0x08002164                SetVolumeResponseGamma
  .text.dma_config
-                0x08002180       0x7c GD32WavePlayer THUMB Release/audio_engine.o
-                0x08002180                dma_config
+                0x08002198       0x7c GD32WavePlayer THUMB Release/audio_engine.o
+                0x08002198                dma_config
  .text.PlaySample
-                0x080021fc      0x2f8 GD32WavePlayer THUMB Release/audio_engine.o
-                0x080021fc                PlaySample
+                0x08002214      0x2f8 GD32WavePlayer THUMB Release/audio_engine.o
+                0x08002214                PlaySample
  .text.GetOption
-                0x080024f4       0x40 GD32WavePlayer THUMB Release/dalby_multi.o
-                0x080024f4                GetOption
+                0x0800250c       0x40 GD32WavePlayer THUMB Release/dalby_multi.o
+                0x0800250c                GetOption
  .text.ChimeLoop
-                0x08002534      0x464 GD32WavePlayer THUMB Release/dalby_multi.o
-                0x08002534                ChimeLoop
+                0x0800254c      0x470 GD32WavePlayer THUMB Release/dalby_multi.o
+                0x0800254c                ChimeLoop
  .text.ReadVolume
-                0x08002998       0x28 GD32WavePlayer THUMB Release/main.o
-                0x08002998                ReadVolume
+                0x080029bc       0x28 GD32WavePlayer THUMB Release/main.o
+                0x080029bc                ReadVolume
  .text.spi_config
-                0x080029c0       0x4c GD32WavePlayer THUMB Release/main.o
-                0x080029c0                spi_config
+                0x080029e4       0x4c GD32WavePlayer THUMB Release/main.o
+                0x080029e4                spi_config
  .text.SysTick_Handler
-                0x08002a0c       0x90 GD32WavePlayer THUMB Release/main.o
-                0x08002a0c                SysTick_Handler
+                0x08002a30       0x90 GD32WavePlayer THUMB Release/main.o
+                0x08002a30                SysTick_Handler
  .text.delay_ms
-                0x08002a9c       0x14 GD32WavePlayer THUMB Release/main.o
-                0x08002a9c                delay_ms
+                0x08002ac0       0x14 GD32WavePlayer THUMB Release/main.o
+                0x08002ac0                delay_ms
  .text.DAC_MasterSwitch
-                0x08002ab0       0x18 GD32WavePlayer THUMB Release/main.o
-                0x08002ab0                DAC_MasterSwitch
+                0x08002ad4       0x18 GD32WavePlayer THUMB Release/main.o
+                0x08002ad4                DAC_MasterSwitch
  .text.Error_Handler
-                0x08002ac8        0xc GD32WavePlayer THUMB Release/main.o
-                0x08002ac8                Error_Handler
+                0x08002aec        0xc GD32WavePlayer THUMB Release/main.o
+                0x08002aec                Error_Handler
  .text.SetupClocks
-                0x08002ad4       0xbc GD32WavePlayer THUMB Release/main.o
+                0x08002af8       0xbc GD32WavePlayer THUMB Release/main.o
  .text.SetupADC
-                0x08002b90       0x7c GD32WavePlayer THUMB Release/main.o
-                0x08002b90                SetupADC
+                0x08002bb4       0x7c GD32WavePlayer THUMB Release/main.o
+                0x08002bb4                SetupADC
  .text.SetupTimer2
-                0x08002c0c       0x60 GD32WavePlayer THUMB Release/main.o
-                0x08002c0c                SetupTimer2
- .text.main     0x08002c6c      0x188 GD32WavePlayer THUMB Release/main.o
-                0x08002c6c                main
+                0x08002c30       0x60 GD32WavePlayer THUMB Release/main.o
+                0x08002c30                SetupTimer2
+ .text.main     0x08002c90      0x198 GD32WavePlayer THUMB Release/main.o
+                0x08002c90                main
  .text.Enter_LP_SleepMode
-                0x08002df4       0x74 GD32WavePlayer THUMB Release/main.o
-                0x08002df4                Enter_LP_SleepMode
+                0x08002e28       0x74 GD32WavePlayer THUMB Release/main.o
+                0x08002e28                Enter_LP_SleepMode
  .text.WaitForTrigger
-                0x08002e68       0x60 GD32WavePlayer THUMB Release/main.o
-                0x08002e68                WaitForTrigger
+                0x08002e9c       0x60 GD32WavePlayer THUMB Release/main.o
+                0x08002e9c                WaitForTrigger
  .text.SetSleepSetting
-                0x08002ec8       0x10 GD32WavePlayer THUMB Release/main.o
-                0x08002ec8                SetSleepSetting
+                0x08002efc       0x10 GD32WavePlayer THUMB Release/main.o
+                0x08002efc                SetSleepSetting
  .text.HardFault_Handler
-                0x08002ed8        0x4 GD32WavePlayer THUMB Release/main.o
-                0x08002ed8                HardFault_Handler
+                0x08002f0c        0x4 GD32WavePlayer THUMB Release/main.o
+                0x08002f0c                HardFault_Handler
  .text.EXTI5_9_IRQHandler
-                0x08002edc        0xc GD32WavePlayer THUMB Release/main.o
-                0x08002edc                EXTI5_9_IRQHandler
+                0x08002f10        0xc GD32WavePlayer THUMB Release/main.o
+                0x08002f10                EXTI5_9_IRQHandler
  .text.ADC0_1_IRQHandler
-                0x08002ee8       0x2c GD32WavePlayer THUMB Release/main.o
-                0x08002ee8                ADC0_1_IRQHandler
+                0x08002f1c       0x2c GD32WavePlayer THUMB Release/main.o
+                0x08002f1c                ADC0_1_IRQHandler
  .text.__aeabi_read_tp
-                0x08002f14        0x8 GD32WavePlayer THUMB Release/thumb_crt0.o
-                0x08002f14                __aeabi_read_tp
+                0x08002f48        0x8 GD32WavePlayer THUMB Release/thumb_crt0.o
+                0x08002f48                __aeabi_read_tp
  .text.libc.expf
-                0x08002f1c      0x17c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
-                0x08002f1c                exp(float)
-                0x08002f1c                expf
+                0x08002f50      0x17c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x08002f50                exp(float)
+                0x08002f50                expf
  .text.libc.logf
-                0x08003098      0x100 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
-                0x08003098                logf
-                0x08003098                log(float)
+                0x080030cc      0x100 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x080030cc                logf
+                0x080030cc                log(float)
  .text.libc.powf
-                0x08003198       0xc0 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
-                0x08003198                powf
-                0x08003198                pow(float, float)
+                0x080031cc       0xc0 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x080031cc                powf
+                0x080031cc                pow(float, float)
  .text.libc.fabsf
-                0x08003258        0x6 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
-                0x08003258                fabs(float)
-                0x08003258                fabsf
+                0x0800328c        0x6 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
+                0x0800328c                fabs(float)
+                0x0800328c                fabsf
  .text.libc.frexpf
-                0x0800325e       0x3c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
-                0x0800325e                frexp(float, int*)
-                0x0800325e                frexpf
+                0x08003292       0x3c /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2_asm.o)
+                0x08003292                frexp(float, int*)
+                0x08003292                frexpf
  .text.libc.__int64_udivmod
-                0x0800329a       0xce /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
-                0x0800329a                __int64_udivmod
-                0x0800329a                __aeabi_uldivmod
-                0x0800329a                __int64_udiv
-                0x0800329a                __udivdi3
+                0x080032ce       0xce /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
+                0x080032ce                __int64_udivmod
+                0x080032ce                __aeabi_uldivmod
+                0x080032ce                __int64_udiv
+                0x080032ce                __udivdi3
  .text.libc.__aeabi_ldivmod
-                0x08003368       0x56 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
-                0x08003368                __aeabi_ldivmod
- *fill*         0x080033be        0x2 
+                0x0800339c       0x56 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc_asm.o)
+                0x0800339c                __aeabi_ldivmod
+ *fill*         0x080033f2        0x2 
  .text.libc.__aeabi_errno_addr
-                0x080033c0       0x10 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
-                0x080033c0                __aeabi_errno_addr
+                0x080033f4       0x10 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
+                0x080033f4                __aeabi_errno_addr
  .text.libc.memset
-                0x080033d0       0x66 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2_asm.o)
-                0x080033d0                memset
- *fill*         0x08003436        0x2 
+                0x08003404       0x66 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2_asm.o)
+                0x08003404                memset
+ *fill*         0x0800346a        0x6 
  .text.libc.memset.__stub
-                0x08003438       0x18 linker stubs
-                0x08003450                        __text_end__ = (__text_start__ + SIZEOF (.text))
-                0x00002eec                        __text_size__ = SIZEOF (.text)
-                0x08003450                        __text_load_end__ = __text_end__
+                0x08003470       0x18 linker stubs
+                0x08003488                        __text_end__ = (__text_start__ + SIZEOF (.text))
+                0x00002f24                        __text_size__ = SIZEOF (.text)
+                0x08003488                        __text_load_end__ = __text_end__
 
 .vfp11_veneer   0x00000000        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
@@ -4313,109 +4313,109 @@ Linker script and memory map
 .iplt           0x00000000        0x0
  .iplt          0x00000000        0x0 GD32WavePlayer THUMB Release/system_gd32f30x.o
                 0x00000001                        . = ASSERT (((__text_start__ == __text_end__) || ((__text_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .text is too large to fit in FLASH memory segment)
-                0x08003450                        __dtors_load_start__ = ALIGN (__text_end__, 0x4)
+                0x08003488                        __dtors_load_start__ = ALIGN (__text_end__, 0x4)
 
-.dtors          0x08003450        0x0
-                0x08003450                        __dtors_start__ = .
+.dtors          0x08003488        0x0
+                0x08003488                        __dtors_start__ = .
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
  *(.fini_array)
  *(SORT_BY_NAME(.fini_array.*))
-                0x08003450                        __dtors_end__ = (__dtors_start__ + SIZEOF (.dtors))
+                0x08003488                        __dtors_end__ = (__dtors_start__ + SIZEOF (.dtors))
                 0x00000000                        __dtors_size__ = SIZEOF (.dtors)
-                0x08003450                        __dtors_load_end__ = __dtors_end__
+                0x08003488                        __dtors_load_end__ = __dtors_end__
                 0x00000001                        . = ASSERT (((__dtors_start__ == __dtors_end__) || ((__dtors_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .dtors is too large to fit in FLASH memory segment)
-                0x08003450                        __ctors_load_start__ = ALIGN (__dtors_end__, 0x4)
+                0x08003488                        __ctors_load_start__ = ALIGN (__dtors_end__, 0x4)
 
-.ctors          0x08003450        0x4
-                0x08003450                        __ctors_start__ = .
+.ctors          0x08003488        0x4
+                0x08003488                        __ctors_start__ = .
  *(SORT_BY_NAME(.ctors.*))
  *(.ctors)
  *(.init_array)
- .init_array    0x08003450        0x4 GD32WavePlayer THUMB Release/GD32F30x_Startup.o
+ .init_array    0x08003488        0x4 GD32WavePlayer THUMB Release/GD32F30x_Startup.o
  *(SORT_BY_NAME(.init_array.*))
-                0x08003454                        __ctors_end__ = (__ctors_start__ + SIZEOF (.ctors))
+                0x0800348c                        __ctors_end__ = (__ctors_start__ + SIZEOF (.ctors))
                 0x00000004                        __ctors_size__ = SIZEOF (.ctors)
-                0x08003454                        __ctors_load_end__ = __ctors_end__
+                0x0800348c                        __ctors_load_end__ = __ctors_end__
                 0x00000001                        . = ASSERT (((__ctors_start__ == __ctors_end__) || ((__ctors_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .ctors is too large to fit in FLASH memory segment)
-                0x08003454                        __rodata_load_start__ = ALIGN (__ctors_end__, 0x4)
+                0x0800348c                        __rodata_load_start__ = ALIGN (__ctors_end__, 0x4)
 
-.rodata         0x08003454    0x7a1b0
-                0x08003454                        __rodata_start__ = .
+.rodata         0x0800348c    0x92758
+                0x0800348c                        __rodata_start__ = .
  *(.rodata .rodata.* .gnu.linkonce.r.* .data.rel.ro .data.rel.ro.*)
- .rodata        0x08003454       0x18 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
+ .rodata        0x0800348c       0x18 GD32WavePlayer THUMB Release/gd32f30x_rcu.o
  .rodata.air_effect_presets_db
-                0x0800346c        0xc GD32WavePlayer THUMB Release/audio_engine.o
+                0x080034a4        0xc GD32WavePlayer THUMB Release/audio_engine.o
  .rodata.lift_oos16k16b1c
-                0x08003478     0xa99a GD32WavePlayer THUMB Release/dalby_multi.o
-                0x08003478                lift_oos16k16b1c
- *fill*         0x0800de12        0x2 
+                0x080034b0     0xa99a GD32WavePlayer THUMB Release/dalby_multi.o
+                0x080034b0                lift_oos16k16b1c
+ *fill*         0x0800de4a        0x2 
  .rodata.top_floor16k16b1c
-                0x0800de14     0x6422 GD32WavePlayer THUMB Release/dalby_multi.o
-                0x0800de14                top_floor16k16b1c
- *fill*         0x08014236        0x2 
+                0x0800de4c     0x6422 GD32WavePlayer THUMB Release/dalby_multi.o
+                0x0800de4c                top_floor16k16b1c
+ *fill*         0x0801426e        0x2 
  .rodata.third_floor16k16b1c
-                0x08014238     0x741a GD32WavePlayer THUMB Release/dalby_multi.o
-                0x08014238                third_floor16k16b1c
- *fill*         0x0801b652        0x2 
+                0x08014270     0x741a GD32WavePlayer THUMB Release/dalby_multi.o
+                0x08014270                third_floor16k16b1c
+ *fill*         0x0801b68a        0x2 
  .rodata.second_floor16k16b1c
-                0x0801b654     0x7874 GD32WavePlayer THUMB Release/dalby_multi.o
-                0x0801b654                second_floor16k16b1c
+                0x0801b68c     0x7874 GD32WavePlayer THUMB Release/dalby_multi.o
+                0x0801b68c                second_floor16k16b1c
  .rodata.first_floor16k16b1c
-                0x08022ec8     0x7530 GD32WavePlayer THUMB Release/dalby_multi.o
-                0x08022ec8                first_floor16k16b1c
+                0x08022f00     0x7530 GD32WavePlayer THUMB Release/dalby_multi.o
+                0x08022f00                first_floor16k16b1c
  .rodata.ground_floor16k16b1c
-                0x0802a3f8     0x7302 GD32WavePlayer THUMB Release/dalby_multi.o
-                0x0802a3f8                ground_floor16k16b1c
- *fill*         0x080316fa        0x2 
+                0x0802a430     0x7302 GD32WavePlayer THUMB Release/dalby_multi.o
+                0x0802a430                ground_floor16k16b1c
+ *fill*         0x08031732        0x2 
  .rodata.door_closing16k16b1c
-                0x080316fc     0xa35a GD32WavePlayer THUMB Release/dalby_multi.o
-                0x080316fc                door_closing16k16b1c
- *fill*         0x0803ba56        0x2 
+                0x08031734     0xa35a GD32WavePlayer THUMB Release/dalby_multi.o
+                0x08031734                door_closing16k16b1c
+ *fill*         0x0803ba8e        0x2 
  .rodata.door_opening16k16b1c
-                0x0803ba58     0x9796 GD32WavePlayer THUMB Release/dalby_multi.o
-                0x0803ba58                door_opening16k16b1c
- *fill*         0x080451ee        0x2 
+                0x0803ba90     0x9796 GD32WavePlayer THUMB Release/dalby_multi.o
+                0x0803ba90                door_opening16k16b1c
+ *fill*         0x08045226        0x2 
  .rodata.dc16k16b1c
-                0x080451f0     0xad3c GD32WavePlayer THUMB Release/dalby_multi.o
-                0x080451f0                dc16k16b1c
+                0x08045228     0xad3c GD32WavePlayer THUMB Release/dalby_multi.o
+                0x08045228                dc16k16b1c
  .rodata.do16k16b1c
-                0x0804ff2c     0xa76a GD32WavePlayer THUMB Release/dalby_multi.o
-                0x0804ff2c                do16k16b1c
- *fill*         0x0805a696        0x2 
+                0x0804ff64     0xa76a GD32WavePlayer THUMB Release/dalby_multi.o
+                0x0804ff64                do16k16b1c
+ *fill*         0x0805a6ce        0x2 
  .rodata.pmtd16k16b1c
-                0x0805a698     0xa99a GD32WavePlayer THUMB Release/dalby_multi.o
-                0x0805a698                pmtd16k16b1c
- *fill*         0x08065032        0x2 
- .rodata.dalby_tritone16b16k
-                0x08065034    0x185a8 GD32WavePlayer THUMB Release/dalby_multi.o
-                0x08065034                dalby_tritone16b16k
+                0x0805a6d0     0xa99a GD32WavePlayer THUMB Release/dalby_multi.o
+                0x0805a6d0                pmtd16k16b1c
+ *fill*         0x0806506a        0x2 
+ .rodata.dalby_tt32k16b1c_mar26
+                0x0806506c    0x30b50 GD32WavePlayer THUMB Release/dalby_multi.o
+                0x0806506c                dalby_tt32k16b1c_mar26
  .rodata.libc.expf_twojby8
-                0x0807d5dc       0x20 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
+                0x08095bbc       0x20 /usr/share/crossworks_for_arm_5.4/lib/libm_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libm2.o)
  .rodata.libc.__aeabi_ERANGE
-                0x0807d5fc        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
-                0x0807d5fc                __aeabi_ERANGE
+                0x08095bdc        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
+                0x08095bdc                __aeabi_ERANGE
  .rodata.libc.__aeabi_EDOM
-                0x0807d600        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
-                0x0807d600                __aeabi_EDOM
-                0x0807d604                        __rodata_end__ = (__rodata_start__ + SIZEOF (.rodata))
-                0x0007a1b0                        __rodata_size__ = SIZEOF (.rodata)
-                0x0807d604                        __rodata_load_end__ = __rodata_end__
+                0x08095be0        0x4 /usr/share/crossworks_for_arm_5.4/lib/libc_v7em_fpv4_sp_d16_hard_t_le_eabi.a(libc2.o)
+                0x08095be0                __aeabi_EDOM
+                0x08095be4                        __rodata_end__ = (__rodata_start__ + SIZEOF (.rodata))
+                0x00092758                        __rodata_size__ = SIZEOF (.rodata)
+                0x08095be4                        __rodata_load_end__ = __rodata_end__
                 0x00000001                        . = ASSERT (((__rodata_start__ == __rodata_end__) || ((__rodata_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .rodata is too large to fit in FLASH memory segment)
-                0x0807d604                        __ARM.exidx_load_start__ = ALIGN (__rodata_end__, 0x4)
+                0x08095be4                        __ARM.exidx_load_start__ = ALIGN (__rodata_end__, 0x4)
 
-.ARM.exidx      0x0807d604        0x0
-                0x0807d604                        __ARM.exidx_start__ = .
-                0x0807d604                        __exidx_start = __ARM.exidx_start__
+.ARM.exidx      0x08095be4        0x0
+                0x08095be4                        __ARM.exidx_start__ = .
+                0x08095be4                        __exidx_start = __ARM.exidx_start__
  *(.ARM.exidx .ARM.exidx.*)
-                0x0807d604                        __ARM.exidx_end__ = (__ARM.exidx_start__ + SIZEOF (.ARM.exidx))
+                0x08095be4                        __ARM.exidx_end__ = (__ARM.exidx_start__ + SIZEOF (.ARM.exidx))
                 0x00000000                        __ARM.exidx_size__ = SIZEOF (.ARM.exidx)
-                0x0807d604                        __exidx_end = __ARM.exidx_end__
-                0x0807d604                        __ARM.exidx_load_end__ = __ARM.exidx_end__
+                0x08095be4                        __exidx_end = __ARM.exidx_end__
+                0x08095be4                        __ARM.exidx_load_end__ = __ARM.exidx_end__
                 0x00000001                        . = ASSERT (((__ARM.exidx_start__ == __ARM.exidx_end__) || ((__ARM.exidx_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .ARM.exidx is too large to fit in FLASH memory segment)
-                0x0807d604                        __fast_load_start__ = ALIGN (__ARM.exidx_end__, 0x4)
+                0x08095be4                        __fast_load_start__ = ALIGN (__ARM.exidx_end__, 0x4)
 
-.fast           0x20000000      0x630 load address 0x0807d604
+.fast           0x20000000      0x630 load address 0x08095be4
                 0x20000000                        __fast_start__ = .
  *(.fast .fast.*)
  .fast          0x20000000      0x61c GD32WavePlayer THUMB Release/audio_engine.o
@@ -4423,7 +4423,7 @@ Linker script and memory map
  .fast.__stub   0x20000620       0x10 linker stubs
                 0x20000630                        __fast_end__ = (__fast_start__ + SIZEOF (.fast))
                 0x00000630                        __fast_size__ = SIZEOF (.fast)
-                0x0807dc34                        __fast_load_end__ = (__fast_load_start__ + SIZEOF (.fast))
+                0x08096214                        __fast_load_end__ = (__fast_load_start__ + SIZEOF (.fast))
 
 .rel.dyn        0x08000000        0x0
  .rel.iplt      0x08000000        0x0 GD32WavePlayer THUMB Release/system_gd32f30x.o
@@ -4435,9 +4435,9 @@ Linker script and memory map
                 0x00000630                        __fast_run_size__ = (__fast_run_end__ - __fast_run_start__)
                 0x20000630                        __fast_run_load_end__ = __fast_run_end__
                 0x00000001                        . = ASSERT (((__fast_run_start__ == __fast_run_end__) || ((__fast_run_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .fast_run is too large to fit in RAM memory segment)
-                0x0807dc34                        __data_load_start__ = ALIGN ((__fast_load_start__ + SIZEOF (.fast)), 0x4)
+                0x08096214                        __data_load_start__ = ALIGN ((__fast_load_start__ + SIZEOF (.fast)), 0x4)
 
-.data           0x20000630       0x5f load address 0x0807dc34
+.data           0x20000630       0x5f load address 0x08096214
                 0x20000630                        __data_start__ = .
  *(.data .data.* .gnu.linkonce.d.*)
  .data.SystemCoreClock
@@ -4509,7 +4509,7 @@ Linker script and memory map
                 0x2000068e                sleep_setting
                 0x2000068f                        __data_end__ = (__data_start__ + SIZEOF (.data))
                 0x0000005f                        __data_size__ = SIZEOF (.data)
-                0x0807dc93                        __data_load_end__ = (__data_load_start__ + SIZEOF (.data))
+                0x08096273                        __data_load_end__ = (__data_load_start__ + SIZEOF (.data))
 
 .igot.plt       0x00000000        0x0
  .igot.plt      0x00000000        0x0 GD32WavePlayer THUMB Release/system_gd32f30x.o
@@ -4638,16 +4638,16 @@ Linker script and memory map
                 0x00000004                        __tbss_size__ = SIZEOF (.tbss)
                 0x20001760                        __tbss_load_end__ = __tbss_end__
                 0x00000001                        . = ASSERT (((__tbss_start__ == __tbss_end__) || ((__tbss_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .tbss is too large to fit in RAM memory segment)
-                0x0807dc94                        __tdata_load_start__ = ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4)
+                0x08096274                        __tdata_load_start__ = ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4)
 
-.tdata          0x20001760        0x0 load address 0x0807dc94
+.tdata          0x20001760        0x0 load address 0x08096274
                 0x20001760                        __tdata_start__ = .
  *(.tdata .tdata.*)
                 0x20001760                        __tdata_end__ = (__tdata_start__ + SIZEOF (.tdata))
                 0x00000000                        __tdata_size__ = SIZEOF (.tdata)
-                0x0807dc94                        __tdata_load_end__ = (__tdata_load_start__ + SIZEOF (.tdata))
-                0x0807dc94                        __FLASH_segment_used_end__ = (ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4) + SIZEOF (.tdata))
-                0x0007dc94                        __FLASH_segment_used_size__ = (__FLASH_segment_used_end__ - __FLASH_segment_start__)
+                0x08096274                        __tdata_load_end__ = (__tdata_load_start__ + SIZEOF (.tdata))
+                0x08096274                        __FLASH_segment_used_end__ = (ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4) + SIZEOF (.tdata))
+                0x00096274                        __FLASH_segment_used_size__ = (__FLASH_segment_used_end__ - __FLASH_segment_start__)
                 0x00000001                        . = ASSERT (((__tdata_load_start__ == __tdata_load_end__) || ((__tdata_load_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .tdata is too large to fit in FLASH memory segment)
 
 .tdata_run      0x20001760        0x0

@@ -1581,6 +1581,9 @@ static inline void EndPlaybackCleanup( void )
   if( !playback_end_callback_called ) {
     playback_end_callback_called = 1;
     AudioEngine_OnPlaybackEnd();
+    if( dac_power_control ) {
+      AudioEngine_DACSwitch( 0 );
+    }
   }
 }
 

@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #define OCARINA32K_SZ 248930
+#define OCARINA32K_PB_FMT Mode_mono
 
 const uint16_t ocarina32k[ OCARINA32K_SZ ] =
 {

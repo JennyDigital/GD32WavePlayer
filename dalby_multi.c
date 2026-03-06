@@ -3,7 +3,8 @@
 #include "audio_engine.h"
 #include <stdbool.h>
 
-#include "dalby_tritone16b16k.h"
+//#include "dalby_tritone16b16k.h"
+#include "dalby_tritone_mar26.h"
 #include "please_mind_the_door.h"
 #include "doors_opening.h"
 #include "doors_closing.h"
@@ -61,16 +62,17 @@ void ChimeLoop( void )
       if( option == OPT_Chime ) {
         WaitForTrigger( TRIGGER_SET );
       } else {
-        trigger_option == 0;
+        trigger_option == 1;
       }    
-      PlaySample( dalby_tritone16b16k, DALBY_TRITONE16B16K_SZ, I2S_AUDIOSAMPLE_16K, 16, DALBY_TRITONE16B16K_PB_FMT );
+      PlaySample( dalby_tt32k16b1c_mar26, DALBY_TT32K16B1C_MAR26_SZ, I2S_AUDIOSAMPLE_32K, 16, DALBY_TT32K16B1C_MAR26_PB_FMT );
       WaitForSampleEnd();
       if( trigger_option == 1 )
       {
         WaitForTrigger( TRIGGER_CLR );
       } else {
         ShutDownAudio();
-        Enter_LP_SleepMode();
+        Enter_LP_SleepMode();      
+        WaitForTrigger( TRIGGER_SET );
       }
       break;
 
