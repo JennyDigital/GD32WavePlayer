@@ -3,12 +3,7 @@
 #include "audio_engine.h"
 #include <stdbool.h>
 
-//#include "dalby_tritone16b16k.h"
-#include "dalby_tritone_mar26.h"
-#include "dalby_tritone16b16k.h"
-#include "custom_tritone16k.h"
 #include "dalby_tritone_low.h"
-#include "three_tone_arrival_c.h"
 #include "please_mind_the_door.h"
 #include "doors_opening.h"
 #include "doors_closing.h"

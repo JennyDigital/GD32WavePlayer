@@ -11,7 +11,6 @@
 #include "newchallenger.h"
 #include "newchallenger11k.h"
 #include "guitar.h"
-#include "three_tone_arrival_c.h"
 #include "tunnelbarra.h"
 #include "tunnelbarra16.h"
 #include "konnichiwa.h"
@@ -23,7 +22,6 @@
 #include "accoustic_rock22k.h"
 #include "hey_yeah32k.h"
 #include "darkblues32k.h"
-#include "custom_tritone16k.h"
 #include "ocarina_melody32k.h"
 #include "theremin_quartet.h"
 #include "steves_doorbell.h"
@@ -37,6 +35,7 @@
 #include "nylon_guitar.h"
 #include "Lemon_Tree.h"
 #include "medieval_flute.h"
+#include "When_I_Needed_a_neighbour.h"
 
 #else
 #include "dalby_multi.h"
@@ -94,8 +93,9 @@ int main( void )
 
   SetupClocks();
 
-  nvic_irq_enable( DMA0_Channel4_IRQn, 0,0 );
-  nvic_irq_enable( EXTI5_9_IRQn, 1,0 );
+  /* Keep DMA below SysTick so SysTick-based delays can still advance. */
+  nvic_irq_enable( DMA0_Channel4_IRQn, 5,0 );
+  nvic_irq_enable( EXTI5_9_IRQn, 4,0 );
 
   exti_init( EXTI_8, EXTI_INTERRUPT, EXTI_TRIG_BOTH );
   exti_interrupt_enable( EXTI_8 );
@@ -124,7 +124,7 @@ int main( void )
 
   // FilterConfig_TypeDef filter_cfg;
   filter_cfg.enable_noise_gate            = 0;  // Noise gate disabled by default; enable as needed
-  filter_cfg.enable_16bit_biquad_lpf      = 1;  // 16-bit biquad LPF disabled by default; enable as needed
+  filter_cfg.enable_16bit_biquad_lpf      = 0;  // 16-bit biquad LPF disabled by default; enable as needed
   filter_cfg.enable_8bit_lpf              = 1;  // 8-bit LPF disabled by default; enable as needed
   filter_cfg.enable_soft_dc_filter_16bit  = 1;  // Soft DC blocking filter for 16-bit samples enabled by default
   filter_cfg.enable_soft_clipping         = 0;  // Soft clipping enabled by default
@@ -140,7 +140,7 @@ int main( void )
 
   // Set fade times
   SetFadeInTime(0.2f );                   // 100 ms fade-in
-  SetFadeOutTime( 0.2f );                 // 100 ms fade-out
+  SetFadeOutTime( 0.4f );                 // 100 ms fade-out
   SetPauseFadeTime( 1.5f );               // 500 ms pause fade-out
   SetResumeFadeTime( 1.5f );              // 500 ms resume fade-in
 
@@ -154,7 +154,8 @@ int main( void )
 
     //PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
     //PlaySample( medieval_flute16b22k1c, MEDIEVAL_FLUTE16B22K1C_SZ, I2S_AUDIOSAMPLE_22K, 16, Mode_mono );
-    PlaySample( ocarina32k, OCARINA32K_SZ, I2S_AUDIOSAMPLE_32K, 16, OCARINA32K_PB_FMT );
+    //PlaySample( ocarina32k, OCARINA32K_SZ, I2S_AUDIOSAMPLE_32K, 16, OCARINA32K_PB_FMT );
+    PlaySample(neighbour16b16k1c, NEIGHBOUR16B16K1C_SZ, I2S_AUDIOSAMPLE_16K, 16, NEIGHBOUR16B16K1C_PB_FMT );
 
     WaitForSampleEnd();
   }
@@ -365,7 +366,7 @@ void SetupADC( void )
 
   // Enable Interrupt for End of Conversion
   adc_interrupt_enable(ADC1, ADC_INT_EOC);
-  nvic_irq_enable(ADC0_1_IRQn, 0, 0); // Need to handle ADC0,1,2 ISR
+  nvic_irq_enable(ADC0_1_IRQn, 3, 0); // Need to handle ADC0,1,2 ISR
 
   // Start ADC
   adc_software_trigger_enable(ADC1, ADC_REGULAR_CHANNEL); // Initial trigger
@@ -446,6 +447,8 @@ static void SetupClocks( void )
   rcu_system_clock_source_config( RCU_CKSYSSRC_PLL );
   SystemCoreClockUpdate();
   SysTick_Config( SystemCoreClock / 1000 );
+  /* Highest priority for 1ms tick; must preempt DMA callback context. */
+  NVIC_SetPriority( SysTick_IRQn, 3U );
 
 
   // Bank A usage:
@@ -507,10 +510,12 @@ void Enter_LP_SleepMode( void )
   pmu_to_deepsleepmode( PMU_LDO_NORMAL, PMU_LOWDRIVER_ENABLE, WFI_CMD );
 
   /* Wake from your slumber, mighty microcontroller! */
-  nvic_irq_enable( DMA0_Channel4_IRQn, 1, 0 );
   SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;  // Re-enable after wakeup
   SetupClocks();
-  nvic_irq_enable(ADC0_1_IRQn, 0, 0); // Need to reenable ADC0,1,2 ISR
+  nvic_irq_enable( DMA0_Channel4_IRQn, 5, 0 );
+  nvic_irq_enable(ADC0_1_IRQn, 3, 0); // Need to reenable ADC0,1,2 ISR
+  
+
 }
 
 /** Determine whether the mcu can enter sleep mode or not.

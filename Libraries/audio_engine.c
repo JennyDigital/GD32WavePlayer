@@ -1121,7 +1121,8 @@ static int16_t ApplyFadeOut( int16_t sample )
   */
 static int16_t ApplyNoiseGate( int16_t sample )
 {
-  int16_t abs_sample = ( sample < 0 ) ? -sample : sample;
+  int32_t sample32 = sample;
+  int32_t abs_sample = ( sample32 < 0 ) ? -sample32 : sample32;
   if( abs_sample < NOISE_GATE_THRESHOLD ) {
     // Soft gate: attenuate signal using fixed-point integer math (Q15)
     // Example: 0.1 attenuation = 3277 (0.1 * 32768)
@@ -1187,7 +1188,7 @@ static inline void WarmupBiquadFilter16Bit( int16_t sample )
   */
 static inline int32_t ComputeSoftClipCurve( int32_t excess, int32_t range )
 {
-  int64_t x = excess * (int64_t)Q16_SCALE / range;
+  int64_t x = ( (int64_t)excess * (int64_t)Q16_SCALE ) / range;
   if( x > (int64_t)Q16_SCALE ) x = (int64_t)Q16_SCALE;
   int64_t x2 = ( x * x )  >> 16;
   int64_t x3 = ( x2 * x ) >> 16;
@@ -1243,16 +1244,16 @@ static inline int16_t ApplyDCFilterWithAlpha(
                                               uint32_t alpha_q16
                                             )
 {
-  int32_t output = input - *prev_input +
-                   ( ( *prev_output * (int32_t)alpha_q16 ) >> DC_FILTER_SHIFT );
-  
-  *prev_input   = input;
-  *prev_output  = output;
-  
-  if ( output > AUDIO_INT16_MAX ) output = AUDIO_INT16_MAX;
-  if ( output < AUDIO_INT16_MIN ) output = AUDIO_INT16_MIN;
-  
-  return (int16_t)output;
+  int64_t filtered = ( (int64_t)( *prev_output ) * (int64_t)(int32_t)alpha_q16 ) >> DC_FILTER_SHIFT;
+  int64_t output64 = (int64_t)input - (int64_t)( *prev_input ) + filtered;
+
+  if( output64 > AUDIO_INT16_MAX ) output64 = AUDIO_INT16_MAX;
+  if( output64 < AUDIO_INT16_MIN ) output64 = AUDIO_INT16_MIN;
+
+  *prev_input  = input;
+  *prev_output = (int32_t)output64;
+
+  return (int16_t)output64;
 }
 
 
@@ -1306,19 +1307,27 @@ static int16_t PUT_IN_FASTMEM
                                         volatile int32_t *y2
                                       )
 {
-  uint32_t alpha = lpf_16bit_alpha;
-  int32_t b0 = ( ( Q16_SCALE - alpha ) * ( Q16_SCALE - alpha ) ) >> 17;
+  uint32_t alpha = (uint32_t)lpf_16bit_alpha;
+  if( alpha >= Q16_SCALE ) {
+    alpha = Q16_SCALE - 1U;
+  }
+
+  uint32_t one_minus_alpha = Q16_SCALE - alpha;
+  int32_t b0 = (int32_t)( ( (int64_t)one_minus_alpha * (int64_t)one_minus_alpha ) >> 17 );
   int32_t b1 = b0 << 1;
   int32_t b2 = b0;
-  int32_t a1 = -( alpha << 1 );
-  int32_t a2 = ( alpha * alpha ) >> 16;
+  int32_t a1 = -( (int32_t)alpha * 2 );
+  int32_t a2 = (int32_t)( ( (int64_t)alpha * (int64_t)alpha ) >> 16 );
   /* Use 64-bit accumulation to avoid overflow on aggressive coefficients */
   int64_t acc = ( (int64_t)b0 * input ) +
                 ( (int64_t)b1 * (*x1) ) +
                 ( (int64_t)b2 * (*x2) ) -
                 ( (int64_t)a1 * (*y1) ) -
                 ( (int64_t)a2 * (*y2) );
-  int32_t output = (int32_t)( acc >> 16 );
+  int64_t output_pre = acc >> 16;
+  if( output_pre > INT32_MAX ) output_pre = INT32_MAX;
+  if( output_pre < INT32_MIN ) output_pre = INT32_MIN;
+  int32_t output = (int32_t)output_pre;
   *x2 = *x1;
   *x1 = input;
   *y2 = *y1;
@@ -1432,13 +1441,6 @@ static inline int16_t PUT_IN_FASTMEM ApplyPostFilters( int16_t sample, AudioChan
     sample = ApplyAirEffect( sample, &channel->air_x1, &channel->air_y1 );
   }
 #endif
-
-  // Apply faders if enabled
-  if( faders_enabled )
-  {  
-    sample = ApplyFadeIn( sample );
-    sample = ApplyFadeOut( sample );
-  }
   
   if( filter_cfg.enable_noise_gate ) {
     sample = ApplyNoiseGate( sample );
@@ -1466,6 +1468,7 @@ static void ResetPlaybackState( void ) {
   samples_remaining             = 0;
   fadeout_samples_remaining     = 0;
   fadein_samples_remaining      = 0;
+  paused_samples_remaining      = 0;
   half_to_fill                  = FIRST;
   stop_requested                = 0;
   playback_end_callback_called  = 0;
@@ -1638,6 +1641,9 @@ static inline void StopImmediate( void )
   if( !playback_end_callback_called ) {
     playback_end_callback_called = 1;
     AudioEngine_OnPlaybackEnd();
+    if( dac_power_control == true ) {
+      AudioEngine_DACSwitch( DAC_OFF );
+    }
   }
 }
 
@@ -1672,13 +1678,21 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
       /* If not already pausing, set state to pausing and prepare for fade */
       pb_state = PB_Pausing;
       if( pb_mode == 16 ) {
-        uint32_t remaining = (uint32_t)( pb_end16_ptr - pb_p16_ptr );
-        if( remaining > fadeout_samples ) {
+        ptrdiff_t remaining = pb_end16_ptr - pb_p16_ptr;
+        if( remaining <= 0 ) {
+          EndPlaybackCleanup();
+          return;
+        }
+        if( (uint32_t)remaining > fadeout_samples ) {
           pb_end16_ptr = pb_p16_ptr + fadeout_samples;
         }
       } else if( pb_mode == 8 ) {
-        uint32_t remaining = (uint32_t)( pb_end8_ptr - pb_p8_ptr );
-        if( remaining > fadeout_samples ) {
+        ptrdiff_t remaining = pb_end8_ptr - pb_p8_ptr;
+        if( remaining <= 0 ) {
+          EndPlaybackCleanup();
+          return;
+        }
+        if( (uint32_t)remaining > fadeout_samples ) {
           pb_end8_ptr = pb_p8_ptr + fadeout_samples;
         }
       }
@@ -1817,7 +1831,11 @@ PB_StatusTypeDef ProcessNextWaveChunk( int16_t * chunk_p )
     else {
       leftsample = ApplyVolumeSetting( *input, current_volume );                  // Apply volume setting
       if( filter_cfg.enable_filter_chain_16bit == 1 ) {
-      leftsample = ApplyFilterChain16Bit( leftsample, CHANNEL_LEFT );             // Apply complete filter chain
+        leftsample = ApplyFilterChain16Bit( leftsample, CHANNEL_LEFT );            // Apply complete filter chain
+      }
+      if( faders_enabled ) {
+        leftsample = ApplyFadeIn( leftsample );
+        leftsample = ApplyFadeOut( leftsample );
       }
     }
     input++;
@@ -1830,7 +1848,11 @@ PB_StatusTypeDef ProcessNextWaveChunk( int16_t * chunk_p )
       else { 
         rightsample = ApplyVolumeSetting( *input, current_volume );               // Right channel
         if( filter_cfg.enable_filter_chain_16bit == 1 ) {
-        rightsample = ApplyFilterChain16Bit( rightsample, CHANNEL_RIGHT );        // Apply complete filter chain
+          rightsample = ApplyFilterChain16Bit( rightsample, CHANNEL_RIGHT );       // Apply complete filter chain
+        }
+        if( faders_enabled ) {
+          rightsample = ApplyFadeIn( rightsample );
+          rightsample = ApplyFadeOut( rightsample );
         }
       }   // End of right channel processing
       input++;
@@ -1892,6 +1914,10 @@ PB_StatusTypeDef ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
       if( filter_cfg.enable_filter_chain_8bit == 1 ) {
         leftsample = ApplyFilterChain8Bit( leftsample, CHANNEL_LEFT );       // Apply complete filter chain
       }
+      if( faders_enabled ) {
+        leftsample = ApplyFadeIn( leftsample );
+        leftsample = ApplyFadeOut( leftsample );
+      }
     }
     input++;
 
@@ -1907,6 +1933,10 @@ PB_StatusTypeDef ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
         rightsample = ApplyVolumeSetting( rightsample, current_volume );
         if( filter_cfg.enable_filter_chain_8bit == 1 ) {
           rightsample = ApplyFilterChain8Bit( rightsample, CHANNEL_RIGHT );   // Apply complete filter chain
+        }
+        if( faders_enabled ) {
+          rightsample = ApplyFadeIn( rightsample );
+          rightsample = ApplyFadeOut( rightsample );
         }
       }
       input++;
@@ -2100,9 +2130,15 @@ PB_StatusTypeDef PausePlayback( void )
     /* Check if we're in the middle of end-of-file fadeout */
     uint32_t remaining_in_file = 0;
     if( pb_mode == 16 ) {
-      remaining_in_file = (uint32_t)( pb_end16_ptr - pb_p16_ptr );
+      ptrdiff_t remaining = pb_end16_ptr - pb_p16_ptr;
+      if( remaining > 0 ) {
+        remaining_in_file = (uint32_t)remaining;
+      }
     } else {
-      remaining_in_file = (uint32_t)( pb_end8_ptr - pb_p8_ptr );
+      ptrdiff_t remaining = pb_end8_ptr - pb_p8_ptr;
+      if( remaining > 0 ) {
+        remaining_in_file = (uint32_t)remaining;
+      }
     }
     
     if( remaining_in_file > 0 && remaining_in_file <= fadeout_samples ) {

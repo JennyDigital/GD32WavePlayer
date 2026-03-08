@@ -133,11 +133,11 @@
       <file file_name="sound_headers/dinding.h" />
       <file file_name="sound_headers/16k/door_closing.h" />
       <file file_name="sound_headers/16k/door_opening.h" />
-      <file file_name="sound_headers/doors_closing.h" />
       <file file_name="sound_headers/16k/doors_closing.h" />
+      <file file_name="sound_headers/doors_closing.h" />
       <file file_name="sound_headers/doors_closing11k.h" />
-      <file file_name="sound_headers/doors_opening.h" />
       <file file_name="sound_headers/16k/doors_opening.h" />
+      <file file_name="sound_headers/doors_opening.h" />
       <file file_name="sound_headers/doors_opening11k.h" />
       <file file_name="sound_headers/dramatic_organ11k.h" />
       <file file_name="sound_headers/dreamy.h" />
@@ -181,6 +181,7 @@
       <file file_name="sound_headers/16k/top_floor.h" />
       <file file_name="sound_headers/tunnelbarra.h" />
       <file file_name="sound_headers/tunnelbarra16.h" />
+      <file file_name="sound_headers/When_I_Needed_a_neighbour.h" />
     </folder>
     <folder Name="Source Files">
       <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
