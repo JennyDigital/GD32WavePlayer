@@ -38,14 +38,12 @@
 
 /** WARNING!
   *
-  * SysTick interrupt priority must be set higher (numerically lower) than the DMA interrupt priority
-  * to avoid application lockup upon stopping playback.  This is because the audio engine relies on
-  * HAL_I2S_DMAStop being able to execute from the SysTick callback to properly stop the DMA and reset state.
-  * If the SysTick interrupt priority is not higher than the DMA interrupt priority, stopping playback
-  * from the SysTick callback will not be able to preempt the DMA interrupt, causing the application to lock up.
-  * Ensure that the SysTick interrupt priority is configured correctly in your application (e.g., set SysTick
-  * priority to DMA interrupt priority to 1 more (lower priority) than SysTick) to allow proper stopping of
-  * playback without lockup.
+  * The GD32 audio engine no longer depends on SysTick callbacks for playback stop or delay timing.
+  * Delay timing is handled by polling the SysTick hardware counter directly, so it remains functional
+  * even when interrupts are masked.
+  *
+  * DMA callback timing is still critical: DMA/I2S IRQ handlers must run often enough to refill
+  * buffers before underrun.
   *
   * The DMA I2S callbacks just need to beat the buffer refill time, so that they can keep the buffer supplied
   * with processed audio samples.
@@ -614,17 +612,15 @@ float                GetAirEffectPresetDb             ( uint8_t preset_index );
 /* Hardware callbacks (to be called from I2S DMA callbacks) */
 /**
  * @brief DMA half-complete callback for I2S
- * @param[in] hi2s Pointer to I2S handle
  * @note Called from DMA ISR when first half of buffer is complete
- * @note Application must call this from HAL_I2S_TxHalfCpltCallback()
+ * @note Application must call this from the GD32 DMA half-transfer ISR path
  */
 void                 I2S_TxHalfCpltCallback          ( void );
 
 /**
  * @brief DMA complete callback for I2S
- * @param[in] hi2s Pointer to I2S handle
  * @note Called from DMA ISR when entire buffer transfer is complete
- * @note Application must call this from HAL_I2S_TxCpltCallback()
+ * @note Application must call this from the GD32 DMA full-transfer ISR path
  */
 void                 I2S_TxCpltCallback             ( void );
 

@@ -7,7 +7,7 @@ Fast lookup for common audio engine operations.
 ```c
 #include "audio_engine.h"
 
-AudioEngine_Init(DAC_MasterSwitch, ReadVolume, MX_I2S2_Init);
+AudioEngine_Init(DAC_MasterSwitch, ReadVolume, spi_config);
 ```
 
 ## Playback
@@ -189,16 +189,16 @@ WaitForSampleEnd();
 PlaySample(sound_data, sound_size, 22000, 16, Mode_mono);
 while (GetPlaybackState() == PB_Playing) {
   // Do other work
-  HAL_Delay(100);
+  delay_ms(100);
 }
 ```
 
 ### Pattern 3: Pause & Resume
 ```c
 PlaySample(sound_data, sound_size, 22000, 16, Mode_mono);
-HAL_Delay(1000);
+delay_ms(1000);
 PausePlayback();
-HAL_Delay(2000);
+delay_ms(2000);
 ResumePlayback();
 WaitForSampleEnd();
 ```
@@ -244,7 +244,7 @@ void main_loop(void) {
   while (!playback_done) {
     UpdateDisplay();
     ProcessButtons();
-    HAL_Delay(10);
+    delay_ms(10);
   }
   
   printf("Audio finished!\n");

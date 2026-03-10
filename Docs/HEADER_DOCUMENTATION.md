@@ -86,8 +86,8 @@ The header is organized into logical groups of related functions:
    - `GetAirEffectPresetDb()` - Query specific preset's dB level
 
 12. **DMA Callbacks** (2 functions)
-   - `HAL_I2S_TxHalfCpltCallback()` - Half-buffer complete
-   - `HAL_I2S_TxCpltCallback()` - Full-buffer complete
+   - `I2S_TxHalfCpltCallback()` - Half-buffer complete
+   - `I2S_TxCpltCallback()` - Full-buffer complete
 
 13. **Playback State (Internal)** (6 functions)
    - `GetPlaybackState()` / `SetPlaybackState()`

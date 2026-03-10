@@ -35,7 +35,7 @@ PB_StatusTypeDef AudioEngine_Init(
 **Parameters:**
 - `dac_switch`: Callback to control DAC/amplifier GPIO (GPIO_PIN_SET or GPIO_PIN_RESET)
 - `read_volume`: Callback returning volume level 1-65535
-- `i2s_init`: Callback to initialize I2S peripheral (e.g., `MX_I2S2_Init`)
+- `i2s_init`: Callback to initialize I2S peripheral (e.g., `spi_config`)
 
 **Returns:** `PB_Idle` on success, `PB_Error` if any callback is NULL
 
@@ -50,7 +50,7 @@ PB_StatusTypeDef AudioEngine_Init(
 PB_StatusTypeDef status = AudioEngine_Init(
   DAC_MasterSwitch,
   ReadVolume,
-  MX_I2S2_Init
+  spi_config
 );
 
 if (status != PB_Idle) {
@@ -383,7 +383,7 @@ float GetVolumeResponseGamma( void );
 
 ```c
 // Initialize with defaults (non-linear, gamma=2.0)
-AudioEngine_Init(DAC_MasterSwitch, ReadVolume, MX_I2S2_Init);
+AudioEngine_Init(DAC_MasterSwitch, ReadVolume, spi_config);
 
 // Enable non-linear response with custom gamma for specific perception
 SetVolumeResponseNonlinear(1);           // Enable perceptual volume
@@ -1054,7 +1054,7 @@ PB_StatusTypeDef ProcessNextWaveChunk(int16_t *chunk_p);
 
 **Returns:** `PB_Playing` if playback continues, `PB_Idle` if complete
 
-**Called by:** I2S DMA complete callback (`HAL_I2S_TxCpltCallback`)
+**Called by:** I2S DMA complete callback (`I2S_TxCpltCallback`)
 
 ### `ProcessNextWaveChunk_8_bit()`
 
@@ -1220,7 +1220,7 @@ printf("Playback speed: %lu Hz\n", sr);
 
 void demo_interactive_control(void) {
   // Initialize
-  AudioEngine_Init(DAC_MasterSwitch, ReadVolume, MX_I2S2_Init);
+  AudioEngine_Init(DAC_MasterSwitch, ReadVolume, spi_config);
   
   // Configure filters
   FilterConfig_TypeDef cfg;
@@ -1237,18 +1237,18 @@ void demo_interactive_control(void) {
   PlaySample(my_sound, my_sound_size, 22000, 16, Mode_mono);
   
   // User controls (e.g., in button ISR)
-  HAL_Delay(500);
+  delay_ms(500);
   
   // Pause
   printf("Pausing...\n");
   PausePlayback();
-  HAL_Delay(1000);
+  delay_ms(1000);
   
   // Resume with custom fade
   SetResumeFadeTime(0.500f);
   printf("Resuming...\n");
   ResumePlayback();
-  HAL_Delay(1000);
+  delay_ms(1000);
   
   // Cycle air effect presets
   for (int i = 0; i < 4; i++) {
@@ -1256,7 +1256,7 @@ void demo_interactive_control(void) {
          GetAirEffectPresetIndex(), 
          GetAirEffectGainDb());
     CycleAirEffectPresetDb();
-    HAL_Delay(500);
+    delay_ms(500);
   }
   
   // Wait for completion

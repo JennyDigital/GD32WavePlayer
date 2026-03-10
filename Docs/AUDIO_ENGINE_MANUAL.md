@@ -56,14 +56,14 @@ You **must** call `AudioEngine_Init()` to set up the audio engine with the requi
 ```c
 #include "audio_engine.h"
 
-// Step 1: I2S2 must be initialized via CubeMX
-// (This is done automatically in MX_I2S2_Init())
+// Step 1: I2S peripheral clock/pins must be initialized in application startup
+// (Project uses spi_config(speed) as the I2S re-init callback)
 
 // Step 2: Initialize the audio engine with hardware callbacks
 PB_StatusTypeDef status = AudioEngine_Init(
   DAC_MasterSwitch,       // Function to control amplifier on/off
   ReadVolume,             // Function to read volume setting
-  MX_I2S2_Init            // Function to re-initialize I2S if needed
+  spi_config              // Function to re-initialize I2S for a requested sample rate
 );
 
 if( status != PB_Idle ) {
@@ -275,7 +275,7 @@ Audio engine state handle (for initialization).
 
 ```c
 typedef struct {
-  I2S_HandleTypeDef *hi2s;   // Pointer to I2S HAL handle
+  void *i2s_context;         // Optional application-specific I2S context pointer
   int16_t *pb_buffer;        // Playback buffer (2048 samples)
   uint32_t playback_speed;   // Default playback speed (Hz)
 } AudioEngine_HandleTypeDef;
@@ -283,10 +283,10 @@ typedef struct {
 
 ### Function Reference
 
-#### Hardware Setup (Done in CubeMX + main.c)
+#### Hardware Setup (Done in main.c)
 
 Before playing audio, ensure:
-1. **I2S2 is configured** in CubeMX (22 kHz, 16-bit, DMA enabled)
+1. **I2S is configured** in application startup code (22 kHz, 16-bit, DMA enabled)
 2. **`AudioEngine_Init()` is called** with function pointers for:
    - DAC on/off control
    - Volume reading
@@ -331,9 +331,9 @@ PB_StatusTypeDef AudioEngine_Init(
 // Define these functions in your application
 void DAC_MasterSwitch(uint8_t state) {
   if (state) {
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);   // Enable amplifier
+    gpio_bit_write(GPIOC, GPIO_PIN_0, SET);    // Enable amplifier
   } else {
-    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);  // Disable amplifier
+    gpio_bit_write(GPIOC, GPIO_PIN_0, RESET);  // Disable amplifier
   }
 }
 
@@ -346,7 +346,7 @@ uint16_t ReadVolume(void) {
 PB_StatusTypeDef status = AudioEngine_Init(
   DAC_MasterSwitch,
   ReadVolume,
-  MX_I2S2_Init
+  spi_config
 );
 
 if (status != PB_Idle) {
@@ -631,10 +631,10 @@ extern DAC_SwitchFunc AudioEngine_DACSwitch;
 
 // Application must define:
 void MyDACControl(GPIO_PinState setting) {
-  if (setting == GPIO_PIN_SET) {
-    HAL_GPIO_WritePin(AMP_EN_GPIO_Port, AMP_EN_Pin, GPIO_PIN_SET);    // ON
+  if (setting == SET) {
+    gpio_bit_write(AMP_EN_GPIO_Port, AMP_EN_Pin, SET);    // ON
   } else {
-    HAL_GPIO_WritePin(AMP_EN_GPIO_Port, AMP_EN_Pin, GPIO_PIN_RESET);  // OFF
+    gpio_bit_write(AMP_EN_GPIO_Port, AMP_EN_Pin, RESET);  // OFF
   }
 }
 
@@ -871,7 +871,7 @@ static void AudioEngine_Init(void) {
   // Wire hardware hooks
   AudioEngine_DACSwitch  = DAC_MasterSwitch;
   AudioEngine_ReadVolume = ReadVolume;
-  AudioEngine_I2SInit    = MX_I2S2_Init;
+  AudioEngine_I2SInit    = spi_config;
 
   // Configure filters
   FilterConfig_TypeDef cfg = filter_cfg; // start from defaults
@@ -929,7 +929,7 @@ void PlayDoorbell(void) {
   WaitForSampleEnd();
   
   // Small delay between sounds
-  HAL_Delay(500);
+  delay_ms(500);
   
   // Second: bell sound (16-bit, medium filtering)
   SetLpf16BitLevel(LPF_Medium);
@@ -963,7 +963,7 @@ void InteractivePlayback(void) {
       ResumePlayback();
     }
     
-    HAL_Delay(100);
+    delay_ms(100);
   }
 }
 ```
@@ -1190,10 +1190,11 @@ uint16_t ReadVolume(void) {
   return (uint16_t)lin;
 }
 
-void HAL_ADC_ConvCpltCallback( ADC_HandleTypeDef *hadc )
+void ADC0_1_IRQHandler( void )
 {
-  if( hadc == &hadc1 ) {
-    adc_raw = HAL_ADC_GetValue( &hadc1 );
+  if( SET == adc_interrupt_flag_get(ADC1, ADC_INT_FLAG_EOC) ) {
+    adc_interrupt_flag_clear(ADC1, ADC_INT_FLAG_EOC);
+    adc_raw = adc_regular_data_read(ADC1);
   }
 }
 ```
@@ -1210,7 +1211,7 @@ void HAL_ADC_ConvCpltCallback( ADC_HandleTypeDef *hadc )
 
 /* Hardware control functions (application-specific) */
 void DAC_MasterSwitch(GPIO_PinState setting) {
-  HAL_GPIO_WritePin(AMP_EN_GPIO_Port, AMP_EN_Pin, setting);
+  gpio_bit_write(AMP_EN_GPIO_Port, AMP_EN_Pin, setting);
 }
 
 uint16_t ReadVolume(void) {
@@ -1228,12 +1229,12 @@ uint16_t ReadVolume(void) {
   return (uint16_t)scaled;
 }
 
-/* Main initialization (in main.c HAL_Init sequence) */
+/* Main initialization (in main.c startup sequence) */
 void SystemInit_Audio(void) {
   // Set hardware callbacks before playing audio
   AudioEngine_DACSwitch = DAC_MasterSwitch;
   AudioEngine_ReadVolume = ReadVolume;
-  AudioEngine_I2SInit = MX_I2S2_Init;
+  AudioEngine_I2SInit = spi_config;
   
   // Configure filter settings (optional, defaults work for most cases)
   FilterConfig_TypeDef cfg;
@@ -1289,13 +1290,13 @@ void PlayAlert(void) {
   SetLpf16BitLevel(LPF_VerySoft);
   PlaySample(tone1, tone1_size, 22000, 16, Mode_mono);
   WaitForSampleEnd();
-  HAL_Delay(200);
+  delay_ms(200);
   
   // Second tone: medium
   SetLpf16BitLevel(LPF_Medium);
   PlaySample(tone2, tone2_size, 22000, 16, Mode_mono);
   WaitForSampleEnd();
-  HAL_Delay(200);
+  delay_ms(200);
   
   // Third tone: aggressive (emphasis)
   SetLpf16BitLevel(LPF_Aggressive);
@@ -1347,7 +1348,7 @@ void PlaybackTask(void) {
       printf("Paused\n");
       
       while (!resume_requested && GetPlaybackState() == PB_Paused) {
-        HAL_Delay(50);
+        delay_ms(50);
       }
       
       ResumePlayback();
@@ -1356,7 +1357,7 @@ void PlaybackTask(void) {
       resume_requested = 0;
     }
     
-    HAL_Delay(50);
+    delay_ms(50);
   }
 }
 
@@ -1387,7 +1388,7 @@ void NonBlockingPlayback(void) {
       break;
     }
     
-    HAL_Delay(100);  // 10 second total wait
+    delay_ms(100);  // 10 second total wait
   }
 }
 ```
@@ -1448,10 +1449,10 @@ SetAirEffectPresetDb(3);                // +3 dB (strongest preset)
 **Symptoms:** `PlaySample()` returns `PB_Error` or `PB_PlayingFailed`
 
 **Solutions:**
-1. Verify I2S2 is initialized via `MX_I2S2_Init()`
+1. Verify I2S is initialized and `AudioEngine_I2SInit` points to `spi_config`
 2. Check that `AudioEngine_I2SInit` callback is set
 3. Confirm DMA is enabled for I2S2 TX
-4. Check amplifier GPIO is working: `HAL_GPIO_WritePin(AMP_EN_GPIO_Port, AMP_EN_Pin, GPIO_PIN_SET)`
+4. Check amplifier GPIO is working: `gpio_bit_write(AMP_EN_GPIO_Port, AMP_EN_Pin, SET)`
 5. Verify audio data pointer is valid (in flash or accessible RAM)
 
 **Debug:**
@@ -1549,9 +1550,10 @@ SetFilterConfig(&cfg);
    - Check DMA direction is I2S TX (transmit)
 
 3. **I2S interrupt interfering with audio processing**
-   - Ensure `HAL_I2S_IRQHandler()` is called in ISR
+  - Ensure DMA IRQ handlers call `I2S_TxHalfCpltCallback()` / `I2S_TxCpltCallback()`
    - Verify DMA interrupt priorities don't conflict
-    - **SysTick must have higher priority (numerically lower) than the I2S DMA IRQ**. HAL stop routines invoked from DMA callbacks rely on `HAL_GetTick()` timeouts, which can stall if SysTick cannot preempt the DMA IRQ.
+    - **GD32 audio engine is SysTick-independent for stop/delay paths**. SysTick priority is no longer a lockup requirement for playback stop.
+    - Keep DMA/I2S IRQ service latency low enough to avoid playback buffer underruns.
 
 **Debug:**
 ```c

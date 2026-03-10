@@ -279,14 +279,37 @@ void SysTick_Handler( void ) {
 
 /** Blocking delay function.
   *
+  * @brief: A blocking delay that does not depend on an interrupt.
+  *
   * @param: millis. The number of milliseconds to wait
   * @retval: none
   *
   */
 void delay_ms( uint32_t millis )
 {
-  systick_counter = millis;
-  while( systick_counter );
+  const uint32_t ticks_per_ms = SystemCoreClock / 1000U;
+  const uint32_t reload_ticks = SysTick->LOAD + 1U;
+
+  while( millis-- )
+  {
+    uint32_t start = SysTick->VAL;
+    uint32_t elapsed = 0U;
+
+    while( elapsed < ticks_per_ms )
+    {
+      uint32_t now = SysTick->VAL;
+      if( start >= now )
+      {
+        elapsed += ( start - now );
+      }
+      else
+      {
+        /* Counter wrapped from 0 back to LOAD between samples. */
+        elapsed += ( start + ( reload_ticks - now ) );
+      }
+      start = now;
+    }
+  }
 }
 
 
@@ -447,9 +470,6 @@ static void SetupClocks( void )
   rcu_system_clock_source_config( RCU_CKSYSSRC_PLL );
   SystemCoreClockUpdate();
   SysTick_Config( SystemCoreClock / 1000 );
-  /* Highest priority for 1ms tick; must preempt DMA callback context. */
-  NVIC_SetPriority( SysTick_IRQn, 3U );
-
 
   // Bank A usage:
   //              TRIGGER_Pin

@@ -410,7 +410,7 @@ def build_pdf_content(sections, styles):
     story.append(Paragraph("User Manual", styles['CustomTitle']))
     story.append(Spacer(1, 1*cm))
     story.append(Paragraph(
-        "STM32G474 DSP Audio Playback System<br/>Version 2.0",
+        "GD32 DSP Audio Playback System<br/>Version 2.0",
         ParagraphStyle('subtitle', parent=styles['CustomBody'], 
                       fontSize=14, alignment=TA_CENTER, textColor=HexColor('#586069'))
     ))

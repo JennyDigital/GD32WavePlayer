@@ -33,8 +33,8 @@ Complete alphabetical index of all 60+ public functions in the Audio Engine API,
 <a id="getsoftclippingenable"></a>
 <a id="getvolumeresponsegamma"></a>
 <a id="getvolumeresponsenonlinear"></a>
-<a id="hal_i2s_txcpltcallback"></a>
-<a id="hal_i2s_txhalfcpltcallback"></a>
+<a id="i2s_txcpltcallback"></a>
+<a id="i2s_txhalfcpltcallback"></a>
 <a id="pauseplayback"></a>
 <a id="playsample"></a>
 <a id="processnextwavechunk"></a>
@@ -100,8 +100,8 @@ Complete alphabetical index of all 60+ public functions in the Audio Engine API,
 | [`GetSoftClippingEnable()`](#getsoftclippingenable) | Filter Config | Read soft clipping enable state |
 | [`GetVolumeResponseGamma()`](#getvolumeresponsegamma) | Volume Response | Get volume response gamma |
 | [`GetVolumeResponseNonlinear()`](#getvolumeresponsenonlinear) | Volume Response | Get non-linear volume response mode |
-| [`HAL_I2S_TxCpltCallback()`](#hal_i2s_txcpltcallback) | DMA Callbacks | DMA complete callback |
-| [`HAL_I2S_TxHalfCpltCallback()`](#hal_i2s_txhalfcpltcallback) | DMA Callbacks | DMA half-complete callback |
+| [`I2S_TxCpltCallback()`](#i2s_txcpltcallback) | DMA Callbacks | DMA complete callback |
+| [`I2S_TxHalfCpltCallback()`](#i2s_txhalfcpltcallback) | DMA Callbacks | DMA half-complete callback |
 | [`PausePlayback()`](#pauseplayback) | Playback Control | Pause with fade-out |
 | [`PlaySample()`](#playsample) | Playback Control | Start sample playback |
 | [`ProcessNextWaveChunk()`](#processnextwavechunk) | Chunk Processing | Process 16-bit samples |
@@ -213,8 +213,8 @@ Complete alphabetical index of all 60+ public functions in the Audio Engine API,
 - [`AdvanceSamplePointer()`](#advancesamplepointer) - Advance to next DMA buffer position
 
 ### DMA Callbacks (2 functions)
-- [`HAL_I2S_TxHalfCpltCallback()`](#hal_i2s_txhalfcpltcallback) - DMA half-complete callback
-- [`HAL_I2S_TxCpltCallback()`](#hal_i2s_txcpltcallback) - DMA complete callback
+- [`I2S_TxHalfCpltCallback()`](#i2s_txhalfcpltcallback) - DMA half-complete callback
+- [`I2S_TxCpltCallback()`](#i2s_txcpltcallback) - DMA complete callback
 
 ### Internal State (4+ functions)
 - [`GetPlaybackState()`](#getplaybackstate) - Get current playback state

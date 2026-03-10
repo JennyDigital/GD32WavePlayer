@@ -8,7 +8,7 @@ This document contains flowcharts showing the architecture and data flow of the 
 flowchart TB
   subgraph Application["Application Layer"]
     User["User Code<br/>(main.c)"]
-    Callbacks["Hardware Callbacks<br/>• ReadVolume()<br/>• DAC_MasterSwitch()<br/>• MX_I2S2_Init()"]
+    Callbacks["Hardware Callbacks<br/>• ReadVolume()<br/>• DAC_MasterSwitch()<br/>• spi_config(speed)"]
   end
 
   subgraph Engine["Audio Engine Core"]
@@ -26,14 +26,14 @@ flowchart TB
 
   subgraph Hardware["Hardware Layer"]
     I2S["I2S2 Peripheral<br/>(DMA Mode)"]
-    DMA["DMA1 Channel 1<br/>(Circular Buffer)"]
+    DMA["DMA0 Channel 4<br/>(Circular Buffer)"]
     DAC["MAX98357A<br/>Digital Amplifier"]
     Speaker["Speaker Output"]
   end
 
   subgraph ISR["Interrupt Service Routines"]
-    HalfCplt["HAL_I2S_TxHalfCpltCallback()"]
-    FullCplt["HAL_I2S_TxCpltCallback()"]
+    HalfCplt["I2S_TxHalfCpltCallback()"]
+    FullCplt["I2S_TxCpltCallback()"]
   end
 
   User -->|"1. Initialize"| Init
@@ -86,7 +86,7 @@ flowchart TD
   Check16Filters -->|Yes| Warmup["Warm-up Biquad Filter<br/>16 cycles<br/>Prevent startup transient"]
   Check16Filters -->|No| StartDMA
   
-  Warmup --> StartDMA["Start I2S DMA Transfer:<br/>HAL_I2S_Transmit_DMA"]
+  Warmup --> StartDMA["Start I2S DMA Transfer:<br/>dma_config() + spi_config(speed)"]
   
   StartDMA --> CheckDMAResult{DMA Start<br/>Success?}
   
@@ -110,8 +110,8 @@ flowchart TD
 flowchart TD
   DMAInt([DMA Interrupt Triggered]) --> WhichHalf{Which Half?}
   
-  WhichHalf -->|First Half| HalfCplt["HAL_I2S_TxHalfCpltCallback()"]
-  WhichHalf -->|Second Half| FullCplt["HAL_I2S_TxCpltCallback()"]
+  WhichHalf -->|First Half| HalfCplt["I2S_TxHalfCpltCallback()"]
+  WhichHalf -->|Second Half| FullCplt["I2S_TxCpltCallback()"]
   
   HalfCplt --> SetHalf1["Set half_to_fill = FIRST"]
   FullCplt --> SetHalf2["Set half_to_fill = SECOND"]

@@ -1,7 +1,7 @@
 # Audio Engine - GD32 DSP Audio Playback System
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-gd32%20with%20I2S-orange.svg)](https://www.st.com/en/microcontrollers-microprocessors/gd32-32-bit-arm-cortex-mcus.html)
+[![Platform](https://img.shields.io/badge/platform-gd32%20with%20I2S-orange.svg)](https://www.gigadevice.com/)
 [![Audio](https://img.shields.io/badge/audio-8bit%20%7C%2016bit-green.svg)]()
 [![Documentation](https://img.shields.io/badge/docs-comprehensive-brightgreen.svg)](DOCUMENTATION_GUIDE.md)
 [![API Functions](https://img.shields.io/badge/API-44%2B%20functions-blue.svg)](API_REFERENCE.md)
@@ -57,7 +57,7 @@ A professional, reusable audio playback engine for GD32 microcontrollers with I2
 // Set up hardware interface callbacks (in main.c)
 AudioEngine_DACSwitch = DAC_MasterSwitch;   // GPIO control for amplifier
 AudioEngine_ReadVolume = ReadVolume;        // Volume level reading
-AudioEngine_I2SInit = MX_I2S2_Init;         // I2S initialization
+AudioEngine_I2SInit = spi_config;           // I2S initialization callback (accepts sample rate)
 
 // Configure filters (optional - defaults are pre-set)
 SetLpf16BitLevel(LPF_Soft);                 // Gentle 16-bit filtering

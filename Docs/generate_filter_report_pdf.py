@@ -174,7 +174,7 @@ ax.set_ylim(0, 1)
 
 # Title
 title_text = "Audio Engine DSP Filter Analysis"
-subtitle_text = "STM32G474 Audio Playback System"
+subtitle_text = "GD32 Audio Playback System"
 date_text = f"Report Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
 
 y_pos = 0.90
@@ -504,7 +504,7 @@ specs_detailed = """TECHNICAL SPECIFICATIONS & IMPLEMENTATION DETAILS
    Position: After DC filter, before fade/clipping in the chain
 
 HARDWARE INTEGRATION
-   • Microcontroller: STM32G474 (ARM Cortex-M4F)
+   • Microcontroller: GD32F303 (ARM Cortex-M4)
    • I2S Audio Interface: I2S2 (DMA-driven stereo output)
    • Digital Amplifier: MAX98357A (Class D, I2S input)
    • Playback Buffer: 2048 samples (ping-pong DMA)
