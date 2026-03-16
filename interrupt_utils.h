@@ -35,7 +35,17 @@ extern "C" {
 #include <stdint.h>
 
 /* ARM Cortex-M CMSIS functions for interrupt control */
-#include <cmsis_gcc.h>
+#if defined(__has_include)
+  #if __has_include(<cmsis_gcc.h>)
+    #include <cmsis_gcc.h>
+  #elif __has_include("core_cm4.h")
+    #include "core_cm4.h"
+  #else
+    #error "Required CMSIS core header not found (cmsis_gcc.h/core_cm4.h)."
+  #endif
+#else
+  #include <cmsis_gcc.h>
+#endif
 
 /**
   * @brief Save interrupt state and disable all interrupts with memory barriers

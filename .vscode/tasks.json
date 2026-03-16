@@ -1,0 +1,236 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "GD32: Prepare build folder",
+      "type": "shell",
+      "command": "mkdir",
+      "args": [
+        "-p",
+        "${workspaceFolder}/build"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "GD32: Toolchain version",
+      "type": "shell",
+      "command": "${config:gd32.toolchainPrefix}-gcc",
+      "args": [
+        "--version"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "GD32: Stop debug servers",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "pkill -f 'openocd|st-util|ST-LINK_gdbserver' || true"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "GD32: Prepare debug session",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "GD32: Stop debug servers",
+        "GD32: Build ELF"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "GD32: Compile active file",
+      "type": "shell",
+      "command": "${config:gd32.toolchainPrefix}-gcc",
+      "args": [
+        "-c",
+        "${file}",
+        "-o",
+        "${workspaceFolder}/build/${fileBasenameNoExtension}.o",
+        "-mcpu=${config:gd32.cpu}",
+        "-mthumb",
+        "-std=gnu11",
+        "-Wall",
+        "-Wextra",
+        "-ffreestanding",
+        "-fdata-sections",
+        "-ffunction-sections",
+        "-include",
+        "${workspaceFolder}/gd32_sdk_compat.h",
+        "-I${workspaceFolder}",
+        "-I${workspaceFolder}/Libraries",
+        "-I${workspaceFolder}/sound_headers",
+        "-I${workspaceFolder}/sound_headers/16k",
+        "-I${workspaceFolder}/drivers/CMSIS",
+        "-I${workspaceFolder}/drivers/CMSIS/GD/GD32F30x/Include",
+        "-I${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Include",
+        "-DGD32F30X_XD",
+        "-DUSE_STDPERIPH_DRIVER",
+        "-DHXTAL_VALUE=8000000"
+      ],
+      "dependsOn": [
+        "GD32: Prepare build folder"
+      ],
+      "group": "build",
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "GD32: Build ELF",
+      "type": "shell",
+      "command": "${config:gd32.toolchainPrefix}-gcc",
+      "args": [
+        "-mcpu=${config:gd32.cpu}",
+        "-mthumb",
+        "-std=gnu11",
+        "-ffreestanding",
+        "-ffunction-sections",
+        "-fdata-sections",
+        "-Wall",
+        "-Wextra",
+        "-Og",
+        "-g3",
+        "-include",
+        "${workspaceFolder}/gd32_sdk_compat.h",
+        "-I${workspaceFolder}",
+        "-I${workspaceFolder}/Libraries",
+        "-I${workspaceFolder}/sound_headers",
+        "-I${workspaceFolder}/sound_headers/16k",
+        "-I${workspaceFolder}/drivers/CMSIS",
+        "-I${workspaceFolder}/drivers/CMSIS/GD/GD32F30x/Include",
+        "-I${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Include",
+        "-DGD32F30X_XD",
+        "-DUSE_STDPERIPH_DRIVER",
+        "-DHXTAL_VALUE=8000000",
+        "${workspaceFolder}/main.c",
+        "${workspaceFolder}/dalby_multi.c",
+        "${workspaceFolder}/Libraries/audio_engine.c",
+        "${workspaceFolder}/drivers/CMSIS/GD/GD32F30x/Source/system_gd32f30x.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_adc.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_bkp.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_can.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_crc.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_ctc.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_dac.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_dbg.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_dma.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_enet.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_exmc.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_exti.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_fmc.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_fwdgt.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_gpio.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_i2c.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_misc.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_pmu.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_rcu.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_rtc.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_sdio.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_spi.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_timer.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_usart.c",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Source/gd32f30x_wwdgt.c",
+        "${config:gd32.startupFile}",
+        "-lm",
+        "-T${config:gd32.linkerScript}",
+        "-Wl,--gc-sections",
+        "-Wl,-Map=${workspaceFolder}/build/GD32WavePlayer.map",
+        "--specs=nosys.specs",
+        "-o",
+        "${workspaceFolder}/build/GD32WavePlayer.elf"
+      ],
+      "dependsOn": [
+        "GD32: Prepare build folder"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "GD32: Build HEX",
+      "type": "shell",
+      "command": "${config:gd32.toolchainPrefix}-objcopy",
+      "args": [
+        "-O",
+        "ihex",
+        "${workspaceFolder}/build/GD32WavePlayer.elf",
+        "${workspaceFolder}/build/GD32WavePlayer.hex"
+      ],
+      "dependsOn": [
+        "GD32: Build ELF"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "GD32: Build BIN",
+      "type": "shell",
+      "command": "${config:gd32.toolchainPrefix}-objcopy",
+      "args": [
+        "-O",
+        "binary",
+        "${workspaceFolder}/build/GD32WavePlayer.elf",
+        "${workspaceFolder}/build/GD32WavePlayer.bin"
+      ],
+      "dependsOn": [
+        "GD32: Build ELF"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "GD32: Size",
+      "type": "shell",
+      "command": "${config:gd32.toolchainPrefix}-size",
+      "args": [
+        "${workspaceFolder}/build/GD32WavePlayer.elf"
+      ],
+      "dependsOn": [
+        "GD32: Build ELF"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "GD32: Flash with ST-Link",
+      "type": "shell",
+      "command": "/usr/bin/openocd",
+      "args": [
+        "-f",
+        "${workspaceFolder}/.vscode/openocd-gd32-stlink.cfg",
+        "-c",
+        "program ${workspaceFolder}/build/GD32WavePlayer.elf verify reset exit"
+      ],
+      "dependsOn": [
+        "GD32: Build ELF"
+      ],
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "GD32: Reset via ST-Link",
+      "type": "shell",
+      "command": "/usr/bin/openocd",
+      "args": [
+        "-f",
+        "${workspaceFolder}/.vscode/openocd-gd32-stlink.cfg",
+        "-c",
+        "init; reset halt; reset run; shutdown"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "GD32: Clean build artifacts",
+      "type": "shell",
+      "command": "rm",
+      "args": [
+        "-rf",
+        "${workspaceFolder}/build"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

@@ -64,6 +64,8 @@ volatile  uint16_t        trig_counter                  = 0;              // Cou
 volatile  uint8_t         trig_timeout_flag             = 0;              // Flag indicating trigger timeout has occurred
 volatile  uint16_t        trig_timeout_counter          = 0;              // Counter for trigger timeout duration
 volatile  uint8_t         trig_status                   = TRIGGER_CLR;    // Current trigger status  (SET or CLR)
+volatile  uint8_t         trig_rise_event               = 0;              // Latched on trigger rising edge IRQ
+volatile  uint8_t         trig_fall_event               = 0;              // Latched on trigger falling edge IRQ
 
 // External variables.
 #ifdef DALBY_BUILD
@@ -92,6 +94,11 @@ int main( void )
   SystemInit();
 
   SetupClocks();
+
+  // If we're debugging, let's prevent the system from sleeping when we hit the sleep command, otherwise we won't be able to debug anything after that point without power cycling.
+  if( ( CoreDebug->DHCSR & CoreDebug_DHCSR_C_DEBUGEN_Msk ) != 0U ) {
+    DBG_CTL0 |= ( DBG_CTL0_SLP_HOLD | DBG_CTL0_DSLP_HOLD | DBG_CTL0_STB_HOLD );
+  }
 
   /* Keep DMA below SysTick so SysTick-based delays can still advance. */
   nvic_irq_enable( DMA0_Channel4_IRQn, 5,0 );
@@ -227,6 +234,7 @@ inline void WaitForTrigger( uint8_t trig_to_wait_for )
         break;
       }
     }
+
     if( trig_status == trig_to_wait_for ) return;
     Enter_LP_SleepMode();
   }
@@ -515,6 +523,7 @@ void Enter_LP_SleepMode( void )
 #endif
 
   // Prepare for sleep
+  delay_ms( 100 );                            // Provide time for the system so settle down.
   SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk; // Disable SysTick interrupt
   nvic_irq_disable( DMA0_Channel4_IRQn );     // If for some reason DMA is running, stop it's IRQs
   nvic_irq_disable( ADC0_1_IRQn );            // Stop the ADC Interrupts.
@@ -566,6 +575,12 @@ void HardFault_Handler( void )
 /* Just clears up the IRQ flag for the trigger, we are using the IRQ to wake the mcu on triggering. */
 void EXTI5_9_IRQHandler( void )
 {
+  if( gpio_input_bit_get( TRIGGER_Bank, TRIGGER_Pin ) != 0 ) {
+    trig_rise_event = 1;
+  }
+  else {
+    trig_fall_event = 1;
+  }
   exti_interrupt_flag_clear( EXTI_8 );
 }
 

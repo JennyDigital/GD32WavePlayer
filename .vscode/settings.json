@@ -1,0 +1,26 @@
+{
+  "gd32.toolchainPrefix": "arm-none-eabi",
+  "gd32.cpu": "cortex-m4",
+  "gd32.fpu": "",
+  "gd32.floatAbi": "",
+  "gd32.linkerScript": "${workspaceFolder}/gd32f303cgt6.ld",
+  "gd32.startupFile": "${workspaceFolder}/drivers/CMSIS/GD/GD32F30x/Source/GCC/startup_gd32f30x_xd.S",
+  "gd32.commonDefines": [
+    "GD32F30X_XD",
+    "USE_STDPERIPH_DRIVER",
+    "HXTAL_VALUE=8000000"
+  ],
+  "gd32.commonIncludes": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/Libraries",
+    "${workspaceFolder}/sound_headers",
+    "${workspaceFolder}/sound_headers/16k",
+    "${workspaceFolder}/drivers/CMSIS",
+    "${workspaceFolder}/drivers/CMSIS/GD/GD32F30x/Include",
+    "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Include"
+  ],
+  "files.associations": {
+    "*.tcc": "c",
+    "*.inc": "c"
+  }
+}

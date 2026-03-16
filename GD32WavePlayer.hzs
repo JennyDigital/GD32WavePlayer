@@ -2,8 +2,6 @@
 <session>
  <Bookmarks/>
  <Breakpoints groups="Breakpoints" active_group="Breakpoints">
-  <BreakpointListItem trigger="" line="130" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="2" filename="Libraries/audio_engine.c" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="495" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" stopAll="false" group="Breakpoints" type="Breakpoint" state="4" filename="main.c" useHWbreakpoint="false"/>
   <Exceptions>
    <Group group="V7M Exceptions" set="BusFault;ExceptionEntryReturnFault;HardFault;MemManage;UsageFault_CheckingError;UsageFault_Coprocessor;UsageFault_StateError"/>
   </Exceptions>
@@ -49,6 +47,7 @@
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
+  <ProjectSessionItem path=""/>
   <SourceCodeControlLogin password="F9BB6682F5D56822" user="JennyDigital &lt;jennifer.a.gunn@outlook.com>"/>
  </Project>
  <Register1>
@@ -89,9 +88,9 @@
  <Watch1>
   <Watches active="1" update="Twice a Second">
    <Watchpoint expression="end_of_play_count" name="end_of_play_count" radix="-1" linenumber="68" filename="main.c"/>
-   <Watchpoint expression="trig_status" name="trig_status" radix="-1" linenumber="229" filename="main.c"/>
-   <Watchpoint expression="systick_counter" name="systick_counter" radix="10" linenumber="288" filename="main.c"/>
-   <Watchpoint expression="uwTick" name="uwTick" radix="-1" linenumber="256" filename="main.c"/>
+   <Watchpoint expression="trig_status" name="trig_status" radix="-1" linenumber="227" filename="main.c"/>
+   <Watchpoint expression="systick_counter" name="systick_counter" radix="10" linenumber="262" filename="main.c"/>
+   <Watchpoint expression="uwTick" name="uwTick" radix="-1" linenumber="232" filename="main.c"/>
    <Watchpoint expression="pb_state" name="pb_state" radix="-1" linenumber="2079" filename="Libraries/audio_engine.c"/>
   </Watches>
  </Watch1>
@@ -105,13 +104,13 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="21" y="417" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="382" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="2090" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="1870" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="431" useTextEdit="1" path="main.c" left="0" selected="1" top="411" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="64" useTextEdit="1" path="main.h" left="0" top="22" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="3" y="417" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="382" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="129" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="101" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="92" y="525" useTextEdit="1" path="main.c" left="0" top="496" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="64" useTextEdit="1" path="main.h" left="0" top="36" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="interrupt_utils.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="22" y="1" useTextEdit="1" path="dalby_multi.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="6" useTextEdit="1" path="dalby_multi.c" left="0" top="6" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="27" y="242" useTextEdit="1" path="dalby_multi.c" left="0" selected="1" top="228" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="15" y="9" useTextEdit="1" path="sound_headers/16k/doors_opening.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="27" y="9" useTextEdit="1" path="sound_headers/16k/please_mind_the_door.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="55" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_dma.c" left="0" top="38" codecName="Default"/>

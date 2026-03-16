@@ -1,0 +1,41 @@
+{
+  "version": 4,
+  "configurations": [
+    {
+      "name": "GD32F30x (GNU Arm)",
+      "compilerPath": "${config:gd32.toolchainPrefix}-gcc",
+      "intelliSenseMode": "gcc-arm",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "includePath": [
+        "${workspaceFolder}",
+        "${workspaceFolder}/Libraries",
+        "${workspaceFolder}/sound_headers",
+        "${workspaceFolder}/sound_headers/16k",
+        "${workspaceFolder}/drivers/CMSIS",
+        "${workspaceFolder}/drivers/CMSIS/GD/GD32F30x/Include",
+        "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Include"
+      ],
+      "defines": [
+        "GD32F30X_XD",
+        "USE_STDPERIPH_DRIVER",
+        "HXTAL_VALUE=8000000"
+      ],
+      "forcedInclude": [
+        "${workspaceFolder}/gd32_sdk_compat.h"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}",
+          "${workspaceFolder}/Libraries",
+          "${workspaceFolder}/sound_headers",
+          "${workspaceFolder}/sound_headers/16k",
+          "${workspaceFolder}/drivers/CMSIS",
+          "${workspaceFolder}/drivers/CMSIS/GD/GD32F30x/Include",
+          "${workspaceFolder}/drivers/GD32F30x_standard_peripheral/Include"
+        ],
+        "limitSymbolsToIncludedHeaders": true
+      }
+    }
+  ]
+}

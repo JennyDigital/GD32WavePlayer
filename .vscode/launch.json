@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "GD32: Debug with ST-Link (OpenOCD)",
+      "type": "cortex-debug",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "servertype": "openocd",
+      "serverpath": "/usr/bin/openocd",
+      "configFiles": [
+        "${workspaceFolder}/.vscode/openocd-gd32-stlink-debug.cfg"
+      ],
+      "interface": "swd",
+      "breakpointMode": "hard",
+      "runToEntryPoint": "main",
+      "executable": "${workspaceFolder}/build/GD32WavePlayer.elf",
+      "preLaunchTask": "GD32: Prepare debug session",
+      "preLaunchCommands": [
+        "monitor reset halt"
+      ]
+    },
+    {
+      "name": "GD32: Attach with ST-Link (OpenOCD)",
+      "type": "cortex-debug",
+      "request": "attach",
+      "cwd": "${workspaceFolder}",
+      "servertype": "openocd",
+      "serverpath": "/usr/bin/openocd",
+      "configFiles": [
+        "${workspaceFolder}/.vscode/openocd-gd32-stlink-debug.cfg"
+      ],
+      "interface": "swd",
+      "breakpointMode": "hard",
+      "executable": "${workspaceFolder}/build/GD32WavePlayer.elf",
+      "preLaunchTask": "GD32: Stop debug servers",
+      "preAttachCommands": [
+        "monitor reset halt"
+      ],
+      "postAttachCommands": [
+        "monitor reset halt"
+      ]
+    }
+  ]
+}

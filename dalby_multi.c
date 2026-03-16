@@ -18,13 +18,16 @@
 
 volatile OptionSelTypeDef option;
 
+// External functions
 extern void     Enter_LP_SleepMode( void );
 extern void     WaitForTrigger    ( uint8_t trig_to_wait_for );
 extern void     SetSleepSetting   ( uint8_t setting );
 extern uint8_t  GetTriggerOption  ( void );
 extern void     delay_ms          ( uint32_t millis );
 
-OptionSelTypeDef GetOption( void );
+// Internal helper Functions
+OptionSelTypeDef  GetOption       ( void );
+void              WaitForTrigCycle( void );
 
 /** Main loop for the dalby application
   *
@@ -54,17 +57,16 @@ void ChimeLoop( void )
     case OPT_ChimeNoTrigger:    // Value 0
     default:                    // ...or default
       SetSleepSetting( 1 );
-      SetFadeInTime( 0.2f );
-      SetFadeOutTime( 0.2f );
-      SetDAC_Control( 0 );
-      AudioEngine_DACSwitch( 1 );
+      SetFadeInTime( 0.05f );
+      SetFadeOutTime( 0.05f );
+      SetDAC_Control( 1 );
       SetFilterChain16BitEnable( 0 );
       SetLpf16BitLevel( LPF_Off );    
    
       PlaySample( dalby_tt_low44k16b1c, DALBY_TT_LOW44K16B1C_SZ, I2S_AUDIOSAMPLE_44K, 16, DALBY_TT_LOW44K16B1C_PB_FMT );
       WaitForSampleEnd();
 
-      WaitForTrigger( TRIGGER_SET );
+      WaitForTrigCycle();
       option = GetOption();
       break;
 
@@ -73,18 +75,15 @@ void ChimeLoop( void )
       SetSleepSetting( 1 );
       SetFadeInTime( 0.1f );
       SetFadeOutTime( 0.1f );
-      SetDAC_Control( 0 );
-      AudioEngine_DACSwitch( 1 );
+      SetDAC_Control( 1 );
       SetFilterChain16BitEnable( 0 );
  
       WaitForTrigger( TRIGGER_SET );
   
       PlaySample( dalby_tt_low44k16b1c, DALBY_TT_LOW44K16B1C_SZ, I2S_AUDIOSAMPLE_44K, 16, DALBY_TT_LOW44K16B1C_PB_FMT );
       WaitForSampleEnd();
-
-      WaitForTrigger( TRIGGER_CLR );
       ShutDownAudio(); 
-      WaitForTrigger( TRIGGER_SET );
+      WaitForTrigCycle();
       option = GetOption();
       break;
 
@@ -99,12 +98,12 @@ void ChimeLoop( void )
 
         PlaySample( pmtd16k16b1c, PMTD16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, PMTD16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_SET );
+        WaitForTrigCycle();;
         Enter_LP_SleepMode();
         option = GetOption();
         break;
 
-    case OPT_DoorsOpeningClosing: // Value: 2
+    case OPT_DoorsOpeningClosing: // Value: 3
       // We'll keep the system live the whole time for this option.
       SetDAC_Control( 0 );
       AudioEngine_DACSwitch( 1 );
@@ -132,7 +131,7 @@ void ChimeLoop( void )
       option = GetOption();     
       break;
 
-    case OPT_DoorOpeningClosing: // Value: 2
+    case OPT_DoorOpeningClosing: // Value: 4
       // We'll keep the system live the whole time for this option.
       SetDAC_Control( 0 );
       AudioEngine_DACSwitch( 1 );
@@ -162,16 +161,15 @@ void ChimeLoop( void )
 
       case OPT_GroundFloor:   // Number 8
         SetSleepSetting( 1 );
-        SetFadeInTime( 0.2f );
-        SetFadeOutTime( 0.2f );
+        SetFadeInTime( 0.01f );
+        SetFadeOutTime( 0.165f );
         SetDAC_Control( 1 );
         SetFilterChain16BitEnable( 1 );
         SetLpf16BitLevel( LPF_Off );
 
         PlaySample( ground_floor16k16b1c, GROUND_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, GROUND_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_SET );
-        Enter_LP_SleepMode();
+        WaitForTrigCycle();
         option = GetOption();
         break;
 
@@ -185,8 +183,7 @@ void ChimeLoop( void )
 
         PlaySample( first_floor16k16b1c, FIRST_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, FIRST_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_SET );
-        Enter_LP_SleepMode();
+        WaitForTrigCycle();
         option = GetOption();
         break;
 
@@ -200,7 +197,7 @@ void ChimeLoop( void )
 
         PlaySample( second_floor16k16b1c, SECOND_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, SECOND_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_SET );
+        WaitForTrigCycle();
         Enter_LP_SleepMode();
         option = GetOption();
         break;
@@ -215,8 +212,7 @@ void ChimeLoop( void )
 
         PlaySample( third_floor16k16b1c, THIRD_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, THIRD_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_SET );
-        Enter_LP_SleepMode();
+        WaitForTrigCycle();
         option = GetOption();
         break;
 
@@ -230,8 +226,7 @@ void ChimeLoop( void )
 
         PlaySample( top_floor16k16b1c, TOP_FLOOR16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, TOP_FLOOR16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_SET );
-        Enter_LP_SleepMode();
+        WaitForTrigCycle();
         option = GetOption();
         break;
 
@@ -245,8 +240,7 @@ void ChimeLoop( void )
 
         PlaySample( lift_oos16k16b1c, LIFT_OOS16K16B1C_SZ, I2S_AUDIOSAMPLE_16K, 16, LIFT_OOS16K16B1C_PB_FMT );
         WaitForSampleEnd();
-        WaitForTrigger( TRIGGER_SET );
-        Enter_LP_SleepMode();
+        WaitForTrigCycle();
         option = GetOption();
         break;
     }  // End option switch
@@ -261,4 +255,11 @@ OptionSelTypeDef GetOption( void )
             ( gpio_input_bit_get( OPT2_Bank, OPT2_Pin ) << 1 )  |
             ( gpio_input_bit_get( OPT1_Bank, OPT1_Pin )      )
           );
+}
+
+
+void WaitForTrigCycle( void )
+{
+  WaitForTrigger( TRIGGER_CLR );
+  WaitForTrigger( TRIGGER_SET );
 }
