@@ -8,17 +8,20 @@
       "cwd": "${workspaceFolder}",
       "servertype": "openocd",
       "serverpath": "/usr/bin/openocd",
+      "armToolchainPath": "/opt/st/stm32cubeclt_1.20.0/GNU-tools-for-STM32/bin",
+      "toolchainPrefix": "arm-none-eabi",
+      "gdbPath": "/opt/st/stm32cubeclt_1.20.0/GNU-tools-for-STM32/bin/arm-none-eabi-gdb",
       "configFiles": [
         "${workspaceFolder}/.vscode/openocd-gd32-stlink-debug.cfg"
       ],
       "interface": "swd",
-      "breakpointMode": "hard",
-      "runToEntryPoint": "main",
-      "executable": "${workspaceFolder}/build/GD32WavePlayer.elf",
-      "preLaunchTask": "GD32: Prepare debug session",
-      "preLaunchCommands": [
+      "breakAfterReset": true,
+      "loadFiles": [],
+      "overrideLaunchCommands": [
         "monitor reset halt"
-      ]
+      ],
+      "executable": "${workspaceFolder}/build/GD32WavePlayer.elf",
+      "preLaunchTask": "GD32: Prepare debug session"
     },
     {
       "name": "GD32: Attach with ST-Link (OpenOCD)",
@@ -27,19 +30,19 @@
       "cwd": "${workspaceFolder}",
       "servertype": "openocd",
       "serverpath": "/usr/bin/openocd",
+      "armToolchainPath": "/opt/st/stm32cubeclt_1.20.0/GNU-tools-for-STM32/bin",
+      "toolchainPrefix": "arm-none-eabi",
+      "gdbPath": "/opt/st/stm32cubeclt_1.20.0/GNU-tools-for-STM32/bin/arm-none-eabi-gdb",
       "configFiles": [
         "${workspaceFolder}/.vscode/openocd-gd32-stlink-debug.cfg"
       ],
       "interface": "swd",
-      "breakpointMode": "hard",
-      "executable": "${workspaceFolder}/build/GD32WavePlayer.elf",
-      "preLaunchTask": "GD32: Stop debug servers",
-      "preAttachCommands": [
-        "monitor reset halt"
+      "breakAfterReset": true,
+      "overrideAttachCommands": [
+        "monitor halt"
       ],
-      "postAttachCommands": [
-        "monitor reset halt"
-      ]
+      "executable": "${workspaceFolder}/build/GD32WavePlayer.elf",
+      "preLaunchTask": "GD32: Stop debug servers"
     }
   ]
 }

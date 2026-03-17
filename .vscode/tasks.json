@@ -35,7 +35,7 @@
       "dependsOrder": "sequence",
       "dependsOn": [
         "GD32: Stop debug servers",
-        "GD32: Build ELF"
+        "GD32: Flash with ST-Link"
       ],
       "problemMatcher": []
     },
@@ -90,7 +90,8 @@
         "-fdata-sections",
         "-Wall",
         "-Wextra",
-        "-Og",
+        "-O0",
+        "-fno-inline",
         "-g3",
         "-include",
         "${workspaceFolder}/gd32_sdk_compat.h",
@@ -202,7 +203,7 @@
         "-f",
         "${workspaceFolder}/.vscode/openocd-gd32-stlink.cfg",
         "-c",
-        "program ${workspaceFolder}/build/GD32WavePlayer.elf verify reset exit"
+        "init; reset halt; program ${workspaceFolder}/build/GD32WavePlayer.elf reset; exit"
       ],
       "dependsOn": [
         "GD32: Build ELF"
