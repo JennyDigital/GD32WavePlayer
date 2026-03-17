@@ -46,6 +46,7 @@
 static        void        SetupClocks               ( void );
               void        spi_config                ( uint32_t speed );
 static        void        GPIO_InitPins             ( void );
+static        bool        DebuggerAttached          ( void );
 
               void        DAC_MasterSwitch          ( uint8_t setting );
               uint16_t    ReadVolume                ( void );
@@ -69,7 +70,7 @@ volatile  uint8_t         trig_fall_event               = 0;              // Lat
 
 // External variables.
 #ifdef DALBY_BUILD
-volatile  extern OptionSelTypeDef option;
+extern    volatile OptionSelTypeDef option;
 #endif
 
 // Sleep Settings
@@ -95,9 +96,10 @@ int main( void )
 
   SetupClocks();
 
-  // If we're debugging, let's prevent the system from sleeping when we hit the sleep command, otherwise we won't be able to debug anything after that point without power cycling.
-  if( ( CoreDebug->DHCSR & CoreDebug_DHCSR_C_DEBUGEN_Msk ) != 0U ) {
-    DBG_CTL0 |= ( DBG_CTL0_SLP_HOLD | DBG_CTL0_DSLP_HOLD | DBG_CTL0_STB_HOLD );
+// If we're debugging, keep debug attached across low-power transitions.
+  if( DebuggerAttached() ) {
+    // Debugger is connected
+    dbg_low_power_enable( DBG_LOW_POWER_SLEEP | DBG_LOW_POWER_DEEPSLEEP | DBG_LOW_POWER_STANDBY );
   }
 
   /* Keep DMA below SysTick so SysTick-based delays can still advance. */
@@ -221,21 +223,26 @@ uint16_t ReadVolume( void )
  * reval: none
  *
  */
-inline void WaitForTrigger( uint8_t trig_to_wait_for )
+void WaitForTrigger( uint8_t trig_to_wait_for )
 {
   while( true ) {
     trig_timeout_flag = 0;
-    while( trig_status != trig_to_wait_for ) {
+    while( true ) {
+      if( trig_status == trig_to_wait_for ) {
+        return;
+      }
+
       delay_ms( 1 );
       trig_timeout_counter++;
-      if( trig_timeout_counter >= TRIG_TIMEOUT_MS ) {
-        trig_timeout_flag = 1;
-        trig_timeout_counter = 0;
-        break;
+      if( trig_timeout_counter < TRIG_TIMEOUT_MS ) {
+        continue;
       }
+
+      trig_timeout_flag = 1;
+      trig_timeout_counter = 0;
+      break;
     }
 
-    if( trig_status == trig_to_wait_for ) return;
     Enter_LP_SleepMode();
   }
 }
@@ -516,6 +523,8 @@ static void SetupClocks( void )
   */
 void Enter_LP_SleepMode( void )
 {
+  const bool debugger_attached = DebuggerAttached();
+
   // Only act if permitted.
   if( !sleep_setting ) return;
 #ifdef NO_SLEEP_MODE
@@ -534,17 +543,33 @@ void Enter_LP_SleepMode( void )
   NVIC_ClearPendingIRQ( SysTick_IRQn );
   NVIC_ClearPendingIRQ( ADC0_1_IRQn );
 
-
-  /* To sleep, perchance to dream */
-  pmu_to_deepsleepmode( PMU_LDO_NORMAL, PMU_LOWDRIVER_ENABLE, WFI_CMD );
+  /* CrossWorks can lose an attached debug session in deep sleep, so fall back to normal sleep while debugging. */
+  if( debugger_attached ) {
+    SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
+    __DSB();
+    __WFI();
+    __ISB();
+  }
+  else {
+    /* To sleep, perchance to dream */
+    pmu_to_deepsleepmode( PMU_LDO_NORMAL, PMU_LOWDRIVER_ENABLE, WFI_CMD );
+  }
 
   /* Wake from your slumber, mighty microcontroller! */
   SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;  // Re-enable after wakeup
-  SetupClocks();
+  if( !debugger_attached ) {
+    SetupClocks();
+  }
   nvic_irq_enable( DMA0_Channel4_IRQn, 5, 0 );
   nvic_irq_enable(ADC0_1_IRQn, 3, 0); // Need to reenable ADC0,1,2 ISR
   
 
+}
+
+
+static bool DebuggerAttached( void )
+{
+  return ( ( CoreDebug->DHCSR & CoreDebug_DHCSR_C_DEBUGEN_Msk ) != 0U );
 }
 
 /** Determine whether the mcu can enter sleep mode or not.
