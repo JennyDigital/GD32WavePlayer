@@ -653,7 +653,21 @@ void                SetHalfToFill                   ( uint8_t half );
  * @brief Get current playback sample rate
  * @return Sample rate in Hz (e.g., 22000, 44100)
  */
-uint32_t            GetPlaybackSpeed                ( void );
+uint32_t            GetPlaybackSpeed                  ( void );
+
+/**
+ * @brief Get current playback progress in source samples
+ * @return Number of interleaved source samples already played, or 0 when idle
+ * @note Updated once per DMA half-buffer. For stereo, left and right samples are both counted.
+ */
+uint32_t            GetPlaybackProgressSamples        ( void );
+
+/**
+ * @brief Get current playback progress as a percentage
+ * @return Playback progress from 0.0 to 100.0, or 0.0 when idle
+ * @note Updated once per DMA half-buffer and based on interleaved source samples.
+ */
+float               GetPlaybackProgressPercent        ( void );
 
 /**
  * @brief Set playback sample rate (internal use)
