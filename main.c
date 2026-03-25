@@ -94,11 +94,12 @@ int main( void )
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   SystemInit();
 
+  /* Configure the system clock, TR7 eat your heart out! */
   SetupClocks();
 
-// If we're debugging, keep debug attached across low-power transitions.
+/* If we're debugging, keep debug attached across low-power transitions. */
   if( DebuggerAttached() ) {
-    // Debugger is connected
+    /* Debugger is connected */
     dbg_low_power_enable( DBG_LOW_POWER_SLEEP | DBG_LOW_POWER_DEEPSLEEP | DBG_LOW_POWER_STANDBY );
   }
 
@@ -336,7 +337,7 @@ void Error_Handler( void )
 {
   __disable_irq();
   DAC_MasterSwitch( DAC_OFF );
-  while( 1 )
+  while( true )
   {
   }
 }
@@ -387,28 +388,29 @@ void SetupADC( void )
 {
   adc_deinit(ADC1);
   // Configure ADC1: Single channel, no scan
-  adc_special_function_config(ADC1, ADC_SCAN_MODE, DISABLE);
-  adc_special_function_config(ADC1, ADC_CONTINUOUS_MODE, DISABLE); // Triggered, not continuous
-  adc_data_alignment_config(ADC1, ADC_DATAALIGN_RIGHT);
+  adc_special_function_config( ADC1, ADC_SCAN_MODE, DISABLE );
+  adc_special_function_config( ADC1, ADC_CONTINUOUS_MODE, DISABLE ); // Triggered, not continuous
+  adc_data_alignment_config( ADC1, ADC_DATAALIGN_RIGHT );
 
   // Set Trigger Source to Timer1 TRGO
   adc_external_trigger_source_config( ADC1, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_REGULAR_T2_TRGO );
   adc_external_trigger_config( ADC1, ADC_REGULAR_CHANNEL, ENABLE );
   adc_regular_channel_config( ADC1, 0, ADC_CHANNEL_6, ADC_SAMPLETIME_7POINT5 );
   // Enable ADC
-  adc_enable(ADC1);
+  adc_enable( ADC1 );
   // Allow settling time.
   delay_ms( 3 );
   // Start calibration
-  adc_calibration_enable(ADC1);
+  adc_calibration_enable( ADC1 );
 
   // Enable Interrupt for End of Conversion
-  adc_interrupt_enable(ADC1, ADC_INT_EOC);
-  nvic_irq_enable(ADC0_1_IRQn, 3, 0); // Need to handle ADC0,1,2 ISR
+  adc_interrupt_enable( ADC1, ADC_INT_EOC );
+  nvic_irq_enable( ADC0_1_IRQn, 3, 0 ); // Need to handle ADC0,1,2 ISR
 
   // Start ADC
-  adc_software_trigger_enable(ADC1, ADC_REGULAR_CHANNEL); // Initial trigger
+  adc_software_trigger_enable( ADC1, ADC_REGULAR_CHANNEL ); // Initial trigger
 }
+
 
 /** Set up timer 2 with update event
   *
@@ -423,7 +425,7 @@ void SetupTimer2( void )
   timer_parameter_struct timer_initpara;
 
 
-  /* 2. Configure TIMER0 for Hz update */
+  /* 2. Configure TIMER0 for 400Hz update */
   timer_deinit( TIMER2 );
   timer_initpara.prescaler         = 120-1;
   timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;
@@ -437,7 +439,6 @@ void SetupTimer2( void )
   timer_master_slave_mode_config( TIMER2, TIMER_MASTER_SLAVE_MODE_ENABLE );
   timer_master_output_trigger_source_select( TIMER2, TIMER_TRI_OUT_SRC_UPDATE );
   timer_update_event_enable( TIMER2 );
-
 
   /* 5. Enable the timer */
   timer_enable( TIMER2 );
@@ -474,7 +475,8 @@ static void SetupClocks( void )
   rcu_osci_off( RCU_PLL_CK );
   fmc_wscnt_set( WS_WSCNT_2 );
 
-  /* Let's go flat-out at 120MHz. Zoooooom!!! */
+  /* Let's go flat-out at 120MHz. Zoooooom!!! (We only want this whilst processing,
+    sleep mode will reduce clock) */
   rcu_pll_config(RCU_PLLSRC_IRC8M_DIV2, RCU_PLL_MUL30 );
   rcu_osci_on( RCU_PLL_CK );
   if( SUCCESS != rcu_osci_stab_wait( RCU_PLL_CK ) )
@@ -523,27 +525,29 @@ static void SetupClocks( void )
   */
 void Enter_LP_SleepMode( void )
 {
-  const bool debugger_attached = DebuggerAttached();
-
-  // Only act if permitted.
-  if( !sleep_setting ) return;
 #ifdef NO_SLEEP_MODE
   return;
 #endif
 
-  // Prepare for sleep
+  const bool debugger_attached = DebuggerAttached();
+
+  /* Only act if permitted. */
+  if( !sleep_setting ) return;
+
+  /* Prepare for sleep */
   delay_ms( 100 );                            // Provide time for the system so settle down.
   SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk; // Disable SysTick interrupt
   nvic_irq_disable( DMA0_Channel4_IRQn );     // If for some reason DMA is running, stop it's IRQs
   nvic_irq_disable( ADC0_1_IRQn );            // Stop the ADC Interrupts.
 
-  /*  Flush pending interrupts */
+  /* Flush pending interrupts */
   NVIC_ClearPendingIRQ( EXTI5_9_IRQn );
   NVIC_ClearPendingIRQ( DMA0_Channel4_IRQn );
   NVIC_ClearPendingIRQ( SysTick_IRQn );
   NVIC_ClearPendingIRQ( ADC0_1_IRQn );
 
-  /* CrossWorks can lose an attached debug session in deep sleep, so fall back to normal sleep while debugging. */
+  /* CrossWorks can lose an attached debug session in deep sleep,
+      so fall back to normal sleep while debugging. */
   if( debugger_attached ) {
     SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
     __DSB();
@@ -557,9 +561,11 @@ void Enter_LP_SleepMode( void )
 
   /* Wake from your slumber, mighty microcontroller! */
   SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;  // Re-enable after wakeup
+  /* If we're debugging, keep debug attached across low-power transitions. */
   if( !debugger_attached ) {
     SetupClocks();
   }
+
   nvic_irq_enable( DMA0_Channel4_IRQn, 5, 0 );
   nvic_irq_enable(ADC0_1_IRQn, 3, 0); // Need to reenable ADC0,1,2 ISR
   
@@ -567,10 +573,12 @@ void Enter_LP_SleepMode( void )
 }
 
 
+/* Reports whether the debugger is attached */
 static bool DebuggerAttached( void )
 {
   return ( ( CoreDebug->DHCSR & CoreDebug_DHCSR_C_DEBUGEN_Msk ) != 0U );
 }
+
 
 /** Determine whether the mcu can enter sleep mode or not.
   *
@@ -597,7 +605,7 @@ void HardFault_Handler( void )
 }
 
 
-/* Just clears up the IRQ flag for the trigger, we are using the IRQ to wake the mcu on triggering. */
+/* Just clears up the IRQ flag for the trigger, and latches the state (rising/falling).  This IRQ will wake the MCU */
 void EXTI5_9_IRQHandler( void )
 {
   if( gpio_input_bit_get( TRIGGER_Bank, TRIGGER_Pin ) != 0 ) {

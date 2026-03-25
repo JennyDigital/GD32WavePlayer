@@ -44,6 +44,7 @@
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
+  <ProjectSessionItem path=""/>
   <SourceCodeControlLogin password="F9BB6682F5D56822" user="JennyDigital &lt;jennifer.a.gunn@outlook.com>"/>
  </Project>
  <Register1>
@@ -87,7 +88,7 @@
    <Watchpoint expression="trig_status" name="trig_status" radix="-1" linenumber="236" filename="main.c"/>
    <Watchpoint expression="systick_counter" name="systick_counter" radix="10" linenumber="295" filename="main.c"/>
    <Watchpoint expression="uwTick" name="uwTick" radix="-1" linenumber="263" filename="main.c"/>
-   <Watchpoint expression="pb_state" name="pb_state" radix="-1" linenumber="2079" filename="Libraries/audio_engine.c"/>
+   <Watchpoint expression="pb_state" name="pb_state" radix="-1" linenumber="2059" filename="Libraries/audio_engine.c"/>
   </Watches>
  </Watch1>
  <Watch2>
@@ -101,29 +102,17 @@
  </Watch4>
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="3" y="417" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="393" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="129" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="111" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="4" y="494" useTextEdit="1" path="main.c" left="0" selected="1" top="483" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="22" y="63" useTextEdit="1" path="main.h" left="0" top="40" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1737" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="1728" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="89" useTextEdit="1" path="main.c" left="0" selected="1" top="65" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="22" y="63" useTextEdit="1" path="main.h" left="0" top="31" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="interrupt_utils.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="22" y="1" useTextEdit="1" path="dalby_multi.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="6" useTextEdit="1" path="dalby_multi.c" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="15" y="9" useTextEdit="1" path="sound_headers/16k/doors_opening.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="27" y="9" useTextEdit="1" path="sound_headers/16k/please_mind_the_door.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="55" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_dma.c" left="0" top="38" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="34" y="426" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_spi.c" left="0" top="411" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="15" y="9" useTextEdit="1" path="sound_headers/dalby_tritone16b16k.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="35" y="448" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_gpio.c" left="0" top="428" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="35" y="9" useTextEdit="1" path="sound_headers/16k/door_opening.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="25" y="9" useTextEdit="1" path="sound_headers/ocarina_melody32k.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="27" y="8" useTextEdit="1" path="sound_headers/dalby_tritoneJan26.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="37" y="9" useTextEdit="1" path="sound_headers/dalby_tritone_mar26.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="65" y="5733" useTextEdit="1" path="sound_headers/three_tone_arrival_c.h" left="0" top="5733" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="32" y="9" useTextEdit="1" path="sound_headers/custom_tritone16k.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="35" y="9" useTextEdit="1" path="sound_headers/dalby_tritone_low.h" left="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="15" y="9" useTextEdit="1" path="sound_headers/When_I_Needed_a_neighbour.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="5" y="206" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_pmu.c" left="0" top="194" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="41" y="68" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_dbg.c" left="0" top="61" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="53" y="1682" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/libraries/CMSIS_6/CMSIS/Core/Include/core_cm4.h" left="0" top="1667" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="GD32WavePlayer" fileDialogDefaultFilter="*.c;*.h" autoConnectTarget="ST-LINK/V2-V3" buildConfiguration="THUMB Release" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/jennifer/repos/GD32WavePlayer/sound_headers" debugSearchPath="" autoConnectCapabilities="388991"/>
 </session>
