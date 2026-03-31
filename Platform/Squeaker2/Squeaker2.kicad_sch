@@ -1,0 +1,260 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "364d7419-a5e4-46d0-99f8-69f5eef5adeb")
+	(paper "A4")
+	(lib_symbols)
+	(wire
+		(pts
+			(xy 84.074 101.6) (xy 96.012 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a60c24c5-fc8e-47d8-8f9b-4dde7d91f7f5")
+	)
+	(wire
+		(pts
+			(xy 84.074 99.06) (xy 96.012 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cfc6006c-f325-412c-b0cd-03c2b633f6b6")
+	)
+	(wire
+		(pts
+			(xy 84.074 104.14) (xy 96.012 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "edfb0931-850e-4bed-87cd-8758edf0b361")
+	)
+	(wire
+		(pts
+			(xy 84.074 96.52) (xy 96.012 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "efaad65f-7da8-4151-aeb4-3006fe87d79f")
+	)
+	(sheet
+		(at 96.012 91.44)
+		(size 15.494 15.494)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "6837115d-30d6-4fc7-ace9-626fe3039b0b")
+		(property "Sheetname" "Sound Output"
+			(at 96.012 90.7284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Sound.kicad_sch"
+			(at 96.012 107.5186 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "I2S_CK" input
+			(at 96.012 96.52 180)
+			(uuid "4514e1e1-6c27-4b57-b953-5db87e6ece56")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "I2S_SD" input
+			(at 96.012 99.06 180)
+			(uuid "eb0fa758-7f38-499b-bda5-b047100587d1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "I2S_WS" input
+			(at 96.012 101.6 180)
+			(uuid "3646612b-6b28-4170-b880-49d7ca2bd11a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "~{SD_MODE}" input
+			(at 96.012 104.14 180)
+			(uuid "d048ec70-860e-4b2e-8f7a-373161970bbb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "Squeaker2"
+				(path "/364d7419-a5e4-46d0-99f8-69f5eef5adeb"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 35.56 39.37)
+		(size 48.514 29.21)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "a5649d5b-b509-447e-a92e-724ab7e9ac24")
+		(property "Sheetname" "Power"
+			(at 35.56 38.6584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "powersupply.kicad_sch"
+			(at 35.56 69.1646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Squeaker2"
+				(path "/364d7419-a5e4-46d0-99f8-69f5eef5adeb"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 71.12 92.202)
+		(size 12.954 15.748)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "fce3d1db-d572-4d89-bb5e-bdbf6e9f1cc7")
+		(property "Sheetname" "Processor"
+			(at 71.12 91.4904 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "untitled.kicad_sch"
+			(at 71.12 108.5346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "I2S_CK" output
+			(at 84.074 96.52 0)
+			(uuid "52f4b3b0-7ad3-465a-b66a-067348edcdb0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "I2S_SD" output
+			(at 84.074 99.06 0)
+			(uuid "03b0255d-1a95-4998-becf-19aebe3891ba")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "I2S_WS" output
+			(at 84.074 101.6 0)
+			(uuid "9013f54b-a875-416f-8ddc-62b20edf3b88")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "~{SD_MODE}" output
+			(at 84.074 104.14 0)
+			(uuid "c2c8902f-2f0a-4b71-9a5a-50a545c05069")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "Squeaker2"
+				(path "/364d7419-a5e4-46d0-99f8-69f5eef5adeb"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
