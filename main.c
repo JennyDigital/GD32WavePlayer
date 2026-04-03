@@ -456,7 +456,7 @@ void spi_config( uint32_t speed )
     spi_i2s_deinit( PROJECT_SPI );
     i2s_init( PROJECT_SPI, I2S_MODE_MASTERTX, I2S_STD_PHILLIPS, I2S_CKPL_LOW );
     spi_i2s_data_frame_format_config( PROJECT_SPI, SPI_FRAMESIZE_16BIT );
-    i2s_psc_config(PROJECT_SPI, speed, I2S_FRAMEFORMAT_DT16B_CH16B, I2S_MCKOUT_DISABLE);
+    i2s_psc_config( PROJECT_SPI, speed, I2S_FRAMEFORMAT_DT16B_CH16B, I2S_MCKOUT_DISABLE );
     i2s_enable( PROJECT_SPI );
     spi_enable( PROJECT_SPI );
     spi_dma_enable(PROJECT_SPI, SPI_DMA_TRANSMIT );
@@ -567,7 +567,7 @@ void Enter_LP_SleepMode( void )
   }
 
   nvic_irq_enable( DMA0_Channel4_IRQn, 5, 0 );
-  nvic_irq_enable(ADC0_1_IRQn, 3, 0); // Need to reenable ADC0,1,2 ISR
+  nvic_irq_enable( ADC0_1_IRQn, 3, 0 ); // Need to reenable ADC0,1,2 ISR
   
 
 }

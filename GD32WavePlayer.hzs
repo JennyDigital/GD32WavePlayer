@@ -44,6 +44,7 @@
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
   <ProjectSessionItem path=""/>
+  <ProjectSessionItem path=""/>
   <SourceCodeControlLogin password="F9BB6682F5D56822" user="JennyDigital &lt;jennifer.a.gunn@outlook.com>"/>
  </Project>
  <Register1>
@@ -87,7 +88,7 @@
    <Watchpoint expression="trig_status" name="trig_status" radix="-1" linenumber="236" filename="main.c"/>
    <Watchpoint expression="systick_counter" name="systick_counter" radix="10" linenumber="295" filename="main.c"/>
    <Watchpoint expression="uwTick" name="uwTick" radix="-1" linenumber="263" filename="main.c"/>
-   <Watchpoint expression="pb_state" name="pb_state" radix="-1" linenumber="2059" filename="Libraries/audio_engine.c"/>
+   <Watchpoint expression="pb_state" name="pb_state" radix="-1" linenumber="2063" filename="Libraries/audio_engine.c"/>
   </Watches>
  </Watch1>
  <Watch2>
@@ -101,8 +102,8 @@
  </Watch4>
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="3" y="417" useTextEdit="1" path="Libraries/audio_engine.h" left="0" top="393" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1737" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="1728" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="559" useTextEdit="1" path="main.c" left="0" selected="1" top="540" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="1514" useTextEdit="1" path="Libraries/audio_engine.c" left="0" selected="1" top="555" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="37" y="259" useTextEdit="1" path="main.c" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="22" y="63" useTextEdit="1" path="main.h" left="0" top="39" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="interrupt_utils.h" left="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="22" y="1" useTextEdit="1" path="dalby_multi.h" left="0" top="0" codecName="Default"/>

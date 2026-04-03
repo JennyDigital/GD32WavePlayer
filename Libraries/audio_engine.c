@@ -1512,6 +1512,7 @@ static inline int16_t PUT_IN_FASTMEM ApplyPostFilters( int16_t sample, AudioChan
   AudioFilterChannelState *channel = GetChannelState( channel_id );
   volatile int32_t *dc_prev_input  = &channel->dc_prev_input;
   volatile int32_t *dc_prev_output = &channel->dc_prev_output;
+
   if( filter_cfg.enable_soft_dc_filter_16bit ) {
     sample = ApplySoftDCFilter16Bit( sample, dc_prev_input, dc_prev_output );
   } else {
@@ -1743,10 +1744,13 @@ static inline void StopImmediate( void )
 {
   pb_state = PB_Idle;
   StopDmaAndResetPlaybackState( 1U );
+
   MIDPOINT_FILL_BUFFER();
+
   if( !playback_end_callback_called ) {
     playback_end_callback_called = 1;
     AudioEngine_OnPlaybackEnd();
+
     if( dac_power_control == true ) {
       AudioEngine_DACSwitch( DAC_OFF );
     }
