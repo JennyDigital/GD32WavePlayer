@@ -133,11 +133,11 @@
       <file file_name="sound_headers/dinding.h" />
       <file file_name="sound_headers/16k/door_closing.h" />
       <file file_name="sound_headers/16k/door_opening.h" />
-      <file file_name="sound_headers/16k/doors_closing.h" />
       <file file_name="sound_headers/doors_closing.h" />
+      <file file_name="sound_headers/16k/doors_closing.h" />
       <file file_name="sound_headers/doors_closing11k.h" />
-      <file file_name="sound_headers/16k/doors_opening.h" />
       <file file_name="sound_headers/doors_opening.h" />
+      <file file_name="sound_headers/16k/doors_opening.h" />
       <file file_name="sound_headers/doors_opening11k.h" />
       <file file_name="sound_headers/dramatic_organ11k.h" />
       <file file_name="sound_headers/dreamy.h" />
@@ -162,6 +162,10 @@
       <file file_name="sound_headers/magic_gong44k.h" />
       <file file_name="sound_headers/medieval_flute.h" />
       <file file_name="sound_headers/mind_the_door.h" />
+      <file file_name="sound_headers/muted_guitar22k16bm.h" />
+      <file file_name="sound_headers/muted_guitar22k8bm.h" />
+      <file file_name="sound_headers/muted_guitar44k16bm.h" />
+      <file file_name="sound_headers/muted_guitar44k8bm.h" />
       <file file_name="sound_headers/new_rage32k.h" />
       <file file_name="sound_headers/newchallenger.h" />
       <file file_name="sound_headers/newchallenger11k.h" />

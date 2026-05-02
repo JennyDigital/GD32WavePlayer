@@ -67,7 +67,7 @@
 /* Build options */ 
 #define FORCE_TRIGGER_OPT
 //#define TEST_CYCLING
-#define DALBY_BUILD
+//#define DALBY_BUILD
 
   // Includes
   //

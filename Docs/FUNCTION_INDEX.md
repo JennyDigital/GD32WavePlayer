@@ -103,7 +103,7 @@ Complete alphabetical index of all 60+ public functions in the Audio Engine API,
 | [`I2S_TxCpltCallback()`](#i2s_txcpltcallback) | DMA Callbacks | DMA complete callback |
 | [`I2S_TxHalfCpltCallback()`](#i2s_txhalfcpltcallback) | DMA Callbacks | DMA half-complete callback |
 | [`PausePlayback()`](#pauseplayback) | Playback Control | Pause with fade-out |
-| [`PlaySample()`](#playsample) | Playback Control | Start sample playback |
+| [`PlaySample()`](#playsample) | Playback Control | Start sample playback (PCM or ADPCM) |
 | [`ProcessNextWaveChunk()`](#processnextwavechunk) | Chunk Processing | Process 16-bit samples |
 | [`ProcessNextWaveChunk_8_bit()`](#processnextwavechunk_8_bit) | Chunk Processing | Process 8-bit samples |
 | [`ResumePlayback()`](#resumeplayback) | Playback Control | Resume from pause with fade-in |
@@ -141,7 +141,7 @@ Complete alphabetical index of all 60+ public functions in the Audio Engine API,
 
 ### Playback Control (7 functions)
 - [`CalcSampleOffsetSamples()`](#calcsampleoffsetsamples) - Calculate sample offset from time, rate, and mode
-- [`PlaySample()`](#playsample) - Start sample playback
+- [`PlaySample()`](#playsample) - Start sample playback (PCM or ADPCM)
 - [`WaitForSampleEnd()`](#waitforsampleend) - Block until playback completes
 - [`PausePlayback()`](#pauseplayback) - Pause with fade-out
 - [`ResumePlayback()`](#resumeplayback) - Resume from pause with fade-in
@@ -239,6 +239,7 @@ Complete alphabetical index of all 60+ public functions in the Audio Engine API,
 - Non-blocking: [`PlaySample()`](#playsample) → poll [`GetPlaybackState()`](#getplaybackstate)
 - Pause/Resume: [`PausePlayback()`](#pauseplayback) → [`ResumePlayback()`](#resumeplayback)
 - Stop: [`StopPlayback()`](#stopplayback) → poll [`GetPlaybackState()`](#getplaybackstate)
+- ADPCM modes: Use `Mode_mono_ADPCM` or `Mode_stereo_ADPCM` with [`PlaySample()`](#playsample)
 
 **Configure Filters:**
 - Batch config: [`GetFilterConfig()`](#getfilterconfig) → modify → [`SetFilterConfig()`](#setfilterconfig)
@@ -300,7 +301,13 @@ PB_StatusTypeDef PlaySample(
   PB_ModeTypeDef mode
 );
 ```
-Start playback of an audio sample from memory.
+Start playback of an audio sample from memory (PCM or ADPCM).
+
+**Modes:**
+- `Mode_mono`, `Mode_stereo`: 8-bit or 16-bit PCM
+- `Mode_mono_ADPCM`, `Mode_stereo_ADPCM`: IMA ADPCM (2:1 compression)
+
+**Note:** `sample_depth` is ignored for ADPCM modes (always decoded to 16-bit).
 
 **See**: [API_REFERENCE.md - Playback Control](API_REFERENCE.md#playback-control)
 

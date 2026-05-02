@@ -64,10 +64,11 @@ The header is organized into logical groups of related functions:
    - `StopPlayback()` - Stop with fade-out
    - `ShutDownAudio()` - Stop all audio hardware
 
-8. **Chunk Processing (DMA Callbacks)** (3 functions)
-   - `ProcessNextWaveChunk()` - 16-bit sample processing
-   - `ProcessNextWaveChunk_8_bit()` - 8-bit sample processing
-   - `AdvanceSamplePointer()` - Update playback position
+8. **Chunk Processing (DMA Callbacks)** (4 functions)
+    - `ProcessNextWaveChunk()` - 16-bit sample processing
+    - `ProcessNextWaveChunk_8_bit()` - 8-bit sample processing
+    - `ProcessNextWaveChunk_ADPCM()` - IMA ADPCM decode and processing
+    - `AdvanceSamplePointer()` - Update playback position
 
 9. **DAC Power Control** (2 functions)
    - `SetDAC_Control()` / `GetDAC_Control()` - DAC power control
@@ -231,7 +232,7 @@ The `ReadVolume` callback returns 1-65535:
 
 ## Function Count Summary
 
-Total documented functions: **63**
+Total documented functions: **64**
 
 - **Initialization**: 1
 - **Application Callbacks**: 1
@@ -243,7 +244,7 @@ Total documented functions: **63**
 - **Playback Control**: 7
 - **DAC Power Control**: 2
 - **Volume Response Control**: 4
-- **Chunk Processing**: 3
+- **Chunk Processing**: 4
 - **Air Effect**: 9
 - **DMA Callbacks**: 2
 - **Internal State**: 6

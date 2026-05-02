@@ -36,7 +36,7 @@
 #include "Lemon_Tree.h"
 #include "medieval_flute.h"
 #include "When_I_Needed_a_neighbour.h"
-
+#include "muted_guitar44k16bm.h"
 #else
 #include "dalby_multi.h"
 #endif
@@ -165,7 +165,7 @@ int main( void )
     //PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
     //PlaySample( medieval_flute16b22k1c, MEDIEVAL_FLUTE16B22K1C_SZ, I2S_AUDIOSAMPLE_22K, 16, Mode_mono );
     //PlaySample( ocarina32k, OCARINA32K_SZ, I2S_AUDIOSAMPLE_32K, 16, OCARINA32K_PB_FMT );
-    PlaySample(neighbour16b16k1c, NEIGHBOUR16B16K1C_SZ, I2S_AUDIOSAMPLE_16K, 16, NEIGHBOUR16B16K1C_PB_FMT );
+    PlaySample(muted_guitar44k16bm, MUTED_GUITAR44K16BM_SZ, I2S_AUDIOSAMPLE_44K, 16, MUTED_GUITAR44K16BM_PB_FMT );
 
     WaitForSampleEnd();
   }

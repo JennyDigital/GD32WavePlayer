@@ -21,7 +21,9 @@ flowchart TB
   subgraph DSP["DSP Processing Pipeline"]
     Process16["ProcessNextWaveChunk()<br/>(16-bit)"]
     Process8["ProcessNextWaveChunk_8_bit()<br/>(8-bit)"]
+    ProcessADPCM["ProcessNextWaveChunk_ADPCM()<br/>(IMA ADPCM decode)"]
     Filters["Filter Chain<br/>• Biquad LPF<br/>• DC Block<br/>• Air Effect<br/>• Soft Clip"]
+    AdpcmState["ADPCM Decoder State<br/>• predictor L/R<br/>• step index L/R"]
   end
 
   subgraph Hardware["Hardware Layer"]
@@ -36,11 +38,11 @@ flowchart TB
     FullCplt["I2S_TxCpltCallback()"]
   end
 
-  User -->|"1. Initialize"| Init
+  User -->|"Step 1: Initialize"| Init
   Callbacks -->|"Provide"| Init
-  User -->|"2. Configure Filters"| Config
-  User -->|"3. Start Playback"| Play
-  User -->|"4. Control"| Control
+  User -->|"Step 2: Configure Filters"| Config
+  User -->|"Step 3: Start Playback"| Play
+  User -->|"Step 4: Control"| Control
 
   Play -->|"Start DMA"| I2S
   I2S <-->|"Transfer"| DMA
@@ -50,11 +52,15 @@ flowchart TB
   
   HalfCplt -->|"Process First Half"| Process16
   HalfCplt -->|"or"| Process8
+  HalfCplt -->|"or"| ProcessADPCM
   FullCplt -->|"Process Second Half"| Process16
   FullCplt -->|"or"| Process8
+  FullCplt -->|"or"| ProcessADPCM
   
   Process16 --> Filters
   Process8 --> Filters
+  ProcessADPCM --> AdpcmState
+  ProcessADPCM --> Filters
   
   Filters -->|"Write to Buffer"| DMA
   DMA -->|"I2S Stream"| DAC
@@ -71,31 +77,36 @@ flowchart TB
 
 ```mermaid
 flowchart TD
-  Start([Application calls<br/>PlaySample]) --> CheckState{Playback<br/>Already Active?}
+  Start(["Application calls<br/>PlaySample()"]) --> ParamCheck{Parameter sanity<br/>checks pass?}
   
-  CheckState -->|Yes| ReturnError[Return PB_Error]
-  CheckState -->|No| StoreParams["Store Parameters:<br/>• Sample pointer<br/>• Sample size<br/>• Sample rate<br/>• Bit depth<br/>• Mode: mono or stereo"]
+  ParamCheck -->|No| ReturnError[Return PB_Error]
+  ParamCheck -->|Yes| CheckVolCb{AudioEngine_ReadVolume<br/>callback set?}
+
+  CheckVolCb -->|No| ReturnError
+  CheckVolCb -->|Yes| StoreParams["Setup Runtime Params:<br/>• lpf_8bit_alpha = GetLpf8BitAlpha()<br/>• p_advance and channels<br/>• I2S_PlaybackSpeed"]
   
-  StoreParams --> ResetState["Reset Engine State:<br/>• Clear filter states<br/>• Reset fade counters<br/>• Initialize pointers"]
+  StoreParams --> ResetState["Prepare playback hardware/state:<br/>• RecalculateFadeSamples()<br/>• AudioEngine_I2SInit(speed)<br/>• disable DMA interrupts + i2s_disable()<br/>• PrepareForNewPlayback()"]
   
-  ResetState --> CheckDepth{16-bit or<br/>8-bit?}
+  ResetState --> CheckMode{PCM or<br/>ADPCM mode?}
   
+  CheckMode -->|PCM| CheckDepth{16-bit or<br/>8-bit?}
+  CheckMode -->|ADPCM| SetupADPCM["Set ADPCM pointers/mode:<br/>• pb_padpcm_ptr = start<br/>• pb_endadpcm_ptr = start + sample_set_sz<br/>• pb_mode = PB_MODE_IMA_ADPCM<br/>• sample_depth ignored"]
+
+  SetupADPCM --> CheckAdpcmStereo{Mode_mono_ADPCM<br/>or Mode_stereo_ADPCM?}
+  CheckAdpcmStereo -->|Mono| AdpcmMapMono["Nibble Mapping:<br/>low then high = mono samples"]
+  CheckAdpcmStereo -->|Stereo| AdpcmMapStereo["Nibble Mapping:<br/>low=left, high=right"]
+  AdpcmMapMono --> PrefillADPCM["Pre-fill DMA halves:<br/>FIRST then SECOND via<br/>ProcessNextWaveChunk_ADPCM()"]
+  AdpcmMapStereo --> PrefillADPCM
+  PrefillADPCM --> StartDMA
+
   CheckDepth -->|16-bit| Check16Filters{Biquad LPF<br/>Enabled?}
   CheckDepth -->|8-bit| StartDMA
   
   Check16Filters -->|Yes| Warmup["Warm-up Biquad Filter<br/>16 cycles<br/>Prevent startup transient"]
   Check16Filters -->|No| StartDMA
   
-  Warmup --> StartDMA["Start I2S DMA Transfer:<br/>dma_config() + spi_config(speed)"]
-  
-  StartDMA --> CheckDMAResult{DMA Start<br/>Success?}
-  
-  CheckDMAResult -->|No| ReturnError
-  CheckDMAResult -->|Yes| SetState["Set State = PB_Playing"]
-  
-  SetState --> EnableDAC["Enable DAC:<br/>AudioEngine_DACSwitch: DAC_ON"]
-  
-  EnableDAC --> ReturnSuccess[Return PB_Playing]
+  Warmup --> StartDMA["Start transfer sequence:<br/>AudioEngine_DACSwitch(DAC_ON)<br/>pb_state = PB_Playing<br/>dma_config() + spi_config(speed)"]
+  StartDMA --> ReturnSuccess[Return PB_Playing]
   ReturnError --> End1([End])
   ReturnSuccess --> End2([End])
 
@@ -108,44 +119,60 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-  DMAInt([DMA Interrupt Triggered]) --> WhichHalf{Which Half?}
+  DMAInt([DMA0_Channel4_IRQHandler]) --> WhichHalf{HTF or FTF flag?}
   
-  WhichHalf -->|First Half| HalfCplt["I2S_TxHalfCpltCallback()"]
-  WhichHalf -->|Second Half| FullCplt["I2S_TxCpltCallback()"]
+  WhichHalf -->|HTF set| HalfCplt["ProcessDMACallback(FIRST)"]
+  WhichHalf -->|FTF set| FullCplt["ProcessDMACallback(SECOND)"]
   
-  HalfCplt --> SetHalf1["Set half_to_fill = FIRST"]
-  FullCplt --> SetHalf2["Set half_to_fill = SECOND"]
+  HalfCplt --> SetHalf1["dma_interrupt_flag_clear(...HTF)"]
+  FullCplt --> SetHalf2["dma_interrupt_flag_clear(...FTF)"]
   
-  SetHalf1 --> CheckDepth1{Sample Depth?}
-  SetHalf2 --> CheckDepth1
+  SetHalf1 --> RetireHalf["RetireCompletedDmaHalf(which_half)"]
+  SetHalf2 --> RetireHalf
+  RetireHalf --> StopReq{stop_requested<br/>and not PB_Idle?}
+
+  StopReq -->|Yes| PauseCheck{pb_state == PB_Paused?}
+  PauseCheck -->|Yes| StopNow["StopImmediate()"]
+  PauseCheck -->|No| TrimEnd["pb_state = PB_Pausing<br/>trim end pointer(s) for fade"]
+  StopReq -->|No| CheckType{Playback Type?}
+  TrimEnd --> CheckType
+  StopNow --> ISRExit
   
-  CheckDepth1 -->|16-bit| Process16["ProcessNextWaveChunk()<br/>(int16_t*)"]
-  CheckDepth1 -->|8-bit| Process8["ProcessNextWaveChunk_8_bit()<br/>(uint8_t*)"]
+  CheckType -->|16-bit PCM| Process16["ProcessNextWaveChunk()<br/>(int16_t*)"]
+  CheckType -->|8-bit PCM| Process8["ProcessNextWaveChunk_8_bit()<br/>(uint8_t*)"]
+  CheckType -->|IMA ADPCM| ProcessADPCM["ProcessNextWaveChunk_ADPCM()<br/>(uint8_t*)"]
   
   Process16 --> ChunkLoop16["For each sample in chunk<br/>(CHUNK_SZ samples)"]
   Process8 --> ChunkLoop8["For each sample in chunk<br/>(CHUNK_SZ samples)"]
+  ProcessADPCM --> ChunkLoopADPCM["For each ADPCM byte<br/>decode nibble(s) to 16-bit PCM"]
   
   ChunkLoop16 --> ReadVol16["Read Volume:<br/>AudioEngine_ReadVolume()"]
   ChunkLoop8 --> Convert8to16["Convert 8-bit to 16-bit<br/>+ TPDF Dithering"]
   
   Convert8to16 --> ReadVol8["Read Volume:<br/>AudioEngine_ReadVolume()"]
+  ChunkLoopADPCM --> DecodeNibble["DecodeImaAdpcmNibble()<br/>updates predictor/index"]
+  DecodeNibble --> ReadVolADPCM["Read Volume:<br/>AudioEngine_ReadVolume()"]
   
   ReadVol16 --> ApplyFilters16["Apply DSP Filter Chain<br/>(see Filter Pipeline)"]
   ReadVol8 --> ApplyFilters8["Apply DSP Filter Chain<br/>(see Filter Pipeline)"]
+  ReadVolADPCM --> ApplyFiltersADPCM["Apply DSP Filter Chain<br/>(same as 16-bit path)"]
   
   ApplyFilters16 --> ApplyVol16["Apply Volume:<br/>sample × (volume/255)"]
   ApplyFilters8 --> ApplyVol8["Apply Volume:<br/>sample × (volume/255)"]
   
   ApplyVol16 --> WriteBuffer16["Write to DMA Buffer"]
   ApplyVol8 --> WriteBuffer8["Write to DMA Buffer"]
+  ApplyFiltersADPCM --> ApplyVolADPCM["Apply Volume:<br/>sample × (volume/255)"]
+  ApplyVolADPCM --> WriteBufferADPCM["Write to DMA Buffer"]
   
-  WriteBuffer16 --> CheckEnd{More samples<br/>to play?}
-  WriteBuffer8 --> CheckEnd
+  WriteBuffer16 --> AdvancePtr["AdvanceSamplePointer()<br/>Move to next chunk"]
+  WriteBuffer8 --> AdvancePtr
+  WriteBufferADPCM --> AdvancePtr
+
+  AdvancePtr --> CheckEnd{Advance hit end pointer?}
+  CheckEnd -->|No| ReturnPlaying[Return PB_Playing]
+  CheckEnd -->|Yes| FadeOut["StopImmediate(); pb_state = PB_Idle"]
   
-  CheckEnd -->|Yes| AdvancePtr["AdvanceSamplePointer()<br/>Move to next chunk"]
-  CheckEnd -->|No| FadeOut["Apply Fade-Out<br/>Return PB_Idle"]
-  
-  AdvancePtr --> ReturnPlaying[Return PB_Playing]
   FadeOut --> StopDMA["Stop DMA Transfer"]
   StopDMA --> DisableDAC["Disable DAC:<br/>AudioEngine_DACSwitch(DAC_OFF)"]
   DisableDAC --> ReturnIdle[Return PB_Idle]
@@ -156,6 +183,34 @@ flowchart TD
   style DMAInt fill:#ffe1e1,color:#000000
   style ReturnPlaying fill:#e1ffe1,color:#000000
   style ReturnIdle fill:#fff4e1,color:#000000
+```
+
+## 🧩 ADPCM Decode Path Details
+
+```mermaid
+flowchart TD
+  InADPCM["ADPCM Input Byte Stream<br/>pb_padpcm_ptr ... pb_endadpcm_ptr"] --> ModeCheck{Mode?}
+
+  ModeCheck -->|Mode_mono_ADPCM| MonoDecode["Mono Decode:<br/>1 byte => 2 samples<br/>low nibble then high nibble"]
+  ModeCheck -->|Mode_stereo_ADPCM| StereoDecode["Stereo Decode:<br/>1 byte => 1 frame<br/>low nibble=left, high nibble=right"]
+
+  MonoDecode --> DecodeCore["DecodeImaAdpcmNibble()<br/>Uses IMA step/index tables"]
+  StereoDecode --> DecodeCore
+
+  DecodeCore --> StateUpdate["Decoder updates in-place:<br/>adpcm_predictor_l/r<br/>adpcm_step_index_l/r"]
+  StateUpdate --> FilterPath["Per sample processing:<br/>ApplyVolumeSetting()<br/>ApplyFilterChain16Bit()<br/>ApplyFadeIn()/ApplyFadeOut()"]
+  FilterPath --> OutputPCM["Output 16-bit PCM to DMA buffer"]
+
+  OutputPCM --> CountUpdate["UpdateFadeCounters()<br/>dma_half_sample_counts[half_to_fill]"]
+  CountUpdate --> PtrAdvance["AdvanceSamplePointer():<br/>pb_padpcm_ptr += p_advance"]
+  PtrAdvance --> Bounds{pb_padpcm_ptr >=<br/>pb_endadpcm_ptr?}
+
+  Bounds -->|No| Continue["Return PB_Playing"]
+  Bounds -->|Yes| Finish["Fade/Stop DMA and return PB_Idle"]
+
+  style InADPCM fill:#e1f5ff,color:#000000
+  style OutputPCM fill:#e1ffe1,color:#000000
+  style Finish fill:#ffe1e1,color:#000000
 ```
 
 ## 🎛️ DSP Filter Chain Pipeline (16-bit)

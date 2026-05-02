@@ -25,8 +25,9 @@ The Audio Engine is a reusable, embedded DSP audio playback system designed for 
 
 ### Key Features
 
-- **Dual Format Support**: 8-bit and 16-bit audio playback
-- **Flexible Modes**: Mono and stereo playback
+- **Dual Format Support**: 8-bit, 16-bit PCM, and IMA ADPCM audio playback
+- **Flexible Modes**: Mono and stereo playback, plus ADPCM variants for compressed audio
+- **ADPCM Compression**: 2:1 compression ratio using IMA ADPCM, ideal for flash-constrained applications
 - **DSP Filter Chain**: Runtime-configurable filters with fixed-point arithmetic
 - **No FPU Required**: All DSP operations use integer math for MCU efficiency
 - **Sample Rate**: Default 22 kHz (configurable)
@@ -191,8 +192,28 @@ The audio playback system follows a clear data flow from flash memory through DS
    - Configurable via `SetLpfMakeupGain8Bit()`
 
 4. **DC Blocking & Remaining Stages**
-   - Same as 16-bit path (steps 2–7)
-   - Air Effect, Fade, Noise Gate, Soft Clipping, Volume Scaling
+    - Same as 16-bit path (steps 2–7)
+    - Air Effect, Fade, Noise Gate, Soft Clipping, Volume Scaling
+
+### Filter Chain Stages (ADPCM Audio)
+
+1. **IMA ADPCM Decoding** *(Always Active for ADPCM modes)*
+    - Real-time decoding of 4-bit IMA ADPCM nibbles to 16-bit PCM
+    - 2:1 compression ratio (half the flash storage vs 16-bit PCM)
+    - Decoder state: predictor (16-bit) + step index (8-bit) per channel
+    - Uses `DecodeImaAdpcmNibble()` for each 4-bit nibble
+    - Stereo: interleaved left/right channels, separate state for each
+
+2. **Same DSP Chain as 16-bit PCM**
+    - After decoding, audio passes through the same filter chain (steps 1–7 above)
+    - Biquad LPF, DC blocking, Air Effect, Fade, Noise Gate, Soft Clipping, Volume Scaling
+    - `sample_depth` parameter ignored (always decoded to 16-bit internally)
+
+**ADPCM Benefits:**
+- **2:1 Compression**: Half the flash storage vs 16-bit PCM
+- **Real-time Decoding**: No pre-decoding needed, decoded on-the-fly during playback
+- **Same Filter Chain**: Uses identical DSP processing as PCM audio
+- **Supports Mono/Stereo**: `Mode_mono_ADPCM` and `Mode_stereo_ADPCM`
 
 ---
 
@@ -219,10 +240,17 @@ Playback channel mode.
 
 ```c
 typedef enum {
-  Mode_stereo,       // Stereo (2-channel) playback
-  Mode_mono          // Mono (single-channel) playback
+  Mode_stereo,       // Stereo (2-channel) PCM playback
+  Mode_mono,         // Mono (single-channel) PCM playback
+  Mode_mono_ADPCM,   // Mono IMA ADPCM (2:1 compression)
+  Mode_stereo_ADPCM  // Stereo IMA ADPCM (2:1 compression, interleaved)
 } PB_ModeTypeDef;
 ```
+
+**Notes:**
+- ADPCM modes decode 4-bit IMA ADPCM nibbles to 16-bit PCM in real-time
+- `sample_depth` parameter is ignored for ADPCM modes (always decoded to 16-bit)
+- ADPCM uses the same DSP filter chain as 16-bit PCM audio
 
 #### `LPF_Level`
 Low-pass filter aggressiveness level for 16-bit and 8-bit LPFs.

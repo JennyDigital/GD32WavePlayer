@@ -192,7 +192,22 @@ The Audio Engine includes **comprehensive, multi-layered documentation** designe
 
 ---
 
-## 🔄 Documentation Workflow
+### Use Case: ADPCM Compressed Audio Playback
+
+**Goal:** Play compressed audio to save flash memory (2:1 compression vs 16-bit PCM)
+
+**Read:**
+1. [README.md](README.md) - ADPCM Audio Playback section
+2. [QUICK_REFERENCE.md](QUICK_REFERENCE.md) - "ADPCM Compressed Audio" pattern
+3. [API_REFERENCE.md](API_REFERENCE.md#playsample) - `PlaySample()` with ADPCM modes
+
+**Functions needed:**
+- `PlaySample()` with `Mode_mono_ADPCM` or `Mode_stereo_ADPCM`
+- Standard filter configuration (ADPCM uses same DSP chain as 16-bit PCM)
+
+**Estimated implementation time:** 15 minutes
+
+---
 
 ### For Developers (Writing Code)
 

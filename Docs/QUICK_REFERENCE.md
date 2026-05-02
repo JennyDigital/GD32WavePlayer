@@ -13,8 +13,12 @@ AudioEngine_Init(DAC_MasterSwitch, ReadVolume, spi_config);
 ## Playback
 
 ```c
-// Play a sample (blocking until complete)
+// Play a PCM sample (blocking until complete)
 PlaySample(sample_ptr, sample_count, 22000, 16, Mode_mono);
+WaitForSampleEnd();
+
+// Play ADPCM compressed sample (2:1 compression)
+PlaySample(adpcm_ptr, sample_count, 22000, 16, Mode_mono_ADPCM);
 WaitForSampleEnd();
 
 // Play non-blocking
@@ -250,6 +254,34 @@ void main_loop(void) {
   printf("Audio finished!\n");
 }
 ```
+
+### Pattern 7: ADPCM Compressed Audio
+```c
+// ADPCM provides 2:1 compression vs 16-bit PCM
+extern const uint8_t muted_guitar_adpcm[];
+extern const uint32_t muted_guitar_adpcm_samples;
+
+void play_adpcm_audio(void) {
+  // Configure filters (same DSP chain as PCM)
+  FilterConfig_TypeDef cfg;
+  GetFilterConfig(&cfg);
+  cfg.enable_16bit_biquad_lpf = 1;
+  cfg.lpf_16bit_level = LPF_Soft;
+  SetFilterConfig(&cfg);
+  
+  // For ADPCM, sample_depth is ignored (always decoded to 16-bit)
+  PlaySample(muted_guitar_adpcm, muted_guitar_adpcm_samples,
+           44100, 16, Mode_mono_ADPCM);
+  
+  WaitForSampleEnd();
+}
+```
+
+**ADPCM Benefits:**
+- 2:1 compression ratio (half the flash storage vs 16-bit PCM)
+- Real-time decoding during playback (no pre-decoding needed)
+- Same DSP filter chain as PCM audio
+- Supports mono (`Mode_mono_ADPCM`) and stereo (`Mode_stereo_ADPCM`)
 
 ## Function Categories
 

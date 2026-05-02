@@ -52,6 +52,7 @@
 #define DITHER_SEED_DEFAULT         12345U
 #define DEFAULT_VOLUME_INPUT        32U
 #define NOISE_GATE_ATTENUATION_Q15  3277
+#define PB_MODE_IMA_ADPCM           4U
 
 #if AUDIO_ENGINE_INLINE_DMA_CALLBACK
 #define DMA_CALLBACK_INLINE inline __attribute__((always_inline))
@@ -110,6 +111,10 @@ static          int16_t   ApplyLowPassFilter8Bit      (
 static inline   int16_t   ApplyPostFilters            ( int16_t sample, AudioChannelId channel_id );
 static          int16_t   ApplyFilterChain16Bit       ( int16_t sample, AudioChannelId channel_id );
 static          int16_t   ApplyFilterChain8Bit        ( int16_t sample, AudioChannelId channel_id );
+static PB_StatusTypeDef   ProcessNextWaveChunk_ADPCM  ( uint8_t *chunk_p );
+static          int16_t   DecodeImaAdpcmNibble        ( uint8_t nibble, volatile int16_t *predictor, volatile int8_t *step_index );
+static inline   uint8_t   IsAdpcmPlaybackMode         ( PB_ModeTypeDef mode );
+static inline   uint8_t   IsStereoPlaybackMode        ( PB_ModeTypeDef mode );
 
 // DMA stop helper
 static inline   void      StopDmaAndResetPlaybackState( uint8_t reset_state );
@@ -163,6 +168,8 @@ volatile FilterConfig_TypeDef filter_cfg = {
 volatile  uint8_t           *pb_end8_ptr;                             // End pointer for 8-bit sample processing
 volatile  uint16_t          *pb_p16_ptr;                              // Pointer for 16-bit sample processing
 volatile  uint16_t          *pb_end16_ptr;                            // End pointer for 16-bit sample processing
+volatile  uint8_t           *pb_padpcm_ptr;                           // Pointer for ADPCM source bytes
+volatile  uint8_t           *pb_endadpcm_ptr;                         // End pointer for ADPCM source bytes
 
 volatile  PB_StatusTypeDef  pb_state                    = PB_Idle;    // Playback state machine variable
 volatile  uint8_t           half_to_fill;                             // Flag to indicate which half of the buffer to fill in the DMA callback
@@ -214,6 +221,32 @@ volatile  uint32_t        dither_state                = DITHER_SEED_DEFAULT;
 
 /* Biquad filter state for 16-bit samples */
 volatile  uint16_t        lpf_16bit_alpha             = LPF_16BIT_SOFT;
+
+/* IMA ADPCM decoder state (predictor + step index) for each channel */
+volatile int16_t          adpcm_predictor_l           = 0;
+volatile int16_t          adpcm_predictor_r           = 0;
+volatile int8_t           adpcm_step_index_l          = 0;
+volatile int8_t           adpcm_step_index_r          = 0;
+
+/* IMA ADPCM lookup tables */
+static const int8_t ima_adpcm_index_table[ 16 ] = {
+  -1, -1, -1, -1,
+   2,  4,  6,  8,
+  -1, -1, -1, -1,
+   2,  4,  6,  8
+};
+
+static const int16_t ima_adpcm_step_table[ 89 ] = {
+      7,     8,     9,    10,    11,    12,    13,    14,    16,    17,
+     19,    21,    23,    25,    28,    31,    34,    37,    41,    45,
+     50,    55,    60,    66,    73,    80,    88,    97,   107,   118,
+    130,   143,   157,   173,   190,   209,   230,   253,   279,   307,
+    337,   371,   408,   449,   494,   544,   598,   658,   724,   796,
+    876,   963,  1060,  1166,  1282,  1411,  1552,  1707,  1878,  2066,
+   2272,  2499,  2749,  3024,  3327,  3660,  4026,  4428,  4871,  5358,
+   5894,  6484,  7132,  7845,  8630,  9493, 10442, 11487, 12635, 13899,
+  15289, 16818, 18500, 20350, 22385, 24623, 27086, 29794, 32767
+};
 
 #if AUDIO_ENGINE_ENABLE_AIR_EFFECT
 /* Air Effect runtime shelf gain (Q16). Defaults to AIR_EFFECT_SHELF_GAIN */
@@ -280,6 +313,63 @@ static inline void ResetAllFilterState( void )
 static inline AudioFilterChannelState *GetChannelState( AudioChannelId channel_id )
 {
   return &filter_state[ channel_id ];
+}
+
+
+/** Return non-zero if mode is one of the IMA ADPCM playback modes. */
+static inline uint8_t IsAdpcmPlaybackMode( PB_ModeTypeDef mode )
+{
+  return ( mode == Mode_mono_ADPCM || mode == Mode_stereo_ADPCM ) ? 1U : 0U;
+}
+
+
+/** Return non-zero when the mode has independent left/right source channels. */
+static inline uint8_t IsStereoPlaybackMode( PB_ModeTypeDef mode )
+{
+  return ( mode == Mode_stereo || mode == Mode_stereo_ADPCM ) ? 1U : 0U;
+}
+
+
+/** Decode one IMA ADPCM nibble into a signed 16-bit PCM sample. */
+static int16_t DecodeImaAdpcmNibble( uint8_t nibble, volatile int16_t *predictor, volatile int8_t *step_index )
+{
+  int32_t index = *step_index;
+  if( index < 0 ) {
+    index = 0;
+  } else if( index > 88 ) {
+    index = 88;
+  }
+
+  int32_t step = ima_adpcm_step_table[ index ];
+  int32_t diff = step >> 3;
+
+  if( nibble & 0x01U ) { diff += step >> 2; }
+  if( nibble & 0x02U ) { diff += step >> 1; }
+  if( nibble & 0x04U ) { diff += step; }
+
+  int32_t sample = *predictor;
+  if( nibble & 0x08U ) {
+    sample -= diff;
+  } else {
+    sample += diff;
+  }
+
+  if( sample > AUDIO_INT16_MAX ) {
+    sample = AUDIO_INT16_MAX;
+  } else if( sample < AUDIO_INT16_MIN ) {
+    sample = AUDIO_INT16_MIN;
+  }
+
+  index += ima_adpcm_index_table[ nibble & 0x0FU ];
+  if( index < 0 ) {
+    index = 0;
+  } else if( index > 88 ) {
+    index = 88;
+  }
+
+  *predictor = (int16_t)sample;
+  *step_index = (int8_t)index;
+  return (int16_t)sample;
 }
 
 
@@ -1547,6 +1637,8 @@ static void ResetPlaybackState( void ) {
   pb_end8_ptr                   = NULL;
   pb_p16_ptr                    = NULL;
   pb_end16_ptr                  = NULL;
+  pb_padpcm_ptr                 = NULL;
+  pb_endadpcm_ptr               = NULL;
   paused_sample_ptr             = NULL;
   samples_remaining             = 0;
   fadeout_samples_remaining     = 0;
@@ -1559,6 +1651,10 @@ static void ResetPlaybackState( void ) {
   dma_half_sample_counts[ SECOND ] = 0U;
   stop_requested                = 0;
   playback_end_callback_called  = 0;
+  adpcm_predictor_l             = 0;
+  adpcm_predictor_r             = 0;
+  adpcm_step_index_l            = 0;
+  adpcm_step_index_r            = 0;
 }
 
 
@@ -1806,6 +1902,17 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
         if( (uint32_t)remaining > fadeout_samples ) {
           pb_end8_ptr = pb_p8_ptr + fadeout_samples;
         }
+      } else if( pb_mode == PB_MODE_IMA_ADPCM ) {
+        ptrdiff_t remaining_bytes = pb_endadpcm_ptr - pb_padpcm_ptr;
+        uint32_t remaining_samples = ( remaining_bytes > 0 ) ? ( (uint32_t)remaining_bytes << 1 ) : 0U;
+        if( remaining_samples == 0U ) {
+          EndPlaybackCleanup();
+          return;
+        }
+        if( remaining_samples > fadeout_samples ) {
+          uint32_t keep_bytes = ( fadeout_samples + 1U ) >> 1;
+          pb_endadpcm_ptr = pb_padpcm_ptr + keep_bytes;
+        }
       }
     }
   }
@@ -1827,16 +1934,18 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
 
   half_to_fill = which_half;
 
-  if( pb_mode == 16 || pb_mode == 8 ) {
+  if( pb_mode == 16 || pb_mode == 8 || pb_mode == PB_MODE_IMA_ADPCM ) {
     if( ( pb_mode == 16 && pb_p16_ptr >= pb_end16_ptr ) ||
-        ( pb_mode == 8  && pb_p8_ptr  >= pb_end8_ptr )
+        ( pb_mode == 8  && pb_p8_ptr  >= pb_end8_ptr  ) ||
+        ( pb_mode == PB_MODE_IMA_ADPCM && pb_padpcm_ptr >= pb_endadpcm_ptr )
       ) {
       EndPlaybackCleanup();   // Cleanup and stop playback if we've reached the end of the sample data.
       return;
     }
     /* Only one chunk process will be used because of short-circuit evaluation. */
     if( ( pb_mode == 16 && ProcessNextWaveChunk( (int16_t *) pb_p16_ptr ) != PB_Playing ) ||
-        ( pb_mode == 8  && ProcessNextWaveChunk_8_bit( (uint8_t *) pb_p8_ptr ) != PB_Playing ) ) {
+        ( pb_mode == 8  && ProcessNextWaveChunk_8_bit( (uint8_t *) pb_p8_ptr ) != PB_Playing ) ||
+        ( pb_mode == PB_MODE_IMA_ADPCM && ProcessNextWaveChunk_ADPCM( (uint8_t *) pb_padpcm_ptr ) != PB_Playing ) ) {
       return;
     }
   } else {
@@ -1896,7 +2005,15 @@ void AdvanceSamplePointer( void )
       pb_state = PB_Idle;
       return;
     }
-  } 
+  }
+  else if( pb_mode == PB_MODE_IMA_ADPCM ) {
+    pb_padpcm_ptr += p_advance;
+    if( pb_padpcm_ptr >= pb_endadpcm_ptr ) {
+      StopImmediate();
+      pb_state = PB_Idle;
+      return;
+    }
+  }
 }
 
 
@@ -2074,6 +2191,101 @@ PB_StatusTypeDef ProcessNextWaveChunk_8_bit( uint8_t * chunk_p )
 }
 
 
+/** Transfers a chunk of IMA ADPCM data to the DMA playback buffer
+  *
+  * Decodes 4-bit IMA ADPCM nibbles into signed 16-bit PCM and then applies
+  * the existing volume/filter/fade pipeline.
+  *
+  * Mode expectations:
+  * - Mode_mono_ADPCM: sequential nibbles (low then high) for mono source.
+  * - Mode_stereo_ADPCM: each byte packs one stereo frame (low=left, high=right).
+  */
+static PB_StatusTypeDef ProcessNextWaveChunk_ADPCM( uint8_t *chunk_p )
+{
+  uint8_t *input;
+  int16_t *output;
+  int16_t leftsample, rightsample;
+  uint16_t current_volume;
+  uint32_t chunk_source_samples = 0U;
+  uint32_t available_bytes;
+
+  if( chunk_p == NULL ) {
+    return PB_Error;
+  }
+
+  input = chunk_p;
+  output = ( half_to_fill == SECOND ) ? ( pb_buffer + CHUNK_SZ ) : pb_buffer;
+  available_bytes = ( pb_endadpcm_ptr > input ) ? (uint32_t)( pb_endadpcm_ptr - input ) : 0U;
+
+  for( uint16_t i = 0; i < HALFCHUNK_SZ; i++ ) {
+    current_volume = AudioEngine_ReadVolume();
+    vol_input = current_volume;
+
+    if( channels == Mode_mono_ADPCM ) {
+      uint32_t byte_index = (uint32_t)i >> 1;
+
+      if( byte_index < available_bytes ) {
+        uint8_t packed = input[ byte_index ];
+        uint8_t nibble = ( i & 1U ) ? ( packed >> 4 ) : ( packed & 0x0FU );
+        chunk_source_samples++;
+        leftsample = DecodeImaAdpcmNibble( nibble, &adpcm_predictor_l, &adpcm_step_index_l );
+        leftsample = ApplyVolumeSetting( leftsample, current_volume );
+        if( filter_cfg.enable_filter_chain_16bit == 1 ) {
+          leftsample = ApplyFilterChain16Bit( leftsample, CHANNEL_LEFT );
+        }
+        if( faders_enabled ) {
+          leftsample = ApplyFadeIn( leftsample );
+          leftsample = ApplyFadeOut( leftsample );
+        }
+      } else {
+        leftsample = SAMPLE16_MIDPOINT;
+      }
+
+      rightsample = leftsample;
+    }
+    else {
+      uint32_t byte_index = (uint32_t)i;
+
+      if( byte_index < available_bytes ) {
+        uint8_t packed = input[ byte_index ];
+        uint8_t nibble_l = packed & 0x0FU;
+        uint8_t nibble_r = ( packed >> 4 ) & 0x0FU;
+
+        chunk_source_samples += 2U;
+        leftsample = DecodeImaAdpcmNibble( nibble_l, &adpcm_predictor_l, &adpcm_step_index_l );
+        rightsample = DecodeImaAdpcmNibble( nibble_r, &adpcm_predictor_r, &adpcm_step_index_r );
+
+        leftsample = ApplyVolumeSetting( leftsample, current_volume );
+        rightsample = ApplyVolumeSetting( rightsample, current_volume );
+
+        if( filter_cfg.enable_filter_chain_16bit == 1 ) {
+          leftsample = ApplyFilterChain16Bit( leftsample, CHANNEL_LEFT );
+          rightsample = ApplyFilterChain16Bit( rightsample, CHANNEL_RIGHT );
+        }
+
+        if( faders_enabled ) {
+          leftsample = ApplyFadeIn( leftsample );
+          leftsample = ApplyFadeOut( leftsample );
+          rightsample = ApplyFadeIn( rightsample );
+          rightsample = ApplyFadeOut( rightsample );
+        }
+      } else {
+        leftsample = SAMPLE16_MIDPOINT;
+        rightsample = SAMPLE16_MIDPOINT;
+      }
+    }
+
+    *output++ = leftsample;
+    *output++ = rightsample;
+
+    UpdateFadeCounters( IsStereoPlaybackMode( channels ) ? 2U : 1U );
+  }
+
+  dma_half_sample_counts[ half_to_fill ] = chunk_source_samples;
+  return PB_Playing;
+}
+
+
 /* ============================================================================
  * Playback Control Functions
  * ============================================================================
@@ -2097,10 +2309,13 @@ PB_StatusTypeDef PlaySample (
                               PB_ModeTypeDef mode 
                             ) 
 {
+  uint8_t adpcm_mode  = IsAdpcmPlaybackMode( mode );
+  uint8_t stereo_mode = IsStereoPlaybackMode( mode );
+
   // Parameter sanity checks
   //
-  if( ( sample_depth != 16 && sample_depth != 8 ) || 
-      ( mode != Mode_mono && mode != Mode_stereo) ||
+  if( ( !adpcm_mode && sample_depth != 16 && sample_depth != 8 ) ||
+      ( mode != Mode_mono && mode != Mode_stereo && mode != Mode_mono_ADPCM && mode != Mode_stereo_ADPCM ) ||
         sample_set_sz   == 0                      ||
         sample_to_play  == NULL
     ) { return PB_Error; }
@@ -2113,13 +2328,15 @@ PB_StatusTypeDef PlaySample (
   // Set low-pass filter alpha coefficient based on filter config
   lpf_8bit_alpha = GetLpf8BitAlpha( filter_cfg.lpf_8bit_level );
   
-  if( mode == Mode_stereo ) {                             // Pointer advance amount for stereo/mono mode.
-     p_advance = CHUNK_SZ;                                // Two channels worth of samples per chunk
-     channels  = Mode_stereo;
-  }
-  else {                                                  // Or one channels worth of samples per chunk... One lump or two vicar?
+  if( adpcm_mode ) {
+    p_advance = stereo_mode ? HALFCHUNK_SZ : ( HALFCHUNK_SZ / 2U );
+    channels = mode;
+  } else if( stereo_mode ) {
+    p_advance = CHUNK_SZ;                                 // Two channels worth of samples per chunk
+    channels  = Mode_stereo;
+  } else {
     p_advance  = HALFCHUNK_SZ;
-    channels   = Mode_mono;     
+    channels   = Mode_mono;
   }
 
   I2S_PlaybackSpeed = playback_speed;                     // Set our playback speed.
@@ -2136,12 +2353,17 @@ PB_StatusTypeDef PlaySample (
   PrepareForNewPlayback();
   
   // Warm up 16-bit biquad filter state from first sample to avoid startup transient
-  if( sample_depth == 16 && filter_cfg.enable_16bit_biquad_lpf ) {
+  if( !adpcm_mode && sample_depth == 16 && filter_cfg.enable_16bit_biquad_lpf ) {
     int16_t first_sample = *( (int16_t *)sample_to_play );
     WarmupBiquadFilter16Bit( first_sample );
   }
   
-  if( sample_depth == 16 ) {                  // For 16-bit, initialize 16-bit sample playback pointers
+  if( adpcm_mode ) {
+    pb_padpcm_ptr   = (uint8_t *) sample_to_play;
+    pb_endadpcm_ptr = pb_padpcm_ptr + sample_set_sz;
+    pb_mode = PB_MODE_IMA_ADPCM;
+  }
+  else if( sample_depth == 16 ) {                  // For 16-bit, initialize 16-bit sample playback pointers
     pb_p16_ptr    = (uint16_t *) sample_to_play;
     pb_end16_ptr  = pb_p16_ptr + sample_set_sz;
     pb_mode   = 16;
@@ -2151,12 +2373,17 @@ PB_StatusTypeDef PlaySample (
     pb_end8_ptr   = pb_p8_ptr + sample_set_sz;
     pb_mode   = 8;
   }
+
+  uint32_t total_source_samples = adpcm_mode ?
+                                  ( ( sample_set_sz > ( UINT32_MAX >> 1 ) ) ? UINT32_MAX : ( sample_set_sz << 1 ) ) :
+                                  sample_set_sz;
+
   // Initialize fade counters
-  playback_total_samples      = sample_set_sz;
+  playback_total_samples      = total_source_samples;
   playback_samples_played     = 0U;
   dma_half_sample_counts[ FIRST ] = 0U;
   dma_half_sample_counts[ SECOND ] = 0U;
-  samples_remaining         = sample_set_sz;  // Track position in file
+  samples_remaining         = total_source_samples;  // Track position in source samples
   fadeout_samples_remaining = 0;              // Pause fadeout duration (set when pause is called)
   fadein_samples_remaining  = fadein_samples;
   
@@ -2177,6 +2404,15 @@ PB_StatusTypeDef PlaySample (
     half_to_fill = SECOND;
     if( ProcessNextWaveChunk_8_bit( (uint8_t *) pb_p8_ptr ) != PB_Playing ) { return PB_Error; }
     pb_p8_ptr += p_advance;
+    half_to_fill = FIRST;
+  }
+  else if( pb_mode == PB_MODE_IMA_ADPCM ) {
+    if( ProcessNextWaveChunk_ADPCM( (uint8_t *) pb_padpcm_ptr ) != PB_Playing ) { return PB_Error; }
+    pb_padpcm_ptr += p_advance;
+
+    half_to_fill = SECOND;
+    if( ProcessNextWaveChunk_ADPCM( (uint8_t *) pb_padpcm_ptr ) != PB_Playing ) { return PB_Error; }
+    pb_padpcm_ptr += p_advance;
     half_to_fill = FIRST;
   }
   
@@ -2235,8 +2471,10 @@ PB_StatusTypeDef PausePlayback( void )
   /* Save current playback position before initiating pause */
   if( pb_mode == 16 ) {
     paused_sample_ptr = (const void *)pb_p16_ptr;
-  } else {
+  } else if( pb_mode == 8 ) {
     paused_sample_ptr = (const void *)pb_p8_ptr;
+  } else {
+    paused_sample_ptr = (const void *)pb_padpcm_ptr;
   }
 
   /* Preserve remaining samples so resume doesn't skip the end-of-file logic */
@@ -2251,7 +2489,7 @@ PB_StatusTypeDef PausePlayback( void )
     /* Start the pause fadeout from the current volume level (linear progress maps to quadratic volume curve) */
     fadeout_start_level = ( fadein_progress * pause_fadeout_samples ) / fadein_samples;
   }
-  else if( pb_mode == 16 || pb_mode == 8 ) {
+  else if( pb_mode == 16 || pb_mode == 8 || pb_mode == PB_MODE_IMA_ADPCM ) {
     /* Check if we're in the middle of end-of-file fadeout */
     uint32_t remaining_in_file = 0;
     if( pb_mode == 16 ) {
@@ -2259,10 +2497,15 @@ PB_StatusTypeDef PausePlayback( void )
       if( remaining > 0 ) {
         remaining_in_file = (uint32_t)remaining;
       }
-    } else {
+    } else if( pb_mode == 8 ) {
       ptrdiff_t remaining = pb_end8_ptr - pb_p8_ptr;
       if( remaining > 0 ) {
         remaining_in_file = (uint32_t)remaining;
+      }
+    } else {
+      ptrdiff_t remaining = pb_endadpcm_ptr - pb_padpcm_ptr;
+      if( remaining > 0 ) {
+        remaining_in_file = (uint32_t)remaining << 1;
       }
     }
     
@@ -2301,8 +2544,10 @@ PB_StatusTypeDef ResumePlayback( void )
   if( paused_sample_ptr != NULL ) {
     if( pb_mode == 16 ) {
       pb_p16_ptr  = (uint16_t *)paused_sample_ptr;
-    } else {
+    } else if( pb_mode == 8 ) {
       pb_p8_ptr   = (uint8_t *)paused_sample_ptr;
+    } else {
+      pb_padpcm_ptr = (uint8_t *)paused_sample_ptr;
     }
   }
 

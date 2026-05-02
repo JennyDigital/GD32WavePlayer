@@ -65,15 +65,15 @@ if (status != PB_Idle) {
 
 ### `PlaySample()`
 
-Start playback of an audio sample.
+Start playback of an audio sample (PCM or ADPCM).
 
 ```c
 PB_StatusTypeDef PlaySample(
-  const void *sample_to_play,     // Pointer to audio data (8-bit or 16-bit)
+  const void *sample_to_play,     // Pointer to audio data (8-bit, 16-bit, or ADPCM)
   uint32_t sample_set_sz,         // Total samples (all channels combined)
   uint32_t playback_speed,        // Sample rate in Hz (typically 22000)
-  uint8_t sample_depth,           // 8 or 16 (bits per sample)
-  PB_ModeTypeDef mode             // Mode_mono or Mode_stereo
+  uint8_t sample_depth,           // 8 or 16 (ignored for ADPCM modes)
+  PB_ModeTypeDef mode             // Mode_mono, Mode_stereo, Mode_mono_ADPCM, or Mode_stereo_ADPCM
 );
 ```
 
@@ -81,8 +81,12 @@ PB_StatusTypeDef PlaySample(
 - `sample_to_play`: Audio data pointer (must remain valid during playback)
 - `sample_set_sz`: Total samples (all channels combined)
 - `playback_speed`: Sample rate in Hz (22000 recommended, up to 48000)
-- `sample_depth`: 8 or 16
-- `mode`: `Mode_mono` or `Mode_stereo`
+- `sample_depth`: 8 or 16 (ignored for ADPCM modes, always decoded to 16-bit)
+- `mode`: 
+  - `Mode_mono`: 8-bit or 16-bit mono PCM
+  - `Mode_stereo`: 8-bit or 16-bit stereo PCM (interleaved)
+  - `Mode_mono_ADPCM`: Mono IMA ADPCM (2:1 compression)
+  - `Mode_stereo_ADPCM`: Stereo IMA ADPCM (2:1 compression, interleaved)
 
 **Returns:** `PB_Playing` if successful, `PB_Error` on invalid parameters
 
@@ -93,7 +97,46 @@ PB_StatusTypeDef PlaySample(
 - For 16-bit stereo (interleaved): `sample_set_sz = 2 × num_frames`
 - For 8-bit mono: `sample_set_sz = num_samples`
 - For 8-bit stereo (interleaved): `sample_set_sz = 2 × num_frames`
+- For ADPCM: `sample_set_sz = num_samples` (mono) or `2 × num_frames` (stereo)
+- ADPCM is decoded in real-time to 16-bit PCM, then processed through the same DSP filter chain
 - Briefly blocks while starting DMA
+
+**Example (PCM):**
+```c
+extern const uint8_t doorbell_16bit_mono[];
+extern const uint32_t doorbell_16bit_mono_samples;
+
+PB_StatusTypeDef result = PlaySample(
+  doorbell_16bit_mono,
+  doorbell_16bit_mono_samples,
+  22000,
+  16,
+  Mode_mono
+);
+
+if (result == PB_Playing) {
+  WaitForSampleEnd();
+}
+```
+
+**Example (ADPCM):**
+```c
+extern const uint8_t muted_guitar_adpcm[];
+extern const uint32_t muted_guitar_adpcm_samples;
+
+// ADPCM provides 2:1 compression vs 16-bit PCM
+PB_StatusTypeDef result = PlaySample(
+  muted_guitar_adpcm,
+  muted_guitar_adpcm_samples,
+  44100,
+  16,                      // Ignored for ADPCM (always decoded to 16-bit)
+  Mode_mono_ADPCM
+);
+
+if (result == PB_Playing) {
+  WaitForSampleEnd();
+}
+```
 
 **Example:**
 ```c

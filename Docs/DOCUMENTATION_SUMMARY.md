@@ -11,6 +11,7 @@ Complete overview of the Audio Engine Documentation Suite.
 | **Code Examples** | 40+ |
 | **Total Estimated Pages** | ~150 |
 | **Documentation Coverage** | 100% |
+| **ADPCM Support** | Documented in 6+ files |
 | **Last Updated** | 2026-02-08 |
 
 ## 📁 All Documentation Files
@@ -237,6 +238,7 @@ If documentation is unclear or incorrect:
 ### Key Features
 - **44+ functions fully documented** with examples
 - **100% API coverage** - every public function included
+- **ADPCM support documented** - IMA ADPCM decoding with 2:1 compression
 - **Multi-layered approach** - quick reference to deep technical
 - **IDE integrated** - Doxygen tooltips in all major IDEs
 - **Cross-linked** - easy navigation between related topics
@@ -261,9 +263,10 @@ If documentation is unclear or incorrect:
 ---
 
 **Documentation Version:** 2.0  
-**Last Updated:** 2026-02-07  
-**Total Functions Documented:** 40+  
-**Documentation Files:** 13  
+**Last Updated:** 2026-05-02  
+**Total Functions Documented:** 44+  
+**Documentation Files:** 15  
 **Estimated Total Pages:** ~150  
+**ADPCM Support:** Documented in README, API_REFERENCE, QUICK_REFERENCE, MANUAL, FLOWCHART, and HEADER_DOCUMENTATION
 
 For complete navigation guide, see [DOCUMENTATION_GUIDE.md](DOCUMENTATION_GUIDE.md)
