@@ -37,6 +37,7 @@
 #include "medieval_flute.h"
 #include "When_I_Needed_a_neighbour.h"
 #include "muted_guitar44k16bm.h"
+#include "WhyWeBuildTheWall.h"
 #else
 #include "dalby_multi.h"
 #endif
@@ -149,8 +150,8 @@ int main( void )
   SetLpf16BitLevel( LPF_Off );
 
   // Set fade times
-  SetFadeInTime(0.2f );                   // 100 ms fade-in
-  SetFadeOutTime( 0.4f );                 // 100 ms fade-out
+  SetFadeInTime(0.01f );                   // 100 ms fade-in
+  SetFadeOutTime( 0.01f );                 // 100 ms fade-out
   SetPauseFadeTime( 1.5f );               // 500 ms pause fade-out
   SetResumeFadeTime( 1.5f );              // 500 ms resume fade-in
 
@@ -165,7 +166,7 @@ int main( void )
     //PlaySample( Lemon_Tree16b16km, LEMON_TREE16B16KM_SZ, I2S_AUDIOSAMPLE_16K, 16, LEMON_TREE16B16KM_PB_FMT );
     //PlaySample( medieval_flute16b22k1c, MEDIEVAL_FLUTE16B22K1C_SZ, I2S_AUDIOSAMPLE_22K, 16, Mode_mono );
     //PlaySample( ocarina32k, OCARINA32K_SZ, I2S_AUDIOSAMPLE_32K, 16, OCARINA32K_PB_FMT );
-    PlaySample(muted_guitar44k16bm, MUTED_GUITAR44K16BM_SZ, I2S_AUDIOSAMPLE_44K, 16, MUTED_GUITAR44K16BM_PB_FMT );
+    PlaySample(WhyWeBuildTheWall, WHYWEBUILDTHEWALL_SZ, I2S_AUDIOSAMPLE_48K, 16, WHYWEBUILDTHEWALL_PB_FMT );
 
     WaitForSampleEnd();
   }

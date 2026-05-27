@@ -52,6 +52,8 @@
 #define DITHER_SEED_DEFAULT         12345U
 #define DEFAULT_VOLUME_INPUT        32U
 #define NOISE_GATE_ATTENUATION_Q15  3277
+#define PB_MODE_PCM8                8U
+#define PB_MODE_PCM16               16U
 #define PB_MODE_IMA_ADPCM           4U
 
 #if AUDIO_ENGINE_INLINE_DMA_CALLBACK
@@ -77,7 +79,7 @@ static          int16_t   ApplySoftClipping           ( int16_t sample );
 static inline   int32_t   ComputeSoftClipCurve        ( int32_t excess, int32_t range );
 
 // DC blocking filters
-static inline   int16_t   ApplyDCFilterWithAlpha     (
+static inline   int16_t   ApplyDCFilterWithAlpha      (
                                                         volatile int16_t input,
                                                         volatile int32_t *prev_input,
                                                         volatile int32_t *prev_output,
@@ -117,7 +119,9 @@ static inline   uint8_t   IsAdpcmPlaybackMode         ( PB_ModeTypeDef mode );
 static inline   uint8_t   IsStereoPlaybackMode        ( PB_ModeTypeDef mode );
 
 // DMA stop helper
-static inline   void      StopDmaAndResetPlaybackState( uint8_t reset_state );
+static inline   void      EndPlaybackCleanup         ( void );
+static inline   void      TransitionToIdleAndResetPlayback( void );
+static inline   void      BeginStopFadeout            ( void );
 static inline   void      PrepareForNewPlayback       ( void );
 static inline   void      RetireCompletedDmaHalf      ( uint8_t completed_half );
 
@@ -913,7 +917,7 @@ uint32_t CalcSampleOffsetSamples( float seconds, uint32_t sample_rate_hz, PB_Mod
   }
 
   float samples_f = seconds * (float)sample_rate_hz;
-  if( mode == Mode_stereo ) {
+  if( IsStereoPlaybackMode( mode ) ) {
     samples_f *= 2.0f;
   }
 
@@ -1263,7 +1267,7 @@ static int16_t ApplyFadeOut( int16_t sample )
     should_apply_fade = 1;
     fade_total        = pause_fadeout_samples;
     remaining_to_use  = fadeout_samples_remaining;
-  } else if( pb_state == PB_Playing ) {
+  } else if( pb_state == PB_Playing || pb_state == PB_Stopping ) {
     if( samples_remaining > 0 && samples_remaining <= fadeout_samples ) {
       should_apply_fade = 1;
       fade_total = fadeout_samples;
@@ -1614,7 +1618,7 @@ static inline int16_t PUT_IN_FASTMEM ApplyPostFilters( int16_t sample, AudioChan
     sample = ApplyAirEffect( sample, &channel->air_x1, &channel->air_y1 );
   }
 #endif
-  
+
   if( filter_cfg.enable_noise_gate ) {
     sample = ApplyNoiseGate( sample );
   }
@@ -1665,13 +1669,8 @@ static void ResetPlaybackState( void ) {
   */
 static inline void PrepareForNewPlayback( void )
 {
-  dma_interrupt_disable( DMA0, DMA_CH4, DMA_INT_HTF | DMA_INT_FTF );
-  spi_dma_disable( PROJECT_SPI, SPI_DMA_TRANSMIT );   // FINDME
-  i2s_disable( PROJECT_SPI );
-  ResetPlaybackState();
+  TransitionToIdleAndResetPlayback();
   ResetAllFilterState();
-  MIDPOINT_FILL_BUFFER();
-  pb_state = PB_Idle;
 }
 
 
@@ -1775,6 +1774,55 @@ static inline void RecalculateFadeSamples( void )
 }
 
 
+static inline void BeginStopFadeout( void )
+{
+  uint32_t remaining_source_samples = 0U;
+
+  if( pb_mode == PB_MODE_PCM16 ) {
+    ptrdiff_t remaining = pb_end16_ptr - pb_p16_ptr;
+    if( remaining <= 0 ) {
+      EndPlaybackCleanup();
+      return;
+    }
+
+    remaining_source_samples = (uint32_t)remaining;
+    if( remaining_source_samples > fadeout_samples ) {
+      remaining_source_samples = fadeout_samples;
+      pb_end16_ptr = pb_p16_ptr + remaining_source_samples;
+    }
+  }
+  else if( pb_mode == PB_MODE_PCM8 ) {
+    ptrdiff_t remaining = pb_end8_ptr - pb_p8_ptr;
+    if( remaining <= 0 ) {
+      EndPlaybackCleanup();
+      return;
+    }
+
+    remaining_source_samples = (uint32_t)remaining;
+    if( remaining_source_samples > fadeout_samples ) {
+      remaining_source_samples = fadeout_samples;
+      pb_end8_ptr = pb_p8_ptr + remaining_source_samples;
+    }
+  }
+  else if( pb_mode == PB_MODE_IMA_ADPCM ) {
+    ptrdiff_t remaining_bytes = pb_endadpcm_ptr - pb_padpcm_ptr;
+    if( remaining_bytes <= 0 ) {
+      EndPlaybackCleanup();
+      return;
+    }
+
+    remaining_source_samples = (uint32_t)remaining_bytes << 1;
+    if( remaining_source_samples > fadeout_samples ) {
+      remaining_source_samples = fadeout_samples;
+      pb_endadpcm_ptr = pb_padpcm_ptr + ( ( remaining_source_samples + 1U ) >> 1 );
+    }
+  }
+
+  samples_remaining = remaining_source_samples;
+  pb_state = PB_Stopping;
+}
+
+
 /** Clean up after playback ends
   *
   * Common cleanup logic for when playback finishes naturally or when a stop request is processed.
@@ -1783,10 +1831,11 @@ static inline void RecalculateFadeSamples( void )
   */
 static inline void EndPlaybackCleanup( void )
 {
-  pb_state = PB_Idle;
-  MIDPOINT_FILL_BUFFER();
-  StopDmaAndResetPlaybackState( 1U );
-  if( !playback_end_callback_called ) {
+  uint8_t should_notify_end = ( playback_end_callback_called == 0U );
+
+  TransitionToIdleAndResetPlayback();
+
+  if( should_notify_end ) {
     playback_end_callback_called = 1;
     AudioEngine_OnPlaybackEnd();
     if( dac_power_control == true ) {
@@ -1796,19 +1845,27 @@ static inline void EndPlaybackCleanup( void )
 }
 
 
-/** Stop DMA transmission and optionally reset playback state
-  *
-  * @param: reset_state - Non-zero to reset playback state
-  * @retval: none
-  */
-static inline void StopDmaAndResetPlaybackState( uint8_t reset_state )
+static inline void TransitionToIdleAndResetPlayback( void )
 {
+  uint32_t primask = __get_PRIMASK();
+
+  __disable_irq();
+
   dma_interrupt_disable( DMA0, DMA_CH4, DMA_INT_HTF | DMA_INT_FTF );
+  dma_interrupt_flag_clear( DMA0, DMA_CH4, DMA_INT_FLAG_HTF );
+  dma_interrupt_flag_clear( DMA0, DMA_CH4, DMA_INT_FLAG_FTF );
+  NVIC_ClearPendingIRQ( DMA0_Channel4_IRQn );
+
   spi_dma_disable( PROJECT_SPI, SPI_DMA_TRANSMIT );   // FINDME
   i2s_disable( PROJECT_SPI );
-  if( reset_state ) {
-    ResetPlaybackState();
-  }
+
+  ResetPlaybackState();
+  MIDPOINT_FILL_BUFFER();
+  pb_state = PB_Idle;
+
+  __DSB();
+  __ISB();
+  __set_PRIMASK( primask );
 }
 
 
@@ -1838,12 +1895,11 @@ static inline void RetireCompletedDmaHalf( uint8_t completed_half )
   */
 static inline void StopImmediate( void )
 {
-  pb_state = PB_Idle;
-  StopDmaAndResetPlaybackState( 1U );
+  uint8_t should_notify_end = ( playback_end_callback_called == 0U );
 
-  MIDPOINT_FILL_BUFFER();
+  TransitionToIdleAndResetPlayback();
 
-  if( !playback_end_callback_called ) {
+  if( should_notify_end ) {
     playback_end_callback_called = 1;
     AudioEngine_OnPlaybackEnd();
 
@@ -1871,6 +1927,7 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
   }
   
   RetireCompletedDmaHalf( which_half );
+
   /* Handle pending stop request at the beginning of DMA callback (safest place to modify state) */
   if( stop_requested && pb_state != PB_Idle ) {
     /* Only handle stop if we're in a playable state */
@@ -1880,39 +1937,11 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
       return;
     }
     
-    /* For playing states, initiate fade-out by shortening the sample duration */
-    if( pb_state != PB_Pausing ) {
-      /* If not already pausing, set state to pausing and prepare for fade */
-      pb_state = PB_Pausing;
-      if( pb_mode == 16 ) {
-        ptrdiff_t remaining = pb_end16_ptr - pb_p16_ptr;
-        if( remaining <= 0 ) {
-          EndPlaybackCleanup();
-          return;
-        }
-        if( (uint32_t)remaining > fadeout_samples ) {
-          pb_end16_ptr = pb_p16_ptr + fadeout_samples;
-        }
-      } else if( pb_mode == 8 ) {
-        ptrdiff_t remaining = pb_end8_ptr - pb_p8_ptr;
-        if( remaining <= 0 ) {
-          EndPlaybackCleanup();
-          return;
-        }
-        if( (uint32_t)remaining > fadeout_samples ) {
-          pb_end8_ptr = pb_p8_ptr + fadeout_samples;
-        }
-      } else if( pb_mode == PB_MODE_IMA_ADPCM ) {
-        ptrdiff_t remaining_bytes = pb_endadpcm_ptr - pb_padpcm_ptr;
-        uint32_t remaining_samples = ( remaining_bytes > 0 ) ? ( (uint32_t)remaining_bytes << 1 ) : 0U;
-        if( remaining_samples == 0U ) {
-          EndPlaybackCleanup();
-          return;
-        }
-        if( remaining_samples > fadeout_samples ) {
-          uint32_t keep_bytes = ( fadeout_samples + 1U ) >> 1;
-          pb_endadpcm_ptr = pb_padpcm_ptr + keep_bytes;
-        }
+    /* Stop requests take their own fade-out path and must not collapse into pause state. */
+    if( pb_state != PB_Stopping ) {
+      BeginStopFadeout();
+      if( pb_state == PB_Idle ) {
+        return;
       }
     }
   }
@@ -1934,17 +1963,17 @@ static DMA_CALLBACK_INLINE void ProcessDMACallback( uint8_t which_half )
 
   half_to_fill = which_half;
 
-  if( pb_mode == 16 || pb_mode == 8 || pb_mode == PB_MODE_IMA_ADPCM ) {
-    if( ( pb_mode == 16 && pb_p16_ptr >= pb_end16_ptr ) ||
-        ( pb_mode == 8  && pb_p8_ptr  >= pb_end8_ptr  ) ||
+  if( pb_mode == PB_MODE_PCM16 || pb_mode == PB_MODE_PCM8 || pb_mode == PB_MODE_IMA_ADPCM ) {
+    if( ( pb_mode == PB_MODE_PCM16 && pb_p16_ptr >= pb_end16_ptr ) ||
+        ( pb_mode == PB_MODE_PCM8  && pb_p8_ptr  >= pb_end8_ptr ) ||
         ( pb_mode == PB_MODE_IMA_ADPCM && pb_padpcm_ptr >= pb_endadpcm_ptr )
       ) {
       EndPlaybackCleanup();   // Cleanup and stop playback if we've reached the end of the sample data.
       return;
     }
     /* Only one chunk process will be used because of short-circuit evaluation. */
-    if( ( pb_mode == 16 && ProcessNextWaveChunk( (int16_t *) pb_p16_ptr ) != PB_Playing ) ||
-        ( pb_mode == 8  && ProcessNextWaveChunk_8_bit( (uint8_t *) pb_p8_ptr ) != PB_Playing ) ||
+    if( ( pb_mode == PB_MODE_PCM16 && ProcessNextWaveChunk( (int16_t *) pb_p16_ptr ) != PB_Playing ) ||
+        ( pb_mode == PB_MODE_PCM8  && ProcessNextWaveChunk_8_bit( (uint8_t *) pb_p8_ptr ) != PB_Playing ) ||
         ( pb_mode == PB_MODE_IMA_ADPCM && ProcessNextWaveChunk_ADPCM( (uint8_t *) pb_padpcm_ptr ) != PB_Playing ) ) {
       return;
     }
@@ -1990,19 +2019,17 @@ void DMA0_Channel4_IRQHandler( void )
   */
 void AdvanceSamplePointer( void )
 {
-  if( pb_mode == 16 ) {  // Advance the 16-bit sample pointer
+  if( pb_mode == PB_MODE_PCM16 ) {  // Advance the 16-bit sample pointer
     pb_p16_ptr += p_advance;
     if( pb_p16_ptr >= pb_end16_ptr ) {
       StopImmediate();
-      pb_state = PB_Idle;
       return;
     }
   }
-  else if( pb_mode == 8 ) {  // Or advance the 8-bit sample pointer
+  else if( pb_mode == PB_MODE_PCM8 ) {  // Or advance the 8-bit sample pointer
     pb_p8_ptr += p_advance;
     if( pb_p8_ptr >= pb_end8_ptr ) {
       StopImmediate();
-      pb_state = PB_Idle;
       return;
     }
   }
@@ -2010,7 +2037,6 @@ void AdvanceSamplePointer( void )
     pb_padpcm_ptr += p_advance;
     if( pb_padpcm_ptr >= pb_endadpcm_ptr ) {
       StopImmediate();
-      pb_state = PB_Idle;
       return;
     }
   }
@@ -2314,7 +2340,7 @@ PB_StatusTypeDef PlaySample (
 
   // Parameter sanity checks
   //
-  if( ( !adpcm_mode && sample_depth != 16 && sample_depth != 8 ) ||
+  if( ( !adpcm_mode && sample_depth != PB_MODE_PCM16 && sample_depth != PB_MODE_PCM8 ) ||
       ( mode != Mode_mono && mode != Mode_stereo && mode != Mode_mono_ADPCM && mode != Mode_stereo_ADPCM ) ||
         sample_set_sz   == 0                      ||
         sample_to_play  == NULL
@@ -2327,14 +2353,15 @@ PB_StatusTypeDef PlaySample (
 
   // Set low-pass filter alpha coefficient based on filter config
   lpf_8bit_alpha = GetLpf8BitAlpha( filter_cfg.lpf_8bit_level );
-  
+
   if( adpcm_mode ) {
     p_advance = stereo_mode ? HALFCHUNK_SZ : ( HALFCHUNK_SZ / 2U );
     channels = mode;
-  } else if( stereo_mode ) {
-    p_advance = CHUNK_SZ;                                 // Two channels worth of samples per chunk
-    channels  = Mode_stereo;
-  } else {
+  } else if( stereo_mode ) {                             // Pointer advance amount for stereo/mono mode.
+     p_advance = CHUNK_SZ;                                // Two channels worth of samples per chunk
+     channels  = Mode_stereo;
+  }
+  else {                                                  // Or one channels worth of samples per chunk... One lump or two vicar?
     p_advance  = HALFCHUNK_SZ;
     channels   = Mode_mono;
   }
@@ -2353,7 +2380,7 @@ PB_StatusTypeDef PlaySample (
   PrepareForNewPlayback();
   
   // Warm up 16-bit biquad filter state from first sample to avoid startup transient
-  if( !adpcm_mode && sample_depth == 16 && filter_cfg.enable_16bit_biquad_lpf ) {
+  if( !adpcm_mode && sample_depth == PB_MODE_PCM16 && filter_cfg.enable_16bit_biquad_lpf ) {
     int16_t first_sample = *( (int16_t *)sample_to_play );
     WarmupBiquadFilter16Bit( first_sample );
   }
@@ -2363,15 +2390,15 @@ PB_StatusTypeDef PlaySample (
     pb_endadpcm_ptr = pb_padpcm_ptr + sample_set_sz;
     pb_mode = PB_MODE_IMA_ADPCM;
   }
-  else if( sample_depth == 16 ) {                  // For 16-bit, initialize 16-bit sample playback pointers
+  else if( sample_depth == PB_MODE_PCM16 ) {                  // For 16-bit, initialize 16-bit sample playback pointers
     pb_p16_ptr    = (uint16_t *) sample_to_play;
     pb_end16_ptr  = pb_p16_ptr + sample_set_sz;
-    pb_mode   = 16;
+    pb_mode   = PB_MODE_PCM16;
   }
-  else if( sample_depth == 8 ) {              // For 8-bit, initialize 8-bit sample playback pointers
+  else if( sample_depth == PB_MODE_PCM8 ) {              // For 8-bit, initialize 8-bit sample playback pointers
     pb_p8_ptr     = (uint8_t *) sample_to_play;
     pb_end8_ptr   = pb_p8_ptr + sample_set_sz;
-    pb_mode   = 8;
+    pb_mode   = PB_MODE_PCM8;
   }
 
   uint32_t total_source_samples = adpcm_mode ?
@@ -2379,18 +2406,18 @@ PB_StatusTypeDef PlaySample (
                                   sample_set_sz;
 
   // Initialize fade counters
-  playback_total_samples      = total_source_samples;
-  playback_samples_played     = 0U;
-  dma_half_sample_counts[ FIRST ] = 0U;
-  dma_half_sample_counts[ SECOND ] = 0U;
-  samples_remaining         = total_source_samples;  // Track position in source samples
-  fadeout_samples_remaining = 0;              // Pause fadeout duration (set when pause is called)
-  fadein_samples_remaining  = fadein_samples;
+  playback_total_samples            = total_source_samples;
+  playback_samples_played           = 0U;
+  dma_half_sample_counts[ FIRST ]   = 0U;
+  dma_half_sample_counts[ SECOND ]  = 0U;
+  samples_remaining                 = total_source_samples;  // Track position in source samples
+  fadeout_samples_remaining         = 0;              // Pause fadeout duration (set when pause is called)
+  fadein_samples_remaining          = fadein_samples;
   
   // Pre-fill the buffer with processed samples before starting DMA
   // This ensures the fade-in is applied from the very first sample that plays
   half_to_fill = FIRST;
-  if( pb_mode == 16 ) {
+  if( pb_mode == PB_MODE_PCM16 ) {
     if( ProcessNextWaveChunk( (int16_t *) pb_p16_ptr ) != PB_Playing ) { return PB_Error; }
     pb_p16_ptr += p_advance;
 
@@ -2399,8 +2426,10 @@ PB_StatusTypeDef PlaySample (
     pb_p16_ptr += p_advance;
     half_to_fill = FIRST;
   }
-  else if( pb_mode == 8 ) {
+  else if( pb_mode == PB_MODE_PCM8 ) {
     if( ProcessNextWaveChunk_8_bit( (uint8_t *) pb_p8_ptr ) != PB_Playing ) { return PB_Error; }
+    pb_p8_ptr += p_advance;
+
     half_to_fill = SECOND;
     if( ProcessNextWaveChunk_8_bit( (uint8_t *) pb_p8_ptr ) != PB_Playing ) { return PB_Error; }
     pb_p8_ptr += p_advance;
@@ -2437,16 +2466,16 @@ PB_StatusTypeDef PlaySample (
   */
 PB_StatusTypeDef WaitForSampleEnd( void )
 {
-  while( pb_state == PB_Playing || pb_state == PB_Pausing || pb_state == PB_Paused ) {
+  while( pb_state == PB_Playing || pb_state == PB_Pausing || pb_state == PB_Stopping ) {
     __NOP();  // Prevent optimizer from removing loop
   }
-  
-  // Cleanup: Stop DMA transmission now that we're out of the callback context
-  // This prevents the I2S_WaitFlagStateUntilTimeout hang that occurs when
-  // stopping from within the DMA callback
-  if( pb_state != PB_Playing ) {
-  dma_interrupt_disable( DMA0, DMA_CH4, DMA_INT_HTF | DMA_INT_FTF );
-  i2s_disable( PROJECT_SPI );
+
+  if( pb_state == PB_Paused ) {
+    return PB_Paused;
+  }
+
+  if( pb_state == PB_Idle ) {
+    TransitionToIdleAndResetPlayback();
   }
   
   return pb_state;
@@ -2469,9 +2498,9 @@ PB_StatusTypeDef PausePlayback( void )
   }
   
   /* Save current playback position before initiating pause */
-  if( pb_mode == 16 ) {
+  if( pb_mode == PB_MODE_PCM16 ) {
     paused_sample_ptr = (const void *)pb_p16_ptr;
-  } else if( pb_mode == 8 ) {
+  } else if( pb_mode == PB_MODE_PCM8 ) {
     paused_sample_ptr = (const void *)pb_p8_ptr;
   } else {
     paused_sample_ptr = (const void *)pb_padpcm_ptr;
@@ -2489,15 +2518,15 @@ PB_StatusTypeDef PausePlayback( void )
     /* Start the pause fadeout from the current volume level (linear progress maps to quadratic volume curve) */
     fadeout_start_level = ( fadein_progress * pause_fadeout_samples ) / fadein_samples;
   }
-  else if( pb_mode == 16 || pb_mode == 8 || pb_mode == PB_MODE_IMA_ADPCM ) {
+  else if( pb_mode == PB_MODE_PCM16 || pb_mode == PB_MODE_PCM8 || pb_mode == PB_MODE_IMA_ADPCM ) {
     /* Check if we're in the middle of end-of-file fadeout */
     uint32_t remaining_in_file = 0;
-    if( pb_mode == 16 ) {
+    if( pb_mode == PB_MODE_PCM16 ) {
       ptrdiff_t remaining = pb_end16_ptr - pb_p16_ptr;
       if( remaining > 0 ) {
         remaining_in_file = (uint32_t)remaining;
       }
-    } else if( pb_mode == 8 ) {
+    } else if( pb_mode == PB_MODE_PCM8 ) {
       ptrdiff_t remaining = pb_end8_ptr - pb_p8_ptr;
       if( remaining > 0 ) {
         remaining_in_file = (uint32_t)remaining;
@@ -2542,9 +2571,9 @@ PB_StatusTypeDef ResumePlayback( void )
   
   /* Restore playback position from where it was paused */
   if( paused_sample_ptr != NULL ) {
-    if( pb_mode == 16 ) {
+    if( pb_mode == PB_MODE_PCM16 ) {
       pb_p16_ptr  = (uint16_t *)paused_sample_ptr;
-    } else if( pb_mode == 8 ) {
+    } else if( pb_mode == PB_MODE_PCM8 ) {
       pb_p8_ptr   = (uint8_t *)paused_sample_ptr;
     } else {
       pb_padpcm_ptr = (uint8_t *)paused_sample_ptr;
@@ -2584,10 +2613,19 @@ PB_StatusTypeDef StopPlayback( void )
     return PB_Idle;
   }
 
+  if( pb_state == PB_Paused ) {
+    StopImmediate();
+    return PB_Idle;
+  }
+
+  if( pb_state == PB_Stopping ) {
+    return PB_Stopping;
+  }
+
   /* Request asynchronous stop (DMA callback will handle it on next interrupt) */
   stop_requested = 1;
   
-  return pb_state;
+  return PB_Stopping;
 }
 
 
@@ -2652,9 +2690,7 @@ static inline int16_t ApplyVolumeSetting( int16_t sample, uint16_t volume_settin
 void ShutDownAudio( void )
 {
   // Hard stop: immediately halt DMA and reset playback state
-  StopDmaAndResetPlaybackState( 1U );
-  MIDPOINT_FILL_BUFFER();
-  pb_state = PB_Idle;
+  TransitionToIdleAndResetPlayback();
 
   if( dac_power_control == true ) {
     AudioEngine_DACSwitch( DAC_OFF );

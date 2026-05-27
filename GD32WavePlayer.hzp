@@ -55,6 +55,7 @@
       gcc_enable_all_warnings="No"
       gcc_entry_point="Reset_Handler"
       linker_memory_map_file="$(DeviceMemoryMapFile)"
+      linker_output_format="bin"
       linker_scanf_character_group_matching_enabled="No"
       linker_scanf_fp_enabled="No"
       linker_section_placement_file="$(StudioDir)/targets/Cortex_M/flash_placement.xml"
@@ -186,6 +187,7 @@
       <file file_name="sound_headers/tunnelbarra.h" />
       <file file_name="sound_headers/tunnelbarra16.h" />
       <file file_name="sound_headers/When_I_Needed_a_neighbour.h" />
+      <file file_name="sound_headers/WhyWeBuildTheWall.h" />
     </folder>
     <folder Name="Source Files">
       <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />

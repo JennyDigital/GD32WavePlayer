@@ -6,14 +6,12 @@
   <BookmarkItem objectName="" line="661" column="0" path="/Users/duncangunn/repos/ShopClockV3/Core/Src/main.c" number="2" extra="newval = GetDay();" color="5"/>
   <BookmarkItem objectName="" line="1167" column="0" path="/Users/duncangunn/repos/ShopClockV3/Core/Src/main.c" number="3" extra="char GetEvField( char curr_field )" color="5"/>
  </Bookmarks>
- <Breakpoints groups="" active_group="Breakpoints">
-  <Exceptions>
-   <Group group="V7M Exceptions" set="BusFault;ExceptionEntryReturnFault;HardFault;MemManage;UsageFault_CheckingError;UsageFault_Coprocessor;UsageFault_StateError"/>
-  </Exceptions>
+ <Breakpoints groups="Breakpoints" active_group="Breakpoints">
+  <Exceptions/>
  </Breakpoints>
  <ExecutionProfileWindow/>
  <FrameBuffer>
-  <FrameBufferWindow width="2147483647" keepAspectRatio="0" zoomToFitWindow="0" showGrid="0" addressSpace="" format="0" height="2147483647" autoEvaluate="0" scaleFactor="1" refreshPeriod="0" name="GD32WavePlayer_THUMB Debug" addressText="" accessByDisplayWidth="0"/>
+  <FrameBufferWindow width="2147483647" keepAspectRatio="0" flipHorizontally="0" zoomToFitWindow="0" showGrid="0" flipVertically="0" addressSpace="" format="0" height="2147483647" autoEvaluate="0" rotationDegrees="0" scaleFactor="1" refreshPeriod="0" name="GD32WavePlayer_THUMB Debug" addressText="" accessByDisplayWidth="0"/>
  </FrameBuffer>
  <Memory1>
   <MemoryWindow addressSpace="" dataSize="1" autoEvaluate="0" viewMode="0" viewType="4" addressOrder="0" columnsText="" refreshPeriod="0" name="GD32WavePlayer_THUMB Debug" sizeText="" addressText=""/>
@@ -28,24 +26,25 @@
   <MemoryWindow addressSpace="" dataSize="1" autoEvaluate="0" viewMode="0" viewType="4" addressOrder="0" columnsText="" refreshPeriod="0" name="GD32WavePlayer_THUMB Debug" sizeText="" addressText=""/>
  </Memory4>
  <Project>
-  <ProjectSessionItem path=""/>
-  <ProjectSessionItem path=""/>
-  <ProjectSessionItem path=""/>
-  <ProjectSessionItem path=""/>
-  <ProjectSessionItem path=""/>
+  <ProjectSessionItem path="GD32WavePlayer"/>
+  <ProjectSessionItem path="GD32WavePlayer;GD32WavePlayer"/>
+  <ProjectSessionItem path="GD32WavePlayer;GD32WavePlayer;Driver Files"/>
+  <ProjectSessionItem path="GD32WavePlayer;GD32WavePlayer;Libraries"/>
+  <ProjectSessionItem path="GD32WavePlayer;GD32WavePlayer;Source Files"/>
+  <ProjectSessionItem path="GD32WavePlayer;GD32WavePlayer;System Files"/>
   <SourceCodeControlLogin password="F9BB6682F5D56822" user="JennyDigital &lt;jennifer.a.gunn@outlook.com>"/>
  </Project>
  <Register1>
-  <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="GD32WavePlayer_THUMB Debug" decimalNodes="" octalNodes="" unsignedNodes=""/>
+  <RegisterWindow visibleNodes="" binaryNodes="" asciiNodes="" openNodes="" name="GD32WavePlayer_THUMB Debug" decimalNodes="" octalNodes="" unsignedNodes=""/>
  </Register1>
  <Register2>
-  <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="GD32WavePlayer_THUMB Debug" decimalNodes="" octalNodes="" unsignedNodes=""/>
+  <RegisterWindow visibleNodes="" binaryNodes="" asciiNodes="" openNodes="" name="GD32WavePlayer_THUMB Debug" decimalNodes="" octalNodes="" unsignedNodes=""/>
  </Register2>
  <Register3>
-  <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="GD32WavePlayer_THUMB Debug" decimalNodes="" octalNodes="" unsignedNodes=""/>
+  <RegisterWindow visibleNodes="" binaryNodes="" asciiNodes="" openNodes="" name="GD32WavePlayer_THUMB Debug" decimalNodes="" octalNodes="" unsignedNodes=""/>
  </Register3>
  <Register4>
-  <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/MSP;CPU/PSP;CPU/PRIMASK;CPU/BASEPRI;CPU/FAULTMASK;CPU/CONTROL;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="GD32WavePlayer_THUMB Debug" decimalNodes="" octalNodes="" unsignedNodes=""/>
+  <RegisterWindow visibleNodes="" binaryNodes="" asciiNodes="" openNodes="" name="GD32WavePlayer_THUMB Debug" decimalNodes="" octalNodes="" unsignedNodes=""/>
  </Register4>
  <TargetWindow programLoadAddress="" programSize="" programMemoryInterface="" programFileName="" programFileType="" programAction=""/>
  <Threads>
@@ -67,8 +66,11 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="90" useTextEdit="1" path="main.c" left="0" top="61" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="14" y="2352" useTextEdit="1" path="Libraries/audio_engine.c" left="0" selected="1" top="2365" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="104" useTextEdit="1" path="main.c" left="0" top="76" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="2352" useTextEdit="1" path="Libraries/audio_engine.c" left="0" top="2316" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="55" useTextEdit="1" path="main.h" left="0" top="22" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_misc.c" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="65" useTextEdit="1" path="../../.rowley_associates_limited/CrossWorks for ARM/v5/packages/targets/GD32F30x/CMSIS/Device/Firmware/Peripherals/src/gd32f30x_fmc.c" left="0" selected="1" top="38" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="GD32WavePlayer" fileDialogDefaultFilter="*" autoConnectTarget="ST-LINK/V2-V3" buildConfiguration="THUMB Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/jennifer/repos/GD32WavePlayer/sound_headers" debugSearchPath="" autoConnectCapabilities="388991"/>
+ <ARMCrossStudioWindow activeProject="GD32WavePlayer" fileDialogDefaultFilter="*" autoConnectTarget="ST-LINK/V2-V3" buildConfiguration="THUMB Release" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/jennifer/repos/GD32WavePlayer/sound_headers" debugSearchPath="" autoConnectCapabilities="388991"/>
 </session>
